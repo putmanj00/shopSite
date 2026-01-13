@@ -3,12 +3,46 @@ Started: Sun Jan 12 2026
 
 ## Codebase Patterns
 
-(Patterns will be documented here as Ralph discovers them during implementation)
+- **Next.js Setup**: Using Next.js 14+ with App Router (not Pages Router)
+- **TypeScript**: Strict mode enabled for maximum type safety
+- **Styling**: Tailwind CSS v4 with PostCSS for modern utility-first styling
+- **Code Quality**: ESLint + Prettier configured for consistent code style
+- **Import Aliases**: Using `@/*` for clean imports from project root
+- **Quality Scripts**: `npm run typecheck`, `npm run lint`, `npm run build` must all pass before committing
 
 ---
 
 ## Progress Entries
 
-(Ralph will append progress entries here after each completed story)
+## 2026-01-12 - Story #1: Project Foundation Setup
+
+**Thread**: N/A (First iteration)
+
+**Implementation**:
+- Initialized Next.js 14+ project (v16.1.1) with App Router using create-next-app
+- TypeScript already configured with strict mode by default
+- Tailwind CSS v4 set up with PostCSS configuration
+- ESLint configured with Next.js recommended rules (using new flat config format)
+- Added Prettier with ESLint integration for code formatting
+- Created folder structure: components/, lib/, types/ (app/ created by Next.js)
+- Environment variables template (.env.example) was already present from project setup
+- Added npm scripts for typecheck, format, and format:check
+
+**Files Changed**:
+- package.json - Added Prettier dependencies and quality check scripts
+- .prettierrc - Prettier configuration with project standards
+- .prettierignore - Ignore build artifacts and dependencies
+- tsconfig.json - Strict TypeScript configuration (created by Next.js)
+- eslint.config.mjs - ESLint configuration (created by Next.js)
+- components/.gitkeep, lib/.gitkeep, types/.gitkeep - Track empty directories
+- app/* - Next.js default app structure with layout and page
+
+**Learnings for Future Iterations**:
+- Next.js 14+ uses new flat ESLint config format (eslint.config.mjs, not .eslintrc.json)
+- Tailwind CSS v4 uses @tailwindcss/postcss instead of traditional PostCSS plugins
+- The project uses npm (not yarn/pnpm) - continue with npm for consistency
+- Quality checks (typecheck, lint, build) should all pass before any commit
+- Import alias `@/*` is configured and should be used for cleaner imports
+- Directory name had capital letters which caused initial create-next-app issues
 
 ---

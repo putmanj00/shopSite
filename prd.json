@@ -18,7 +18,7 @@
       "title": "Project Foundation Setup",
       "description": "Initialize Next.js 14+ project with TypeScript, Tailwind CSS, and essential configurations",
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Next.js project initialized with App Router",
         "TypeScript configured with strict mode",
