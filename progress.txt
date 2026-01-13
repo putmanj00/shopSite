@@ -15,6 +15,10 @@ Started: Sun Jan 12 2026
 - **React Components**: No JSX in try/catch blocks (ESLint rule) - separate data fetching from rendering
 - **Server Components**: Use async server components for data fetching, wrap in Suspense for loading states
 - **Responsive Design**: Mobile-first with Tailwind breakpoints (sm, md, lg, xl)
+- **URL State Management**: Use Next.js useRouter and useSearchParams for persisting filter/sort state in URL
+- **Client Components**: Use 'use client' directive for components with interactivity (useState, useEffect, event handlers)
+- **Debouncing**: Use useRef with setTimeout for debounced inputs (e.g., search bars)
+- **React ESLint Rules**: Avoid setState in useEffect - use component keys to reset state or initialize from props
 
 ---
 
@@ -113,5 +117,41 @@ Started: Sun Jan 12 2026
 - **Metadata API**: Next.js 14+ App Router uses export const metadata for SEO - supports templates, OpenGraph, Twitter Cards, and robots
 - **Image Optimization**: Using Next.js Image component with `fill` and `object-cover` for responsive product images
 - **Tailwind Responsive**: Grid responsive breakpoints - grid-cols-1 (mobile), sm:grid-cols-2 (tablet), lg:grid-cols-3, xl:grid-cols-4 (desktop)
+
+---
+
+## 2026-01-12 - Story #4: Product Collection Pages with Search & Filter
+
+**Thread**: Autonomous iteration #4
+
+**Implementation**:
+- Created dynamic collection page route at /collections/[handle] with Next.js App Router
+- Implemented CollectionContent client component with comprehensive filtering and sorting logic
+- Built SearchBar component with 500ms debounced input using useRef and setTimeout
+- Created FilterPanel component for desktop sidebar with collapsible sections (Price, Type, Tags)
+- Developed MobileFilterDrawer component with slide-out animation and body scroll lock
+- Added SortDropdown with 6 options: Featured, Price (asc/desc), Newest, Name (A-Z/Z-A)
+- Implemented pagination with smart ellipsis display (shows first, last, current, and adjacent pages)
+- All filter/sort state persisted in URL query parameters for shareability
+- Responsive design: Desktop shows sidebar, mobile shows filter button with drawer
+- Empty states with clear call-to-action when no products match filters
+
+**Files Changed**:
+- app/collections/[handle]/page.tsx - Dynamic collection route with metadata generation and error handling
+- components/collection-content.tsx - Main filtering/sorting logic with URL state management
+- components/search-bar.tsx - Debounced search input with clear button
+- components/filter-panel.tsx - Desktop filter sidebar with collapsible sections
+- components/mobile-filter-drawer.tsx - Mobile filter drawer with backdrop and slide animation
+- components/sort-dropdown.tsx - Sort dropdown with 6 sorting options
+
+**Learnings for Future Iterations**:
+- **URL State Persistence**: Use URLSearchParams with useRouter to persist all UI state in the URL - makes pages shareable and supports browser back/forward
+- **Debounced Input**: Pattern is: useRef for timer, useEffect to set/clear timeout, cleanup in return. TypeScript requires `useRef<NodeJS.Timeout | undefined>(undefined)`
+- **Client vs Server Components**: Collection page is server component (fetches data), CollectionContent is client component (handles interactivity)
+- **React ESLint Strict Rules**: `react-hooks/set-state-in-effect` prevents setState in useEffect. Solutions: (1) Initialize state from props, (2) Use component key to reset, (3) Only setState conditionally based on external event like isOpen
+- **Mobile Filter Pattern**: Use fixed positioning with backdrop, prevent body scroll with useEffect, provide "Show Results" button to close
+- **Pagination Math**: `Math.ceil(total / perPage)` for total pages, `(page - 1) * perPage` for start index
+- **Filter Logic**: Apply filters client-side using useMemo for performance - filter, then sort, then paginate
+- **Type Safety**: Pass all searchParams through Promise unwrapping in Next.js 15+ (async params and searchParams)
 
 ---

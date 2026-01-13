@@ -64,7 +64,7 @@
       "title": "Product Collection Pages with Search & Filter",
       "description": "Build collection pages with advanced search, filtering, and sorting capabilities",
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Dynamic collection pages (/collections/[handle])",
         "Product grid with pagination or infinite scroll",
