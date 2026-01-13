@@ -12,6 +12,9 @@ Started: Sun Jan 12 2026
 - **Shopify API**: Use lazy-loaded client pattern (lib/shopify.ts) to avoid build-time errors with environment variables
 - **GraphQL**: Queries stored in lib/shopify-queries.ts with reusable fragments for maintainability
 - **API Helpers**: Use helper functions from lib/shopify-helpers.ts for all Shopify operations (includes error handling)
+- **React Components**: No JSX in try/catch blocks (ESLint rule) - separate data fetching from rendering
+- **Server Components**: Use async server components for data fetching, wrap in Suspense for loading states
+- **Responsive Design**: Mobile-first with Tailwind breakpoints (sm, md, lg, xl)
 
 ---
 
@@ -78,5 +81,37 @@ Started: Sun Jan 12 2026
 - **API Version**: Using Shopify API version '2024-01' - update periodically as Shopify releases new versions
 - **Test Route**: The /api/test-shopify endpoint can be used to verify Shopify credentials are configured correctly
 - **TypeScript Types**: Created comprehensive types matching Shopify's GraphQL schema for compile-time safety
+
+---
+
+## 2026-01-12 - Story #3: Homepage with Featured Products
+
+**Thread**: Autonomous iteration #3
+
+**Implementation**:
+- Created modern Hero component with gradient background and call-to-action buttons
+- Built ProductCard component with responsive design, hover effects, and badges for sale/sold-out status
+- Implemented FeaturedProducts server component that fetches from Shopify API
+- Added comprehensive loading states using Suspense and skeleton components
+- Configured SEO metadata in layout.tsx with OpenGraph and Twitter Card support
+- Implemented proper error handling by separating data fetching from JSX rendering (to comply with React ESLint rules)
+- Responsive grid layout using Tailwind (1 col mobile, 2 cols tablet, 3-4 cols desktop)
+
+**Files Changed**:
+- app/page.tsx - Complete homepage redesign with Hero and FeaturedProducts sections
+- app/layout.tsx - Enhanced SEO metadata with OpenGraph, Twitter Cards, and robots directives
+- app/loading.tsx - Page-level loading skeleton for better UX
+- components/hero.tsx - Hero section with gradient design and CTAs
+- components/product-card.tsx - Product card with image, title, price, badges, hover effects
+- components/product-card-skeleton.tsx - Loading skeleton for product cards
+- components/featured-products.tsx - Server component fetching and displaying featured products
+
+**Learnings for Future Iterations**:
+- **No JSX in Try/Catch**: ESLint rule `react-hooks/error-boundaries` prevents JSX construction inside try/catch blocks. Solution: Separate data fetching (in try/catch) from JSX rendering, or create separate component functions for error/empty states
+- **Server Components**: Featured products is an async server component that fetches data at request time. Next.js handles this seamlessly with Suspense boundaries
+- **Skeleton Loading**: Use skeleton components with `animate-pulse` class for better perceived performance
+- **Metadata API**: Next.js 14+ App Router uses export const metadata for SEO - supports templates, OpenGraph, Twitter Cards, and robots
+- **Image Optimization**: Using Next.js Image component with `fill` and `object-cover` for responsive product images
+- **Tailwind Responsive**: Grid responsive breakpoints - grid-cols-1 (mobile), sm:grid-cols-2 (tablet), lg:grid-cols-3, xl:grid-cols-4 (desktop)
 
 ---

@@ -48,7 +48,7 @@
       "title": "Homepage with Featured Products",
       "description": "Create an engaging homepage with hero section, featured products, and modern design",
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Responsive hero section with eye-catching design",
         "Featured products section pulling from Shopify",
