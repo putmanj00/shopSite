@@ -118,7 +118,7 @@
       "title": "Checkout Integration",
       "description": "Integrate with Shopify Checkout for secure payment processing",
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Create Shopify checkout session from cart",
         "Redirect to Shopify hosted checkout",
@@ -135,7 +135,7 @@
       "title": "User Authentication System",
       "description": "Implement user authentication with Shopify customer accounts",
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "User registration with email/password",
         "Login functionality with Shopify Customer API",
@@ -152,7 +152,7 @@
       "title": "User Account Dashboard",
       "description": "Create user dashboard for viewing orders, managing profile, and account settings",
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Account dashboard layout (/account)",
         "View order history with details",
@@ -169,7 +169,7 @@
       "title": "Wishlist / Favorites Feature",
       "description": "Allow users to save products to a wishlist for later purchase",
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Add/remove products to wishlist",
         "Wishlist page (/account/wishlist)",
@@ -186,7 +186,7 @@
       "title": "Product Reviews & Ratings System",
       "description": "Implement product review and rating functionality with moderation",
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Display reviews on product pages",
         "Star rating display and calculation",
@@ -204,7 +204,7 @@
       "title": "Email Notification System",
       "description": "Set up transactional email system for order confirmations and updates",
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Email service integrated (Resend, SendGrid, or similar)",
         "Order confirmation email template",
@@ -222,7 +222,7 @@
       "title": "Custom Admin Dashboard",
       "description": "Build admin panel for managing custom features beyond Shopify's admin",
       "priority": 4,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Admin authentication and authorization",
         "Dashboard overview with key metrics",
@@ -240,7 +240,7 @@
       "title": "Performance Optimization & SEO",
       "description": "Optimize site performance, implement advanced SEO, and ensure accessibility",
       "priority": 4,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Image optimization with Next.js Image component",
         "Lazy loading for images and components",
