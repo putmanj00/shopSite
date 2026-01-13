@@ -33,7 +33,7 @@
       "title": "Shopify Storefront API Integration",
       "description": "Set up Shopify Storefront API client with authentication and basic queries",
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Shopify Storefront API client library installed (@shopify/hydrogen or shopify-buy)",
         "API client configured with storefront access token",

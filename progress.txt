@@ -9,6 +9,9 @@ Started: Sun Jan 12 2026
 - **Code Quality**: ESLint + Prettier configured for consistent code style
 - **Import Aliases**: Using `@/*` for clean imports from project root
 - **Quality Scripts**: `npm run typecheck`, `npm run lint`, `npm run build` must all pass before committing
+- **Shopify API**: Use lazy-loaded client pattern (lib/shopify.ts) to avoid build-time errors with environment variables
+- **GraphQL**: Queries stored in lib/shopify-queries.ts with reusable fragments for maintainability
+- **API Helpers**: Use helper functions from lib/shopify-helpers.ts for all Shopify operations (includes error handling)
 
 ---
 
@@ -44,5 +47,36 @@ Started: Sun Jan 12 2026
 - Quality checks (typecheck, lint, build) should all pass before any commit
 - Import alias `@/*` is configured and should be used for cleaner imports
 - Directory name had capital letters which caused initial create-next-app issues
+
+---
+
+## 2026-01-12 - Story #2: Shopify Storefront API Integration
+
+**Thread**: Autonomous iteration #2
+
+**Implementation**:
+- Installed @shopify/storefront-api-client (official Shopify library) and GraphQL
+- Created lazy-loaded Shopify API client to avoid build-time environment variable errors
+- Implemented comprehensive TypeScript type definitions for all Shopify models (Product, Collection, Cart, Customer, etc.)
+- Set up GraphQL queries with reusable fragments for products, collections, and search
+- Created helper functions (getProducts, getProductByHandle, getCollections, getCollectionByHandle) with robust error handling
+- Added utility functions for formatting money and checking product sale status
+- Created test API route at /api/test-shopify to verify Shopify connection
+
+**Files Changed**:
+- package.json, package-lock.json - Added @shopify/storefront-api-client and graphql dependencies
+- lib/shopify.ts - Lazy-loaded Shopify client with environment validation
+- lib/shopify-queries.ts - GraphQL queries with fragments for products and collections
+- lib/shopify-helpers.ts - Helper functions with error handling for common operations
+- types/shopify.ts - Comprehensive TypeScript type definitions for Shopify data models
+- app/api/test-shopify/route.ts - Test endpoint to verify API connection
+
+**Learnings for Future Iterations**:
+- **Lazy Loading for Build Success**: Module-level code that requires environment variables will break Next.js builds. Use lazy loading (create client on first use) instead of module-level initialization
+- **GraphQL Fragments**: Use fragments to keep queries DRY and maintainable - defined MoneyFragment, ImageFragment, VariantFragment, ProductFragment
+- **Error Handling Pattern**: Wrap all Shopify API calls in try/catch, check for response.errors, and provide helpful error messages
+- **API Version**: Using Shopify API version '2024-01' - update periodically as Shopify releases new versions
+- **Test Route**: The /api/test-shopify endpoint can be used to verify Shopify credentials are configured correctly
+- **TypeScript Types**: Created comprehensive types matching Shopify's GraphQL schema for compile-time safety
 
 ---
