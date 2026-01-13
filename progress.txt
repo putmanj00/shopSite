@@ -19,6 +19,9 @@ Started: Sun Jan 12 2026
 - **Client Components**: Use 'use client' directive for components with interactivity (useState, useEffect, event handlers)
 - **Debouncing**: Use useRef with setTimeout for debounced inputs (e.g., search bars)
 - **React ESLint Rules**: Avoid setState in useEffect - use component keys to reset state or initialize from props
+- **State Management**: Use Zustand for global state (cart, user session) - simpler than Context API, automatic re-renders, persist middleware for localStorage
+- **Cart Integration**: Shopify cart mutations handle all cart operations - create cart on first add, use cartId for subsequent operations
+- **Error Handling**: Check both response.errors and userErrors from GraphQL mutations - use Array.isArray before mapping errors
 
 ---
 
@@ -190,6 +193,52 @@ Started: Sun Jan 12 2026
 - **Related Products Strategy**: Try product type first, then tags, then best sellers as fallback for good recommendations
 - **Structured Data**: Use JSON-LD script tag with schema.org Product type - includes name, description, images, brand, offers with price and availability
 - **Low Stock Warnings**: Show quantity when available < 10 to create urgency without showing exact inventory
+
+---
+
+## 2026-01-12 - Story #6: Shopping Cart Functionality
+
+**Thread**: Autonomous iteration #6
+
+**Implementation**:
+- Installed Zustand (v5.0.10) for lightweight, performant cart state management
+- Exported getShopifyClient function from shopify.ts for use in cart store
+- Created comprehensive GraphQL cart mutations: CREATE_CART, ADD_TO_CART, UPDATE_CART, REMOVE_FROM_CART, GET_CART
+- Added CART_LINE_FRAGMENT and CART_FRAGMENT with complete product information including variant details
+- Updated ShopifyCartLine type to include nested product metadata (handle, title, productType, vendor)
+- Implemented cart-store.ts with Zustand persist middleware for localStorage sync
+- Built CartDrawer component with backdrop overlay, slide-out animation, and body scroll prevention
+- Created CartItem component with inline quantity controls (+/-), remove button, and variant display
+- Developed Header component with cart icon, dynamic item count badge (shows "9+" for >9 items)
+- Updated AddToCartButton to use real cart store instead of placeholder functionality
+- Layout now includes global Header and CartDrawer components for site-wide access
+- Cart automatically opens when items are added for instant feedback
+
+**Files Changed**:
+- package.json, package-lock.json - Added zustand dependency
+- lib/shopify.ts - Exported getShopifyClient function for cart store usage
+- lib/shopify-queries.ts - Added cart GraphQL fragments and mutations (create, add, update, remove, get)
+- lib/cart-store.ts - Zustand store with Shopify cart integration and localStorage persistence
+- types/shopify.ts - Enhanced ShopifyCartLine with product metadata, added CartQueryResponse and CartMutationResponse
+- components/cart-drawer.tsx - Slide-out cart with empty state, item list, subtotal, and checkout button
+- components/cart-item.tsx - Individual cart line with image, variant options, quantity controls, price, and remove
+- components/header.tsx - Site header with logo, navigation, and cart button with badge
+- components/add-to-cart-button.tsx - Connected to cart store, removed product prop (unused)
+- components/product-info.tsx - Updated AddToCartButton call to not pass product prop
+- app/layout.tsx - Added Header and CartDrawer to global layout
+
+**Learnings for Future Iterations**:
+- **Zustand vs Context**: Zustand is simpler than Context API for global state - automatic re-renders, no Provider wrapper needed
+- **Persist Middleware**: Zustand's persist middleware handles localStorage sync automatically - use `partialize` to only persist specific state slices
+- **Error Handling for GraphQL**: Always check both response.errors AND userErrors from mutations - use Array.isArray check before mapping
+- **Cart Drawer Pattern**: Fixed positioning with backdrop, transform for slide animation, useEffect to prevent body scroll when open
+- **TypeScript with Shopify API**: ResponseErrors type is not always an array - check with Array.isArray before calling .map()
+- **Cart Line Product Data**: Must request nested product fields in CartLineFragment to display product info in cart (handle, title, etc.)
+- **Badge Display Logic**: Use ternary for badge count display - show actual count up to 9, then "9+" for larger counts
+- **Client Component Requirements**: Cart components need 'use client' for state management (Zustand) and DOM APIs (localStorage)
+- **Lazy Client Loading**: getShopifyClient pattern avoids build-time errors with environment variables by creating client on first use
+- **Empty State UX**: Cart drawer shows helpful empty state with icon, message, and "Continue Shopping" button when cart is empty
+- **Checkout Integration**: Shopify cart provides checkoutUrl for seamless handoff to Shopify hosted checkout (Story #7 will expand)
 
 ---
 

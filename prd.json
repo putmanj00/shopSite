@@ -100,7 +100,7 @@
       "title": "Shopping Cart Functionality",
       "description": "Implement shopping cart with add/remove/update capabilities and persistent storage",
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Cart state management (Context API or Zustand)",
         "Add to cart from product pages",
