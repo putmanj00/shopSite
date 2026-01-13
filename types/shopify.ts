@@ -110,6 +110,38 @@ export interface ShopifyCartLine {
   };
 }
 
+export interface ShopifyMailingAddress {
+  id: string;
+  address1: string | null;
+  address2: string | null;
+  city: string | null;
+  company: string | null;
+  country: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  phone: string | null;
+  province: string | null;
+  zip: string | null;
+}
+
+export interface ShopifyOrder {
+  id: string;
+  orderNumber: number;
+  processedAt: string;
+  financialStatus: string;
+  fulfillmentStatus: string;
+  totalPrice: ShopifyMoney;
+  lineItems: {
+    edges: {
+      node: {
+        title: string;
+        quantity: number;
+        originalTotalPrice: ShopifyMoney;
+      };
+    }[];
+  };
+}
+
 export interface ShopifyCustomer {
   id: string;
   email: string;
@@ -120,6 +152,17 @@ export interface ShopifyCustomer {
   acceptsMarketing: boolean;
   createdAt: string;
   updatedAt: string;
+  defaultAddress: ShopifyMailingAddress | null;
+  addresses: {
+    edges: {
+      node: ShopifyMailingAddress;
+    }[];
+  };
+  orders: {
+    edges: {
+      node: ShopifyOrder;
+    }[];
+  };
 }
 
 // GraphQL Response Types
@@ -166,3 +209,43 @@ export interface CartMutationResponse {
     message: string;
   }[];
 }
+
+// Auth Types
+export interface ShopifyCustomerAccessToken {
+  accessToken: string;
+  expiresAt: string;
+}
+
+
+
+export interface CustomerCreatePayload {
+  customer: ShopifyCustomer | null;
+  customerUserErrors: {
+    code: string;
+    field: string[];
+    message: string;
+  }[];
+}
+
+export interface CustomerAccessTokenCreatePayload {
+  customerAccessToken: ShopifyCustomerAccessToken | null;
+  customerUserErrors: {
+    code: string;
+    field: string[];
+    message: string;
+  }[];
+}
+
+export interface CustomerAccessTokenDeletePayload {
+  deletedAccessToken: string | null;
+  deletedCustomerAccessTokenId: string | null;
+  userErrors: {
+    field: string[];
+    message: string;
+  }[];
+}
+
+export interface CustomerQueryResponse {
+  customer: ShopifyCustomer | null;
+}
+

@@ -31,7 +31,7 @@ export function getShopifyClient(): StorefrontApiClient {
   // Create and cache the client
   shopifyClient = createStorefrontApiClient({
     storeDomain,
-    apiVersion: '2024-01',
+    apiVersion: '2025-04',
     publicAccessToken: storefrontAccessToken,
   });
 
@@ -53,9 +53,13 @@ export async function shopifyFetch<T>({
     });
 
     if (response.errors) {
+      // Properly serialize the errors for debugging
+      console.error('GraphQL Errors:', JSON.stringify(response.errors, null, 2));
+
       const errorMessages = Array.isArray(response.errors)
-        ? response.errors.map((e: { message: string }) => e.message).join(', ')
-        : String(response.errors);
+        ? response.errors.map((e: { message?: string }) => e.message || JSON.stringify(e)).join(', ')
+        : JSON.stringify(response.errors);
+
       throw new Error(`GraphQL Errors: ${errorMessages}`);
     }
 

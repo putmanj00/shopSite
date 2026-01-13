@@ -5,6 +5,7 @@ import type { ShopifyProduct, ShopifyProductVariant } from '@/types/shopify';
 import { formatMoney } from '@/lib/shopify-helpers';
 import VariantSelector from '@/components/variant-selector';
 import AddToCartButton from '@/components/add-to-cart-button';
+import WishlistButton from '@/components/wishlist-button';
 
 interface ProductInfoProps {
   product: ShopifyProduct;
@@ -49,7 +50,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
                   ((parseFloat(compareAtPrice.amount) -
                     parseFloat(price.amount)) /
                     parseFloat(compareAtPrice.amount)) *
-                    100
+                  100
                 )}
                 % OFF
               </span>
@@ -90,8 +91,14 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         />
       )}
 
-      {/* Add to Cart Button */}
-      <AddToCartButton variant={selectedVariant} />
+      {/* Actions */}
+      <div className="flex gap-4 items-center">
+        <AddToCartButton variant={selectedVariant} />
+        <WishlistButton
+          product={product}
+          className="!p-3 border border-gray-200 !bg-white hover:!bg-gray-50 !text-gray-400 hover:!text-red-500 rounded-lg h-12 w-12 flex items-center justify-center"
+        />
+      </div>
 
       {/* Product Meta */}
       <div className="border-t border-gray-200 pt-6 space-y-3">

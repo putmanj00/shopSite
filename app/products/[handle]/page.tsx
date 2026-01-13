@@ -1,17 +1,25 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { getProductByHandle } from '@/lib/shopify-helpers';
+import { getProductByHandle, getAllProductsHandles } from '@/lib/shopify-helpers';
 import type { Metadata } from 'next';
 import ImageGallery from '@/components/image-gallery';
 import ProductInfo from '@/components/product-info';
 import Breadcrumbs from '@/components/breadcrumbs';
 import RelatedProducts from '@/components/related-products';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
+import ReviewList from '@/components/reviews/review-list';
 
 interface ProductPageProps {
   params: Promise<{
     handle: string;
   }>;
+}
+
+export async function generateStaticParams() {
+  const handles = await getAllProductsHandles();
+  return handles.map((handle) => ({
+    handle,
+  }));
 }
 
 export async function generateMetadata({
@@ -138,6 +146,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
               />
             </div>
           )}
+
+          {/* Product Reviews */}
+          <div className="bg-white rounded-lg shadow-sm p-6 lg:p-8 mt-12">
+            <ReviewList productId={product.handle} />
+          </div>
 
           {/* Related Products */}
           <div className="mt-12">

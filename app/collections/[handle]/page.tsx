@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { getCollectionByHandle } from '@/lib/shopify-helpers';
+import { getCollectionByHandle, getAllCollectionsHandles } from '@/lib/shopify-helpers';
 import CollectionContent from '@/components/collection-content';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
 import type { Metadata } from 'next';
@@ -18,6 +18,15 @@ interface CollectionPageProps {
     tags?: string;
     page?: string;
   }>;
+}
+
+export async function generateStaticParams() {
+  const handles = await getAllCollectionsHandles();
+  // Ensure 'all' collection is included if it's not in the API response, though usually it's handled differently.
+  // The API returns 'all' if it exists as a collection.
+  return handles.map((handle) => ({
+    handle,
+  }));
 }
 
 export async function generateMetadata({

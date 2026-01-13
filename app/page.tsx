@@ -20,8 +20,25 @@ function FeaturedProductsSkeleton() {
 }
 
 export default function Home() {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Store',
+    name: 'ShopSite',
+    description: 'Premier destination for modern products.',
+    url: 'https://shopsite.com',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://shopsite.com/search?q={search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
+  };
+
   return (
     <div className="min-h-screen bg-zinc-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <Hero />
       <Suspense fallback={<FeaturedProductsSkeleton />}>
         <FeaturedProducts />

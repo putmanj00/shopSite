@@ -24,7 +24,6 @@ const VARIANT_FRAGMENT = `
     id
     title
     availableForSale
-    quantityAvailable
     price {
       ...MoneyFragment
     }
@@ -216,7 +215,6 @@ const CART_LINE_FRAGMENT = `
         id
         title
         availableForSale
-        quantityAvailable
         price {
           ...MoneyFragment
         }
@@ -367,6 +365,164 @@ export const GET_CART_QUERY = `
   query getCart($cartId: ID!) {
     cart(id: $cartId) {
       ...CartFragment
+    }
+  }
+`;
+
+
+// Fragment for address data
+const ADDRESS_FRAGMENT = `
+  fragment AddressFragment on MailingAddress {
+    id
+    address1
+    address2
+    city
+    company
+    country
+    firstName
+    lastName
+    phone
+    province
+    zip
+  }
+`;
+
+// Fragment for order data
+const ORDER_FRAGMENT = `
+  fragment OrderFragment on Order {
+    id
+    orderNumber
+    processedAt
+    financialStatus
+    fulfillmentStatus
+    totalPrice {
+      ...MoneyFragment
+    }
+    lineItems(first: 5) {
+      edges {
+        node {
+          title
+          quantity
+          originalTotalPrice {
+            ...MoneyFragment
+          }
+        }
+      }
+    }
+  }
+`;
+
+// Fragment for customer data
+const CUSTOMER_FRAGMENT = `
+  fragment CustomerFragment on Customer {
+    id
+    firstName
+    lastName
+    displayName
+    email
+    phone
+    acceptsMarketing
+    defaultAddress {
+      ...AddressFragment
+    }
+    addresses(first: 10) {
+      edges {
+        node {
+          ...AddressFragment
+        }
+      }
+    }
+    orders(first: 10, sortKey: PROCESSED_AT, reverse: true) {
+      edges {
+        node {
+          ...OrderFragment
+        }
+      }
+    }
+  }
+`;
+
+// Mutation to create a customer (register)
+export const CUSTOMER_CREATE_MUTATION = `
+  ${CUSTOMER_FRAGMENT}
+  mutation customerCreate($input: CustomerCreateInput!) {
+    customerCreate(input: $input) {
+      customer {
+        ...CustomerFragment
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
+
+// Mutation to create an access token (login)
+export const CUSTOMER_ACCESS_TOKEN_CREATE_MUTATION = `
+  mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
+    customerAccessTokenCreate(input: $input) {
+      customerAccessToken {
+        accessToken
+        expiresAt
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
+
+// Mutation to delete an access token (logout)
+export const CUSTOMER_ACCESS_TOKEN_DELETE_MUTATION = `
+  mutation customerAccessTokenDelete($customerAccessToken: String!) {
+    customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
+      deletedAccessToken
+      deletedCustomerAccessTokenId
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`;
+
+// Query to get customer data
+export const GET_CUSTOMER_QUERY = `
+  ${ADDRESS_FRAGMENT}
+  ${ORDER_FRAGMENT}
+  ${CUSTOMER_FRAGMENT}
+  ${MONEY_FRAGMENT} 
+  query getCustomer($customerAccessToken: String!) {
+    customer(customerAccessToken: $customerAccessToken) {
+      ...CustomerFragment
+    }
+  }
+`;
+
+export const GET_ALL_PRODUCTS_HANDLES = `
+  query getProductsHandles($first: Int!) {
+    products(first: $first) {
+      edges {
+        node {
+          handle
+        }
+      }
+    }
+  }
+`;
+
+export const GET_ALL_COLLECTIONS_HANDLES = `
+  query getCollectionsHandles($first: Int!) {
+    collections(first: $first) {
+      edges {
+        node {
+          handle
+        }
+      }
     }
   }
 `;

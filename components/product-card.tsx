@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ShopifyProduct } from '@/types/shopify';
 import { formatMoney, isProductOnSale } from '@/lib/shopify-helpers';
+import WishlistButton from './wishlist-button';
 
 interface ProductCardProps {
   product: ShopifyProduct;
@@ -42,6 +43,9 @@ export default function ProductCard({ product }: ProductCardProps) {
             Sold Out
           </div>
         )}
+        <div className="absolute right-2 top-2 z-20">
+          <WishlistButton product={product} />
+        </div>
       </div>
       <div className="p-4">
         <h3 className="mb-2 text-lg font-semibold text-zinc-900 line-clamp-2 group-hover:text-blue-600">

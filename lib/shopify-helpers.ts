@@ -6,6 +6,8 @@ import {
   GET_PRODUCT_BY_HANDLE_QUERY,
   GET_COLLECTIONS_QUERY,
   GET_COLLECTION_BY_HANDLE_QUERY,
+  GET_ALL_PRODUCTS_HANDLES,
+  GET_ALL_COLLECTIONS_HANDLES,
 } from './shopify-queries';
 import type {
   ProductsQueryResponse,
@@ -194,3 +196,38 @@ export function getFirstAvailableVariant(product: ShopifyProduct) {
   return product.variants.edges.find((edge) => edge.node.availableForSale)
     ?.node;
 }
+
+/**
+ * Fetch all product handles for SSG
+ */
+export async function getAllProductsHandles(): Promise<string[]> {
+  try {
+    const data = await shopifyFetch<ProductsQueryResponse>({
+      query: GET_ALL_PRODUCTS_HANDLES,
+      variables: { first: 250 },
+    });
+
+    return data.products.edges.map((edge) => edge.node.handle);
+  } catch (error) {
+    console.error('Error fetching product handles:', error);
+    return [];
+  }
+}
+
+/**
+ * Fetch all collection handles for SSG
+ */
+export async function getAllCollectionsHandles(): Promise<string[]> {
+  try {
+    const data = await shopifyFetch<CollectionsQueryResponse>({
+      query: GET_ALL_COLLECTIONS_HANDLES,
+      variables: { first: 250 },
+    });
+
+    return data.collections.edges.map((edge) => edge.node.handle);
+  } catch (error) {
+    console.error('Error fetching collection handles:', error);
+    return [];
+  }
+}
+
