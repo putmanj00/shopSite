@@ -81,7 +81,7 @@
       "title": "Individual Product Pages",
       "description": "Detailed product pages with image gallery, variants, and add-to-cart",
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Dynamic product pages (/products/[handle])",
         "Image gallery with zoom and thumbnails",

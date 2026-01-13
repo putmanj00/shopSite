@@ -155,3 +155,41 @@ Started: Sun Jan 12 2026
 - **Type Safety**: Pass all searchParams through Promise unwrapping in Next.js 15+ (async params and searchParams)
 
 ---
+## 2026-01-12 - Story #5: Individual Product Pages
+
+**Thread**: Autonomous iteration #5
+
+**Implementation**:
+- Created dynamic product page route at /products/[handle] with Next.js App Router
+- Implemented ImageGallery component with click-to-zoom functionality and thumbnail grid navigation
+- Built intelligent VariantSelector component that handles multiple option types (size, color, etc.) with availability checking
+- Created ProductInfo component displaying price (with sale calculations), stock status with low inventory warnings, and product metadata
+- Developed AddToCartButton with loading states and success feedback (placeholder implementation for Story #6)
+- Added Breadcrumbs component with smart navigation (Home > Category > Product)
+- Implemented RelatedProducts section using product type and tags for intelligent recommendations
+- Generated structured data (JSON-LD Product schema) for SEO with proper schema.org markup
+- Product page includes rich HTML description rendering with prose styling
+- Full responsive design with mobile-first approach
+
+**Files Changed**:
+- app/products/[handle]/page.tsx - Dynamic product page with metadata generation, structured data, and layout
+- components/image-gallery.tsx - Image gallery with zoom, thumbnails, and image counter
+- components/product-info.tsx - Product details, pricing, stock status, and metadata display
+- components/variant-selector.tsx - Smart variant selection with availability checking
+- components/add-to-cart-button.tsx - Add to cart button with loading/success states
+- components/breadcrumbs.tsx - Breadcrumb navigation component
+- components/related-products.tsx - Related products fetching and display
+
+**Learnings for Future Iterations**:
+- **Image Zoom Pattern**: Use onClick with state toggle and CSS transform scale for simple zoom functionality - no complex libraries needed
+- **Variant Selection Logic**: Group variants by option names, track selected options, find matching variants when options change
+- **Availability Checking**: For each option value, check if any variant exists with that value and is available for sale
+- **React Purity Rules**: Cannot use `Date.now()` in render functions - ESLint `react-hooks/purity` will error. Remove dynamic date generation from structured data or move to server-side only
+- **OpenGraph Types**: Next.js Metadata API has specific allowed types for OpenGraph - 'product' is not valid, use default or omit type
+- **Placeholder Components**: AddToCartButton is a placeholder showing intended UX - actual cart integration happens in Story #6
+- **Related Products Strategy**: Try product type first, then tags, then best sellers as fallback for good recommendations
+- **Structured Data**: Use JSON-LD script tag with schema.org Product type - includes name, description, images, brand, offers with price and availability
+- **Low Stock Warnings**: Show quantity when available < 10 to create urgency without showing exact inventory
+
+---
+
