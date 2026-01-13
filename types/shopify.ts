@@ -95,7 +95,15 @@ export interface ShopifyCart {
 export interface ShopifyCartLine {
   id: string;
   quantity: number;
-  merchandise: ShopifyProductVariant;
+  merchandise: ShopifyProductVariant & {
+    product: {
+      id: string;
+      handle: string;
+      title: string;
+      productType: string;
+      vendor: string;
+    };
+  };
   cost: {
     totalAmount: ShopifyMoney;
     amountPerQuantity: ShopifyMoney;
@@ -145,4 +153,16 @@ export interface CollectionsQueryResponse {
 
 export interface CollectionQueryResponse {
   collection: ShopifyCollection | null;
+}
+
+export interface CartQueryResponse {
+  cart: ShopifyCart | null;
+}
+
+export interface CartMutationResponse {
+  cart: ShopifyCart;
+  userErrors: {
+    field: string[];
+    message: string;
+  }[];
 }

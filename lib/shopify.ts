@@ -9,7 +9,7 @@ let shopifyClient: StorefrontApiClient | null = null;
 /**
  * Get or create the Shopify Storefront API client
  */
-function getShopifyClient(): StorefrontApiClient {
+export function getShopifyClient(): StorefrontApiClient {
   if (shopifyClient) {
     return shopifyClient;
   }

@@ -1,38 +1,37 @@
 'use client';
 
 import { useState } from 'react';
-import type { ShopifyProduct, ShopifyProductVariant } from '@/types/shopify';
+import type { ShopifyProductVariant } from '@/types/shopify';
+import { useCartStore } from '@/lib/cart-store';
 
 interface AddToCartButtonProps {
   variant: ShopifyProductVariant;
-  product: ShopifyProduct;
 }
 
 export default function AddToCartButton({
   variant,
-  product,
 }: AddToCartButtonProps) {
+  const { addToCart } = useCartStore();
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleAddToCart = async () => {
-    // Placeholder for cart functionality (Story #6)
     setIsLoading(true);
+    setError(null);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    try {
+      await addToCart(variant.id, 1);
+      setShowSuccess(true);
 
-    setIsLoading(false);
-    setShowSuccess(true);
-
-    // Reset success message after 3 seconds
-    setTimeout(() => setShowSuccess(false), 3000);
-
-    console.log('Added to cart:', {
-      product: product.title,
-      variant: variant.title,
-      variantId: variant.id,
-    });
+      // Reset success message after 3 seconds
+      setTimeout(() => setShowSuccess(false), 3000);
+    } catch (err) {
+      console.error('Failed to add to cart:', err);
+      setError('Failed to add to cart. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -84,11 +83,7 @@ export default function AddToCartButton({
 
       {showSuccess && (
         <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg flex items-center gap-2">
-          <svg
-            className="w-5 h-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"
               d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -99,9 +94,11 @@ export default function AddToCartButton({
         </div>
       )}
 
-      <p className="text-xs text-gray-500 text-center">
-        Note: Cart functionality will be implemented in Story #6
-      </p>
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm">
+          {error}
+        </div>
+      )}
     </div>
   );
 }

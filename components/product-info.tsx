@@ -91,7 +91,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       )}
 
       {/* Add to Cart Button */}
-      <AddToCartButton variant={selectedVariant} product={product} />
+      <AddToCartButton variant={selectedVariant} />
 
       {/* Product Meta */}
       <div className="border-t border-gray-200 pt-6 space-y-3">
