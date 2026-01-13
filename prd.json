@@ -1,0 +1,280 @@
+{
+  "projectName": "shopSite - Headless Shopify Storefront",
+  "branchName": "ralph/headless-storefront",
+  "description": "Modern, high-performance headless commerce storefront built with Next.js and Tailwind CSS, integrating with Shopify via Storefront API. Supports both physical and digital products with a focus on exceptional UX and visual design.",
+  "technicalStack": {
+    "frontend": "Next.js 14+ with App Router",
+    "styling": "Tailwind CSS",
+    "backend": "Shopify Storefront API + Shopify Admin API",
+    "auth": "NextAuth.js or Shopify Multipass",
+    "database": "Shopify (primary) + optional PostgreSQL for custom features",
+    "payments": "Shopify Checkout",
+    "email": "Resend or SendGrid",
+    "deployment": "Vercel (recommended for Next.js)"
+  },
+  "stories": [
+    {
+      "id": 1,
+      "title": "Project Foundation Setup",
+      "description": "Initialize Next.js 14+ project with TypeScript, Tailwind CSS, and essential configurations",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Next.js project initialized with App Router",
+        "TypeScript configured with strict mode",
+        "Tailwind CSS installed and configured",
+        "ESLint and Prettier set up",
+        "Basic folder structure created (app/, components/, lib/, types/)",
+        "Environment variables template (.env.example) created"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Shopify Storefront API Integration",
+      "description": "Set up Shopify Storefront API client with authentication and basic queries",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Shopify Storefront API client library installed (@shopify/hydrogen or shopify-buy)",
+        "API client configured with storefront access token",
+        "GraphQL queries set up for products and collections",
+        "Type definitions created for Shopify data models",
+        "Test query successfully fetches products from Shopify",
+        "Error handling implemented for API calls"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Homepage with Featured Products",
+      "description": "Create an engaging homepage with hero section, featured products, and modern design",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Responsive hero section with eye-catching design",
+        "Featured products section pulling from Shopify",
+        "Product cards with image, title, price, and hover effects",
+        "Modern, sleek design using Tailwind",
+        "Mobile-responsive layout",
+        "Loading states and error handling",
+        "SEO meta tags configured"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Product Collection Pages with Search & Filter",
+      "description": "Build collection pages with advanced search, filtering, and sorting capabilities",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Dynamic collection pages (/collections/[handle])",
+        "Product grid with pagination or infinite scroll",
+        "Search functionality with debounced input",
+        "Filter by price range, product type, tags",
+        "Sort by price, newest, best-selling",
+        "Filter/sort state persisted in URL params",
+        "Empty states for no results",
+        "Mobile-friendly filter UI (drawer/modal)"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Individual Product Pages",
+      "description": "Detailed product pages with image gallery, variants, and add-to-cart",
+      "priority": 1,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Dynamic product pages (/products/[handle])",
+        "Image gallery with zoom and thumbnails",
+        "Variant selector (size, color, etc.) if applicable",
+        "Product description with rich text support",
+        "Price display (regular and sale pricing)",
+        "Stock availability indicator",
+        "Add to cart button with loading state",
+        "Breadcrumb navigation",
+        "Related products section",
+        "Structured data for SEO (Product schema)"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Shopping Cart Functionality",
+      "description": "Implement shopping cart with add/remove/update capabilities and persistent storage",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Cart state management (Context API or Zustand)",
+        "Add to cart from product pages",
+        "Cart drawer/modal with slide-out animation",
+        "Update quantity and remove items",
+        "Cart persisted to localStorage",
+        "Subtotal and item count display",
+        "Empty cart state",
+        "Cart icon in header with item count badge",
+        "Shopify checkout cart creation"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Checkout Integration",
+      "description": "Integrate with Shopify Checkout for secure payment processing",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Create Shopify checkout session from cart",
+        "Redirect to Shopify hosted checkout",
+        "Handle checkout completion callback",
+        "Order confirmation page",
+        "Support for discount codes",
+        "Shipping calculation integration",
+        "Clear cart after successful checkout",
+        "Handle checkout errors gracefully"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "User Authentication System",
+      "description": "Implement user authentication with Shopify customer accounts",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "User registration with email/password",
+        "Login functionality with Shopify Customer API",
+        "Logout functionality",
+        "Protected routes for authenticated users",
+        "Session management with cookies/JWT",
+        "Password reset flow",
+        "Registration form validation",
+        "Error handling for auth failures"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "User Account Dashboard",
+      "description": "Create user dashboard for viewing orders, managing profile, and account settings",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Account dashboard layout (/account)",
+        "View order history with details",
+        "Order status tracking",
+        "Edit profile information",
+        "View and manage saved addresses",
+        "Update password functionality",
+        "Account navigation menu",
+        "Responsive mobile design"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Wishlist / Favorites Feature",
+      "description": "Allow users to save products to a wishlist for later purchase",
+      "priority": 3,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Add/remove products to wishlist",
+        "Wishlist page (/account/wishlist)",
+        "Wishlist icon on product cards",
+        "Wishlist count in header",
+        "Persist wishlist to user account (if logged in)",
+        "Local storage fallback for guests",
+        "Move from wishlist to cart functionality",
+        "Share wishlist capability (optional)"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Product Reviews & Ratings System",
+      "description": "Implement product review and rating functionality with moderation",
+      "priority": 3,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Display reviews on product pages",
+        "Star rating display and calculation",
+        "Submit review form (authenticated users only)",
+        "Review moderation queue",
+        "Helpful/not helpful voting on reviews",
+        "Sort reviews by rating, date, helpfulness",
+        "Review images upload support",
+        "Schema markup for reviews (SEO)",
+        "Storage solution (Shopify metafields or separate DB)"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Email Notification System",
+      "description": "Set up transactional email system for order confirmations and updates",
+      "priority": 3,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Email service integrated (Resend, SendGrid, or similar)",
+        "Order confirmation email template",
+        "Shipping notification email",
+        "Welcome email for new users",
+        "Password reset email",
+        "Email templates with brand styling",
+        "Webhook handlers for Shopify order events",
+        "Test email sending functionality",
+        "Unsubscribe mechanism for marketing emails"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Custom Admin Dashboard",
+      "description": "Build admin panel for managing custom features beyond Shopify's admin",
+      "priority": 4,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Admin authentication and authorization",
+        "Dashboard overview with key metrics",
+        "Manage product reviews (approve/reject/delete)",
+        "View user analytics",
+        "Manage site content (hero images, featured collections)",
+        "Email template editor",
+        "Protected admin routes (/admin/*)",
+        "Admin-only UI components",
+        "Activity logs for admin actions"
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Performance Optimization & SEO",
+      "description": "Optimize site performance, implement advanced SEO, and ensure accessibility",
+      "priority": 4,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Image optimization with Next.js Image component",
+        "Lazy loading for images and components",
+        "Code splitting and dynamic imports",
+        "Metadata API for SEO (title, description, OG tags)",
+        "Sitemap generation",
+        "Robots.txt configuration",
+        "Accessibility audit (WCAG 2.1 AA)",
+        "Performance score >90 on Lighthouse",
+        "Analytics integration (Google Analytics or Plausible)",
+        "Error tracking (Sentry or similar)"
+      ]
+    }
+  ],
+  "technicalNotes": [
+    "Use Next.js 14+ App Router for best performance and DX",
+    "All Shopify data should be fetched server-side when possible (RSC)",
+    "Implement proper caching strategy for Shopify API calls",
+    "Use Shopify Storefront API for public data, Admin API for privileged operations",
+    "Consider using Shopify Hydrogen UI components for faster development",
+    "Implement proper error boundaries and fallbacks",
+    "Follow Shopify's rate limiting guidelines",
+    "Use environment variables for all sensitive configuration",
+    "Each story should be completed with passing tests before marking passes: true",
+    "Break down any story that becomes too large during implementation"
+  ],
+  "designPrinciples": [
+    "Modern, sleek aesthetic with clean typography",
+    "High-quality product imagery with zoom/multiple views",
+    "Smooth animations and micro-interactions (framer-motion)",
+    "Consistent color palette and spacing (Tailwind config)",
+    "Mobile-first responsive design",
+    "Fast page transitions and loading states",
+    "Accessibility-first approach",
+    "Visual hierarchy that guides user attention"
+  ]
+}
