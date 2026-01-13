@@ -231,3 +231,16 @@ export async function getAllCollectionsHandles(): Promise<string[]> {
   }
 }
 
+/**
+ * Fetch all collections with full data
+ */
+export async function getAllCollections(): Promise<ShopifyCollection[]> {
+  try {
+    const data = await getCollections({ first: 250 });
+    return data.collections.edges.map((edge) => edge.node);
+  } catch (error) {
+    console.error('Error fetching all collections:', error);
+    return [];
+  }
+}
+

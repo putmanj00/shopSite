@@ -17,7 +17,7 @@ export default function Hero() {
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              href="/collections/all"
+              href="/collections"
               className="inline-flex items-center justify-center rounded-lg bg-white px-8 py-4 text-base font-semibold text-zinc-900 transition-all hover:bg-zinc-100 hover:scale-105"
             >
               Shop Now
