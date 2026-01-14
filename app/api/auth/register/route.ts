@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const { data: loginData, errors: loginErrorsTop } = loginResponse;
+    const { data: loginData } = loginResponse;
     const { customerAccessToken, customerUserErrors: loginErrors } =
       loginData?.customerAccessTokenCreate || {};
 

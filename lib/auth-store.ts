@@ -11,7 +11,7 @@ interface AuthStore {
 
   // Actions
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, firstName?: string, lastName?: string) => Promise<any>;
+  register: (email: string, password: string, firstName?: string, lastName?: string) => Promise<{ accessToken?: string; expiresAt?: string; requiresLogin?: boolean; message?: string } | undefined>;
   logout: () => Promise<void>;
   fetchCustomer: () => Promise<void>;
   clearError: () => void;

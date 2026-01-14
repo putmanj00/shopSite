@@ -38,7 +38,7 @@ export default function LoginPage() {
         try {
             await login(email, password);
             // Redirect handled by useEffect
-        } catch (err: unknown) {
+        } catch {
             // If error is Unidentified customer, it might be unverified email
             const errorMessage = useAuthStore.getState().error;
             if (errorMessage?.includes('Unidentified customer')) {

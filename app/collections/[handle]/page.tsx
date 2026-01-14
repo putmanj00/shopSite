@@ -1,9 +1,10 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { getCollectionByHandle, getAllCollectionsHandles } from '@/lib/shopify-helpers';
+import { getCollectionByHandle, getAllCollectionsHandles, getProducts } from '@/lib/shopify-helpers';
 import CollectionContent from '@/components/collection-content';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
 import type { Metadata } from 'next';
+import type { ShopifyCollection } from '@/types/shopify';
 
 interface CollectionPageProps {
   params: Promise<{
@@ -22,8 +23,10 @@ interface CollectionPageProps {
 
 export async function generateStaticParams() {
   const handles = await getAllCollectionsHandles();
-  // Ensure 'all' collection is included if it's not in the API response, though usually it's handled differently.
-  // The API returns 'all' if it exists as a collection.
+  // Include 'all' for the virtual all-products collection
+  if (!handles.includes('all')) {
+    handles.push('all');
+  }
   return handles.map((handle) => ({
     handle,
   }));
@@ -33,6 +36,18 @@ export async function generateMetadata({
   params,
 }: CollectionPageProps): Promise<Metadata> {
   const { handle } = await params;
+
+  // Handle virtual "all" collection
+  if (handle === 'all') {
+    return {
+      title: 'All Products | shopSite',
+      description: 'Browse our complete collection of products',
+      openGraph: {
+        title: 'All Products',
+        description: 'Browse our complete collection of products',
+      },
+    };
+  }
 
   let collection;
   try {
@@ -67,12 +82,33 @@ export default async function CollectionPage({
   const { handle } = await params;
   const resolvedSearchParams = await searchParams;
 
-  let collection;
-  try {
-    collection = await getCollectionByHandle(handle, { first: 250 });
-  } catch (error) {
-    console.error('Error fetching collection:', error);
-    notFound();
+  let collection: ShopifyCollection | null = null;
+
+  // Handle virtual "all" collection - fetch all products
+  if (handle === 'all') {
+    try {
+      const productsData = await getProducts({ first: 250 });
+      // Create a virtual collection with all products
+      collection = {
+        id: 'all-products',
+        title: 'All Products',
+        handle: 'all',
+        description: 'Browse our complete collection of products',
+        descriptionHtml: '<p>Browse our complete collection of products</p>',
+        image: null,
+        products: productsData.products,
+      };
+    } catch (error) {
+      console.error('Error fetching all products:', error);
+      notFound();
+    }
+  } else {
+    try {
+      collection = await getCollectionByHandle(handle, { first: 250 });
+    } catch (error) {
+      console.error('Error fetching collection:', error);
+      notFound();
+    }
   }
 
   if (!collection) {
