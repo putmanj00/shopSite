@@ -444,6 +444,9 @@ const CUSTOMER_FRAGMENT = `
 
 // Mutation to create a customer (register)
 export const CUSTOMER_CREATE_MUTATION = `
+  ${MONEY_FRAGMENT}
+  ${ADDRESS_FRAGMENT}
+  ${ORDER_FRAGMENT}
   ${CUSTOMER_FRAGMENT}
   mutation customerCreate($input: CustomerCreateInput!) {
     customerCreate(input: $input) {

@@ -1,20 +1,6 @@
-
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { getShopifyClient } from './shopify';
-import {
-  CUSTOMER_ACCESS_TOKEN_CREATE_MUTATION,
-  CUSTOMER_ACCESS_TOKEN_DELETE_MUTATION,
-  CUSTOMER_CREATE_MUTATION,
-  GET_CUSTOMER_QUERY,
-} from './shopify-queries';
-import type {
-  ShopifyCustomer,
-  CustomerAccessTokenCreatePayload,
-  CustomerCreatePayload,
-  CustomerAccessTokenDeletePayload,
-  CustomerQueryResponse,
-} from '@/types/shopify';
+import type { ShopifyCustomer } from '@/types/shopify';
 
 interface AuthStore {
   customer: ShopifyCustomer | null;
@@ -25,7 +11,7 @@ interface AuthStore {
 
   // Actions
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, firstName?: string, lastName?: string) => Promise<void>;
+  register: (email: string, password: string, firstName?: string, lastName?: string) => Promise<any>;
   logout: () => Promise<void>;
   fetchCustomer: () => Promise<void>;
   clearError: () => void;
@@ -43,26 +29,22 @@ export const useAuthStore = create<AuthStore>()(
       login: async (email, password) => {
         set({ isLoading: true, error: null });
         try {
-          const client = getShopifyClient();
-          const response = await client.request<{
-            customerAccessTokenCreate: CustomerAccessTokenCreatePayload;
-          }>(CUSTOMER_ACCESS_TOKEN_CREATE_MUTATION, {
-            variables: {
-              input: { email, password },
-            },
+          const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password }),
           });
 
-          const { customerAccessToken, customerUserErrors } =
-            response.data?.customerAccessTokenCreate || {};
+          const data = await response.json();
 
-          if (customerUserErrors && customerUserErrors.length > 0) {
-            throw new Error(customerUserErrors[0].message);
+          if (!response.ok) {
+            throw new Error(data.error || 'Failed to login');
           }
 
-          if (customerAccessToken) {
+          if (data.accessToken) {
             set({
-              accessToken: customerAccessToken.accessToken,
-              expiresAt: customerAccessToken.expiresAt,
+              accessToken: data.accessToken,
+              expiresAt: data.expiresAt,
             });
             // Fetch customer data immediately after login
             await get().fetchCustomer();
@@ -79,33 +61,29 @@ export const useAuthStore = create<AuthStore>()(
       register: async (email, password, firstName, lastName) => {
         set({ isLoading: true, error: null });
         try {
-          const client = getShopifyClient();
-          const response = await client.request<{
-            customerCreate: CustomerCreatePayload;
-          }>(CUSTOMER_CREATE_MUTATION, {
-            variables: {
-              input: { email, password, firstName, lastName },
-            },
-          });
-
-          const { customerUserErrors } = response.data?.customerCreate || {};
-
-          if (customerUserErrors && customerUserErrors.length > 0) {
-            throw new Error(customerUserErrors[0].message);
-          }
-
-          // Automatically login after successful registration
-          // Note: Some stores require email verification before login is allowed.
-          // For this implementation valid shops, we attempt to login.
-          await get().login(email, password);
-
-          // Trigger Welcome Email (Fire and forget, don't block UI)
-          fetch('/api/email/welcome', {
+          const response = await fetch('/api/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, firstName: firstName || 'Customer' }),
-          }).catch(err => console.error('Failed to trigger welcome email:', err));
+            body: JSON.stringify({ email, password, firstName, lastName }),
+          });
 
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error || 'Failed to register');
+          }
+
+          // The API route automatically logs in after registration
+          if (data.accessToken) {
+            set({
+              accessToken: data.accessToken,
+              expiresAt: data.expiresAt,
+            });
+            // Fetch customer data
+            await get().fetchCustomer();
+          }
+          
+          return data;
         } catch (error: unknown) {
           console.error('Registration error:', error);
           set({ error: error instanceof Error ? error.message : 'Failed to register' });
@@ -117,21 +95,17 @@ export const useAuthStore = create<AuthStore>()(
 
       logout: async () => {
         const { accessToken } = get();
-        if (!accessToken) {
-          set({ customer: null, accessToken: null, expiresAt: null });
-          return;
-        }
-
+        
         set({ isLoading: true });
         try {
-          const client = getShopifyClient();
-          await client.request<{
-            customerAccessTokenDelete: CustomerAccessTokenDeletePayload;
-          }>(CUSTOMER_ACCESS_TOKEN_DELETE_MUTATION, {
-            variables: {
-              customerAccessToken: accessToken,
-            },
-          });
+          // Call logout API (fire and forget)
+          if (accessToken) {
+            fetch('/api/auth/logout', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ accessToken }),
+            }).catch(err => console.error('Logout API error:', err));
+          }
         } catch (error) {
           console.error('Logout error:', error);
           // Continue with local cleanup even if API call fails
@@ -152,18 +126,16 @@ export const useAuthStore = create<AuthStore>()(
 
         set({ isLoading: true });
         try {
-          const client = getShopifyClient();
-          const response = await client.request<CustomerQueryResponse>(
-            GET_CUSTOMER_QUERY,
-            {
-              variables: {
-                customerAccessToken: accessToken,
-              },
-            }
-          );
+          const response = await fetch('/api/auth/customer', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ accessToken }),
+          });
 
-          if (response.data?.customer) {
-            set({ customer: response.data.customer });
+          const data = await response.json();
+
+          if (response.ok && data.customer) {
+            set({ customer: data.customer });
           } else {
             // Token might be invalid
             set({ accessToken: null, expiresAt: null, customer: null });

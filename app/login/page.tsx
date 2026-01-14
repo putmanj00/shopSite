@@ -38,8 +38,12 @@ export default function LoginPage() {
         try {
             await login(email, password);
             // Redirect handled by useEffect
-        } catch {
-            // Error is handled in store and displayed via authError
+        } catch (err: unknown) {
+            // If error is Unidentified customer, it might be unverified email
+            const errorMessage = useAuthStore.getState().error;
+            if (errorMessage?.includes('Unidentified customer')) {
+                setLocalError('Invalid email or password. If you just created an account, please check your email for a verification link.');
+            }
         }
     };
 
