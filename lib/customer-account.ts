@@ -39,9 +39,9 @@ function getConfig() {
     storeDomain: storeDomain.replace(/^https?:\/\//, ''),
     clientId,
     clientSecret, // Optional for public clients
-    baseUrl,
-    redirectUri: `${baseUrl}/api/auth/customer/callback`,
-    logoutRedirectUri: `${baseUrl}/`,
+    baseUrl: baseUrl.replace(/\/+$/, ''), // Strip trailing slashes
+    redirectUri: `${baseUrl.replace(/\/+$/, '')}/api/auth/customer/callback`,
+    logoutRedirectUri: `${baseUrl.replace(/\/+$/, '')}/`,
   };
 }
 
