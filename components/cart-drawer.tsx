@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { useCartStore } from '@/lib/cart-store';
+import { useAuthStore } from '@/lib/auth-store';
 import { formatMoney } from '@/lib/shopify-helpers';
 import CartItem from './cart-item';
 
 export default function CartDrawer() {
   const { cart, isOpen, closeCart } = useCartStore();
+  const { isAuthenticated } = useAuthStore();
   const [isRedirecting, setIsRedirecting] = useState(false);
 
   // Prevent body scroll when drawer is open
@@ -142,7 +144,11 @@ export default function CartDrawer() {
                   onClick={() => {
                     if (cart?.checkoutUrl) {
                       setIsRedirecting(true);
-                      window.location.href = cart.checkoutUrl;
+                      // Add logged_in=true for SSO with new Customer Accounts
+                      const checkoutUrl = isAuthenticated
+                        ? `${cart.checkoutUrl}${cart.checkoutUrl.includes('?') ? '&' : '?'}logged_in=true`
+                        : cart.checkoutUrl;
+                      window.location.href = checkoutUrl;
                     }
                   }}
                   disabled={!cart?.checkoutUrl || isRedirecting}

@@ -10,19 +10,19 @@ interface ReviewFormProps {
 }
 
 export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormProps) {
-    const { customer, accessToken } = useAuthStore();
+    const { customer, isAuthenticated } = useAuthStore();
     const [rating, setRating] = useState(0);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    if (!accessToken || !customer) {
+    if (!isAuthenticated || !customer) {
         return (
             <div className="bg-gray-50 p-6 rounded-lg text-center">
                 <p className="text-gray-600 mb-4">Please sign in to write a review.</p>
                 <a
-                    href={`/login?redirect=/products/${productId}`}
+                    href={`/login?returnTo=/products/${productId}`}
                     className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
                 >
                     Sign In
@@ -47,7 +47,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
                 body: JSON.stringify({
                     productId,
                     userId: customer.id,
-                    userName: customer.displayName || `${customer.firstName} ${customer.lastName}`,
+                    userName: customer.displayName || customer.firstName || 'Anonymous',
                     rating,
                     title,
                     content,

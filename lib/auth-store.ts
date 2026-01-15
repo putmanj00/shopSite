@@ -1,162 +1,78 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import type { ShopifyCustomer } from '@/types/shopify';
+
+interface Customer {
+  id: string;
+  email: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  displayName: string;
+}
 
 interface AuthStore {
-  customer: ShopifyCustomer | null;
-  accessToken: string | null;
-  expiresAt: string | null;
+  customer: Customer | null;
+  isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
 
   // Actions
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, firstName?: string, lastName?: string) => Promise<{ accessToken?: string; expiresAt?: string; requiresLogin?: boolean; message?: string } | undefined>;
+  checkAuth: () => Promise<void>;
+  login: (returnTo?: string) => void;
   logout: () => Promise<void>;
-  fetchCustomer: () => Promise<void>;
   clearError: () => void;
 }
 
-export const useAuthStore = create<AuthStore>()(
-  persist(
-    (set, get) => ({
-      customer: null,
-      accessToken: null,
-      expiresAt: null,
-      isLoading: false,
-      error: null,
+export const useAuthStore = create<AuthStore>()((set) => ({
+  customer: null,
+  isAuthenticated: false,
+  isLoading: true, // Start as loading to check auth on mount
+  error: null,
 
-      login: async (email, password) => {
-        set({ isLoading: true, error: null });
-        try {
-          const response = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-          });
+  checkAuth: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await fetch('/api/auth/customer/me');
+      const data = await response.json();
 
-          const data = await response.json();
-
-          if (!response.ok) {
-            throw new Error(data.error || 'Failed to login');
-          }
-
-          if (data.accessToken) {
-            set({
-              accessToken: data.accessToken,
-              expiresAt: data.expiresAt,
-            });
-            // Fetch customer data immediately after login
-            await get().fetchCustomer();
-          }
-        } catch (error: unknown) {
-          console.error('Login error:', error);
-          set({ error: error instanceof Error ? error.message : 'Failed to login' });
-          throw error;
-        } finally {
-          set({ isLoading: false });
-        }
-      },
-
-      register: async (email, password, firstName, lastName) => {
-        set({ isLoading: true, error: null });
-        try {
-          const response = await fetch('/api/auth/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, firstName, lastName }),
-          });
-
-          const data = await response.json();
-
-          if (!response.ok) {
-            throw new Error(data.error || 'Failed to register');
-          }
-
-          // The API route automatically logs in after registration
-          if (data.accessToken) {
-            set({
-              accessToken: data.accessToken,
-              expiresAt: data.expiresAt,
-            });
-            // Fetch customer data
-            await get().fetchCustomer();
-          }
-          
-          return data;
-        } catch (error: unknown) {
-          console.error('Registration error:', error);
-          set({ error: error instanceof Error ? error.message : 'Failed to register' });
-          throw error;
-        } finally {
-          set({ isLoading: false });
-        }
-      },
-
-      logout: async () => {
-        const { accessToken } = get();
-        
-        set({ isLoading: true });
-        try {
-          // Call logout API (fire and forget)
-          if (accessToken) {
-            fetch('/api/auth/logout', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ accessToken }),
-            }).catch(err => console.error('Logout API error:', err));
-          }
-        } catch (error) {
-          console.error('Logout error:', error);
-          // Continue with local cleanup even if API call fails
-        } finally {
-          set({
-            customer: null,
-            accessToken: null,
-            expiresAt: null,
-            isLoading: false,
-            error: null,
-          });
-        }
-      },
-
-      fetchCustomer: async () => {
-        const { accessToken } = get();
-        if (!accessToken) return;
-
-        set({ isLoading: true });
-        try {
-          const response = await fetch('/api/auth/customer', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ accessToken }),
-          });
-
-          const data = await response.json();
-
-          if (response.ok && data.customer) {
-            set({ customer: data.customer });
-          } else {
-            // Token might be invalid
-            set({ accessToken: null, expiresAt: null, customer: null });
-          }
-        } catch (error) {
-          console.error('Fetch customer error:', error);
-          set({ accessToken: null, expiresAt: null, customer: null });
-        } finally {
-          set({ isLoading: false });
-        }
-      },
-
-      clearError: () => set({ error: null }),
-    }),
-    {
-      name: 'shopsite-auth',
-      partialize: (state) => ({
-        accessToken: state.accessToken,
-        expiresAt: state.expiresAt,
-        customer: state.customer,
-      }),
+      if (data.authenticated && data.customer) {
+        set({
+          isAuthenticated: true,
+          customer: data.customer,
+          isLoading: false,
+        });
+      } else {
+        set({
+          isAuthenticated: false,
+          customer: null,
+          isLoading: false,
+        });
+      }
+    } catch (error) {
+      console.error('Auth check error:', error);
+      set({
+        isAuthenticated: false,
+        customer: null,
+        isLoading: false,
+        error: 'Failed to check authentication status',
+      });
     }
-  )
-);
+  },
+
+  login: (returnTo?: string) => {
+    // Redirect to the authorize endpoint
+    const params = returnTo ? `?returnTo=${encodeURIComponent(returnTo)}` : '';
+    window.location.href = `/api/auth/customer/authorize${params}`;
+  },
+
+  logout: async () => {
+    set({ isLoading: true });
+    try {
+      // Redirect to logout endpoint (it will handle cookie clearing and Shopify logout)
+      window.location.href = '/api/auth/customer/logout';
+    } catch (error) {
+      console.error('Logout error:', error);
+      set({ isLoading: false, error: 'Failed to logout' });
+    }
+  },
+
+  clearError: () => set({ error: null }),
+}));

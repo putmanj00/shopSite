@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 
 export default function Header() {
   const { cart, openCart } = useCartStore();
-  const { accessToken } = useAuthStore();
+  const { isAuthenticated, checkAuth } = useAuthStore();
   const { items: wishlistItems } = useWishlistStore();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -17,6 +17,13 @@ export default function Header() {
     const timer = setTimeout(() => setIsMounted(true), 0);
     return () => clearTimeout(timer);
   }, []);
+
+  // Check auth status on mount
+  useEffect(() => {
+    if (isMounted) {
+      checkAuth();
+    }
+  }, [isMounted, checkAuth]);
   const itemCount = cart?.totalQuantity || 0;
 
   return (
@@ -72,7 +79,7 @@ export default function Header() {
             </Link>
 
             {/* Account Link */}
-            {isMounted && accessToken ? (
+            {isMounted && isAuthenticated ? (
               <Link
                 href="/account"
                 className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
