@@ -66,8 +66,8 @@ export function generateNonce(): string {
 export async function discoverEndpoints() {
   const config = getConfig();
 
-  // Fetch OpenID configuration
-  const openIdConfigUrl = `https://shopify.com/${config.shopId}/.well-known/openid-configuration`;
+  // Fetch OpenID configuration from the STOREFRONT DOMAIN (not shopify.com)
+  const openIdConfigUrl = `https://${config.storeDomain}/.well-known/openid-configuration`;
   const openIdResponse = await fetch(openIdConfigUrl);
 
   if (!openIdResponse.ok) {
