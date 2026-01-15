@@ -99,7 +99,7 @@ export async function buildAuthorizationUrl(): Promise<{ url: string; state: str
     client_id: config.clientId,
     response_type: 'code',
     redirect_uri: config.redirectUri,
-    scope: 'openid email https://api.customers.com/auth/customer.graphql',
+    scope: 'openid email customer-account-api:full',
     state,
     nonce,
     code_challenge: codeChallenge,
