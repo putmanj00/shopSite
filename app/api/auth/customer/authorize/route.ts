@@ -25,8 +25,9 @@ export async function GET(request: NextRequest) {
     return response;
   } catch (error) {
     console.error('Authorization error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Failed to initiate login';
     return NextResponse.redirect(
-      new URL(`/login?error=${encodeURIComponent('Failed to initiate login')}`, request.url)
+      new URL(`/login?error=${encodeURIComponent(errorMessage)}`, request.url)
     );
   }
 }
