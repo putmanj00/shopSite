@@ -6,8 +6,12 @@ import { useAuthStore } from '@/lib/auth-store';
 
 export default function AccountPage() {
   const router = useRouter();
-  const { customer, isAuthenticated, logout, isLoading, checkAuth } = useAuthStore();
+  const { customer, isAuthenticated, logout, isLoading, isUpdating, error, checkAuth, updateProfile, clearError } = useAuthStore();
   const [isMounted, setIsMounted] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   // Handle client-side hydration
   useEffect(() => {
@@ -28,6 +32,14 @@ export default function AccountPage() {
       router.push('/login?returnTo=/account');
     }
   }, [isMounted, isLoading, isAuthenticated, router]);
+
+  // Initialize form values when customer data is loaded
+  useEffect(() => {
+    if (customer) {
+      setFirstName(customer.firstName || '');
+      setLastName(customer.lastName || '');
+    }
+  }, [customer]);
 
   // Show loading state while checking auth
   if (!isMounted || isLoading) {
@@ -71,6 +83,32 @@ export default function AccountPage() {
     logout();
   };
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setSuccessMessage('');
+    clearError();
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setFirstName(customer?.firstName || '');
+    setLastName(customer?.lastName || '');
+    clearError();
+  };
+
+  const handleSaveProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSuccessMessage('');
+
+    const success = await updateProfile({ firstName, lastName });
+
+    if (success) {
+      setIsEditing(false);
+      setSuccessMessage('Profile updated successfully!');
+      setTimeout(() => setSuccessMessage(''), 3000);
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -88,25 +126,111 @@ export default function AccountPage() {
         </button>
       </div>
 
+      {/* Success Message */}
+      {successMessage && (
+        <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+          <p className="text-green-700 text-sm font-medium">{successMessage}</p>
+        </div>
+      )}
+
+      {/* Error Message */}
+      {error && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-red-700 text-sm font-medium">{error}</p>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Profile Card */}
         <div className="lg:col-span-1">
           <div className="bg-white shadow rounded-lg p-6">
-            <h2 className="font-semibold text-gray-900 mb-4">Profile</h2>
-            <div className="space-y-3">
-              <div>
-                <p className="text-sm text-gray-500">Name</p>
-                <p className="font-medium text-gray-900">
-                  {customer?.displayName || 'Not set'}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Email</p>
-                <p className="font-medium text-gray-900 break-all">
-                  {customer?.email || 'Not available'}
-                </p>
-              </div>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-semibold text-gray-900">Profile</h2>
+              {!isEditing && (
+                <button
+                  onClick={handleEditClick}
+                  className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  Edit
+                </button>
+              )}
             </div>
+
+            {isEditing ? (
+              <form onSubmit={handleSaveProfile} className="space-y-4">
+                <div>
+                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                    placeholder="Enter your first name"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                    placeholder="Enter your last name"
+                  />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Email</p>
+                  <p className="font-medium text-gray-900 break-all text-sm">
+                    {customer?.email || 'Not available'}
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">Email cannot be changed here</p>
+                </div>
+                <div className="flex gap-2 pt-2">
+                  <button
+                    type="submit"
+                    disabled={isUpdating}
+                    className="flex-1 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    {isUpdating ? 'Saving...' : 'Save'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCancelEdit}
+                    disabled={isUpdating}
+                    className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 disabled:opacity-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="space-y-3">
+                <div>
+                  <p className="text-sm text-gray-500">First Name</p>
+                  <p className="font-medium text-gray-900">
+                    {customer?.firstName || <span className="text-gray-400 italic">Not set</span>}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Last Name</p>
+                  <p className="font-medium text-gray-900">
+                    {customer?.lastName || <span className="text-gray-400 italic">Not set</span>}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Email</p>
+                  <p className="font-medium text-gray-900 break-all">
+                    {customer?.email || 'Not available'}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

@@ -506,6 +506,22 @@ export const GET_CUSTOMER_QUERY = `
   }
 `;
 
+// Mutation to update customer (profile setup)
+export const CUSTOMER_UPDATE_MUTATION = `
+  ${CUSTOMER_FRAGMENT}
+  mutation customerUpdate($input: CustomerUpdateInput!) {
+    customerUpdate(input: $input) {
+      customer {
+        ...CustomerFragment
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`;
+
 export const GET_ALL_PRODUCTS_HANDLES = `
   query getProductsHandles($first: Int!) {
     products(first: $first) {
