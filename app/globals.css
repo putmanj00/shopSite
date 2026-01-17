@@ -264,3 +264,47 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ============================================
+   MOBILE SAFE AREA SUPPORT
+   ============================================ */
+
+/* Safe area padding for notched devices (iPhone X+) */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0);
+}
+
+/* Ensure content doesn't get cut off by mobile bottom nav */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-area-bottom {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem);
+  }
+}
+
+/* ============================================
+   MOBILE-SPECIFIC OPTIMIZATIONS
+   ============================================ */
+
+/* Touch action optimization for better scrolling */
+html {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text selection on interactive elements */
+button,
+[role="button"],
+a {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection on content */
+p, span, h1, h2, h3, h4, h5, h6, li, td, th, label {
+  -webkit-user-select: text;
+  user-select: text;
+}

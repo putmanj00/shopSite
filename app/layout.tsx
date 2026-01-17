@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import CartDrawer from "@/components/cart-drawer";
 import QuickViewModal from "@/components/quick-view-modal";
 import SkipLink from "@/components/ui/skip-link";
+import MobileBottomNav from "@/components/mobile-bottom-nav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,34 +20,49 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'ShopSite - Premium Products & Modern Design',
-    template: '%s | ShopSite',
+    default: 'Artisan Collective - Premium Handmade Goods',
+    template: '%s | Artisan Collective',
   },
   description:
-    'Discover curated collections of premium products with exceptional quality and modern design. Shop the latest trends with fast, reliable delivery.',
+    'Discover handcrafted tie-dye apparel, leather goods, artisan jewelry, and original art. Premium quality, made with love by skilled artisans.',
   keywords: [
-    'ecommerce',
-    'shopping',
-    'premium products',
-    'online store',
-    'modern design',
+    'handmade',
+    'artisan',
+    'tie-dye',
+    'leather goods',
+    'jewelry',
+    'original art',
+    'handcrafted',
+    'premium',
   ],
-  authors: [{ name: 'ShopSite' }],
-  creator: 'ShopSite',
+  authors: [{ name: 'Artisan Collective' }],
+  creator: 'Artisan Collective',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Artisan Collective',
+  },
+  formatDetection: {
+    telephone: true,
+    date: false,
+    address: false,
+    email: true,
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://shopsite.com',
-    title: 'ShopSite - Premium Products & Modern Design',
+    url: 'https://artisancollective.com',
+    title: 'Artisan Collective - Premium Handmade Goods',
     description:
-      'Discover curated collections of premium products with exceptional quality and modern design.',
-    siteName: 'ShopSite',
+      'Discover handcrafted tie-dye apparel, leather goods, artisan jewelry, and original art.',
+    siteName: 'Artisan Collective',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ShopSite - Premium Products & Modern Design',
+    title: 'Artisan Collective - Premium Handmade Goods',
     description:
-      'Discover curated collections of premium products with exceptional quality and modern design.',
+      'Discover handcrafted tie-dye apparel, leather goods, artisan jewelry, and original art.',
   },
   robots: {
     index: true,
@@ -59,6 +75,16 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  other: {
+    'mobile-web-app-capable': 'yes',
+  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#2e4a62',
 };
 
 export default function RootLayout({
@@ -75,10 +101,11 @@ export default function RootLayout({
         <Header />
         <CartDrawer />
         <QuickViewModal />
-        <main id="main-content" tabIndex={-1}>
+        <main id="main-content" tabIndex={-1} className="pb-16 md:pb-0">
           {children}
         </main>
         <Footer />
+        <MobileBottomNav />
       </body>
     </html>
   );
