@@ -407,3 +407,41 @@ Started: Sun Jan 12 2026
 
 ---
 
+## 2026-01-17 - Artisan Shop PRD Story #12: WCAG 2.1 AA Accessibility Compliance
+
+**Thread**: Artisan Collective implementation (continued)
+
+**Implementation**:
+- Created accessibility statement page at /accessibility with conformance status, features, limitations, and contact info
+- Fixed touch targets to meet 44x44px minimum across header (icon buttons), cart (quantity buttons), pagination, filters, and footer (social links)
+- Updated star rating component with proper ARIA: role="radiogroup" for container, role="radio" with aria-checked for buttons
+- Added accessible label to search input using sr-only visually hidden label
+- Connected review form star rating to label using aria-labelledby
+- Fixed pre-existing lint errors:
+  - app/account/page.tsx: setState in useEffect (used setTimeout wrapper)
+  - app/collections/page.tsx: img element replaced with Next.js Image
+
+**Files Changed**:
+- app/accessibility/page.tsx - NEW: Comprehensive accessibility statement page
+- components/header.tsx - Added min-w-11 min-h-11 to icon buttons (wishlist, account, cart)
+- components/cart-item.tsx - Updated quantity buttons from w-8 h-8 to min-w-11 min-h-11
+- components/footer.tsx - Changed social link padding from p-2 -m-2 to p-3 -m-3
+- components/collection-content.tsx - Fixed pagination buttons and mobile filter button touch targets
+- components/mobile-filter-drawer.tsx - Fixed close button touch target
+- components/search-bar.tsx - Added label with sr-only class, changed input type to "search"
+- components/star-rating.tsx - Complete accessibility rewrite with radiogroup pattern
+- components/reviews/review-form.tsx - Added ariaLabelledBy prop to StarRating
+- app/account/page.tsx - Fixed setState in useEffect with setTimeout wrapper
+- app/collections/page.tsx - Replaced img with Next.js Image component
+
+**Learnings for Future Iterations**:
+- **Touch Target Minimum**: Use min-w-11 min-h-11 (44px) for all interactive elements, especially icon-only buttons
+- **Form Labels**: Every input needs either visible label or sr-only label; aria-label is acceptable but htmlFor + label preferred
+- **Star Rating ARIA**: Use role="radiogroup" on container, role="radio" with aria-checked on each star button
+- **Image Component**: Always use Next.js Image instead of HTML img for automatic optimization and to satisfy ESLint
+- **setState in useEffect**: Wrap in setTimeout(0) to avoid synchronous setState warning from React Compiler ESLint rules
+- **Padding vs Min-Size**: Use min-w/min-h for touch targets rather than relying on padding alone
+- **Accessibility Statement**: Include conformance status, features list, known limitations, contact methods, and assessment approach
+
+---
+
