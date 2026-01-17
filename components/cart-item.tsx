@@ -133,7 +133,7 @@ export default function CartItem({ line }: CartItemProps) {
             <button
               onClick={() => handleQuantityChange(quantity - 1)}
               disabled={isUpdating || quantity <= 1}
-              className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="min-w-11 min-h-11 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               aria-label="Decrease quantity"
             >
               <svg
@@ -158,7 +158,7 @@ export default function CartItem({ line }: CartItemProps) {
             <button
               onClick={() => handleQuantityChange(quantity + 1)}
               disabled={isUpdating}
-              className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="min-w-11 min-h-11 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               aria-label="Increase quantity"
             >
               <svg
@@ -180,7 +180,7 @@ export default function CartItem({ line }: CartItemProps) {
           <button
             onClick={handleRemove}
             disabled={isRemoving}
-            className="text-sm text-red-600 hover:text-red-700 font-medium transition-colors disabled:opacity-50"
+            className="min-h-11 px-2 flex items-center text-sm text-red-600 hover:text-red-700 font-medium transition-colors disabled:opacity-50"
           >
             Remove
           </button>

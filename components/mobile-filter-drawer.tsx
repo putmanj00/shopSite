@@ -109,7 +109,7 @@ export default function MobileFilterDrawer({
           <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="min-w-11 min-h-11 p-2 flex items-center justify-center hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Close filters"
           >
             <svg

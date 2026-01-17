@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllCollections } from '@/lib/shopify-helpers';
 
 export const metadata: Metadata = {
@@ -35,11 +36,13 @@ export default async function CollectionsPage() {
                 className="group relative overflow-hidden rounded-lg bg-white shadow-md hover:shadow-xl transition-all duration-300"
               >
                 {collection.image && (
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
+                  <div className="aspect-[4/3] overflow-hidden relative">
+                    <Image
                       src={collection.image.url}
                       alt={collection.image.altText || collection.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                 )}

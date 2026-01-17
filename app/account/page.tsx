@@ -36,8 +36,12 @@ export default function AccountPage() {
   // Initialize form values when customer data is loaded
   useEffect(() => {
     if (customer) {
-      setFirstName(customer.firstName || '');
-      setLastName(customer.lastName || '');
+      // Use setTimeout to avoid synchronous setState in effect
+      const timer = setTimeout(() => {
+        setFirstName(customer.firstName || '');
+        setLastName(customer.lastName || '');
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [customer]);
 

@@ -55,7 +55,7 @@ export default function Header() {
             {/* Wishlist Link */}
             <Link
               href="/wishlist"
-              className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="relative min-w-11 min-h-11 p-2 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
               aria-label="Wishlist"
             >
               <svg
@@ -82,7 +82,7 @@ export default function Header() {
             {isMounted && isAuthenticated ? (
               <Link
                 href="/account"
-                className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                className="min-w-11 min-h-11 p-2 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
                 aria-label="Account"
               >
                 <svg
@@ -102,7 +102,7 @@ export default function Header() {
             ) : (
               <Link
                 href="/login"
-                className="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
+                className="min-h-11 px-3 flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
               >
                 Sign In
               </Link>
@@ -111,7 +111,7 @@ export default function Header() {
             {/* Cart Icon */}
             <button
               onClick={openCart}
-              className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="relative min-w-11 min-h-11 p-2 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
               aria-label="Open cart"
             >
               <svg

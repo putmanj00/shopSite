@@ -132,7 +132,7 @@ export default function Footer() {
                     href="https://instagram.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-neutral-400 hover:text-white transition-colors p-2 -m-2"
+                    className="text-neutral-400 hover:text-white transition-colors p-3 -m-3"
                     aria-label="Follow us on Instagram"
                   >
                     <svg
@@ -154,7 +154,7 @@ export default function Footer() {
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-neutral-400 hover:text-white transition-colors p-2 -m-2"
+                    className="text-neutral-400 hover:text-white transition-colors p-3 -m-3"
                     aria-label="Follow us on Facebook"
                   >
                     <svg
@@ -176,7 +176,7 @@ export default function Footer() {
                     href="https://pinterest.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-neutral-400 hover:text-white transition-colors p-2 -m-2"
+                    className="text-neutral-400 hover:text-white transition-colors p-3 -m-3"
                     aria-label="Follow us on Pinterest"
                   >
                     <svg
