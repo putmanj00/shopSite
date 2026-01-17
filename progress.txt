@@ -378,3 +378,32 @@ Started: Sun Jan 12 2026
 
 ---
 
+## 2026-01-17 - Artisan Shop PRD Story #7: Streamlined Checkout Flow
+
+**Thread**: Artisan Collective implementation (continued)
+
+**Implementation**:
+- Created TrustBadges component with secure checkout, money-back guarantee, and safe payment icons
+- Added TrustBadgesCompact variant for smaller spaces (used in cart drawer)
+- Built GiftMessageInput component with checkbox toggle and optional message textarea
+- Created thank-you page at /thank-you with order confirmation steps and support link
+- Developed PostPurchaseUpsell server component that fetches product recommendations
+- Integrated trust badges and gift message into cart-drawer.tsx
+- All components WCAG 2.1 AA compliant
+
+**Files Changed**:
+- components/checkout/trust-badges.tsx - NEW: Trust badges with full and compact variants
+- components/checkout/gift-message-input.tsx - NEW: Gift message checkbox and textarea
+- components/checkout/post-purchase-upsell.tsx - NEW: Product recommendations for thank-you page
+- app/thank-you/page.tsx - NEW: Order confirmation page with next steps
+- components/cart-drawer.tsx - Integrated trust badges and gift message
+
+**Learnings for Future Iterations**:
+- **Shopify Hosted Checkout**: Many checkout features (payment methods, BNPL, address autocomplete, shipping) are Shopify-side configs, not code changes
+- **Post-Purchase Patterns**: Use server components for upsell fetching, handle errors gracefully with null return
+- **Gift Message State**: Keep gift state in cart drawer component, would need cart attributes mutation for persistence
+- **Trust Badge Placement**: Place trust badges near checkout button to reinforce security at decision point
+- **Thank-You Page**: Use numbered steps to set expectations for order fulfillment process
+
+---
+
