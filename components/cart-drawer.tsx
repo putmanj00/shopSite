@@ -9,11 +9,20 @@ import FreeShippingBar from './cart/free-shipping-bar';
 import DiscountCodeInput from './cart/discount-code-input';
 import CartCrossSell from './cart/cart-cross-sell';
 import ExpressCheckoutButtons from './cart/express-checkout-buttons';
+import { TrustBadgesCompact } from './checkout/trust-badges';
+import GiftMessageInput from './checkout/gift-message-input';
 
 export default function CartDrawer() {
   const { cart, isOpen, closeCart } = useCartStore();
   const { isAuthenticated } = useAuthStore();
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const [giftMessage, setGiftMessage] = useState('');
+  const [isGift, setIsGift] = useState(false);
+
+  const handleGiftMessageChange = (message: string, gift: boolean) => {
+    setGiftMessage(message);
+    setIsGift(gift);
+  };
 
   // Prevent body scroll when drawer is open
   useEffect(() => {
@@ -182,6 +191,13 @@ export default function CartDrawer() {
                   Shipping and taxes calculated at checkout
                 </p>
 
+                {/* Gift Message Option */}
+                <GiftMessageInput
+                  onMessageChange={handleGiftMessageChange}
+                  initialMessage={giftMessage}
+                  initialIsGift={isGift}
+                />
+
                 {/* Express Checkout Buttons */}
                 <ExpressCheckoutButtons />
 
@@ -212,6 +228,9 @@ export default function CartDrawer() {
                     'Proceed to Checkout'
                   )}
                 </button>
+
+                {/* Trust Badges */}
+                <TrustBadgesCompact />
 
                 {/* Continue Shopping */}
                 <button
