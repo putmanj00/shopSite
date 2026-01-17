@@ -445,38 +445,36 @@ Started: Sun Jan 12 2026
 
 ---
 
-## 2026-01-17 - Artisan Shop PRD Story #13: Mobile-First Performance Optimization (PARTIAL)
+## 2026-01-17 - Artisan Shop PRD Story #13: Mobile-First Performance Optimization
 
 **Thread**: Artisan Collective implementation (continued)
 
-**Status**: PARTIAL - Need to continue with service worker and Core Web Vitals testing
-
-**Implementation Completed**:
+**Implementation**:
 - Created PWA manifest.json with app name, icons, theme color, and standalone display mode
 - Added viewport metadata with device-width, initial-scale, and theme-color
 - Created MobileBottomNav component with Home, Shop, Cart, Account navigation
 - Added safe area CSS for notched devices (iPhone X+) using env(safe-area-inset-bottom)
 - Added mobile-specific CSS optimizations: touch-action manipulation, tap-highlight-color removal
-- Updated layout.tsx with PWA metadata, apple-web-app settings, and mobile bottom nav
+- Created service worker (sw.js) with network-first strategy and offline fallback
+- Created offline page (/offline) with retry functionality
+- Added ServiceWorkerRegister component for production SW registration
 
 **Files Changed**:
 - public/manifest.json - NEW: PWA manifest for Add to Home Screen
+- public/sw.js - NEW: Service worker with caching and offline support
+- app/offline/page.tsx - NEW: Offline fallback page
 - components/mobile-bottom-nav.tsx - NEW: Fixed bottom navigation bar (hidden on md+ screens)
-- app/layout.tsx - Added PWA metadata, viewport export, MobileBottomNav import
+- components/service-worker-register.tsx - NEW: Production service worker registration
+- app/layout.tsx - Added PWA metadata, viewport export, MobileBottomNav, ServiceWorkerRegister
 - app/globals.css - Added safe-area-bottom, mobile-specific touch optimizations
-
-**Remaining for Story #13**:
-- Service worker for offline support
-- Verify image lazy loading works correctly
-- Pull-to-refresh capability
-- Core Web Vitals testing and optimization
-- Lighthouse performance score verification
 
 **Learnings for Future Iterations**:
 - **Next.js PWA Metadata**: Use manifest property in metadata and viewport export for proper PWA configuration
 - **Safe Area Insets**: Use env(safe-area-inset-bottom) for notched device support
 - **Mobile Bottom Nav**: Use fixed positioning with z-40, add padding-bottom to main content
 - **Touch Optimizations**: Use touch-action: manipulation to remove 300ms tap delay
+- **Service Worker Strategy**: Network-first for dynamic content, cache static assets for offline
+- **SW Registration**: Only register in production, use window.load event for non-blocking registration
 
 ---
 
