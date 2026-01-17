@@ -478,3 +478,32 @@ Started: Sun Jan 12 2026
 
 ---
 
+## 2026-01-17 - Artisan Shop PRD Story #5: Artisan Story & About Pages
+
+**Thread**: Artisan Collective implementation (continued)
+
+**Implementation**:
+- Created main `/about` page with comprehensive brand storytelling sections
+- Built modular components for each section: AboutHero, BrandTimeline, MeetTheMakers, VideoShowcase, BehindTheScenes, MissionValues, Sustainability, PressMentions
+- Implemented accessible video player with captions support (<track> element) and reduced motion fallback
+- Created masonry-style image gallery with lightbox modal for behind-the-scenes photos
+- Extracted [getProductAccordionSections](cci:1://file:///Users/jamesputman/SRC/shopSite/lib/product-utils.ts:7:0-130:1) helper from client component to [lib/product-utils.ts](cci:7://file:///Users/jamesputman/SRC/shopSite/lib/product-utils.ts:0:0-0:0) to resolve server-side build error
+- Fixed `setState` in `useEffect` lint error using `setTimeout(0)` wrapper
+- Ensured all new components meet WCAG 2.1 AA standards (color contrast, ARIA labels, focus management)
+
+**Files Changed**:
+- app/about/page.tsx - NEW: Main About page route
+- components/about/* - NEW: 8 new components for about page sections
+- lib/product-utils.ts - NEW: Shared utility for product helper functions
+- components/product-accordion.tsx - Refactored to use shared utility
+- app/products/[handle]/page.tsx - Updated import for shared utility
+- prd.json - Marked Story #5 as complete
+
+**Learnings for Future Iterations**:
+- **Client vs Server Logic**: Helper functions used in Server Components must not be exported from files marked 'use client'. Move pure logic to `lib/` utilities.
+- **Video Accessibility**: HTML5 video needs `<track kind="captions">` for accessibility. Provide a static image fallback for `prefers-reduced-motion`.
+- **Linting Hooks**: The `react-hooks/set-state-in-effect` rule is strict in Next.js 14+. Use `setTimeout(() => setState(...), 0)` to defer state updates if necessary (e.g., for media query listeners).
+- **Masonry Layouts**: CSS Grid is great for masonry-like layouts (responsive grid-cols) without heavy libraries.
+- **Image handling**: Always use `Next.js Image` component with `sizes` prop for performance.
+
+---

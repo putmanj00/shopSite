@@ -8,7 +8,8 @@ import Breadcrumbs from '@/components/breadcrumbs';
 import RelatedProducts from '@/components/related-products';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
 import ReviewList from '@/components/reviews/review-list';
-import ProductAccordion, { getProductAccordionSections } from '@/components/product-accordion';
+import ProductAccordion from '@/components/product-accordion';
+import { getProductAccordionSections } from '@/lib/product-utils';
 
 interface ProductPageProps {
   params: Promise<{
