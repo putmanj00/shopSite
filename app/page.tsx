@@ -1,6 +1,12 @@
 import { Suspense } from 'react';
-import Hero from '@/components/hero';
+import EnhancedHero from '@/components/homepage/enhanced-hero';
+import CategoryCards from '@/components/homepage/category-cards';
 import FeaturedProducts from '@/components/featured-products';
+import BrandStory from '@/components/homepage/brand-story';
+import TrustBar from '@/components/homepage/trust-bar';
+import TestimonialCarousel from '@/components/homepage/testimonial-carousel';
+import InstagramGallery from '@/components/homepage/instagram-gallery';
+import NewsletterSignup from '@/components/homepage/newsletter-signup';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
 
 function FeaturedProductsSkeleton() {
@@ -19,12 +25,44 @@ function FeaturedProductsSkeleton() {
   );
 }
 
+function TestimonialSkeleton() {
+  return (
+    <section className="bg-zinc-50 py-16 lg:py-24">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <div className="h-10 w-64 mx-auto animate-pulse rounded bg-zinc-200"></div>
+          <div className="h-6 w-96 mx-auto mt-4 animate-pulse rounded bg-zinc-200"></div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="bg-white rounded-2xl p-6 shadow-sm animate-pulse">
+              <div className="h-4 w-24 bg-zinc-200 rounded mb-4"></div>
+              <div className="space-y-2">
+                <div className="h-4 bg-zinc-200 rounded"></div>
+                <div className="h-4 bg-zinc-200 rounded w-5/6"></div>
+                <div className="h-4 bg-zinc-200 rounded w-4/6"></div>
+              </div>
+              <div className="flex items-center gap-3 mt-6 pt-4 border-t border-zinc-100">
+                <div className="w-12 h-12 bg-zinc-200 rounded-full"></div>
+                <div>
+                  <div className="h-4 w-24 bg-zinc-200 rounded"></div>
+                  <div className="h-3 w-16 bg-zinc-200 rounded mt-1"></div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Store',
     name: 'ShopSite',
-    description: 'Premier destination for modern products.',
+    description: 'Handcrafted artisan products including tie-dye, leather goods, jewelry, and original art.',
     url: 'https://shopsite.com',
     potentialAction: {
       '@type': 'SearchAction',
@@ -39,10 +77,43 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <Hero />
+
+      {/* Enhanced Hero with background image */}
+      <EnhancedHero
+        heading="Handcrafted Artisan Treasures"
+        subheading="Discover unique tie-dye, leather, jewelry, and art pieces made with passion by skilled artisans."
+        ctas={[
+          { label: 'Shop Now', href: '/collections', variant: 'primary' },
+          { label: 'Our Story', href: '#brand-story', variant: 'secondary' },
+        ]}
+      />
+
+      {/* Category Cards */}
+      <CategoryCards />
+
+      {/* Featured Products */}
       <Suspense fallback={<FeaturedProductsSkeleton />}>
         <FeaturedProducts />
       </Suspense>
+
+      {/* Brand Story */}
+      <div id="brand-story">
+        <BrandStory />
+      </div>
+
+      {/* Trust Bar */}
+      <TrustBar />
+
+      {/* Testimonials */}
+      <Suspense fallback={<TestimonialSkeleton />}>
+        <TestimonialCarousel />
+      </Suspense>
+
+      {/* Instagram Gallery */}
+      <InstagramGallery />
+
+      {/* Newsletter Signup */}
+      <NewsletterSignup />
     </div>
   );
 }

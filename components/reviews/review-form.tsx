@@ -81,7 +81,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
             )}
 
             <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+                <span id="rating-label" className="block text-sm font-medium text-gray-700 mb-1">Rating</span>
                 <StarRating rating={rating} size="lg" interactive onRatingChange={setRating} />
             </div>
 

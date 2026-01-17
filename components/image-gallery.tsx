@@ -29,14 +29,23 @@ export default function ImageGallery({ product }: ImageGalleryProps) {
       <div
         className="relative aspect-square bg-white rounded-lg overflow-hidden shadow-md cursor-zoom-in group"
         onClick={() => setIsZoomed(!isZoomed)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setIsZoomed(!isZoomed);
+          }
+        }}
+        role="button"
+        tabIndex={0}
+        aria-pressed={isZoomed}
+        aria-label={isZoomed ? 'Zoom out of image' : 'Zoom in on image'}
       >
         <Image
           src={selectedImage.url}
           alt={selectedImage.altText || product.title}
           fill
-          className={`object-contain transition-transform duration-300 ${
-            isZoomed ? 'scale-150' : 'scale-100'
-          } group-hover:scale-110`}
+          className={`object-contain transition-transform duration-300 ${isZoomed ? 'scale-150' : 'scale-100'
+            } group-hover:scale-110`}
           sizes="(max-width: 1024px) 100vw, 50vw"
           priority={selectedImageIndex === 0}
         />
@@ -59,11 +68,10 @@ export default function ImageGallery({ product }: ImageGalleryProps) {
                 setSelectedImageIndex(index);
                 setIsZoomed(false);
               }}
-              className={`relative aspect-square rounded-md overflow-hidden transition-all ${
-                index === selectedImageIndex
+              className={`relative aspect-square rounded-md overflow-hidden transition-all ${index === selectedImageIndex
                   ? 'ring-2 ring-blue-500 ring-offset-2'
                   : 'ring-1 ring-gray-200 hover:ring-gray-400'
-              }`}
+                }`}
             >
               <Image
                 src={image.url}

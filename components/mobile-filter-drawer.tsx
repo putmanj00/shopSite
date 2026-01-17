@@ -92,6 +92,14 @@ export default function MobileFilterDrawer({
       <div
         className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
         onClick={onClose}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') {
+            onClose();
+          }
+        }}
+        role="button"
+        tabIndex={-1}
+        aria-label="Close filters"
       />
 
       {/* Drawer */}
