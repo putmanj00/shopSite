@@ -425,11 +425,15 @@
       "title": "Optimized Shopping Cart Experience",
       "description": "Build cart with cross-selling, urgency elements, and abandonment prevention",
       "priority": 1,
-      "passes": "partial",
+      "passes": true,
       "implementedFiles": [
         "components/cart-drawer.tsx",
         "components/cart-item.tsx",
-        "lib/cart-store.ts"
+        "lib/cart-store.ts",
+        "components/cart/free-shipping-bar.tsx",
+        "components/cart/discount-code-input.tsx",
+        "components/cart/cart-cross-sell.tsx",
+        "components/cart/express-checkout-buttons.tsx"
       ],
       "acceptanceCriteria": [
         "Slide-out cart drawer with smooth animation",
@@ -444,7 +448,7 @@
         "Low stock warnings for items in cart",
         "Keyboard accessible cart interactions"
       ],
-      "implementationNotes": "Cart drawer implemented with: slide-out animation, product thumbnails, quantity controls, remove button, subtotal display, checkout redirect with SSO support. Uses Zustand with localStorage persistence. Missing: cross-sell recommendations, free shipping progress bar, discount code input, express checkout buttons, low stock warnings."
+      "implementationNotes": "Fully implemented with: slide-out animation, product thumbnails with low stock warnings (<=5 units), quantity controls, remove button, FreeShippingBar ($75 threshold with progress), DiscountCodeInput (expandable with validation), CartCrossSell (fetches related products by type), ExpressCheckoutButtons (Shop Pay, Apple Pay, Google Pay), subtotal display, checkout redirect with SSO support. Uses Zustand with localStorage persistence. All components WCAG 2.1 AA compliant."
     },
     {
       "id": 7,

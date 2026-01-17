@@ -347,3 +347,34 @@ Started: Sun Jan 12 2026
 
 ---
 
+## 2026-01-17 - Artisan Shop PRD Story #6: Optimized Shopping Cart Experience
+
+**Thread**: Artisan Collective implementation (continued)
+
+**Implementation**:
+- Created FreeShippingBar component showing progress toward $75 free shipping threshold
+- Built DiscountCodeInput with expandable interface, validation, and error handling
+- Developed CartCrossSell component fetching related products by product type
+- Created ExpressCheckoutButtons with Shop Pay, Apple Pay, Google Pay options
+- Updated CartItem to display low stock warnings for items with 5 or fewer units
+- Integrated all new components into cart-drawer.tsx footer section
+- All components WCAG 2.1 AA compliant with proper ARIA attributes
+
+**Files Changed**:
+- components/cart/free-shipping-bar.tsx - NEW: Progress bar with threshold tracking
+- components/cart/discount-code-input.tsx - NEW: Expandable discount code input
+- components/cart/cart-cross-sell.tsx - NEW: Cross-sell recommendations
+- components/cart/express-checkout-buttons.tsx - NEW: Express checkout buttons
+- components/cart-item.tsx - Added low stock warning display
+- components/cart-drawer.tsx - Integrated all new components
+
+**Learnings for Future Iterations**:
+- **useMemo Dependencies**: React Compiler requires broader dependencies (e.g., `cart` instead of `cart?.cost.subtotalAmount`) to preserve memoization
+- **Cart Cross-Sell Pattern**: Fetch products by matching productType, filter out items already in cart
+- **Progress Bar ARIA**: Use role="progressbar" with aria-valuenow, aria-valuemin, aria-valuemax for accessibility
+- **Express Checkout**: Use branded SVGs for payment buttons, proper aria-labels for screen readers
+- **Low Stock Threshold**: Show warnings at <=5 units to create urgency without revealing exact inventory
+- **Discount Code UX**: Start collapsed with "Add discount code" link, expand on click to reduce visual clutter
+
+---
+
