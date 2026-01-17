@@ -6,10 +6,12 @@ import { useCartStore } from '@/lib/cart-store';
 
 interface AddToCartButtonProps {
   variant: ShopifyProductVariant;
+  id?: string;
 }
 
 export default function AddToCartButton({
   variant,
+  id,
 }: AddToCartButtonProps) {
   const { addToCart } = useCartStore();
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +39,7 @@ export default function AddToCartButton({
   return (
     <div className="space-y-3">
       <button
+        id={id}
         onClick={handleAddToCart}
         disabled={!variant.availableForSale || isLoading}
         className={`

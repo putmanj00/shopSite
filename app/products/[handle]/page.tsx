@@ -8,6 +8,7 @@ import Breadcrumbs from '@/components/breadcrumbs';
 import RelatedProducts from '@/components/related-products';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
 import ReviewList from '@/components/reviews/review-list';
+import ProductAccordion, { getProductAccordionSections } from '@/components/product-accordion';
 
 interface ProductPageProps {
   params: Promise<{
@@ -134,18 +135,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <ProductInfo product={product} />
           </div>
 
-          {/* Product Description */}
-          {product.descriptionHtml && (
-            <div className="mt-12 bg-white rounded-lg shadow-sm p-6 lg:p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                Description
-              </h2>
-              <div
-                className="prose max-w-none text-gray-700"
-                dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
-              />
-            </div>
-          )}
+          {/* Product Details Accordion */}
+          <div className="mt-12 bg-white rounded-lg shadow-sm p-6 lg:p-8">
+            <ProductAccordion
+              sections={getProductAccordionSections({
+                descriptionHtml: product.descriptionHtml,
+                productType: product.productType,
+                tags: product.tags,
+              })}
+            />
+          </div>
 
           {/* Product Reviews */}
           <div className="bg-white rounded-lg shadow-sm p-6 lg:p-8 mt-12">

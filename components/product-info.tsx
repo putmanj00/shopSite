@@ -6,6 +6,9 @@ import { formatMoney } from '@/lib/shopify-helpers';
 import VariantSelector from '@/components/variant-selector';
 import AddToCartButton from '@/components/add-to-cart-button';
 import WishlistButton from '@/components/wishlist-button';
+import SizeGuideModal from '@/components/size-guide-modal';
+import SocialShareButtons from '@/components/social-share-buttons';
+import StickyAddToCart from '@/components/sticky-add-to-cart';
 
 interface ProductInfoProps {
   product: ShopifyProduct;
@@ -16,6 +19,19 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const [selectedVariant, setSelectedVariant] = useState<ShopifyProductVariant>(
     variants[0]
   );
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
+
+  // Determine if this product type should show size guide
+  const productType = product.productType?.toLowerCase() || '';
+  const showSizeGuideButton =
+    productType.includes('apparel') ||
+    productType.includes('clothing') ||
+    productType.includes('tie-dye') ||
+    productType.includes('shirt') ||
+    productType.includes('hoodie') ||
+    productType.includes('jewelry') ||
+    productType.includes('ring') ||
+    productType.includes('bracelet');
 
   const price = selectedVariant.price;
   const compareAtPrice = selectedVariant.compareAtPrice;
@@ -91,9 +107,19 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         />
       )}
 
+      {/* Size Guide Link */}
+      {showSizeGuideButton && (
+        <button
+          onClick={() => setShowSizeGuide(true)}
+          className="text-sm text-primary-600 hover:text-primary-700 font-medium underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+        >
+          View Size Guide
+        </button>
+      )}
+
       {/* Actions */}
       <div className="flex gap-4 items-center">
-        <AddToCartButton variant={selectedVariant} />
+        <AddToCartButton variant={selectedVariant} id="main-add-to-cart" />
         <WishlistButton
           product={product}
           className="!p-3 border border-gray-200 !bg-white hover:!bg-gray-50 !text-gray-400 hover:!text-red-500 rounded-lg h-12 w-12 flex items-center justify-center"
@@ -122,6 +148,24 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           </div>
         )}
       </div>
+
+      {/* Social Share */}
+      <div className="border-t border-gray-200 pt-6">
+        <SocialShareButtons
+          title={product.title}
+          description={product.description}
+        />
+      </div>
+
+      {/* Size Guide Modal */}
+      <SizeGuideModal
+        isOpen={showSizeGuide}
+        onClose={() => setShowSizeGuide(false)}
+        productType={product.productType}
+      />
+
+      {/* Sticky Add to Cart (Mobile) */}
+      <StickyAddToCart product={product} selectedVariant={selectedVariant} />
     </div>
   );
 }

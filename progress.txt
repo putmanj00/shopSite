@@ -315,3 +315,35 @@ Started: Sun Jan 12 2026
 
 ---
 
+## 2026-01-17 - Artisan Shop PRD Story #4: High-Converting Product Detail Pages (IN PROGRESS)
+
+**Thread**: Artisan Collective implementation (continued)
+
+**Implementation**:
+- Created StickyAddToCart component for mobile that appears when scrolling past main CTA button
+- Built ProductAccordion component with expandable sections for Description, Materials, Care, Shipping
+- Created SizeGuideModal with focus trap, size charts for apparel and jewelry product types
+- Developed SocialShareButtons for Facebook, Twitter/X, Pinterest, Email, and Copy Link
+- Updated AddToCartButton to accept optional id prop for sticky bar detection
+- Integrated new components into ProductInfo: size guide button, social sharing, sticky add-to-cart
+- All components WCAG 2.1 AA compliant with proper ARIA attributes and keyboard navigation
+
+**Files Changed**:
+- components/sticky-add-to-cart.tsx - NEW: Mobile sticky add-to-cart bar
+- components/product-accordion.tsx - NEW: Expandable accordion with helper for generating sections
+- components/size-guide-modal.tsx - NEW: Size guide modal with apparel/jewelry charts
+- components/social-share-buttons.tsx - NEW: Social sharing buttons
+- components/add-to-cart-button.tsx - Added optional id prop
+- components/product-info.tsx - Integrated size guide, social share, sticky cart
+- app/products/[handle]/page.tsx - Replaced description with ProductAccordion (pending)
+
+**Learnings for Future Iterations**:
+- **Sticky Bar Detection**: Use scroll event listener with getBoundingClientRect() to detect when main CTA scrolls out of view
+- **Focus Trap Pattern**: Store previous active element, add keydown listeners for Tab/Escape, restore focus on close
+- **Accordion ARIA**: Use aria-expanded on button, aria-controls pointing to content region, role="region" with aria-labelledby
+- **Social Share URLs**: Each platform has specific URL parameters (u for Facebook, url/text for Twitter, etc.)
+- **Clipboard API**: Use navigator.clipboard.writeText() with try/catch for copy link functionality
+- **Product Type Detection**: Check productType?.toLowerCase().includes() for flexible category matching
+
+---
+
