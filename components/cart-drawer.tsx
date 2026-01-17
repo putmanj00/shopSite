@@ -1,10 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useCartStore } from '@/lib/cart-store';
 import { useAuthStore } from '@/lib/auth-store';
 import { formatMoney } from '@/lib/shopify-helpers';
 import CartItem from './cart-item';
+import FreeShippingBar from './cart/free-shipping-bar';
+import DiscountCodeInput from './cart/discount-code-input';
+import CartCrossSell from './cart/cart-cross-sell';
+import ExpressCheckoutButtons from './cart/express-checkout-buttons';
 
 export default function CartDrawer() {
   const { cart, isOpen, closeCart } = useCartStore();
@@ -24,8 +28,31 @@ export default function CartDrawer() {
     };
   }, [isOpen]);
 
-  const lines = cart?.lines.edges || [];
+  const lines = useMemo(() => cart?.lines.edges || [], [cart?.lines.edges]);
   const isEmpty = lines.length === 0;
+
+  // Calculate cart totals and metadata for new features
+  const cartSubtotal = useMemo(() => {
+    if (!cart?.cost.subtotalAmount) return 0;
+    return parseFloat(cart.cost.subtotalAmount.amount);
+  }, [cart]);
+
+  const cartProductTypes = useMemo(() => {
+    return lines
+      .map((line) => line.node.merchandise.product.productType)
+      .filter((type): type is string => Boolean(type));
+  }, [lines]);
+
+  const cartProductIds = useMemo(() => {
+    return lines.map((line) => line.node.merchandise.product.id);
+  }, [lines]);
+
+  // Placeholder discount code handlers (would connect to Shopify API)
+  const handleApplyDiscount = async (code: string) => {
+    // TODO: Implement Shopify cart discount code mutation
+    console.log('Applying discount code:', code);
+    throw new Error('Discount codes coming soon!');
+  };
 
   return (
     <>
@@ -116,10 +143,26 @@ export default function CartDrawer() {
                     <CartItem key={node.id} line={node} />
                   ))}
                 </div>
+
+                {/* Cross-sell Recommendations */}
+                <CartCrossSell
+                  cartProductTypes={cartProductTypes}
+                  cartProductIds={cartProductIds}
+                />
               </div>
 
               {/* Footer */}
               <div className="border-t border-gray-200 px-6 py-4 space-y-4">
+                {/* Free Shipping Progress Bar */}
+                <FreeShippingBar
+                  currentTotal={cartSubtotal}
+                  threshold={75}
+                  currencyCode={cart?.cost.subtotalAmount.currencyCode}
+                />
+
+                {/* Discount Code Input */}
+                <DiscountCodeInput onApply={handleApplyDiscount} />
+
                 {/* Subtotal */}
                 <div className="flex items-center justify-between text-lg">
                   <span className="font-semibold text-gray-900">Subtotal</span>
@@ -138,6 +181,9 @@ export default function CartDrawer() {
                 <p className="text-sm text-gray-500">
                   Shipping and taxes calculated at checkout
                 </p>
+
+                {/* Express Checkout Buttons */}
+                <ExpressCheckoutButtons />
 
                 {/* Checkout Button */}
                 <button
