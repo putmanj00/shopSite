@@ -28,18 +28,30 @@ export async function getReviewsByProduct(handle: string): Promise<Review[]> {
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 }
 
-export async function addReview(review: Omit<Review, 'id' | 'createdAt' | 'status'>): Promise<Review> {
+export async function addReview(review: Omit<Review, 'id' | 'createdAt' | 'status' | 'helpfulCount'>): Promise<Review> {
   const reviews = await getAllReviews();
   const newReview: Review = {
     ...review,
     id: Math.random().toString(36).substring(2, 9),
     createdAt: new Date().toISOString(),
     status: 'approved', // Auto-approve for demo purposes
+    helpfulCount: 0,
+    verifiedPurchase: true, // Default to true for demo
+    photos: review.photos || [],
   };
   
   reviews.push(newReview);
   await fs.writeFile(DB_PATH, JSON.stringify(reviews, null, 2));
   return newReview;
+}
+
+export async function markReviewHelpful(id: string): Promise<void> {
+  const reviews = await getAllReviews();
+  const index = reviews.findIndex((r) => r.id === id);
+  if (index !== -1) {
+    reviews[index].helpfulCount = (reviews[index].helpfulCount || 0) + 1;
+    await fs.writeFile(DB_PATH, JSON.stringify(reviews, null, 2));
+  }
 }
 
 export function calculateReviewStats(reviews: Review[]): ReviewStats {

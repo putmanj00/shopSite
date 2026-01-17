@@ -14,6 +14,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
     const [rating, setRating] = useState(0);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [photos, setPhotos] = useState<string[]>([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -30,6 +31,28 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
             </div>
         );
     }
+
+    const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (!files) return;
+
+        // Limit to 3 photos
+        if (photos.length + files.length > 3) {
+            setError('You can only upload up to 3 photos.');
+            return;
+        }
+
+        Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPhotos(prev => [...prev, reader.result as string]);
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Clear input value to allow same file selection
+        e.target.value = '';
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -51,6 +74,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
                     rating,
                     title,
                     content,
+                    photos,
                 }),
             });
 
@@ -62,6 +86,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
             setRating(0);
             setTitle('');
             setContent('');
+            setPhotos([]);
             onReviewSubmitted();
         } catch (err: unknown) {
             setError(err instanceof Error ? err.message : 'Something went wrong');
@@ -115,6 +140,44 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
                 />
             </div>
 
+            <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Add Photos (optional)
+                </label>
+                <div className="flex flex-wrap gap-2 mb-2">
+                    {photos.map((photo, index) => (
+                        <div key={index} className="relative w-20 h-20 border border-gray-200 rounded-lg overflow-hidden group">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={photo} alt="Preview" className="w-full h-full object-cover" />
+                            <button
+                                type="button"
+                                onClick={() => setPhotos(photos.filter((_, i) => i !== index))}
+                                className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                aria-label="Remove photo"
+                            >
+                                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                    ))}
+                    <label className="w-20 h-20 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-gray-400 transition-colors">
+                        <input
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={handlePhotoUpload}
+                            className="hidden"
+                        />
+                        <svg className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                        </svg>
+                        <span className="sr-only">Upload photos</span>
+                    </label>
+                </div>
+                <p className="text-xs text-gray-500">You can upload up to 3 photos.</p>
+            </div>
+
             <button
                 type="submit"
                 disabled={isSubmitting}
@@ -122,6 +185,6 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
             >
                 {isSubmitting ? 'Submitting...' : 'Submit Review'}
             </button>
-        </form>
+        </form >
     );
 }

@@ -7,6 +7,9 @@ export interface Review {
   title: string;
   content: string;
   status: 'pending' | 'approved' | 'rejected';
+  helpfulCount: number;
+  photos?: string[]; // URLs to review photos
+  verifiedPurchase?: boolean;
   createdAt: string;
 }
 

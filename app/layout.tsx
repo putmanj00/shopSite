@@ -8,6 +8,7 @@ import QuickViewModal from "@/components/quick-view-modal";
 import SkipLink from "@/components/ui/skip-link";
 import MobileBottomNav from "@/components/mobile-bottom-nav";
 import ServiceWorkerRegister from "@/components/service-worker-register";
+import SocialProofToast from "@/components/social-proof-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -108,6 +109,7 @@ export default function RootLayout({
         <Footer />
         <MobileBottomNav />
         <ServiceWorkerRegister />
+        <SocialProofToast />
       </body>
     </html>
   );
