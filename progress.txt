@@ -507,3 +507,36 @@ Started: Sun Jan 12 2026
 - **Image handling**: Always use `Next.js Image` component with `sizes` prop for performance.
 
 ---
+
+## 2026-01-17 - Artisan Shop PRD Story #8: Comprehensive Reviews & Social Proof System
+
+**Thread**: Artisan Collective implementation (continued)
+
+**Implementation**:
+- Enhanced `ReviewList` component with robust filtering (by Star Rating, With Photos) and sorting (Newest, Highest/Lowest Rating)
+- Implemented "Was this helpful?" voting system with optimistic UI updates
+- Updated `ReviewForm` to support photo uploads with client-side preview and `FormData` handling (simulated with mock DB)
+- Created `SocialProofToast` component using `framer-motion` to display real-time purchase activities ("Someone in New York bought...")
+- Updated `app/api/reviews/route.ts` to handle complex filtering logic and photo storage
+- Added `app/api/helpful/route.ts` for tracking helpful votes
+- Updated `Review` types to include `helpfulCount`, `photos`, and `verifiedPurchase` fields
+- Integrated `SocialProofToast` globally in `app/layout.tsx`
+
+**Files Changed**:
+- components/reviews/review-list.tsx - Added filtering, sorting, helpful voting UI
+- components/reviews/review-form.tsx - Added photo upload UI with preview
+- components/social-proof-toast.tsx - NEW: social proof notification component
+- app/api/reviews/route.ts - Updated filtering logic and POST handler
+- app/api/helpful/route.ts - NEW: endpoint for helpful votes
+- lib/reviews-db.ts - Updated mock DB helpers for new fields
+- types/reviews.ts - Updated interfaces
+- app/layout.tsx - Added SocialProofToast
+- prd.json - Marked Story #8 as passed
+
+**Learnings for Future Iterations**:
+- **Optimistic UI Updates**: For interactions like "Helpful" voting, updating the UI immediately before the API call returns provides a snappy user experience.
+- **Framer Motion for Toasts**: `AnimatePresence` makes entering/exiting animations for dynamic components like toasts very smooth and declarative.
+- **Mocking File Uploads**: For prototypes, simpler JSON payloads with base64 strings or URLs can simulate file uploads without setting up full S3/Blob storage infrastructure.
+- **Filtering Logic**: Handling filtering on the backend (even a mock one) is better than client-side for scalability, though for this mock DB we did it in the route handler.
+
+---
