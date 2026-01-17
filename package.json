@@ -4,12 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run contrast:check && next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "a11y:test": "npx ts-node scripts/accessibility-test.ts",
+    "contrast:check": "npx ts-node scripts/color-contrast-checker.ts",
+    "a11y:all": "npm run contrast:check && npm run a11y:test"
   },
   "dependencies": {
     "@shopify/storefront-api-client": "^1.0.9",
@@ -21,6 +24,7 @@
     "zustand": "^5.0.10"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.9.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -29,8 +33,10 @@
     "eslint-config-next": "16.1.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
+    "playwright": "^1.40.0",
     "prettier": "^3.7.4",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

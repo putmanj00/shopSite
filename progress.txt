@@ -242,3 +242,76 @@ Started: Sun Jan 12 2026
 
 ---
 
+## 2026-01-17 - Artisan Shop PRD Story #1: Accessible Foundation Setup
+
+**Thread**: Artisan Collective implementation
+
+**Implementation**:
+- Audited existing project against WCAG 2.1 AA accessibility requirements
+- Verified TypeScript strict mode already enabled in tsconfig.json
+- Verified comprehensive design token system in globals.css (colors, typography, spacing, focus ring)
+- Verified skip navigation link component (components/ui/skip-link.tsx) already implemented
+- Verified Modal component with focus trap (components/ui/modal.tsx) already implemented
+- Verified VisuallyHidden component (components/ui/visually-hidden.tsx) already implemented
+- Verified axe-core Playwright testing script (scripts/accessibility-test.ts) already exists
+- Verified ESLint jsx-a11y rules configured with strict settings in eslint.config.mjs
+- Created Footer component with proper landmark region (role="contentinfo")
+- Created color contrast checker script that validates 18 color combinations against WCAG AA
+- Integrated contrast checker into build process (runs before next build)
+- Fixed WCAG AA color contrast issues in design system:
+  - Darkened neutral-400/500/600 for better text contrast on light backgrounds
+  - Darkened warning color (#b45309) and info color (#0369a1) for 4.5:1 contrast
+  - Updated dark mode foreground-muted to use neutral-300 for 4.5:1 contrast
+
+**Files Changed**:
+- components/footer.tsx - NEW: Footer with shop/support/company/legal links, social media, proper landmarks
+- scripts/color-contrast-checker.ts - NEW: WCAG 2.1 AA color contrast validation script
+- app/globals.css - Fixed neutral colors and semantic colors for WCAG AA compliance
+- app/layout.tsx - Added Footer component to global layout
+- package.json - Added contrast:check and a11y:all scripts, integrated contrast check into build
+
+**Learnings for Future Iterations**:
+- **Color Contrast Testing**: Always validate color combinations against WCAG AA (4.5:1 for normal text, 3:1 for large text/UI components)
+- **Build Integration**: Integrate accessibility checks into build process to catch issues early (npm run build now runs contrast:check first)
+- **Semantic HTML Landmarks**: Use proper landmark elements: header, main (with id for skip link target), footer (with role="contentinfo")
+- **Redundant ARIA**: Don't add role="list" to <ul> elements - it's the implicit role and ESLint jsx-a11y will flag it as redundant
+- **Focus Management**: Modal component pattern includes: focus trap with Tab key handling, Escape to close, restore focus on close
+- **Reduced Motion**: Use @media (prefers-reduced-motion: reduce) to disable animations for users who prefer reduced motion
+- **Dark Mode Contrast**: Dark mode requires different color choices - neutral-300 minimum for muted text on dark backgrounds
+- **Button Color Guidelines**: For white text on colored buttons, use -600 or darker variants of secondary/accent colors
+
+---
+
+## 2026-01-17 - Artisan Shop PRD Story #3: Category-Specific Collection Pages
+
+**Thread**: Artisan Collective implementation (continued)
+
+**Implementation**:
+- Created category-specific filter configurations for Tie-Dye, Leather, Jewelry, and Art collections in lib/category-filters.ts
+- Built CategoryFilterPanel component with collapsible sections, selection count badges, and links to size guides/care info
+- Created CollectionBreadcrumbs component with schema.org BreadcrumbList markup for SEO
+- Updated CollectionContent to detect category-specific collections and render appropriate filter panels
+- Added ARIA live region announcements for all filter changes, sort changes, and pagination
+- Implemented full keyboard navigation for pagination with aria-current and proper aria-labels
+- Added focus-visible outlines to all interactive elements using design system focus ring tokens
+- Category filters match products by tag values (e.g., tag "spiral" matches filter option "spiral")
+
+**Files Changed**:
+- lib/category-filters.ts - NEW: Category filter configurations for 4 product categories
+- components/category-filter-panel.tsx - NEW: Category-specific filter panel with collapsible sections
+- components/collection-breadcrumbs.tsx - NEW: Breadcrumb navigation with schema.org markup
+- components/collection-content.tsx - Major update: category filter integration, ARIA live regions, improved accessibility
+- prd.json - Consolidated from prd-artisan-shop.json, updated Story #3 to passes: true
+
+**Learnings for Future Iterations**:
+- **Category Detection**: Use collection handle to detect category (e.g., "tie-dye", "leather") and load appropriate filter config
+- **ARIA Live Regions**: Use role="status" aria-live="polite" for non-critical announcements; clear announcement after timeout to prevent repeated reads
+- **Avoiding setState in useEffect**: ESLint react-hooks/set-state-in-effect rule requires using setTimeout(0) wrapper or refs to avoid synchronous setState
+- **Schema.org Breadcrumbs**: Use BreadcrumbList with itemListElement containing ListItem for proper structured data
+- **Filter by Tags**: Category filters work by matching product tags to filter option values - products need appropriate tags in Shopify
+- **Pagination Keyboard Nav**: Add aria-label="Go to page X", aria-current="page" for current page, wrap in nav with aria-label="Pagination"
+- **Filter Panel Accessibility**: Each collapsible section needs aria-expanded on trigger, aria-controls pointing to content id
+- **Focus Ring Consistency**: Use design system tokens (focus-visible:ring-2 focus-visible:ring-primary-500) for consistent focus indicators
+
+---
+

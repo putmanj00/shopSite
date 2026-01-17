@@ -1,12 +1,15 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import ProductCard from '@/components/product-card';
 import SearchBar from '@/components/search-bar';
 import FilterPanel from '@/components/filter-panel';
+import CategoryFilterPanel from '@/components/category-filter-panel';
 import SortDropdown from '@/components/sort-dropdown';
 import MobileFilterDrawer from '@/components/mobile-filter-drawer';
+import CollectionBreadcrumbs from '@/components/collection-breadcrumbs';
+import { getCategoryFilters, hasCategoryFilters } from '@/lib/category-filters';
 import type { ShopifyCollection } from '@/types/shopify';
 
 interface CollectionContentProps {
@@ -19,6 +22,7 @@ interface CollectionContentProps {
     type?: string;
     tags?: string;
     page?: string;
+    [key: string]: string | undefined;
   };
 }
 
@@ -32,6 +36,27 @@ export default function CollectionContent({
 
   const [searchQuery, setSearchQuery] = useState(searchParams.search || '');
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+
+  // ARIA live region ref for announcing filter changes
+  const liveRegionRef = useRef<HTMLDivElement>(null);
+  const [announcement, setAnnouncement] = useState('');
+
+  // Check if this collection has category-specific filters
+  const categoryConfig = getCategoryFilters(collection.handle);
+  const hasSpecificFilters = hasCategoryFilters(collection.handle);
+
+  // Parse category-specific filters from URL
+  const categoryFilters = useMemo(() => {
+    if (!categoryConfig) return {};
+    const filters: Record<string, string[]> = {};
+    categoryConfig.filters.forEach((filter) => {
+      const value = searchParams[filter.id];
+      if (value) {
+        filters[filter.id] = value.split(',').filter(Boolean);
+      }
+    });
+    return filters;
+  }, [categoryConfig, searchParams]);
 
   // Extract all unique product types and tags from collection
   const { productTypes, allTags } = useMemo(() => {
@@ -97,6 +122,23 @@ export default function CollectionContent({
       );
     }
 
+    // Apply category-specific filters (filter by tags that match filter values)
+    if (hasSpecificFilters && categoryConfig) {
+      Object.entries(categoryFilters).forEach(([, values]) => {
+        if (values.length > 0) {
+          products = products.filter((product) =>
+            values.some((value) =>
+              product.tags.some(
+                (tag) =>
+                  tag.toLowerCase() === value.toLowerCase() ||
+                  tag.toLowerCase().includes(value.toLowerCase())
+              )
+            )
+          );
+        }
+      });
+    }
+
     // Apply sorting
     const sortKey = searchParams.sort || 'default';
     switch (sortKey) {
@@ -130,7 +172,7 @@ export default function CollectionContent({
     }
 
     return products;
-  }, [collection, searchQuery, searchParams]);
+  }, [collection, searchQuery, searchParams, hasSpecificFilters, categoryConfig, categoryFilters]);
 
   // Pagination
   const itemsPerPage = 12;
@@ -142,42 +184,121 @@ export default function CollectionContent({
     startIndex + itemsPerPage
   );
 
-  // Update URL with new params
-  const updateSearchParams = (key: string, value: string) => {
-    const params = new URLSearchParams(urlSearchParams.toString());
-    if (value) {
-      params.set(key, value);
-    } else {
-      params.delete(key);
-    }
-    // Reset to page 1 when filters change
-    if (key !== 'page') {
-      params.delete('page');
-    }
-    router.push(`${pathname}?${params.toString()}`);
-  };
+  // Announce filter changes to screen readers
+  const announceChange = useCallback((message: string) => {
+    setAnnouncement(message);
+    // Clear after announcement
+    setTimeout(() => setAnnouncement(''), 1000);
+  }, []);
 
-  const clearFilters = () => {
+  // Update URL with new params
+  const updateSearchParams = useCallback(
+    (key: string, value: string) => {
+      const params = new URLSearchParams(urlSearchParams.toString());
+      if (value) {
+        params.set(key, value);
+      } else {
+        params.delete(key);
+      }
+      // Reset to page 1 when filters change
+      if (key !== 'page') {
+        params.delete('page');
+      }
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [router, pathname, urlSearchParams]
+  );
+
+  // Handle category filter changes
+  const handleCategoryFilterChange = useCallback(
+    (filterId: string, values: string[]) => {
+      updateSearchParams(filterId, values.join(','));
+      const filterLabel = categoryConfig?.filters.find((f) => f.id === filterId)?.label || filterId;
+      if (values.length > 0) {
+        announceChange(`${filterLabel} filter updated. ${values.length} option${values.length > 1 ? 's' : ''} selected.`);
+      } else {
+        announceChange(`${filterLabel} filter cleared.`);
+      }
+    },
+    [updateSearchParams, categoryConfig, announceChange]
+  );
+
+  const clearFilters = useCallback(() => {
     router.push(pathname);
     setSearchQuery('');
-  };
+    announceChange('All filters cleared.');
+  }, [router, pathname, announceChange]);
 
-  const hasActiveFilters =
-    searchQuery ||
-    searchParams.minPrice ||
-    searchParams.maxPrice ||
-    searchParams.type ||
-    searchParams.tags;
+  // Check for active filters
+  const hasActiveFilters = useMemo(() => {
+    if (searchQuery) return true;
+    if (searchParams.minPrice || searchParams.maxPrice) return true;
+    if (searchParams.type || searchParams.tags) return true;
+    // Check category-specific filters
+    if (hasSpecificFilters && categoryConfig) {
+      for (const filter of categoryConfig.filters) {
+        if (searchParams[filter.id]) return true;
+      }
+    }
+    return false;
+  }, [searchQuery, searchParams, hasSpecificFilters, categoryConfig]);
+
+  // Announce results count when filters change (using ref to avoid setState in effect)
+  const prevFilteredCountRef = useRef(filteredProducts.length);
+  useEffect(() => {
+    if (hasActiveFilters && prevFilteredCountRef.current !== filteredProducts.length) {
+      // Use setTimeout to avoid synchronous setState in effect
+      const timeoutId = setTimeout(() => {
+        setAnnouncement(`Showing ${filteredProducts.length} products.`);
+        setTimeout(() => setAnnouncement(''), 1000);
+      }, 0);
+      prevFilteredCountRef.current = filteredProducts.length;
+      return () => clearTimeout(timeoutId);
+    }
+  }, [filteredProducts.length, hasActiveFilters]);
+
+  // Handle page change with keyboard support
+  const handlePageChange = useCallback(
+    (page: number) => {
+      updateSearchParams('page', String(page));
+      announceChange(`Page ${page} of ${totalPages}`);
+      // Scroll to top of product grid
+      document.getElementById('product-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    },
+    [updateSearchParams, totalPages, announceChange]
+  );
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* ARIA Live Region for announcements */}
+      <div
+        ref={liveRegionRef}
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {announcement}
+      </div>
+
+      {/* Breadcrumbs */}
+      <CollectionBreadcrumbs
+        collectionTitle={collection.title}
+        collectionHandle={collection.handle}
+      />
+
       {/* Search and Controls Bar */}
       <div className="mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         <div className="w-full sm:w-96">
           <SearchBar
             value={searchQuery}
             onChange={setSearchQuery}
-            onSearch={(query) => updateSearchParams('search', query)}
+            onSearch={(query) => {
+              updateSearchParams('search', query);
+              if (query) {
+                announceChange(`Searching for "${query}"`);
+              }
+            }}
           />
         </div>
 
@@ -185,13 +306,15 @@ export default function CollectionContent({
           {/* Mobile Filter Button */}
           <button
             onClick={() => setIsMobileFilterOpen(true)}
-            className="lg:hidden flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="lg:hidden flex items-center gap-2 px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+            aria-label="Open filters"
           >
             <svg
               className="w-5 h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
@@ -202,7 +325,7 @@ export default function CollectionContent({
             </svg>
             Filters
             {hasActiveFilters && (
-              <span className="bg-blue-600 text-white text-xs px-2 py-0.5 rounded-full">
+              <span className="bg-primary-600 text-white text-xs px-2 py-0.5 rounded-full">
                 •
               </span>
             )}
@@ -210,44 +333,70 @@ export default function CollectionContent({
 
           <SortDropdown
             value={searchParams.sort || 'default'}
-            onChange={(value) => updateSearchParams('sort', value)}
+            onChange={(value) => {
+              updateSearchParams('sort', value);
+              const sortLabels: Record<string, string> = {
+                'default': 'Featured',
+                'price-asc': 'Price: Low to High',
+                'price-desc': 'Price: High to Low',
+                'newest': 'Newest',
+                'title-asc': 'Name: A to Z',
+                'title-desc': 'Name: Z to A',
+              };
+              announceChange(`Sorted by ${sortLabels[value] || value}`);
+            }}
           />
         </div>
       </div>
 
       <div className="flex gap-8">
         {/* Desktop Filter Panel */}
-        <aside className="hidden lg:block w-64 flex-shrink-0">
-          <FilterPanel
-            productTypes={productTypes}
-            tags={allTags}
-            selectedType={searchParams.type}
-            selectedTags={searchParams.tags?.split(',').filter(Boolean) || []}
-            minPrice={searchParams.minPrice}
-            maxPrice={searchParams.maxPrice}
-            onTypeChange={(type) => updateSearchParams('type', type)}
-            onTagsChange={(tags) =>
-              updateSearchParams('tags', tags.join(','))
-            }
-            onPriceChange={(min, max) => {
-              updateSearchParams('minPrice', min);
-              updateSearchParams('maxPrice', max);
-            }}
-            onClearFilters={clearFilters}
-            hasActiveFilters={!!hasActiveFilters}
-          />
+        <aside className="hidden lg:block w-64 flex-shrink-0" aria-label="Product filters">
+          {hasSpecificFilters && categoryConfig ? (
+            <CategoryFilterPanel
+              config={categoryConfig}
+              selectedFilters={categoryFilters}
+              onFilterChange={handleCategoryFilterChange}
+              onClearFilters={clearFilters}
+              hasActiveFilters={hasActiveFilters}
+            />
+          ) : (
+            <FilterPanel
+              productTypes={productTypes}
+              tags={allTags}
+              selectedType={searchParams.type}
+              selectedTags={searchParams.tags?.split(',').filter(Boolean) || []}
+              minPrice={searchParams.minPrice}
+              maxPrice={searchParams.maxPrice}
+              onTypeChange={(type) => {
+                updateSearchParams('type', type);
+                announceChange(type ? `Filtered by ${type}` : 'Type filter cleared');
+              }}
+              onTagsChange={(tags) => {
+                updateSearchParams('tags', tags.join(','));
+                announceChange(`${tags.length} tags selected`);
+              }}
+              onPriceChange={(min, max) => {
+                updateSearchParams('minPrice', min);
+                updateSearchParams('maxPrice', max);
+                announceChange('Price range updated');
+              }}
+              onClearFilters={clearFilters}
+              hasActiveFilters={hasActiveFilters}
+            />
+          )}
         </aside>
 
         {/* Product Grid */}
-        <div className="flex-1">
+        <div className="flex-1" id="product-grid">
           {/* Results Count */}
-          <div className="mb-4 text-sm text-gray-600">
+          <div className="mb-4 text-sm text-neutral-600" aria-live="polite">
             Showing {paginatedProducts.length} of {filteredProducts.length}{' '}
             products
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="ml-2 text-blue-600 hover:text-blue-700 underline"
+                className="ml-2 text-primary-600 hover:text-primary-700 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
               >
                 Clear filters
               </button>
@@ -257,26 +406,34 @@ export default function CollectionContent({
           {/* Products */}
           {paginatedProducts.length > 0 ? (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
+                role="list"
+                aria-label="Products"
+              >
                 {paginatedProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+                  <div key={product.id} role="listitem">
+                    <ProductCard product={product} />
+                  </div>
                 ))}
               </div>
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="mt-8 flex items-center justify-center gap-2">
+                <nav
+                  className="mt-8 flex items-center justify-center gap-2"
+                  aria-label="Pagination"
+                >
                   <button
-                    onClick={() =>
-                      updateSearchParams('page', String(currentPage - 1))
-                    }
+                    onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                    aria-label="Go to previous page"
                   >
                     Previous
                   </button>
 
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1" role="group" aria-label="Page numbers">
                     {Array.from({ length: totalPages }, (_, i) => i + 1)
                       .filter((page) => {
                         // Show first, last, current, and adjacent pages
@@ -294,17 +451,19 @@ export default function CollectionContent({
                         return (
                           <div key={page} className="flex items-center gap-1">
                             {showEllipsis && (
-                              <span className="px-2 text-gray-400">...</span>
+                              <span className="px-2 text-neutral-400" aria-hidden="true">
+                                ...
+                              </span>
                             )}
                             <button
-                              onClick={() =>
-                                updateSearchParams('page', String(page))
-                              }
-                              className={`min-w-[40px] px-3 py-2 rounded-lg transition-colors ${
+                              onClick={() => handlePageChange(page)}
+                              className={`min-w-[40px] px-3 py-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
                                 page === currentPage
-                                  ? 'bg-blue-600 text-white'
-                                  : 'border border-gray-300 hover:bg-gray-50'
+                                  ? 'bg-primary-600 text-white'
+                                  : 'border border-neutral-300 hover:bg-neutral-50'
                               }`}
+                              aria-label={`Go to page ${page}`}
+                              aria-current={page === currentPage ? 'page' : undefined}
                             >
                               {page}
                             </button>
@@ -314,25 +473,25 @@ export default function CollectionContent({
                   </div>
 
                   <button
-                    onClick={() =>
-                      updateSearchParams('page', String(currentPage + 1))
-                    }
+                    onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                    aria-label="Go to next page"
                   >
                     Next
                   </button>
-                </div>
+                </nav>
               )}
             </>
           ) : (
             // Empty State
-            <div className="text-center py-12">
+            <div className="text-center py-12" role="status">
               <svg
-                className="mx-auto h-12 w-12 text-gray-400"
+                className="mx-auto h-12 w-12 text-neutral-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -341,16 +500,16 @@ export default function CollectionContent({
                   d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <h3 className="mt-4 text-lg font-medium text-gray-900">
+              <h3 className="mt-4 text-lg font-medium text-neutral-900">
                 No products found
               </h3>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-neutral-600">
                 Try adjusting your filters or search query
               </p>
               {hasActiveFilters && (
                 <button
                   onClick={clearFilters}
-                  className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                 >
                   Clear all filters
                 </button>
@@ -371,14 +530,21 @@ export default function CollectionContent({
         selectedTags={searchParams.tags?.split(',').filter(Boolean) || []}
         minPrice={searchParams.minPrice}
         maxPrice={searchParams.maxPrice}
-        onTypeChange={(type) => updateSearchParams('type', type)}
-        onTagsChange={(tags) => updateSearchParams('tags', tags.join(','))}
+        onTypeChange={(type) => {
+          updateSearchParams('type', type);
+          announceChange(type ? `Filtered by ${type}` : 'Type filter cleared');
+        }}
+        onTagsChange={(tags) => {
+          updateSearchParams('tags', tags.join(','));
+          announceChange(`${tags.length} tags selected`);
+        }}
         onPriceChange={(min, max) => {
           updateSearchParams('minPrice', min);
           updateSearchParams('maxPrice', max);
+          announceChange('Price range updated');
         }}
         onClearFilters={clearFilters}
-        hasActiveFilters={!!hasActiveFilters}
+        hasActiveFilters={hasActiveFilters}
       />
     </div>
   );

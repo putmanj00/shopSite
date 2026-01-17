@@ -1,280 +1,730 @@
 {
-  "projectName": "shopSite - Headless Shopify Storefront",
-  "branchName": "ralph/headless-storefront",
-  "description": "Modern, high-performance headless commerce storefront built with Next.js and Tailwind CSS, integrating with Shopify via Storefront API. Supports both physical and digital products with a focus on exceptional UX and visual design.",
+  "projectName": "Artisan Collective - Premium Handmade Goods Storefront",
+  "description": "Eye-catching, high-converting e-commerce storefront for selling tie-dye apparel, handcrafted leather goods, artisan jewelry, and original artwork. Built on research from top-performing Shopify stores generating $1M-$136M annually, with WCAG 2.1 AA accessibility compliance and conversion-optimized design patterns.",
+  "targetProducts": [
+    "Tie-dye clothing and apparel",
+    "Handcrafted leather goods (bags, wallets, accessories)",
+    "Artisan jewelry (handmade, unique pieces)",
+    "Original art and prints"
+  ],
+  "researchFindings": {
+    "topPerformingStores": {
+      "jewelry": [
+        {
+          "name": "Linjer",
+          "revenue": "$10.2M",
+          "traffic": "480K/mo",
+          "avgPrice": "$354",
+          "theme": "Minimalist, sustainable focus"
+        },
+        {
+          "name": "Baby Gold",
+          "revenue": "$12M",
+          "traffic": "460K/mo",
+          "avgPrice": "$433",
+          "theme": "Personalized, handcrafted LA jewelry"
+        },
+        {
+          "name": "Pura Vida Bracelets",
+          "revenue": "$68M",
+          "traffic": "High",
+          "avgPrice": "$30",
+          "theme": "Coastal bohemian, subscription model"
+        },
+        {
+          "name": "BRUNA",
+          "revenue": "$1.8M",
+          "traffic": "119K/mo",
+          "avgPrice": "$253",
+          "theme": "Ethical gold, Keshi pearls"
+        }
+      ],
+      "leather": [
+        {
+          "name": "WP Standard",
+          "revenue": "$5M",
+          "avgPrice": "$150-400",
+          "theme": "Clean, modern, high-quality imagery"
+        },
+        {
+          "name": "Bellroy",
+          "revenue": "$50M+",
+          "theme": "Minimalist, functional design"
+        }
+      ],
+      "artisan": [
+        {
+          "name": "Tattly",
+          "revenue": "$6M+",
+          "theme": "Colorful, artist-focused community"
+        },
+        {
+          "name": "Taylor Stitch",
+          "revenue": "$5-7M",
+          "theme": "Vintage feel, crowdfunding model"
+        }
+      ],
+      "clothing": [
+        {
+          "name": "Gymshark",
+          "revenue": "$550M",
+          "theme": "Influencer-driven, community-focused"
+        },
+        {
+          "name": "Chubbies",
+          "revenue": "$44M",
+          "theme": "Fun branding, entertaining descriptions"
+        }
+      ]
+    },
+    "conversionBenchmarks": {
+      "average": "2-3%",
+      "topPerformers": "4%+",
+      "jewelry": "2.8-3.6%",
+      "apparel": "1.2-2.2%",
+      "artAndCrafts": "2-3%"
+    },
+    "keySuccessFactors": [
+      "High-quality product photography with lifestyle shots",
+      "Visual storytelling connecting products to brand story",
+      "Social proof (reviews, UGC, media mentions)",
+      "Clear value proposition above the fold",
+      "Mobile-first design (79% of Shopify traffic is mobile)",
+      "Trust signals prominently displayed",
+      "Personalized shopping experiences",
+      "Fast site speed (79% won't return after slow experience)"
+    ]
+  },
+  "designPatternsToImplement": {
+    "navigation": {
+      "description": "Patterns from BRUNA, Saint Valentine, Susan Caplan",
+      "elements": [
+        "Mega menu with in-menu promotional images and lookbook hotspots",
+        "Sticky header that minimizes on scroll",
+        "Category icons/thumbnails in dropdown menus",
+        "Mobile hamburger with full-screen overlay menu",
+        "Quick-access cart icon with item count badge",
+        "Search bar with autocomplete in header"
+      ]
+    },
+    "homepage": {
+      "description": "Patterns from Pura Vida, Gymshark, Allbirds",
+      "elements": [
+        "Full-width hero with lifestyle imagery (not just product shots)",
+        "Value proposition headline immediately visible",
+        "Category cards with hover animations linking to collections",
+        "Featured products grid with quick-view functionality",
+        "Brand story section with founder/artisan narrative",
+        "Instagram/UGC gallery showing products in real life",
+        "Trust bar with shipping info, guarantee, secure checkout icons",
+        "Newsletter signup with discount incentive (10-15% off)",
+        "Testimonial carousel with customer photos"
+      ]
+    },
+    "collectionPages": {
+      "description": "Patterns from Delani, POCHÉ, Bonito Jewelry",
+      "elements": [
+        "Sidebar filters on desktop, drawer filters on mobile",
+        "Filter chips showing active filters with remove option",
+        "Product grid with 2 columns mobile, 3-4 columns desktop",
+        "Quick-view modal on hover/click",
+        "Product cards with: image, title, price, color swatches preview",
+        "Hover effect showing secondary product image",
+        "Sort dropdown (Price, Newest, Best Selling)",
+        "Results count display",
+        "Category description/story at top for SEO",
+        "Infinite scroll OR pagination with keyboard support"
+      ]
+    },
+    "productPages": {
+      "description": "Patterns from Saint Valentine, BRUNA, Susan Caplan",
+      "elements": [
+        "Image gallery with thumbnail strip and zoom on hover",
+        "Lifestyle images mixed with product-only shots",
+        "Sticky add-to-cart bar on mobile (appears on scroll)",
+        "Visual color/variant swatches (not dropdowns)",
+        "Size guide modal with measurement info",
+        "Expandable accordion sections: Description, Materials, Care, Shipping",
+        "Stock indicator (In Stock, Low Stock, Out of Stock)",
+        "Delivery estimate based on location",
+        "Trust badges near add-to-cart button",
+        "'Complete the Look' cross-sell section",
+        "Related products carousel",
+        "Customer reviews section with photo reviews",
+        "'Is this a gift?' option with gift wrapping",
+        "'Send a hint' share functionality"
+      ]
+    },
+    "cartDrawer": {
+      "description": "Patterns from top-converting stores",
+      "elements": [
+        "Slide-out drawer from right (not separate page)",
+        "Product thumbnails with quantity +/- controls",
+        "Remove item button on each line",
+        "Free shipping progress bar ('$X away from free shipping!')",
+        "Cross-sell recommendations at bottom",
+        "Discount code input field",
+        "Subtotal with estimated shipping",
+        "Express checkout buttons (Shop Pay, Apple Pay)",
+        "Continue shopping link",
+        "Checkout button fixed at bottom"
+      ]
+    },
+    "trustAndSocialProof": {
+      "description": "Critical elements from high-converting stores",
+      "elements": [
+        "Customer reviews with star ratings prominently displayed",
+        "Photo/video reviews from real customers",
+        "Review count next to product titles",
+        "Media mentions/press logos ('As seen in...')",
+        "User-generated content gallery",
+        "Real-time social proof notifications ('X just purchased...')",
+        "Handmade/artisan quality guarantee badge",
+        "Secure checkout and payment icons",
+        "Money-back guarantee messaging",
+        "Shipping and returns policy links in footer and product pages"
+      ]
+    },
+    "urgencyAndScarcity": {
+      "description": "Conversion-driving patterns",
+      "elements": [
+        "Low stock indicator ('Only X left!')",
+        "Limited edition/exclusive badges",
+        "Countdown timer for sales/promotions",
+        "Recently viewed by X people indicator",
+        "Back-in-stock notification signup",
+        "Sale price with original price crossed out",
+        "Percentage saved calculation displayed"
+      ]
+    },
+    "mobileSpecific": {
+      "description": "Mobile-first patterns (79% of traffic)",
+      "elements": [
+        "Bottom navigation bar for key actions",
+        "Thumb-friendly touch targets (minimum 44x44px)",
+        "Swipe gestures for image galleries",
+        "Pull-to-refresh on collection pages",
+        "Sticky add-to-cart button",
+        "Collapsible filter drawer",
+        "Large, tappable color swatches",
+        "Simplified checkout flow",
+        "Click-to-call for customer service"
+      ]
+    },
+    "accessibility": {
+      "description": "WCAG 2.1 AA patterns from Dawn and Craft themes",
+      "elements": [
+        "Skip navigation link as first focusable element",
+        "Semantic HTML with proper heading hierarchy (H1-H6)",
+        "ARIA landmarks (main, nav, aside, footer)",
+        "Focus trap management in modals",
+        "Visible focus indicators on all interactive elements",
+        "ARIA live regions for dynamic content (cart updates, filters)",
+        "Alt text on all images describing content",
+        "Form labels associated with inputs",
+        "Error messages with clear suggestions",
+        "Color contrast minimum 4.5:1",
+        "Reduced motion media query support",
+        "Keyboard navigable carousels with pause controls"
+      ]
+    }
+  },
   "technicalStack": {
     "frontend": "Next.js 14+ with App Router",
-    "styling": "Tailwind CSS",
+    "styling": "Tailwind CSS with custom design system",
     "backend": "Shopify Storefront API + Shopify Admin API",
-    "auth": "NextAuth.js or Shopify Multipass",
-    "database": "Shopify (primary) + optional PostgreSQL for custom features",
-    "payments": "Shopify Checkout",
-    "email": "Resend or SendGrid",
-    "deployment": "Vercel (recommended for Next.js)"
+    "auth": "Shopify Customer Account API",
+    "database": "Shopify (primary) + PostgreSQL for custom features",
+    "payments": "Shopify Checkout with multiple payment options",
+    "email": "Resend for transactional emails",
+    "analytics": "Google Analytics 4 + Shopify Analytics",
+    "deployment": "Vercel",
+    "accessibility": "axe-core for automated testing, manual WCAG 2.1 AA audits"
+  },
+  "designSystem": {
+    "colorPalette": {
+      "description": "Earthy, artisan-inspired with vibrant accents for tie-dye influence",
+      "primary": "Deep indigo or forest green (brand anchor)",
+      "secondary": "Warm terracotta or golden amber",
+      "accent": "Vibrant coral or turquoise (tie-dye inspiration)",
+      "neutral": "Warm whites and soft creams",
+      "contrast": "All text must meet 4.5:1 ratio minimum"
+    },
+    "typography": {
+      "headings": "Serif or display font for artisan feel",
+      "body": "Clean sans-serif for readability",
+      "sizes": "Responsive scale, minimum 16px body text"
+    },
+    "imagery": {
+      "style": "Lifestyle photography showing products in use",
+      "quality": "High-resolution with zoom capability",
+      "formats": "WebP with JPEG fallback, lazy loading",
+      "altText": "Descriptive alt text for all product images"
+    }
   },
   "stories": [
     {
       "id": 1,
-      "title": "Project Foundation Setup",
-      "description": "Initialize Next.js 14+ project with TypeScript, Tailwind CSS, and essential configurations",
+      "title": "Accessible Foundation Setup",
+      "description": "Initialize project with accessibility-first architecture and design system",
       "priority": 1,
       "passes": true,
+      "implementedFiles": [
+        "app/globals.css",
+        "app/layout.tsx",
+        "components/footer.tsx",
+        "components/ui/skip-link.tsx",
+        "components/ui/modal.tsx",
+        "components/ui/visually-hidden.tsx",
+        "scripts/accessibility-test.ts",
+        "scripts/color-contrast-checker.ts",
+        "eslint.config.mjs",
+        "tsconfig.json",
+        "package.json"
+      ],
       "acceptanceCriteria": [
-        "Next.js project initialized with App Router",
-        "TypeScript configured with strict mode",
-        "Tailwind CSS installed and configured",
-        "ESLint and Prettier set up",
-        "Basic folder structure created (app/, components/, lib/, types/)",
-        "Environment variables template (.env.example) created"
-      ]
+        "Next.js 14+ with TypeScript strict mode",
+        "Tailwind CSS with custom design tokens (colors, typography, spacing)",
+        "Accessible component library foundation (focus management, ARIA)",
+        "Skip navigation link implemented",
+        "Semantic HTML structure with proper landmark regions",
+        "Color contrast checker integrated into build process",
+        "axe-core automated accessibility testing setup",
+        "ESLint with jsx-a11y plugin configured"
+      ],
+      "implementationNotes": "Complete accessibility foundation with: WCAG AA compliant color system (18 color combinations validated), skip navigation link, semantic HTML with header/main/footer landmarks, Modal component with focus trap, VisuallyHidden component, axe-core Playwright testing script, color contrast checker integrated into build process (npm run build runs contrast:check first), ESLint jsx-a11y rules enforced, reduced motion support, and visible focus indicators."
     },
     {
       "id": 2,
-      "title": "Shopify Storefront API Integration",
-      "description": "Set up Shopify Storefront API client with authentication and basic queries",
+      "title": "Eye-Catching Homepage with Visual Storytelling",
+      "description": "Create immersive homepage showcasing artisan products with compelling brand narrative",
       "priority": 1,
       "passes": true,
+      "implementedFiles": [
+        "components/homepage/enhanced-hero.tsx",
+        "components/homepage/brand-story.tsx",
+        "components/homepage/category-cards.tsx",
+        "components/homepage/trust-bar.tsx",
+        "components/homepage/testimonial-carousel.tsx",
+        "components/homepage/instagram-gallery.tsx",
+        "components/homepage/newsletter-signup.tsx",
+        "components/ui/carousel.tsx",
+        "components/ui/modal.tsx",
+        "components/quick-view-modal.tsx",
+        "lib/quick-view-store.ts",
+        "app/api/newsletter/route.ts",
+        "app/page.tsx"
+      ],
       "acceptanceCriteria": [
-        "Shopify Storefront API client library installed (@shopify/hydrogen or shopify-buy)",
-        "API client configured with storefront access token",
-        "GraphQL queries set up for products and collections",
-        "Type definitions created for Shopify data models",
-        "Test query successfully fetches products from Shopify",
-        "Error handling implemented for API calls"
-      ]
+        "Full-width hero with high-quality lifestyle imagery",
+        "Brand story section highlighting handmade/artisan values",
+        "Four product category showcases (Tie-Dye, Leather, Jewelry, Art)",
+        "Featured products carousel with pause controls",
+        "Instagram/social proof gallery with UGC",
+        "Trust signals section (handmade guarantee, materials info)",
+        "Newsletter signup with 10-15% discount incentive",
+        "Mobile-optimized hero with appropriately sized touch targets (44x44px minimum)",
+        "Above-the-fold value proposition clearly visible",
+        "Page load time under 3 seconds"
+      ],
+      "implementationNotes": "Homepage fully implemented with: EnhancedHero (background image support, CTAs), CategoryCards (4 categories with hover animations using placeholder images), FeaturedProducts (with Quick View modal), BrandStory (artisan narrative), TrustBar (4 trust icons), TestimonialCarousel (customer reviews with photos), InstagramGallery (8-image UGC grid), NewsletterSignup (15% off incentive with API route). All components are responsive and accessible with keyboard navigation, ARIA attributes, and reduced motion support. Uses placeholder images from Unsplash until real images are uploaded."
     },
     {
       "id": 3,
-      "title": "Homepage with Featured Products",
-      "description": "Create an engaging homepage with hero section, featured products, and modern design",
+      "title": "Category-Specific Collection Pages",
+      "description": "Build dedicated collection pages optimized for each product category",
       "priority": 1,
       "passes": true,
+      "implementedFiles": [
+        "app/collections/page.tsx",
+        "app/collections/[handle]/page.tsx",
+        "components/collection-content.tsx",
+        "components/filter-panel.tsx",
+        "components/sort-dropdown.tsx",
+        "components/mobile-filter-drawer.tsx",
+        "components/product-card.tsx",
+        "components/collection-breadcrumbs.tsx",
+        "components/category-filter-panel.tsx",
+        "lib/category-filters.ts"
+      ],
       "acceptanceCriteria": [
-        "Responsive hero section with eye-catching design",
-        "Featured products section pulling from Shopify",
-        "Product cards with image, title, price, and hover effects",
-        "Modern, sleek design using Tailwind",
-        "Mobile-responsive layout",
-        "Loading states and error handling",
-        "SEO meta tags configured"
-      ]
+        "Dynamic collection pages with category-specific layouts",
+        "Tie-Dye: Color/pattern filter, size guide integration",
+        "Leather: Material filter, care information",
+        "Jewelry: Metal type, stone filter, size/fit guide",
+        "Art: Size, medium, style filters, framing options",
+        "Product grid with quick-view modal",
+        "Advanced filtering with ARIA live region announcements",
+        "Sort by: Price, Newest, Best Selling, Featured",
+        "Pagination with keyboard navigation",
+        "Category story/description for SEO",
+        "Breadcrumb navigation"
+      ],
+      "implementationNotes": "Fully implemented with: category-specific filter configurations for Tie-Dye, Leather, Jewelry, and Art collections; CollectionBreadcrumbs with schema.org markup; ARIA live region announcements for filter/sort/pagination changes; CategoryFilterPanel with collapsible sections, selection counts, and links to size guides/care info; pagination with full keyboard navigation and aria-current page indication; accessible filter controls with proper labels and focus management."
     },
     {
       "id": 4,
-      "title": "Product Collection Pages with Search & Filter",
-      "description": "Build collection pages with advanced search, filtering, and sorting capabilities",
+      "title": "High-Converting Product Detail Pages",
+      "description": "Implement product pages optimized for conversion with rich media and trust elements",
       "priority": 1,
-      "passes": true,
+      "passes": "partial",
+      "implementedFiles": [
+        "app/products/[handle]/page.tsx",
+        "components/image-gallery.tsx",
+        "components/variant-selector.tsx",
+        "components/add-to-cart-button.tsx",
+        "components/product-info.tsx",
+        "components/related-products.tsx",
+        "components/wishlist-button.tsx",
+        "components/breadcrumbs.tsx",
+        "components/reviews/review-list.tsx",
+        "components/reviews/review-form.tsx"
+      ],
       "acceptanceCriteria": [
-        "Dynamic collection pages (/collections/[handle])",
-        "Product grid with pagination or infinite scroll",
-        "Search functionality with debounced input",
-        "Filter by price range, product type, tags",
-        "Sort by price, newest, best-selling",
-        "Filter/sort state persisted in URL params",
-        "Empty states for no results",
-        "Mobile-friendly filter UI (drawer/modal)"
-      ]
+        "Image gallery with zoom, 360-view for applicable products",
+        "Lifestyle images showing products in use",
+        "Clear pricing with sale price highlighting",
+        "Variant selector (size, color, material) with visual swatches",
+        "Dynamic stock availability indicator",
+        "Expandable sections: Description, Materials, Care, Shipping",
+        "Size guide modal (where applicable)",
+        "Add to cart with loading state and success feedback",
+        "Sticky add-to-cart on mobile",
+        "Related products / Complete the Look section",
+        "Customer reviews with photos",
+        "Product schema markup for SEO",
+        "Social sharing buttons",
+        "Wishlist/Save for Later button"
+      ],
+      "implementationNotes": "Product pages implemented with: ImageGallery (zoom on click), VariantSelector (visual swatches), AddToCartButton (loading/success states), WishlistButton, RelatedProducts, Breadcrumbs, ReviewList/ReviewForm. Missing: sticky add-to-cart on mobile, expandable accordion sections, size guide modal, social sharing buttons, 360-view."
     },
     {
       "id": 5,
-      "title": "Individual Product Pages",
-      "description": "Detailed product pages with image gallery, variants, and add-to-cart",
-      "priority": 1,
-      "passes": true,
+      "title": "Artisan Story & About Pages",
+      "description": "Create compelling brand story pages to build emotional connection",
+      "priority": 2,
+      "passes": false,
       "acceptanceCriteria": [
-        "Dynamic product pages (/products/[handle])",
-        "Image gallery with zoom and thumbnails",
-        "Variant selector (size, color, etc.) if applicable",
-        "Product description with rich text support",
-        "Price display (regular and sale pricing)",
-        "Stock availability indicator",
-        "Add to cart button with loading state",
-        "Breadcrumb navigation",
-        "Related products section",
-        "Structured data for SEO (Product schema)"
+        "About page with founder/artisan story",
+        "Behind-the-scenes craftsmanship gallery",
+        "Video content showing creation process",
+        "Meet the makers/artists section",
+        "Brand values and mission statement",
+        "Sustainability and materials sourcing info",
+        "Press mentions and media features",
+        "Timeline or history of the brand",
+        "Accessible video with captions"
       ]
     },
     {
       "id": 6,
-      "title": "Shopping Cart Functionality",
-      "description": "Implement shopping cart with add/remove/update capabilities and persistent storage",
-      "priority": 2,
-      "passes": true,
+      "title": "Optimized Shopping Cart Experience",
+      "description": "Build cart with cross-selling, urgency elements, and abandonment prevention",
+      "priority": 1,
+      "passes": "partial",
+      "implementedFiles": [
+        "components/cart-drawer.tsx",
+        "components/cart-item.tsx",
+        "lib/cart-store.ts"
+      ],
       "acceptanceCriteria": [
-        "Cart state management (Context API or Zustand)",
-        "Add to cart from product pages",
-        "Cart drawer/modal with slide-out animation",
-        "Update quantity and remove items",
-        "Cart persisted to localStorage",
-        "Subtotal and item count display",
-        "Empty cart state",
-        "Cart icon in header with item count badge",
-        "Shopify checkout cart creation"
-      ]
+        "Slide-out cart drawer with smooth animation",
+        "Product thumbnails with edit/remove options",
+        "Quantity selector with +/- buttons",
+        "Cross-sell recommendations in cart",
+        "Free shipping threshold progress bar",
+        "Discount code input field",
+        "Order summary with subtotal, shipping estimate",
+        "Express checkout options (Shop Pay, Apple Pay, Google Pay)",
+        "Cart recovery with localStorage persistence",
+        "Low stock warnings for items in cart",
+        "Keyboard accessible cart interactions"
+      ],
+      "implementationNotes": "Cart drawer implemented with: slide-out animation, product thumbnails, quantity controls, remove button, subtotal display, checkout redirect with SSO support. Uses Zustand with localStorage persistence. Missing: cross-sell recommendations, free shipping progress bar, discount code input, express checkout buttons, low stock warnings."
     },
     {
       "id": 7,
-      "title": "Checkout Integration",
-      "description": "Integrate with Shopify Checkout for secure payment processing",
-      "priority": 2,
-      "passes": true,
+      "title": "Streamlined Checkout Flow",
+      "description": "Implement frictionless checkout with multiple payment options",
+      "priority": 1,
+      "passes": false,
       "acceptanceCriteria": [
-        "Create Shopify checkout session from cart",
-        "Redirect to Shopify hosted checkout",
-        "Handle checkout completion callback",
-        "Order confirmation page",
-        "Support for discount codes",
-        "Shipping calculation integration",
-        "Clear cart after successful checkout",
-        "Handle checkout errors gracefully"
+        "Shopify Checkout integration",
+        "Guest checkout option prominently displayed",
+        "Multiple payment methods (Credit, Shop Pay, PayPal, Apple Pay)",
+        "Buy Now Pay Later option (Klarna/Afterpay)",
+        "Address autocomplete for faster entry",
+        "Order summary visible throughout checkout",
+        "Trust badges displayed (secure checkout, money-back guarantee)",
+        "Clear shipping options with delivery estimates",
+        "Gift wrapping/message option",
+        "Order confirmation page with next steps",
+        "Post-purchase upsell opportunity"
       ]
     },
     {
       "id": 8,
-      "title": "User Authentication System",
-      "description": "Implement user authentication with Shopify customer accounts",
+      "title": "Comprehensive Reviews & Social Proof System",
+      "description": "Implement robust review system with photo reviews and social proof elements",
       "priority": 2,
-      "passes": true,
+      "passes": false,
       "acceptanceCriteria": [
-        "User registration with email/password",
-        "Login functionality with Shopify Customer API",
-        "Logout functionality",
-        "Protected routes for authenticated users",
-        "Session management with cookies/JWT",
-        "Password reset flow",
-        "Registration form validation",
-        "Error handling for auth failures"
+        "Star rating display with review count",
+        "Photo/video reviews capability",
+        "Review submission form for verified purchasers",
+        "Review filtering (by rating, photos only, most helpful)",
+        "Review sorting options",
+        "Helpful/Not helpful voting",
+        "Review response capability for store owner",
+        "Review request email automation (post-purchase)",
+        "Average rating display on collection pages",
+        "Social proof notifications (X people viewing, X sold)",
+        "Instagram feed integration showing tagged products",
+        "Review schema markup for Google rich snippets"
       ]
     },
     {
       "id": 9,
-      "title": "User Account Dashboard",
-      "description": "Create user dashboard for viewing orders, managing profile, and account settings",
+      "title": "Customer Account & Loyalty Features",
+      "description": "Build engaging customer account with order tracking and loyalty program",
       "priority": 2,
-      "passes": true,
+      "passes": false,
       "acceptanceCriteria": [
-        "Account dashboard layout (/account)",
-        "View order history with details",
-        "Order status tracking",
-        "Edit profile information",
-        "View and manage saved addresses",
-        "Update password functionality",
-        "Account navigation menu",
-        "Responsive mobile design"
+        "Customer registration with Shopify Customer Account API",
+        "Account dashboard with order history",
+        "Order tracking with status updates",
+        "Saved addresses management",
+        "Wishlist functionality",
+        "Recently viewed products",
+        "Loyalty points display (if implemented)",
+        "Referral program integration",
+        "Account-exclusive early access to new products",
+        "Birthday discount automation",
+        "Reorder functionality for repeat purchases"
       ]
     },
     {
       "id": 10,
-      "title": "Wishlist / Favorites Feature",
-      "description": "Allow users to save products to a wishlist for later purchase",
-      "priority": 3,
-      "passes": true,
+      "title": "Email Marketing & Automation",
+      "description": "Set up comprehensive email flows for customer lifecycle",
+      "priority": 2,
+      "passes": false,
       "acceptanceCriteria": [
-        "Add/remove products to wishlist",
-        "Wishlist page (/account/wishlist)",
-        "Wishlist icon on product cards",
-        "Wishlist count in header",
-        "Persist wishlist to user account (if logged in)",
-        "Local storage fallback for guests",
-        "Move from wishlist to cart functionality",
-        "Share wishlist capability (optional)"
+        "Welcome email series (brand story, first purchase discount)",
+        "Abandoned cart recovery emails (3-email sequence)",
+        "Order confirmation with tracking info",
+        "Shipping notification emails",
+        "Delivery confirmation with review request",
+        "Post-purchase follow-up (care tips, related products)",
+        "Win-back campaign for inactive customers",
+        "Birthday/anniversary emails",
+        "New collection announcements",
+        "VIP/loyalty tier upgrade notifications",
+        "All emails accessible with proper HTML structure"
       ]
     },
     {
       "id": 11,
-      "title": "Product Reviews & Ratings System",
-      "description": "Implement product review and rating functionality with moderation",
-      "priority": 3,
-      "passes": true,
+      "title": "Search & Product Discovery Optimization",
+      "description": "Implement smart search with autocomplete and personalized recommendations",
+      "priority": 2,
+      "passes": false,
       "acceptanceCriteria": [
-        "Display reviews on product pages",
-        "Star rating display and calculation",
-        "Submit review form (authenticated users only)",
-        "Review moderation queue",
-        "Helpful/not helpful voting on reviews",
-        "Sort reviews by rating, date, helpfulness",
-        "Review images upload support",
-        "Schema markup for reviews (SEO)",
-        "Storage solution (Shopify metafields or separate DB)"
+        "Search bar with autocomplete suggestions",
+        "Search results with product images and prices",
+        "Search result filtering and sorting",
+        "Typo tolerance and synonym handling",
+        "Recent searches display",
+        "Popular searches suggestions",
+        "No results page with helpful alternatives",
+        "Voice search capability (accessibility)",
+        "AI-powered product recommendations",
+        "Personalized homepage based on browsing history",
+        "Recently viewed products component"
       ]
     },
     {
       "id": 12,
-      "title": "Email Notification System",
-      "description": "Set up transactional email system for order confirmations and updates",
-      "priority": 3,
-      "passes": true,
+      "title": "WCAG 2.1 AA Accessibility Compliance",
+      "description": "Ensure full accessibility compliance across all pages and components",
+      "priority": 1,
+      "passes": false,
       "acceptanceCriteria": [
-        "Email service integrated (Resend, SendGrid, or similar)",
-        "Order confirmation email template",
-        "Shipping notification email",
-        "Welcome email for new users",
-        "Password reset email",
-        "Email templates with brand styling",
-        "Webhook handlers for Shopify order events",
-        "Test email sending functionality",
-        "Unsubscribe mechanism for marketing emails"
+        "All images have meaningful alt text",
+        "Color contrast ratios meet 4.5:1 minimum",
+        "All functionality accessible via keyboard",
+        "Visible focus indicators on all interactive elements",
+        "Skip navigation links on all pages",
+        "Proper heading hierarchy (H1-H6)",
+        "Form labels properly associated with inputs",
+        "Error messages clearly identify issues with suggestions",
+        "ARIA live regions for dynamic content updates",
+        "Video captions for all video content",
+        "Reduced motion option for animations",
+        "Touch targets minimum 44x44px",
+        "Screen reader testing completed (NVDA, VoiceOver)",
+        "Accessibility statement page created",
+        "Lighthouse accessibility score 95+"
       ]
     },
     {
       "id": 13,
-      "title": "Custom Admin Dashboard",
-      "description": "Build admin panel for managing custom features beyond Shopify's admin",
-      "priority": 4,
-      "passes": true,
+      "title": "Mobile-First Performance Optimization",
+      "description": "Optimize for mobile performance and user experience",
+      "priority": 1,
+      "passes": false,
       "acceptanceCriteria": [
-        "Admin authentication and authorization",
-        "Dashboard overview with key metrics",
-        "Manage product reviews (approve/reject/delete)",
-        "View user analytics",
-        "Manage site content (hero images, featured collections)",
-        "Email template editor",
-        "Protected admin routes (/admin/*)",
-        "Admin-only UI components",
-        "Activity logs for admin actions"
+        "Mobile-first responsive design",
+        "Touch-optimized navigation (hamburger menu)",
+        "Sticky header with cart access",
+        "Bottom navigation bar for key actions",
+        "Swipe gestures for image galleries",
+        "Pull-to-refresh capability",
+        "Offline-capable with service worker",
+        "Add to Home Screen (PWA) functionality",
+        "Mobile page speed under 3 seconds",
+        "Lazy loading for images and below-fold content",
+        "Optimized web fonts loading",
+        "Core Web Vitals passing (LCP, FID, CLS)"
       ]
     },
     {
       "id": 14,
-      "title": "Performance Optimization & SEO",
-      "description": "Optimize site performance, implement advanced SEO, and ensure accessibility",
-      "priority": 4,
-      "passes": true,
+      "title": "SEO & Content Strategy Implementation",
+      "description": "Implement comprehensive SEO strategy for organic traffic growth",
+      "priority": 2,
+      "passes": false,
       "acceptanceCriteria": [
-        "Image optimization with Next.js Image component",
-        "Lazy loading for images and components",
-        "Code splitting and dynamic imports",
-        "Metadata API for SEO (title, description, OG tags)",
-        "Sitemap generation",
-        "Robots.txt configuration",
-        "Accessibility audit (WCAG 2.1 AA)",
-        "Performance score >90 on Lighthouse",
-        "Analytics integration (Google Analytics or Plausible)",
-        "Error tracking (Sentry or similar)"
+        "Unique meta titles and descriptions for all pages",
+        "Product schema markup (JSON-LD)",
+        "Breadcrumb schema markup",
+        "Review schema markup",
+        "FAQ schema on relevant pages",
+        "Sitemap.xml generation",
+        "Robots.txt optimization",
+        "Canonical URLs implemented",
+        "Image optimization with descriptive filenames",
+        "Internal linking strategy",
+        "Blog/content section for SEO",
+        "Category page SEO content",
+        "URL structure optimization",
+        "Page speed optimization for SEO"
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Conversion Rate Optimization Features",
+      "description": "Implement CRO tactics proven by top-performing stores",
+      "priority": 2,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Exit-intent popup with discount offer",
+        "First-time visitor welcome popup",
+        "Low stock urgency indicators",
+        "Countdown timers for limited-time offers",
+        "Free shipping threshold notification",
+        "Social proof popups (recent purchases)",
+        "Abandoned cart reminder notifications",
+        "Back-in-stock notifications",
+        "Price drop alerts for wishlist items",
+        "A/B testing infrastructure",
+        "Heatmap and session recording integration",
+        "Conversion tracking setup (GA4, Facebook Pixel)"
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Analytics & Performance Monitoring",
+      "description": "Set up comprehensive analytics for data-driven optimization",
+      "priority": 3,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Google Analytics 4 integration",
+        "Enhanced e-commerce tracking",
+        "Conversion funnel visualization",
+        "Product performance reports",
+        "Customer behavior analytics",
+        "Search analytics (what customers search for)",
+        "Error tracking with Sentry",
+        "Real User Monitoring (RUM)",
+        "Core Web Vitals monitoring",
+        "Custom dashboard for key metrics",
+        "Weekly automated performance reports"
+      ]
+    },
+    {
+      "id": 17,
+      "title": "International & Multi-Currency Support",
+      "description": "Enable international sales with localization features",
+      "priority": 3,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Multi-currency display based on location",
+        "Currency selector in header",
+        "Localized shipping options and rates",
+        "International payment methods",
+        "Geolocation-based content adaptation",
+        "Duties and taxes estimation",
+        "Language selector (if multi-language)",
+        "Localized date and number formats"
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Admin Dashboard & Inventory Management",
+      "description": "Build admin tools for managing custom features and monitoring performance",
+      "priority": 3,
+      "passes": false,
+      "acceptanceCriteria": [
+        "Admin authentication and authorization",
+        "Sales dashboard with key metrics",
+        "Review moderation queue",
+        "Content management for homepage sections",
+        "Featured products management",
+        "Discount code creation and tracking",
+        "Customer segment creation",
+        "Email campaign management",
+        "Inventory alerts and low stock notifications",
+        "Order management view",
+        "Analytics integration dashboard"
       ]
     }
   ],
   "technicalNotes": [
-    "Use Next.js 14+ App Router for best performance and DX",
-    "All Shopify data should be fetched server-side when possible (RSC)",
-    "Implement proper caching strategy for Shopify API calls",
+    "Use Next.js 14+ App Router with React Server Components for optimal performance",
+    "Implement proper caching strategy for Shopify API calls (ISR, SWR)",
+    "All Shopify data fetched server-side when possible",
     "Use Shopify Storefront API for public data, Admin API for privileged operations",
-    "Consider using Shopify Hydrogen UI components for faster development",
-    "Implement proper error boundaries and fallbacks",
-    "Follow Shopify's rate limiting guidelines",
+    "Follow Shopify's rate limiting guidelines strictly",
+    "Implement proper error boundaries with user-friendly fallbacks",
     "Use environment variables for all sensitive configuration",
-    "Each story should be completed with passing tests before marking passes: true",
-    "Break down any story that becomes too large during implementation"
+    "Each story should be completed with accessibility testing before marking passes: true",
+    "Conduct manual accessibility testing with screen readers before each release",
+    "Monitor Core Web Vitals and maintain Lighthouse score above 90"
   ],
   "designPrinciples": [
-    "Modern, sleek aesthetic with clean typography",
-    "High-quality product imagery with zoom/multiple views",
-    "Smooth animations and micro-interactions (framer-motion)",
-    "Consistent color palette and spacing (Tailwind config)",
-    "Mobile-first responsive design",
-    "Fast page transitions and loading states",
-    "Accessibility-first approach",
-    "Visual hierarchy that guides user attention"
-  ]
+    "Accessibility-first: WCAG 2.1 AA compliance is non-negotiable",
+    "Mobile-first: Design for mobile, enhance for desktop",
+    "Performance: Speed is a feature - target sub-3-second page loads",
+    "Visual storytelling: Products should feel handcrafted and special",
+    "Trust building: Social proof and transparency at every touchpoint",
+    "Conversion-focused: Every design decision should support the purchase journey",
+    "Brand consistency: Cohesive experience across all touchpoints",
+    "Delight: Subtle animations and micro-interactions that feel artisan"
+  ],
+  "successMetrics": {
+    "conversionRate": "Target 3%+ (above industry average)",
+    "mobileConversionRate": "Target 2.5%+ (mobile typically lower)",
+    "cartAbandonmentRate": "Target below 65% (industry average is 70%)",
+    "averageOrderValue": "Track and optimize with cross-selling",
+    "customerReturnRate": "Target 30%+ returning customers",
+    "pageLoadTime": "Under 3 seconds on mobile 3G",
+    "lighthouseScores": {
+      "performance": "90+",
+      "accessibility": "95+",
+      "bestPractices": "90+",
+      "seo": "95+"
+    },
+    "organicTrafficGrowth": "20% month-over-month in first 6 months"
+  }
 }
