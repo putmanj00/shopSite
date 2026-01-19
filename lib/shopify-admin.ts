@@ -92,7 +92,7 @@ async function fetchNewAccessToken(): Promise<string> {
     // Set expiration time (convert seconds to milliseconds)
     tokenExpiresAt = Date.now() + (data.expires_in * 1000);
 
-    console.log(`[Shopify Admin] New access token obtained, expires in ${data.expires_in} seconds`);
+    console.log(`[Shopify Admin] New access token obtained, expires in ${data.expires_in} seconds. Scopes: ${data.scope}`);
 
     return data.access_token;
   } catch (error) {
@@ -121,7 +121,7 @@ export async function adminApiFetch<T>({
   const normalizedDomain = storeDomain.replace(/^https?:\/\//, '');
   const accessToken = await getAdminAccessToken();
 
-  const apiVersion = '2025-04';
+  const apiVersion = '2026-01';
   const url = `https://${normalizedDomain}/admin/api/${apiVersion}/graphql.json`;
 
   try {
