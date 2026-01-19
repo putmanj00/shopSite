@@ -788,3 +788,49 @@ Started: Sun Jan 12 2026
 - **Geolocation**: Basic timezone offsets (`new Date().getTimezoneOffset()`) are a surprisingly effective, privacy-friendly proxy for rough location detection without external IP-API calls.
 
 ---
+
+---
+
+## 2026-01-19 - Story #21: Custom Domain & Production Launch
+**Status**: Completed
+
+**Implementation**:
+- **Domain Acquisition**: User purchased `wildenflower.com` via Porkbun.
+- **Vercel Configuration**: 
+  - Added `wildenflower.com` to Vercel project domains.
+  - Updated `NEXT_PUBLIC_BASE_URL` environment variable to `https://wildenflower.com`.
+- **DNS Configuration**:
+  - Identified conflict with default Porkbun `ALIAS` record blocking Vercel `A` record.
+  - Resolved by deleting `ALIAS` record and adding Vercel's required `A` (`76.76.21.21`) and `CNAME` (`cname.vercel-dns.com`) records.
+- **Shopify Configuration**:
+  - Updated Headless Sales Channel settings (clarified "Storefront URL" is optional/hidden in new UI).
+  - **Critical Security Fix**: Updated Customer Account API **Redirect URIs** and **Logout URIs** to whitelist `https://wildenflower.com` and `https://www.wildenflower.com`.
+  - Addressed `redirect_uri_mismatch` errors during sign-in flow.
+- **Verification**: 
+  - Verified `https://wildenflower.com` resolves and is secure (SSL).
+  - Verified sign-in/out works end-to-end on both `wildenflower.com` and `www.wildenflower.com`.
+  - Confirmed `redirect_uri` mismatch resolved via Shopify Admin updates.
+
+**Files Changed**:
+- `domain_connection_guide.md` - NEW: Step-by-step guide for domain setup, DNS, and auth configuration.
+- `task.md` - Updated with domain connection checklist.
+
+**Learnings for Future Iterations**:
+- **Porkbun DNS Quirk**: Porkbun often includes a default `ALIAS` record that conflicts with root `A` records required by Vercel/Netlify. Always check for and remove this first.
+- **Shopify Auth Whitelisting**: Changing domains strictly requires updating the **Customer Account API** settings in Shopify Admin. The `redirect_uri` sent by `lib/customer-account.ts` MUST match an entry in this whitelist exactly.
+- **Headless Channel UI**: Shopify frequently updates the Headless Channel admin UI; the "Storefront URL" field is now often hidden or managed differently, but API access is the critical part.
+
+## 2026-01-19 - Story #22: Local Authentication Infrastructure
+**Status**: Completed
+
+**Implementation**:
+- **Diagnostic**: Confirmed `cloudflared` is not installed on the system.
+- **Planning**: Researching alternative tunneling solutions (e.g., `localtunnel`, `ngrok`).
+- **Objective**: Create a seamless "local auth" experience using a temporary HTTPS tunnel.
+- **Action**: Added "tunnel" script to `package.json` (`npx localtunnel --port 3000`).
+- **Documentation**: Updated `domain_connection_guide.md` with step-by-step local auth tunneling instructions.
+- **Verification**: Confirmed local sign-in works when tunnel URL is correctly whitelisted in Shopify Admin.
+
+**Files Changed**:
+- `package.json`: Added `tunnel` script.
+- `domain_connection_guide.md`: Added local auth best practices.

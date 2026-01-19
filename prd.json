@@ -844,6 +844,42 @@
         "Add Playwright/UI tests covering: Navigation to categories, 'Shop Now' flow, Text visibility checks",
         "Ensure /collections/all shows a populated catalog"
       ]
+    },
+    {
+      "id": 21,
+      "title": "Custom Domain & Production Launch",
+      "description": "Configure custom domain, DNS, and production environment settings for public launch.",
+      "priority": 1,
+      "passes": true,
+      "implementedFiles": [
+        "domain_connection_guide.md"
+      ],
+      "acceptanceCriteria": [
+        "Domain wildenflower.com successfully connected to Vercel",
+        "DNS records (A and CNAME) propagated correctly",
+        "SSL certificate active and valid",
+        "Shopify Customer Account API whitelisted for new domain",
+        "Login/Logout flows functional on production domain",
+        "Vercel environment variables updated (NEXT_PUBLIC_BASE_URL)"
+      ],
+      "implementationNotes": "Completed. Domain purchased via Porkbun. DNS configured (ALIAS conflict resolved). Shopify Customer Account API settings updated to allow redirects. Verified live sign-in flow."
+    },
+    {
+      "id": 22,
+      "title": "Local Authentication Infrastructure",
+      "description": "Enable secure local authentication by implementing an HTTPS tunneling solution, allowing developers to test sign-in/out flows on localhost.",
+      "priority": 2,
+      "passes": true,
+      "implementedFiles": [
+        "package.json"
+      ],
+      "acceptanceCriteria": [
+        "Infrastructure exists to generate a public HTTPS tunnel to localhost:3000",
+        "Shopify Customer Account API can be easily updated to trust the temporary tunnel URL",
+        "Documentation exists for configuring local environment variables to use the tunnel",
+        "Sign-in/out flow verified through a secure local tunnel"
+      ],
+      "implementationNotes": "Completed. Added 'tunnel' script to package.json for one-command HTTPS tunneling. Updated guide with setup instructions."
     }
   ],
   "technicalNotes": [
