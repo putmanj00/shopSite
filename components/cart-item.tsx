@@ -5,7 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ShopifyCartLine } from '@/types/shopify';
 import { useCartStore } from '@/lib/cart-store';
-import { formatMoney } from '@/lib/shopify-helpers';
+
+import Price from '@/components/price';
 
 interface CartItemProps {
   line: ShopifyCartLine;
@@ -87,19 +88,19 @@ export default function CartItem({ line }: CartItemProps) {
           {/* Price */}
           <div className="mt-1">
             {merchandise.compareAtPrice &&
-            parseFloat(merchandise.compareAtPrice.amount) >
+              parseFloat(merchandise.compareAtPrice.amount) >
               parseFloat(merchandise.price.amount) ? (
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-gray-900">
-                  {formatMoney(merchandise.price)}
+                  <Price amount={merchandise.price.amount} currencyCode={merchandise.price.currencyCode} />
                 </span>
                 <span className="text-sm text-gray-500 line-through">
-                  {formatMoney(merchandise.compareAtPrice)}
+                  <Price amount={merchandise.compareAtPrice.amount} currencyCode={merchandise.compareAtPrice.currencyCode} />
                 </span>
               </div>
             ) : (
               <span className="font-semibold text-gray-900">
-                {formatMoney(merchandise.price)}
+                <Price amount={merchandise.price.amount} currencyCode={merchandise.price.currencyCode} />
               </span>
             )}
           </div>
@@ -190,7 +191,7 @@ export default function CartItem({ line }: CartItemProps) {
       {/* Line Total */}
       <div className="flex-shrink-0 text-right">
         <div className="font-semibold text-gray-900">
-          {formatMoney(cost.totalAmount)}
+          <Price amount={cost.totalAmount.amount} currencyCode={cost.totalAmount.currencyCode} />
         </div>
       </div>
     </div>

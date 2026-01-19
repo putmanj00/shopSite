@@ -4,7 +4,8 @@ import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ShopifyProduct } from '@/types/shopify';
-import { formatMoney } from '@/lib/shopify-helpers';
+
+import Price from '@/components/price';
 import { useCartStore } from '@/lib/cart-store';
 
 interface CartCrossSellProps {
@@ -143,7 +144,7 @@ export default function CartCrossSell({
                 {product.title}
               </Link>
               <p className="text-xs text-neutral-600 mt-0.5">
-                {formatMoney(product.priceRange.minVariantPrice)}
+                <Price amount={product.priceRange.minVariantPrice.amount} currencyCode={product.priceRange.minVariantPrice.currencyCode} />
               </p>
               {firstVariant?.availableForSale && (
                 <button

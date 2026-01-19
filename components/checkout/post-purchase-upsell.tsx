@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getProducts, formatMoney } from '@/lib/shopify-helpers';
+import { getProducts } from '@/lib/shopify-helpers';
 import type { ShopifyProduct } from '@/types/shopify';
+import Price from '@/components/price';
 
 /**
  * Post-purchase upsell recommendations
@@ -57,7 +58,7 @@ export default async function PostPurchaseUpsell() {
                 {product.title}
               </h3>
               <p className="text-sm text-neutral-600">
-                {formatMoney(price)}
+                <Price amount={price.amount} currencyCode={price.currencyCode} />
               </p>
             </Link>
           );

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCartStore } from '@/lib/cart-store';
+import Price from '@/components/price';
 import type { Order, OrderLineItem } from '@/app/api/customer/orders/route';
 
 function formatDate(dateString: string): string {
@@ -14,12 +15,7 @@ function formatDate(dateString: string): string {
   });
 }
 
-function formatMoney(amount: string, currencyCode: string): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: currencyCode,
-  }).format(parseFloat(amount));
-}
+
 
 function getStatusColor(status: string): string {
   const normalizedStatus = status.toLowerCase().replace(/_/g, ' ');
@@ -86,7 +82,7 @@ function OrderItem({ item, onReorder }: OrderItemProps) {
 
       <div className="text-right flex-shrink-0">
         <p className="font-medium text-gray-900">
-          {formatMoney(item.price.amount, item.price.currencyCode)}
+          <Price amount={item.price.amount} currencyCode={item.price.currencyCode} />
         </p>
         {productHandle && item.productId && (
           <button
@@ -150,7 +146,7 @@ function OrderCard({ order, isExpanded, onToggle }: OrderCardProps) {
         <div className="flex items-center gap-4">
           <div className="text-right">
             <p className="font-semibold text-gray-900">
-              {formatMoney(order.totalPrice.amount, order.totalPrice.currencyCode)}
+              <Price amount={order.totalPrice.amount} currencyCode={order.totalPrice.currencyCode} />
             </p>
             <div className="flex gap-2 mt-1">
               <span className={`text-xs px-2 py-0.5 rounded-full capitalize ${getStatusColor(order.financialStatus)}`}>

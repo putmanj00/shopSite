@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import Price from '@/components/price';
+
 
 export interface SearchResult {
     id: string;
@@ -175,11 +177,9 @@ export default function PredictiveSearchResults({
                                         {product.category}
                                     </p>
                                 </div>
+
                                 <div className="text-sm font-medium text-gray-900">
-                                    {new Intl.NumberFormat('en-US', {
-                                        style: 'currency',
-                                        currency: product.currencyCode,
-                                    }).format(product.price)}
+                                    <Price amount={product.price} currencyCode={product.currencyCode} />
                                 </div>
                             </Link>
                         </li>

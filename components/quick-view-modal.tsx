@@ -4,7 +4,8 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useQuickViewStore } from '@/lib/quick-view-store';
-import { formatMoney, isProductOnSale } from '@/lib/shopify-helpers';
+import { isProductOnSale } from '@/lib/shopify-helpers';
+import Price from '@/components/price';
 import type { ShopifyProduct, ShopifyProductVariant } from '@/types/shopify';
 import VariantSelector from './variant-selector';
 import AddToCartButton from './add-to-cart-button';
@@ -167,11 +168,10 @@ function QuickViewContent({
                   <button
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
-                    className={`relative aspect-square rounded-md overflow-hidden transition-all ${
-                      index === selectedImageIndex
-                        ? 'ring-2 ring-blue-500'
-                        : 'ring-1 ring-gray-200 hover:ring-gray-300'
-                    }`}
+                    className={`relative aspect-square rounded-md overflow-hidden transition-all ${index === selectedImageIndex
+                      ? 'ring-2 ring-blue-500'
+                      : 'ring-1 ring-gray-200 hover:ring-gray-300'
+                      }`}
                   >
                     <Image
                       src={image.url}
@@ -204,11 +204,11 @@ function QuickViewContent({
             {/* Price */}
             <div className="flex items-baseline gap-3 mb-6">
               <span className="text-2xl font-bold text-zinc-900">
-                {selectedVariant && formatMoney(selectedVariant.price)}
+                {selectedVariant && <Price amount={selectedVariant.price.amount} currencyCode={selectedVariant.price.currencyCode} />}
               </span>
               {onSale && compareAtPrice && parseFloat(compareAtPrice.amount) > 0 && (
                 <span className="text-lg text-zinc-400 line-through">
-                  {formatMoney(compareAtPrice)}
+                  <Price amount={compareAtPrice.amount} currencyCode={compareAtPrice.currencyCode} />
                 </span>
               )}
             </div>

@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
+
 import { useCartStore } from '@/lib/cart-store';
 import { useAuthStore } from '@/lib/auth-store';
-import { formatMoney } from '@/lib/shopify-helpers';
+import Price from '@/components/price';
 import CartItem from './cart-item';
 import FreeShippingBar from './cart/free-shipping-bar';
 import DiscountCodeInput from './cart/discount-code-input';
@@ -176,14 +177,14 @@ export default function CartDrawer() {
                 <div className="flex items-center justify-between text-lg">
                   <span className="font-semibold text-gray-900">Subtotal</span>
                   <span className="font-bold text-gray-900">
-                    {cart && formatMoney(cart.cost.subtotalAmount)}
+                    {cart && <Price amount={cart.cost.subtotalAmount.amount} currencyCode={cart.cost.subtotalAmount.currencyCode} />}
                   </span>
                 </div>
 
                 {/* Tax Notice */}
                 {cart?.cost.totalTaxAmount && (
                   <p className="text-sm text-gray-500">
-                    Tax: {formatMoney(cart.cost.totalTaxAmount)}
+                    Tax: <Price amount={cart.cost.totalTaxAmount.amount} currencyCode={cart.cost.totalTaxAmount.currencyCode} />
                   </p>
                 )}
 

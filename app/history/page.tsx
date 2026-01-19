@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRecentlyViewedStore } from '@/lib/recently-viewed-store';
+import Price from '@/components/price';
 
 export default function HistoryPage() {
     const [isMounted, setIsMounted] = useState(false);
@@ -122,10 +123,7 @@ export default function HistoryPage() {
                                         {product.title}
                                     </h3>
                                     <p className="mt-1 text-gray-500">
-                                        {new Intl.NumberFormat('en-US', {
-                                            style: 'currency',
-                                            currency: product.currencyCode,
-                                        }).format(parseFloat(product.price))}
+                                        <Price amount={product.price} currencyCode={product.currencyCode} />
                                     </p>
                                 </div>
                             </Link>

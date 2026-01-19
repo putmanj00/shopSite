@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRecentlyViewedStore } from '@/lib/recently-viewed-store';
+import Price from '@/components/price';
 
 export default function RecentlyViewed() {
   const [isMounted, setIsMounted] = useState(false);
@@ -83,10 +84,7 @@ export default function RecentlyViewed() {
               {product.title}
             </h4>
             <p className="text-sm text-gray-600">
-              {new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: product.currencyCode,
-              }).format(parseFloat(product.price))}
+              <Price amount={product.price} currencyCode={product.currencyCode} />
             </p>
           </Link>
         ))}

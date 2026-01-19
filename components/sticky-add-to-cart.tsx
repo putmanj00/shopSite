@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import type { ShopifyProduct, ShopifyProductVariant } from '@/types/shopify';
-import { formatMoney } from '@/lib/shopify-helpers';
+
+import Price from '@/components/price';
 import { useCartStore } from '@/lib/cart-store';
 
 interface StickyAddToCartProps {
@@ -63,9 +64,8 @@ export default function StickyAddToCart({
 
   return (
     <div
-      className={`lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 shadow-lg z-40 transform transition-transform duration-300 ${
-        isVisible ? 'translate-y-0' : 'translate-y-full'
-      }`}
+      className={`lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 shadow-lg z-40 transform transition-transform duration-300 ${isVisible ? 'translate-y-0' : 'translate-y-full'
+        }`}
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       role="region"
       aria-label="Quick add to cart"
@@ -78,11 +78,11 @@ export default function StickyAddToCart({
           </p>
           <div className="flex items-center gap-2">
             <span className="text-lg font-bold text-neutral-900">
-              {formatMoney(price)}
+              <Price amount={price.amount} currencyCode={price.currencyCode} />
             </span>
             {hasDiscount && compareAtPrice && (
               <span className="text-sm text-neutral-500 line-through">
-                {formatMoney(compareAtPrice)}
+                <Price amount={compareAtPrice.amount} currencyCode={compareAtPrice.currencyCode} />
               </span>
             )}
           </div>
@@ -92,13 +92,12 @@ export default function StickyAddToCart({
         <button
           onClick={handleAddToCart}
           disabled={!selectedVariant.availableForSale || isAdding}
-          className={`flex-shrink-0 px-6 py-3 rounded-lg font-semibold text-white transition-all min-w-[140px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
-            showSuccess
-              ? 'bg-green-600'
-              : selectedVariant.availableForSale
-                ? 'bg-primary-600 hover:bg-primary-700 active:bg-primary-800'
-                : 'bg-neutral-400 cursor-not-allowed'
-          }`}
+          className={`flex-shrink-0 px-6 py-3 rounded-lg font-semibold text-white transition-all min-w-[140px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${showSuccess
+            ? 'bg-green-600'
+            : selectedVariant.availableForSale
+              ? 'bg-primary-600 hover:bg-primary-700 active:bg-primary-800'
+              : 'bg-neutral-400 cursor-not-allowed'
+            }`}
           aria-label={
             isAdding
               ? 'Adding to cart'

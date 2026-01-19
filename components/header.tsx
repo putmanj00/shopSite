@@ -5,6 +5,7 @@ import { useCartStore } from '@/lib/cart-store';
 import { useAuthStore } from '@/lib/auth-store';
 import { useWishlistStore } from '@/lib/wishlist-store';
 import { useState, useEffect } from 'react';
+import CurrencySelector from '@/components/currency-selector';
 
 export default function Header() {
   const { cart, openCart } = useCartStore();
@@ -52,6 +53,10 @@ export default function Header() {
           </div>
 
           <div className="flex items-center gap-4">
+            <div className="hidden sm:block">
+              <CurrencySelector />
+            </div>
+
             {/* Wishlist Link */}
             <Link
               href="/wishlist"

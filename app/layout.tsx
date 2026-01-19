@@ -13,6 +13,8 @@ import ServiceWorkerRegister from "@/components/service-worker-register";
 import SocialProofToast from "@/components/social-proof-toast";
 import { ExitIntentPopup, WelcomePopup, RecentPurchasePopup } from "@/components/cro";
 import Analytics from "@/components/analytics";
+import { CurrencyProvider } from "@/lib/currency-context";
+import GeolocationHandler from "@/components/geolocation-handler";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -104,23 +106,26 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SkipLink />
-        <Header />
-        <CartDrawer />
-        <QuickViewModal />
-        <main id="main-content" tabIndex={-1} className="pb-16 md:pb-0">
-          {children}
-        </main>
-        <Footer />
-        <MobileBottomNav />
-        <ServiceWorkerRegister />
-        <SocialProofToast />
-        <WelcomePopup />
-        <ExitIntentPopup />
-        <RecentPurchasePopup />
-        <Analytics />
-        <VercelAnalytics />
-        <SpeedInsights />
+        <CurrencyProvider>
+          <GeolocationHandler />
+          <SkipLink />
+          <Header />
+          <CartDrawer />
+          <QuickViewModal />
+          <main id="main-content" tabIndex={-1} className="pb-16 md:pb-0">
+            {children}
+          </main>
+          <Footer />
+          <MobileBottomNav />
+          <ServiceWorkerRegister />
+          <SocialProofToast />
+          <WelcomePopup />
+          <ExitIntentPopup />
+          <RecentPurchasePopup />
+          <Analytics />
+          <VercelAnalytics />
+          <SpeedInsights />
+        </CurrencyProvider>
       </body>
     </html>
   );

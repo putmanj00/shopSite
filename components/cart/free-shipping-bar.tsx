@@ -10,6 +10,8 @@ interface FreeShippingBarProps {
  * Progress bar showing how close the customer is to free shipping
  * WCAG 2.1 AA compliant with proper ARIA attributes
  */
+import Price from '@/components/price';
+
 export default function FreeShippingBar({
   currentTotal,
   threshold = 75,
@@ -18,13 +20,6 @@ export default function FreeShippingBar({
   const remaining = Math.max(0, threshold - currentTotal);
   const progress = Math.min(100, (currentTotal / threshold) * 100);
   const qualified = currentTotal >= threshold;
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currencyCode,
-    }).format(amount);
-  };
 
   return (
     <div className="bg-neutral-50 rounded-lg p-3">
@@ -51,7 +46,7 @@ export default function FreeShippingBar({
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-neutral-700">
               <span className="font-medium text-primary-600">
-                {formatCurrency(remaining)}
+                <Price amount={remaining} currencyCode={currencyCode} />
               </span>{' '}
               away from free shipping
             </span>
@@ -84,7 +79,7 @@ export default function FreeShippingBar({
             />
           </div>
           <p className="text-xs text-neutral-500 mt-1">
-            Free shipping on orders over {formatCurrency(threshold)}
+            Free shipping on orders over <Price amount={threshold} currencyCode={currencyCode} />
           </p>
         </>
       )}

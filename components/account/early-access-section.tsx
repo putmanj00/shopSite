@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import Price from '@/components/price';
 
 interface EarlyAccessProduct {
   id: string;
@@ -131,10 +132,7 @@ export default function EarlyAccessSection({
               </h4>
               <div className="flex justify-between items-center mt-2">
                 <p className="font-semibold text-gray-900">
-                  {new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: product.currencyCode,
-                  }).format(parseFloat(product.price))}
+                  <Price amount={product.price} currencyCode={product.currencyCode} />
                 </p>
                 <p className="text-sm text-primary-600 font-medium">
                   {formatLaunchDate(product.launchDate)}

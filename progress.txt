@@ -758,3 +758,33 @@ Started: Sun Jan 12 2026
 - **Error Boundaries**: Next.js 13+ error boundaries must be client components (`'use client'`). `global-error.tsx` replaces the root `layout.tsx` when active, so it must include its own `<html>` and `<body>` tags.
 
 ---
+
+## 2026-01-18 - Story #17: International & Multi-Currency Support
+**Status**: Completed
+
+**Implementation**:
+- **Currency Context**: Implemented transparent `CurrencyProvider` using `CurrencyContext` to manage selected currency and formatting logic. Persists to `localStorage`.
+- **Currency Selector**: Added a dropdown to the global Header allowing users to switch between USD, EUR, GBP, CAD, AUD, and JPY.
+- **Price Component**: Created a reusable `<Price />` component that consumes the context to automatically format prices based on the selected currency.
+- **Automatic Conversion**: Implemented basic conversion logic (mock rates for now) to display localized prices instantly.
+- **Geolocation**: Added `GeolocationHandler` to detect user timezone and infer likely currency (e.g., London -> GBP, Tokyo -> JPY).
+- **Refactoring**: Updated all major components (`ProductInfo`, `CartDrawer`, `OrderHistory`, `RelatedProducts`, etc.) to use the `<Price />` component instead of direct `Intl.NumberFormat` calls.
+
+**Files Changed**:
+- lib/currency-context.tsx
+- components/price.tsx
+- components/currency-selector.tsx
+- components/geolocation-handler.tsx
+- components/header.tsx
+- components/product-info.tsx
+- components/cart-drawer.tsx
+- components/cart-item.tsx
+- components/account/*.tsx (multiple files)
+- app/layout.tsx
+
+**Learnings for Future Iterations**:
+- **Context vs Prop Drilling**: For cross-cutting concerns like currency, Context is essential. The `Price` component pattern keeps individual components clean.
+- **Hydration Mismatch**: Handling localStorage in Context requires careful initialization (e.g., `useEffect` or `setTimeout`) to avoid server/client markup mismatches.
+- **Geolocation**: Basic timezone offsets (`new Date().getTimezoneOffset()`) are a surprisingly effective, privacy-friendly proxy for rough location detection without external IP-API calls.
+
+---

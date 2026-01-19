@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRecentlyViewedStore } from '@/lib/recently-viewed-store';
+import Price from '@/components/price';
 
 export default function PersonalizedRecommendations() {
     const [isMounted, setIsMounted] = useState(false);
@@ -70,10 +71,7 @@ export default function PersonalizedRecommendations() {
                         </h3>
 
                         <p className="text-gray-500 mt-1">
-                            {new Intl.NumberFormat('en-US', {
-                                style: 'currency',
-                                currency: product.currencyCode,
-                            }).format(parseFloat(product.price))}
+                            <Price amount={product.price} currencyCode={product.currencyCode} />
                         </p>
                     </Link>
                 ))}

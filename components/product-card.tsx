@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ShopifyProduct } from '@/types/shopify';
-import { formatMoney, isProductOnSale } from '@/lib/shopify-helpers';
+import { isProductOnSale } from '@/lib/shopify-helpers';
+import Price from '@/components/price';
 import { useQuickViewStore } from '@/lib/quick-view-store';
 import WishlistButton from './wishlist-button';
 
@@ -72,11 +73,11 @@ export default function ProductCard({ product }: ProductCardProps) {
         </h3>
         <div className="flex items-baseline gap-2">
           <span className="text-xl font-bold text-zinc-900">
-            {formatMoney(minPrice)}
+            <Price amount={minPrice.amount} currencyCode={minPrice.currencyCode} />
           </span>
           {onSale && parseFloat(compareAtPrice.amount) > 0 && (
             <span className="text-sm text-zinc-500 line-through">
-              {formatMoney(compareAtPrice)}
+              <Price amount={compareAtPrice.amount} currencyCode={compareAtPrice.currencyCode} />
             </span>
           )}
         </div>

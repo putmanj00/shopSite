@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useWishlistStore } from '@/lib/wishlist-store';
 import { useCartStore } from '@/lib/cart-store';
+import Price from '@/components/price';
 
 export default function WishlistPreview() {
   const [isMounted, setIsMounted] = useState(false);
@@ -132,10 +133,7 @@ export default function WishlistPreview() {
                   {product.title}
                 </h4>
                 <p className="text-sm text-gray-600">
-                  {new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: price.currencyCode,
-                  }).format(parseFloat(price.amount))}
+                  <Price amount={price.amount} currencyCode={price.currencyCode} />
                 </p>
               </Link>
             </div>

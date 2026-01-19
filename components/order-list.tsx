@@ -1,5 +1,6 @@
 import { ShopifyOrder } from '@/types/shopify';
-import { formatMoney } from '@/lib/shopify-helpers';
+
+import Price from '@/components/price';
 
 interface OrderListProps {
     orders: ShopifyOrder[];
@@ -29,7 +30,7 @@ export default function OrderList({ orders }: OrderListProps) {
                         </div>
                         <div className="text-right">
                             <p className="font-semibold text-gray-900">
-                                {formatMoney(order.totalPrice)}
+                                <Price amount={order.totalPrice.amount} currencyCode={order.totalPrice.currencyCode} />
                             </p>
                             <div className="flex gap-2 text-sm mt-1">
                                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${order.financialStatus === 'PAID' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
@@ -52,7 +53,7 @@ export default function OrderList({ orders }: OrderListProps) {
                                         {item.quantity}x {item.title}
                                     </span>
                                     <span className="text-gray-900 font-medium">
-                                        {formatMoney(item.originalTotalPrice)}
+                                        <Price amount={item.originalTotalPrice.amount} currencyCode={item.originalTotalPrice.currencyCode} />
                                     </span>
                                 </li>
                             ))}

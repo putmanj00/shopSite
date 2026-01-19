@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import type { ShopifyProduct, ShopifyProductVariant } from '@/types/shopify';
-import { formatMoney } from '@/lib/shopify-helpers';
+
+import Price from '@/components/price';
 import VariantSelector from '@/components/variant-selector';
 import AddToCartButton from '@/components/add-to-cart-button';
 import WishlistButton from '@/components/wishlist-button';
@@ -54,12 +55,12 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       <div className="border-t border-b border-gray-200 py-4">
         <div className="flex items-baseline gap-3">
           <span className="text-3xl font-bold text-gray-900">
-            {formatMoney(price)}
+            <Price amount={price.amount} currencyCode={price.currencyCode} />
           </span>
           {hasDiscount && compareAtPrice && (
             <>
               <span className="text-xl text-gray-500 line-through">
-                {formatMoney(compareAtPrice)}
+                <Price amount={compareAtPrice.amount} currencyCode={compareAtPrice.currencyCode} />
               </span>
               <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold">
                 {Math.round(
