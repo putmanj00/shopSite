@@ -540,3 +540,49 @@ Started: Sun Jan 12 2026
 - **Filtering Logic**: Handling filtering on the backend (even a mock one) is better than client-side for scalability, though for this mock DB we did it in the route handler.
 
 ---
+
+## 2026-01-17 - Artisan Shop PRD Story #9: Customer Account & Loyalty Features
+
+**Thread**: Artisan Collective implementation (continued)
+
+**Implementation**:
+- Created comprehensive account dashboard with tabbed navigation (Overview, Orders, Addresses, Wishlist, Rewards)
+- Built order history component that fetches from Shopify Customer Account API with expandable cards showing order details, tracking info, and reorder button
+- Created address book with full CRUD operations (create, read, update, delete) and default address selection
+- Built wishlist preview component showing saved items with add to cart and remove functionality
+- Created recently viewed products store using Zustand with localStorage persistence
+- Added recently viewed tracker component to product pages
+- Built loyalty card component showing tier progress (Bronze/Silver/Gold/Platinum) with benefits list
+- Created referral section with shareable code, copy buttons, email invite form, and social share buttons
+- Built birthday section for collecting customer birthday with month/day selectors
+- Created early access section showing member-exclusive preview products
+- Added customer API routes for orders and addresses using Shopify Customer Account API
+
+**Files Changed**:
+- app/account/page.tsx - Complete rewrite with tabbed navigation and all new sections
+- app/api/customer/orders/route.ts - NEW: Fetch customer orders with tracking info
+- app/api/customer/addresses/route.ts - NEW: CRUD operations for customer addresses
+- components/account/order-history.tsx - NEW: Order list with expandable cards and reorder
+- components/account/address-book.tsx - NEW: Address management with form and cards
+- components/account/wishlist-preview.tsx - NEW: Wishlist display with actions
+- components/account/recently-viewed.tsx - NEW: Recently viewed products grid
+- components/account/loyalty-card.tsx - NEW: Loyalty tier display with progress
+- components/account/referral-section.tsx - NEW: Referral program with sharing options
+- components/account/birthday-section.tsx - NEW: Birthday collection form
+- components/account/early-access-section.tsx - NEW: Member-exclusive products preview
+- components/recently-viewed-tracker.tsx - NEW: Product page tracker component
+- lib/recently-viewed-store.ts - NEW: Zustand store for recently viewed products
+- app/products/[handle]/page.tsx - Added RecentlyViewedTracker integration
+- components/reviews/review-form.tsx - Fixed label accessibility issue
+- components/reviews/review-list.tsx - Fixed alt text redundancy
+
+**Learnings for Future Iterations**:
+- **Shopify Customer Account API GraphQL**: Customer data queries use different field structure than Storefront API (e.g., `fulfillments.nodes` instead of `fulfillments.edges`)
+- **Zustand Persist**: Use `persist` middleware for localStorage sync - works well for recently viewed and wishlist state
+- **Tabbed Navigation Pattern**: Use state to track active tab, render content conditionally for better UX than routing
+- **Form Labels**: Use `htmlFor` with matching input `id` for proper accessibility, or use `<p>` for non-control labels
+- **Order Tracking**: Shopify provides `fulfillments.nodes[].trackingInfo` and `latestShipmentStatus` for delivery tracking
+- **Address Mutations**: Shopify Customer Account API provides `customerAddressCreate`, `customerAddressUpdate`, `customerAddressDelete`, and `customerDefaultAddressUpdate` mutations
+- **Reorder Pattern**: Extract product handle from order line item `productId`, fetch product to get variant ID, then add to cart
+
+---

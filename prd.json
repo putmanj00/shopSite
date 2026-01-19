@@ -526,7 +526,22 @@
       "title": "Customer Account & Loyalty Features",
       "description": "Build engaging customer account with order tracking and loyalty program",
       "priority": 2,
-      "passes": false,
+      "passes": true,
+      "implementedFiles": [
+        "app/account/page.tsx",
+        "app/api/customer/orders/route.ts",
+        "app/api/customer/addresses/route.ts",
+        "components/account/order-history.tsx",
+        "components/account/address-book.tsx",
+        "components/account/wishlist-preview.tsx",
+        "components/account/recently-viewed.tsx",
+        "components/account/loyalty-card.tsx",
+        "components/account/referral-section.tsx",
+        "components/account/birthday-section.tsx",
+        "components/account/early-access-section.tsx",
+        "components/recently-viewed-tracker.tsx",
+        "lib/recently-viewed-store.ts"
+      ],
       "acceptanceCriteria": [
         "Customer registration with Shopify Customer Account API",
         "Account dashboard with order history",
@@ -539,7 +554,8 @@
         "Account-exclusive early access to new products",
         "Birthday discount automation",
         "Reorder functionality for repeat purchases"
-      ]
+      ],
+      "implementationNotes": "Complete account dashboard with tabbed navigation (Overview, Orders, Addresses, Wishlist, Rewards). Order history fetches from Shopify Customer Account API with expandable order cards, tracking info, and reorder functionality. Address book supports CRUD operations with default address selection. Wishlist and recently viewed products use Zustand stores with localStorage persistence. Loyalty card displays tier progress (Bronze/Silver/Gold/Platinum) with benefits list. Referral section includes shareable code, invite by email, and social share buttons. Birthday section collects customer birthday for automated discount. Early access section shows member-exclusive preview products. All components WCAG 2.1 AA compliant."
     },
     {
       "id": 10,
