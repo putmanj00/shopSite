@@ -20,7 +20,7 @@ export default function EnhancedHero({
   heading = 'Handcrafted Artisan Treasures',
   subheading = 'Discover unique tie-dye, leather, jewelry, and art pieces made with passion by skilled artisans.',
   ctas = [
-    { label: 'Shop Now', href: '/collections', variant: 'primary' },
+    { label: 'Shop Now', href: '/collections/all', variant: 'primary' },
     { label: 'Our Story', href: '#brand-story', variant: 'secondary' },
   ],
   backgroundImage = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop',
@@ -95,10 +95,9 @@ export default function EnhancedHero({
                   href={cta.href}
                   className={`
                     inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-lg transition-all hover:scale-105
-                    ${
-                      cta.variant === 'secondary'
-                        ? 'border-2 border-white text-white hover:bg-white hover:text-zinc-900'
-                        : 'bg-amber-500 text-zinc-900 hover:bg-amber-400'
+                    ${cta.variant === 'secondary'
+                      ? 'border-2 border-white text-white hover:bg-white hover:text-zinc-900'
+                      : 'bg-amber-500 text-zinc-900 hover:bg-amber-400'
                     }
                   `}
                 >

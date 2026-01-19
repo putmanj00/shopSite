@@ -823,6 +823,27 @@
         "Verify critical user workflows (Add to cart, Checkout, Search)",
         "Ensure no console errors on navigation"
       ]
+    },
+    {
+      "id": 20,
+      "title": "Bug Fixes, Test Data Spiking & Text Visibility Improvements",
+      "description": "Fix navigation errors, empty collections, text visibility issues, and add comprehensive seeded test data.",
+      "priority": 1,
+      "passes": true,
+      "implementedFiles": [
+        "scripts/seed-shopify.ts",
+        "scripts/ui-tests.ts",
+        "app/globals.css",
+        "components/homepage/enhanced-hero.tsx"
+      ],
+      "acceptanceCriteria": [
+        "Fix 'Shop by Category' links to ensure they populate with products (Tie-Dye, Leather, Jewelry, Art)",
+        "Fix 'Shop Now' > 'Shop Collection' link to show products instead of empty page",
+        "Populate Shopify test store with mock data for all categories (Tie-Dye, Leather, Jewelry, Art) so collections are not empty",
+        "Fix text visibility issues (white text on white background) for: Passwords, Login inputs, Search inputs, Price text",
+        "Add Playwright/UI tests covering: Navigation to categories, 'Shop Now' flow, Text visibility checks",
+        "Ensure /collections/all shows a populated catalog"
+      ]
     }
   ],
   "technicalNotes": [

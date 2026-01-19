@@ -42,6 +42,10 @@ const STATIC_ROUTES = [
 // Dynamic routes that require valid handles (fallback if no Shopify connection)
 const FALLBACK_DYNAMIC_ROUTES = [
   '/collections/all',
+  '/collections/tie-dye',
+  '/collections/leather',
+  '/collections/jewelry',
+  '/collections/art',
 ];
 
 class UITestRunner {
@@ -274,6 +278,62 @@ class UITestRunner {
     this.results.push(result);
   }
 
+  async testTextVisibility(): Promise<void> {
+    console.log('\n👁️ Testing Text Visibility...\n');
+
+    const result = await this.runTest('Inputs have visible text color', async () => {
+      await this.page!.goto(`${BASE_URL}/`, { waitUntil: 'networkidle' });
+
+      // Create a dummy input to test styles if none exist, or find an existing one
+      // We'll inject one to be sure we test the global styles
+      await this.page!.evaluate(() => {
+        const input = document.createElement('input');
+        input.id = 'test-visibility-input';
+        input.value = 'Test Text';
+        input.className = 'bg-white'; // Simulate white bg context
+        document.body.appendChild(input);
+      });
+
+      const input = await this.page!.$('#test-visibility-input');
+      const color = await input?.evaluate((el) => {
+        return window.getComputedStyle(el).color;
+      });
+
+      // Remove it
+      await this.page!.evaluate(() => document.getElementById('test-visibility-input')?.remove());
+
+      // Parse rgb(r, g, b)
+      // We compare against white (255, 255, 255)
+      if (color === 'rgb(255, 255, 255)') {
+        throw new Error(`Input text color is white on white background! Computed: ${color}`);
+      }
+      
+      console.log(`    ℹ️  Input text color: ${color} (Pass)`);
+    });
+    this.results.push(result);
+  }
+
+  async testShopNowFlow(): Promise<void> {
+    console.log('\n🛍️ Testing Shop Now Flow...\n');
+
+    const result = await this.runTest('Hero Shop Now button leads to populated catalog', async () => {
+      await this.page!.goto(`${BASE_URL}/`, { waitUntil: 'domcontentloaded' });
+      
+      const shopNowBtn = await this.page!.getByText('Shop Now', { exact: true }).first();
+      if (!shopNowBtn) throw new Error('Shop Now button not found');
+
+      await shopNowBtn.click();
+      await this.page!.waitForURL('**/collections/all');
+      
+      // Check for products
+      const products = await this.page!.$$('a[href*="/products/"]');
+      if (products.length === 0) {
+        throw new Error('No products found on /collections/all after clicking Shop Now');
+      }
+    });
+    this.results.push(result);
+  }
+
   // ============ RUN ALL TESTS ============
 
   async runAllTests(): Promise<void> {
@@ -298,6 +358,10 @@ class UITestRunner {
       // Accessibility tests
       await this.testAccessibilityFeatures();
       await this.testMobileNavigation();
+      
+      // New Story #20 Tests
+      await this.testTextVisibility();
+      await this.testShopNowFlow();
 
     } finally {
       await this.teardown();
