@@ -732,3 +732,29 @@ Started: Sun Jan 12 2026
 - **Storage**: `localStorage` vs `sessionStorage` choice is critical for popup frequency (session for exit intent, local for welcome).
 
 ---
+
+## 2026-01-18 - Story #16: Analytics & Performance Monitoring
+**Status**: Completed
+
+**Implementation**:
+- **Core Web Vitals**: Integrated `@vercel/speed-insights` for real-time performance monitoring.
+- **Traffic Analytics**: Integrated `@vercel/analytics` for privacy-first visitor stats.
+- **Event Tracking**: Enhanced `Analytics` component to support GA4 events and Facebook Pixel.
+- **Error Handling**: 
+  - Created `app/global-error.tsx` for catching root layout errors.
+  - Created `app/error.tsx` for segment-level error boundaries.
+  - Both error pages feature accessible UI and reset capabilities.
+- **Event Integration**: Added `search` event tracking to `SearchBar` component.
+
+**Files Changed**:
+- app/layout.tsx - Added Vercel analytics components
+- app/global-error.tsx - Full page error boundary
+- app/error.tsx - Segment error boundary
+- components/search-bar.tsx - Added event tracking
+- package.json - Added dependencies
+
+**Learnings for Future Iterations**:
+- **Vercel Integration**: Using Vercel's native packages provides zero-config monitoring that's superior to manual setups for Next.js apps.
+- **Error Boundaries**: Next.js 13+ error boundaries must be client components (`'use client'`). `global-error.tsx` replaces the root `layout.tsx` when active, so it must include its own `<html>` and `<body>` tags.
+
+---

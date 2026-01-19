@@ -738,7 +738,7 @@
       "title": "Analytics & Performance Monitoring",
       "description": "Set up comprehensive analytics for data-driven optimization",
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Google Analytics 4 integration",
         "Enhanced e-commerce tracking",
