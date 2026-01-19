@@ -200,11 +200,23 @@ async function seedShopify() {
     for (const product of collection.products) {
       console.log(`   Creating product: ${product.title}...`);
       
+      // Step 1: Create product using productSet mutation (2026-01 API)
+      // This handles product + variant creation in a single call
       const createProductMutation = `
-        mutation CreateProduct($input: ProductInput!) {
-          productCreate(input: $input) {
+        mutation CreateProduct($productSet: ProductSetInput!, $synchronous: Boolean!) {
+          productSet(input: $productSet, synchronous: $synchronous) {
             product {
               id
+              variants(first: 1) {
+                edges {
+                  node {
+                    id
+                    inventoryItem {
+                      id
+                    }
+                  }
+                }
+              }
             }
             userErrors {
               field
@@ -214,35 +226,175 @@ async function seedShopify() {
         }
       `;
       
-      const productResult = await adminApiFetch<{ productCreate: { product: { id: string }, userErrors: any[] } }>({
+      const productResult = await adminApiFetch<{ 
+        productSet: { 
+          product: { 
+            id: string, 
+            variants: { edges: Array<{ node: { id: string, inventoryItem: { id: string } } }> } 
+          }, 
+          userErrors: any[] 
+        } 
+      }>({
         query: createProductMutation,
         variables: {
-          input: {
+          synchronous: true,
+          productSet: {
             title: product.title,
             descriptionHtml: `<p>${product.description}</p>`,
             vendor: 'Artisan Collective',
             status: 'ACTIVE',
-            collectionsToJoin: [collectionId],
-            images: [{ src: product.image }],
+            productOptions: [
+              {
+                name: 'Title',
+                position: 1,
+                values: [{ name: 'Default Title' }]
+              }
+            ],
             variants: [{
-                price: product.price,
-                inventoryQuantities: [{
-                    availableQuantity: 50,
-                    locationId: locationId
-                }]
+              optionValues: [{ optionName: 'Title', name: 'Default Title' }],
+              price: product.price
             }]
           }
         }
       });
 
-      // If location logic fails (common headache), retry without inventory (Shopify defaults might work or leave at 0)
-      if (productResult.productCreate.userErrors.length > 0) {
-          // Retry simple creation without explicit inventory/location if strict location failed
-          // OR better: fetch location first.
-          console.warn(`      Product creation warning/error:`, productResult.productCreate.userErrors);
-      } else {
-          console.log(`   ✅ Created product: ${product.title}`);
+      if (productResult.productSet.userErrors.length > 0) {
+          console.warn(`      Product creation warning/error:`, productResult.productSet.userErrors);
+          continue;
       }
+      
+      const productId = productResult.productSet.product.id;
+      console.log(`   ✅ Created product: ${product.title}`);
+
+      // Step 2: Add product to collection
+      if (collectionId) {
+        const addToCollectionMutation = `
+          mutation AddProductToCollection($id: ID!, $productIds: [ID!]!) {
+            collectionAddProducts(id: $id, productIds: $productIds) {
+              collection {
+                id
+              }
+              userErrors {
+                field
+                message
+              }
+            }
+          }
+        `;
+        await adminApiFetch({
+          query: addToCollectionMutation,
+          variables: {
+            id: collectionId,
+            productIds: [productId]
+          }
+        });
+      }
+
+      // Step 3: Add product media (image) using productCreateMedia
+      const addMediaMutation = `
+        mutation AddProductMedia($productId: ID!, $media: [CreateMediaInput!]!) {
+          productCreateMedia(productId: $productId, media: $media) {
+            media {
+              ... on MediaImage {
+                id
+              }
+            }
+            mediaUserErrors {
+              field
+              message
+            }
+          }
+        }
+      `;
+      
+      const mediaResult = await adminApiFetch<{ productCreateMedia: { mediaUserErrors: any[] } }>({
+        query: addMediaMutation,
+        variables: {
+          productId: productId,
+          media: [{
+            originalSource: product.image,
+            mediaContentType: 'IMAGE'
+          }]
+        }
+      });
+
+      if (mediaResult.productCreateMedia.mediaUserErrors.length > 0) {
+        console.warn(`      Media warning:`, mediaResult.productCreateMedia.mediaUserErrors);
+      }
+
+      // Step 4: Set inventory for the variant
+      const variantData = productResult.productSet.product.variants.edges[0]?.node;
+      if (variantData?.inventoryItem?.id && locationId) {
+        const setInventoryMutation = `
+          mutation SetInventoryQuantities($input: InventorySetQuantitiesInput!) {
+            inventorySetQuantities(input: $input) {
+              inventoryAdjustmentGroup {
+                createdAt
+              }
+              userErrors {
+                field
+                message
+              }
+            }
+          }
+        `;
+        
+        await adminApiFetch({
+          query: setInventoryMutation,
+          variables: {
+            input: {
+              name: "available",
+              reason: "correction",
+              quantities: [{
+                inventoryItemId: variantData.inventoryItem.id,
+                locationId: locationId,
+                quantity: 50
+              }]
+            }
+          }
+        });
+      }
+
+      // Step 5: Publish product to all sales channels
+      const publishMutation = `
+        mutation PublishProduct($id: ID!, $input: [PublicationInput!]!) {
+          publishablePublish(id: $id, input: $input) {
+            publishable {
+              ... on Product {
+                id
+              }
+            }
+            userErrors {
+              field
+              message
+            }
+          }
+        }
+      `;
+      
+      // Get all publication IDs and publish to all
+      const publicationsQuery = `
+        query GetPublications {
+          publications(first: 10) {
+            edges {
+              node {
+                id
+              }
+            }
+          }
+        }
+      `;
+      const pubData = await adminApiFetch<{ publications: { edges: Array<{ node: { id: string } }> } }>({ query: publicationsQuery });
+      const publicationInput = pubData.publications.edges.map(e => ({ publicationId: e.node.id }));
+      
+      await adminApiFetch({
+        query: publishMutation,
+        variables: {
+          id: productId,
+          input: publicationInput
+        }
+      });
+      console.log(`   📢 Published to ${publicationInput.length} sales channels`);
     }
   }
 
