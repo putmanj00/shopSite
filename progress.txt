@@ -643,3 +643,23 @@ Started: Sun Jan 12 2026
 - **Loyalty Points Incentive**: Offer points for reviews to increase engagement
 
 ---
+
+## 2026-01-18 - Artisan Shop PRD Story #11: Search & Product Discovery Optimization
+**Status**: Completed
+**Implemented Features**:
+1. **Predictive Search API**: Created `/api/search/predictive` leveraging Shopify's Search API for typo-tolerant results.
+2. **Enhanced Search Bar**: Refactored `SearchBar` to support:
+    - Autocomplete suggestions with product thumbnails and prices.
+    - Voice search using Web Speech API.
+    - Recent searches history saved to localStorage (Zustand).
+    - Mobile-responsive dropdown.
+3. **Personalized Recommendations**:
+    - Added `PersonalizedRecommendations` component to Homepage, showing recently viewed items.
+    - Created `/history` page for full browsing history management.
+    - Integrated with existing `useRecentlyViewedStore`.
+4. **Code Improvements**: Added `SearchQueryResponse` type and `searchProducts` helper in `lib/shopify-helpers.ts`.
+
+**Learnings for Future Iterations**:
+- **Search API vs Products API**: Shopify's Search API is superior for text queries as it handles typos and broad matches better than the Products API with query filters.
+- **Client-Side Storage**: Persisting search history and view history clientside (localStorage) provides a personalized experience without requiring authentication.
+- **Voice Search**: Web Speech API is experimental but works well in modern browsers. Requires fallback or graceful degradation.

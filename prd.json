@@ -606,7 +606,7 @@
       "title": "Search & Product Discovery Optimization",
       "description": "Implement smart search with autocomplete and personalized recommendations",
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Search bar with autocomplete suggestions",
         "Search results with product images and prices",
