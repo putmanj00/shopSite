@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSearchStore } from '@/lib/search-store';
 import PredictiveSearchResults, { type SearchResult } from '@/components/search/predictive-search-results';
+import { trackGAEvent } from '@/components/analytics';
 
 interface SearchBarProps {
   value: string;
@@ -107,6 +108,7 @@ export default function SearchBar({
       addRecentSearch(inputValue);
       onSearch(inputValue);
       setIsOpen(false);
+      trackGAEvent('search', 'user_interaction', inputValue);
     }
   };
 
