@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRecentlyViewedStore } from '@/lib/recently-viewed-store';
-import CollectionBreadcrumbs from '@/components/collection-breadcrumbs';
 
 export default function HistoryPage() {
     const [isMounted, setIsMounted] = useState(false);

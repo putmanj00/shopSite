@@ -21,6 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://shopsite.com'),
   title: {
     default: 'Artisan Collective - Premium Handmade Goods',
     template: '%s | Artisan Collective',

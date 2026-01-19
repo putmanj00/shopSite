@@ -17,6 +17,7 @@ const footerLinks = {
   company: [
     { name: 'About Us', href: '/about' },
     { name: 'Our Story', href: '/our-story' },
+    { name: 'Blog', href: '/blog' },
     { name: 'Sustainability', href: '/sustainability' },
     { name: 'Press', href: '/press' },
   ],
