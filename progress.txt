@@ -663,3 +663,40 @@ Started: Sun Jan 12 2026
 - **Search API vs Products API**: Shopify's Search API is superior for text queries as it handles typos and broad matches better than the Products API with query filters.
 - **Client-Side Storage**: Persisting search history and view history clientside (localStorage) provides a personalized experience without requiring authentication.
 - **Voice Search**: Web Speech API is experimental but works well in modern browsers. Requires fallback or graceful degradation.
+
+---
+
+## 2026-01-18 - Story #14: SEO & Content Strategy Implementation
+**Status**: Completed
+
+**Implementation**:
+- Enhanced sitemap.ts to dynamically include all products, collections, blog posts, and static pages
+- Updated robots.ts with SEO-optimized rules (disallow private/transactional pages)
+- Added metadataBase to layout.tsx for proper canonical URL resolution
+- Created blog section with listing page and individual post pages
+- Implemented BlogPosting schema markup on blog posts
+- Added BreadcrumbList schema markup to product breadcrumbs
+- Created FAQ page with FAQPage schema for rich snippets
+- Created Contact page with accessible form
+- Added Blog link to footer for internal linking
+
+**Files Changed**:
+- app/sitemap.ts - Enhanced with all route types
+- app/robots.ts - Updated disallow rules
+- app/layout.tsx - Added metadataBase
+- data/blog-posts.ts - New mock blog content
+- app/blog/page.tsx - Blog listing with meta
+- app/blog/[slug]/page.tsx - Blog detail with BlogPosting schema
+- app/faq/page.tsx - FAQ with FAQPage schema
+- app/contact/page.tsx - Contact form page
+- components/breadcrumbs.tsx - Added BreadcrumbList schema
+- components/footer.tsx - Added Blog link
+
+**Learnings for Future Iterations**:
+- **Schema Markup**: Use JSON-LD scripts in components for structured data. Google prefers JSON-LD over microdata.
+- **metadataBase**: Required in Next.js 14+ for proper OG image and canonical URL resolution.
+- **Sitemap**: Use MetadataRoute.Sitemap return type and export as default async function.
+- **FAQ Schema**: Use HTML5 details element for accessible, progressively-enhanced accordions.
+
+---
+
