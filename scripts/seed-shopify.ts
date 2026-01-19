@@ -194,6 +194,24 @@ async function seedShopify() {
       
       collectionId = result.collectionCreate.collection.id;
       console.log(`✅ Created collection: ${collection.title}`);
+
+      // Auto-publish collection to all channels
+      const pubQuery = `query { publications(first: 10) { edges { node { id } } } }`;
+      const pubData = await adminApiFetch<{ publications: { edges: Array<{ node: { id: string } }> } }>({ query: pubQuery });
+      const pubInput = pubData.publications.edges.map(e => ({ publicationId: e.node.id }));
+      
+      const publishColMutation = `
+        mutation PublishCollection($id: ID!, $input: [PublicationInput!]!) {
+          publishablePublish(id: $id, input: $input) {
+            userErrors { field message }
+          }
+        }
+      `;
+      await adminApiFetch({
+        query: publishColMutation,
+        variables: { id: collectionId, input: pubInput }
+      });
+      console.log(`   📢 Published collection to ${pubInput.length} channels`);
     }
 
     // Create Products for this Collection

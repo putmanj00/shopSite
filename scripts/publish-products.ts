@@ -99,6 +99,72 @@ async function publishAllProducts() {
   }
   
   console.log('\n✅ All products published to all sales channels!');
+
+  // Step 4: Get all collections
+  console.log('\n📂 Publishing collections to all sales channels...\n');
+  const collectionsQuery = `
+    query GetAllCollections {
+      collections(first: 50) {
+        edges {
+          node {
+            id
+            title
+            handle
+          }
+        }
+      }
+    }
+  `;
+
+  const collectionsData = await adminApiFetch<{
+    collections: { edges: Array<{ node: { id: string, title: string, handle: string } }> }
+  }>({ query: collectionsQuery });
+
+  const collections = collectionsData.collections.edges.map(e => e.node);
+  console.log(`📦 Found ${collections.length} collections\n`);
+
+  // Step 5: Publish each collection to all channels
+  for (const collection of collections) {
+    console.log(`Publishing: ${collection.title}...`);
+    
+    const publishMutation = `
+      mutation PublishCollection($id: ID!, $input: [PublicationInput!]!) {
+        publishablePublish(id: $id, input: $input) {
+          publishable {
+            ... on Collection {
+              id
+              title
+            }
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+    `;
+    
+    // Publish to all channels
+    const input = publications.map(p => ({ publicationId: p.id }));
+    
+    const result = await adminApiFetch<{
+      publishablePublish: { userErrors: Array<{ field: string, message: string }> }
+    }>({
+      query: publishMutation,
+      variables: {
+        id: collection.id,
+        input
+      }
+    });
+    
+    if (result.publishablePublish.userErrors.length > 0) {
+      console.warn(`  ⚠️ Warning:`, result.publishablePublish.userErrors);
+    } else {
+      console.log(`  ✅ Published to ${publications.length} channels!`);
+    }
+  }
+
+  console.log('\n✅ All collections published to all sales channels!');
 }
 
 publishAllProducts().catch(console.error);
