@@ -9,6 +9,8 @@ import SkipLink from "@/components/ui/skip-link";
 import MobileBottomNav from "@/components/mobile-bottom-nav";
 import ServiceWorkerRegister from "@/components/service-worker-register";
 import SocialProofToast from "@/components/social-proof-toast";
+import { ExitIntentPopup, WelcomePopup, RecentPurchasePopup } from "@/components/cro";
+import Analytics from "@/components/analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -111,6 +113,10 @@ export default function RootLayout({
         <MobileBottomNav />
         <ServiceWorkerRegister />
         <SocialProofToast />
+        <WelcomePopup />
+        <ExitIntentPopup />
+        <RecentPurchasePopup />
+        <Analytics />
       </body>
     </html>
   );
