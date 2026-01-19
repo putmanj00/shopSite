@@ -10,9 +10,12 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "a11y:test": "npx ts-node scripts/accessibility-test.ts",
-    "contrast:check": "npx ts-node scripts/color-contrast-checker.ts",
-    "a11y:all": "npm run contrast:check && npm run a11y:test"
+    "a11y:test": "npx tsx scripts/accessibility-test.ts",
+    "contrast:check": "npx tsx scripts/color-contrast-checker.ts",
+    "a11y:all": "npm run contrast:check && npm run a11y:test",
+    "test:ui": "npx tsx scripts/ui-tests.ts",
+    "test:routes": "npx tsx scripts/validate-routes.ts",
+    "test:all": "npm run typecheck && npm run lint && npm run test:ui"
   },
   "dependencies": {
     "@shopify/storefront-api-client": "^1.0.9",

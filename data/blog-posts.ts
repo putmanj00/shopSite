@@ -24,7 +24,7 @@ export const blogPosts: BlogPost[] = [
     `,
     author: 'Sarah Chen',
     date: '2026-01-15',
-    imageUrl: 'https://images.unsplash.com/photo-1598532163257-5226004963d3?q=80&w=2670&auto=format&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&auto=format&fit=crop',
     tags: ['Tie-Dye', 'Craftsmanship', 'History'],
   },
   {
@@ -45,7 +45,7 @@ export const blogPosts: BlogPost[] = [
     `,
     author: 'Marcus Thorne',
     date: '2026-01-10',
-    imageUrl: 'https://images.unsplash.com/photo-1485303433503-491fa396b299?q=80&w=2670&auto=format&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1473188588951-7d4e0ed94300?w=800&auto=format&fit=crop',
     tags: ['Leather', 'Guides', 'Sustainability'],
   },
   {

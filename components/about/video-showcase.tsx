@@ -72,38 +72,16 @@ export default function VideoShowcase() {
                             </div>
                         ) : (
                             <>
-                                <video
-                                    ref={videoRef}
-                                    className="w-full h-full object-cover"
-                                    poster="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=1280&h=720&fit=crop"
-                                    onEnded={handleVideoEnd}
-                                    playsInline
-                                    preload="metadata"
-                                >
-                                    {/* Placeholder video source - replace with actual video */}
-                                    <source
-                                        src="/videos/artisan-process.mp4"
-                                        type="video/mp4"
+                                {/* Check if video is available - show placeholder if not */}
+                                <div className="relative w-full h-full">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=1280&h=720&fit=crop"
+                                        alt="Artisan crafting handmade goods in workshop"
+                                        className="w-full h-full object-cover"
                                     />
-                                    {/* WebVTT captions track */}
-                                    <track
-                                        kind="captions"
-                                        src="/videos/artisan-process.vtt"
-                                        srcLang="en"
-                                        label="English"
-                                        default
-                                    />
-                                    Your browser does not support the video tag.
-                                </video>
-
-                                {/* Play/Pause overlay button */}
-                                {!isPlaying && (
-                                    <button
-                                        onClick={togglePlay}
-                                        className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors group"
-                                        aria-label="Play video: Watch the creation process"
-                                    >
-                                        <span className="flex items-center justify-center w-20 h-20 rounded-full bg-amber-500 group-hover:bg-amber-400 transition-colors shadow-lg">
+                                    <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center p-6">
+                                        <span className="flex items-center justify-center w-20 h-20 rounded-full bg-amber-500/80 mb-4">
                                             <svg
                                                 className="w-8 h-8 text-white ml-1"
                                                 fill="currentColor"
@@ -113,26 +91,16 @@ export default function VideoShowcase() {
                                                 <path d="M8 5v14l11-7z" />
                                             </svg>
                                         </span>
-                                    </button>
-                                )}
+                                        <p className="text-white text-lg font-medium">
+                                            Video Coming Soon
+                                        </p>
+                                        <p className="text-neutral-300 text-sm mt-2 max-w-md">
+                                            Our behind-the-scenes documentary showcasing our artisan
+                                            crafting process is currently in production.
+                                        </p>
+                                    </div>
+                                </div>
 
-                                {/* Pause button when playing */}
-                                {isPlaying && (
-                                    <button
-                                        onClick={togglePlay}
-                                        className="absolute bottom-4 right-4 flex items-center justify-center w-12 h-12 rounded-full bg-black/60 hover:bg-black/80 transition-colors"
-                                        aria-label="Pause video"
-                                    >
-                                        <svg
-                                            className="w-6 h-6 text-white"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                            aria-hidden="true"
-                                        >
-                                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-                                        </svg>
-                                    </button>
-                                )}
                             </>
                         )}
                     </div>

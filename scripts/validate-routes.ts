@@ -1,5 +1,4 @@
-
-import { chromium, Browser, Page } from 'playwright';
+import { chromium } from 'playwright';
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 const MAX_PAGES = 100;
@@ -22,7 +21,6 @@ async function validateRoutes() {
   const visited = new Set<string>();
   const queue: string[] = ['/'];
   const results: PageResult[] = [];
-  const brokenLinks: { source: string, target: string, status: number }[] = [];
 
   let scannedCount = 0;
 
@@ -79,9 +77,10 @@ async function validateRoutes() {
         }
       }
 
-    } catch (err: any) {
-      console.log(`❌ ERROR ${urlPath}: ${err.message}`);
-      results.push({ url: urlPath, status: 0, error: err.message, consoleErrors });
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      console.log(`❌ ERROR ${urlPath}: ${errorMessage}`);
+      results.push({ url: urlPath, status: 0, error: errorMessage, consoleErrors });
     }
     
     // Clear listeners
