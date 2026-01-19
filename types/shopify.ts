@@ -178,6 +178,18 @@ export interface ProductsQueryResponse {
   };
 }
 
+export interface SearchQueryResponse {
+  search: {
+    edges: {
+      node: ShopifyProduct;
+    }[];
+    pageInfo: {
+      hasNextPage: boolean;
+      hasPreviousPage: boolean;
+    };
+  };
+}
+
 export interface ProductQueryResponse {
   product: ShopifyProduct | null;
 }

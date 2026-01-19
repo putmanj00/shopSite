@@ -8,9 +8,11 @@ import {
   GET_COLLECTION_BY_HANDLE_QUERY,
   GET_ALL_PRODUCTS_HANDLES,
   GET_ALL_COLLECTIONS_HANDLES,
+  SEARCH_PRODUCTS_QUERY,
 } from './shopify-queries';
 import type {
   ProductsQueryResponse,
+  SearchQueryResponse,
   ProductQueryResponse,
   CollectionsQueryResponse,
   CollectionQueryResponse,
@@ -241,6 +243,55 @@ export async function getAllCollections(): Promise<ShopifyCollection[]> {
   } catch (error) {
     console.error('Error fetching all collections:', error);
     return [];
+  }
+}
+
+/**
+ * Search products using the Shopify Search API (better relevance/typo tolerance)
+ */
+export async function searchProducts(
+  query: string,
+  options: { first?: number; after?: string } = {}
+): Promise<ProductsQueryResponse> {
+  try {
+    const { first = 10, after } = options;
+    
+    // Shopify Search API requires query to be non-empty
+    if (!query.trim()) {
+      return {
+        products: {
+          edges: [],
+          pageInfo: { hasNextPage: false, hasPreviousPage: false }
+        }
+      };
+    }
+
+    // Use SEARCH_PRODUCTS_QUERY which uses the search query field
+    const data = await shopifyFetch<SearchQueryResponse>({
+      query: SEARCH_PRODUCTS_QUERY,
+      variables: {
+        query,
+        first,
+        after
+      },
+    });
+
+    // Transform search results to match ProductsQueryResponse structure
+    return {
+      products: {
+        edges: data.search.edges,
+        pageInfo: data.search.pageInfo,
+      },
+    };
+  } catch (error) {
+    console.error(`Error searching products with query "${query}":`, error);
+    // Return empty results instead of crashing for search
+    return {
+      products: {
+        edges: [],
+        pageInfo: { hasNextPage: false, hasPreviousPage: false }
+      }
+    };
   }
 }
 

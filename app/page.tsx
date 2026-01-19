@@ -8,6 +8,7 @@ import TestimonialCarousel from '@/components/homepage/testimonial-carousel';
 import InstagramGallery from '@/components/homepage/instagram-gallery';
 import NewsletterSignup from '@/components/homepage/newsletter-signup';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
+import PersonalizedRecommendations from '@/components/homepage/personalized-recommendations';
 
 function FeaturedProductsSkeleton() {
   return (
@@ -90,6 +91,11 @@ export default function Home() {
 
       {/* Category Cards */}
       <CategoryCards />
+
+      {/* Personalized Recommendations (Client-side only) */}
+      <div className="bg-zinc-50">
+        <PersonalizedRecommendations />
+      </div>
 
       {/* Featured Products */}
       <Suspense fallback={<FeaturedProductsSkeleton />}>
