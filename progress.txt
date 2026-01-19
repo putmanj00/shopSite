@@ -586,3 +586,60 @@ Started: Sun Jan 12 2026
 - **Reorder Pattern**: Extract product handle from order line item `productId`, fetch product to get variant ID, then add to cart
 
 ---
+
+## 2026-01-17 - Artisan Shop PRD Story #10: Email Marketing & Automation
+
+**Thread**: Artisan Collective implementation (continued)
+
+**Implementation**:
+- Created base EmailLayout component with consistent header/footer, social links, and unsubscribe
+- Built reusable EmailButton and EmailProductCard components for email templates
+- Created comprehensive email templates using React Email patterns:
+  - WelcomeEmail: Brand story with 15% discount code (WELCOME15)
+  - AbandonedCartEmail: 3-email sequence with increasing urgency (email 3 includes 10% discount)
+  - OrderConfirmationEmail: Order summary with shipping address and tracking
+  - ShippingNotificationEmail: Tracking info with estimated delivery date
+  - DeliveryConfirmationEmail: Review request with item links and loyalty points incentive
+  - PostPurchaseEmail: Care tips, product care resources, and related recommendations
+  - WinbackEmail: Re-engagement with discount for inactive customers
+  - BirthdayEmail: Birthday discount celebration message
+  - NewCollectionEmail: Early access support for loyalty members with featured products
+  - LoyaltyUpgradeEmail: Tier upgrade celebration with new benefits list
+- Created API routes for triggering each email type via POST requests
+- All templates use inline styles for email client compatibility
+- Added eslint-disable comments for img and head elements required for email templates
+
+**Files Changed**:
+- components/emails/email-layout.tsx - NEW: Base email layout with header, footer, EmailButton, EmailProductCard
+- components/emails/welcome-email.tsx - UPDATED: Added brand story and discount code
+- components/emails/abandoned-cart-email.tsx - NEW: 3-email sequence with urgency progression
+- components/emails/order-confirmation-email.tsx - UPDATED: Improved layout with shipping address
+- components/emails/shipping-notification-email.tsx - NEW: Tracking and delivery estimate
+- components/emails/delivery-confirmation-email.tsx - NEW: Review request with product links
+- components/emails/post-purchase-email.tsx - NEW: Care tips and related products
+- components/emails/winback-email.tsx - NEW: Re-engagement with discount
+- components/emails/birthday-email.tsx - NEW: Birthday celebration email
+- components/emails/new-collection-email.tsx - NEW: Early access collection announcement
+- components/emails/loyalty-upgrade-email.tsx - NEW: Tier upgrade celebration
+- components/emails/index.ts - NEW: Export all email templates
+- app/api/email/abandoned-cart/route.ts - NEW: Trigger abandoned cart emails
+- app/api/email/order-confirmation/route.ts - NEW: Trigger order confirmation
+- app/api/email/shipping/route.ts - NEW: Trigger shipping notification
+- app/api/email/delivery/route.ts - NEW: Trigger delivery confirmation
+- app/api/email/post-purchase/route.ts - NEW: Trigger post-purchase email
+- app/api/email/winback/route.ts - NEW: Trigger winback email
+- app/api/email/birthday/route.ts - NEW: Trigger birthday email
+- app/api/email/new-collection/route.ts - NEW: Trigger new collection email
+- app/api/email/loyalty-upgrade/route.ts - NEW: Trigger loyalty upgrade email
+
+**Learnings for Future Iterations**:
+- **Email Template Patterns**: Use inline styles instead of CSS classes for email client compatibility
+- **React Email**: JSX-based email templates that render to HTML; use table-based layouts for Outlook support
+- **img vs Image**: Email templates must use <img> not Next.js <Image> - add eslint-disable comments
+- **head Element**: Email templates need HTML <head> element - add eslint-disable for @next/next/no-head-element
+- **Abandoned Cart Sequence**: 3-email sequence pattern: (1) Reminder, (2) Social proof, (3) Discount offer with urgency
+- **Email API Routes**: POST endpoints accept customer data and trigger emails via Resend service
+- **Template Variants**: Use emailNumber prop for sequence variants (abandoned cart) or isEarlyAccess for conditional content (new collection)
+- **Loyalty Points Incentive**: Offer points for reviews to increase engagement
+
+---
