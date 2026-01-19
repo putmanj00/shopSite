@@ -3,11 +3,77 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth-store';
+import OrderHistory from '@/components/account/order-history';
+import AddressBook from '@/components/account/address-book';
+import WishlistPreview from '@/components/account/wishlist-preview';
+import RecentlyViewed from '@/components/account/recently-viewed';
+import LoyaltyCard from '@/components/account/loyalty-card';
+import ReferralSection from '@/components/account/referral-section';
+import BirthdaySection from '@/components/account/birthday-section';
+import EarlyAccessSection from '@/components/account/early-access-section';
+
+type TabId = 'overview' | 'orders' | 'addresses' | 'wishlist' | 'rewards';
+
+interface Tab {
+  id: TabId;
+  name: string;
+  icon: React.ReactNode;
+}
+
+const tabs: Tab[] = [
+  {
+    id: 'overview',
+    name: 'Overview',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'orders',
+    name: 'Orders',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'addresses',
+    name: 'Addresses',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'wishlist',
+    name: 'Wishlist',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'rewards',
+    name: 'Rewards',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
+];
 
 export default function AccountPage() {
   const router = useRouter();
   const { customer, isAuthenticated, logout, isLoading, isUpdating, error, checkAuth, updateProfile, clearError } = useAuthStore();
   const [isMounted, setIsMounted] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabId>('overview');
   const [isEditing, setIsEditing] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -36,7 +102,6 @@ export default function AccountPage() {
   // Initialize form values when customer data is loaded
   useEffect(() => {
     if (customer) {
-      // Use setTimeout to avoid synchronous setState in effect
       const timer = setTimeout(() => {
         setFirstName(customer.firstName || '');
         setLastName(customer.lastName || '');
@@ -52,7 +117,7 @@ export default function AccountPage() {
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="flex flex-col items-center">
             <svg
-              className="animate-spin h-8 w-8 text-blue-600 mb-4"
+              className="animate-spin h-8 w-8 text-primary-600 mb-4"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -114,10 +179,11 @@ export default function AccountPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">My Account</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">My Account</h1>
           <p className="text-gray-500 mt-1">
             Welcome back, {customer?.firstName || customer?.displayName || 'there'}!
           </p>
@@ -144,16 +210,17 @@ export default function AccountPage() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Profile Card */}
-        <div className="lg:col-span-1">
-          <div className="bg-white shadow rounded-lg p-6">
+      <div className="flex flex-col lg:flex-row gap-8">
+        {/* Sidebar Navigation */}
+        <div className="lg:w-64 flex-shrink-0">
+          {/* Profile Card */}
+          <div className="bg-white shadow rounded-lg p-6 mb-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-semibold text-gray-900">Profile</h2>
               {!isEditing && (
                 <button
                   onClick={handleEditClick}
-                  className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  className="text-sm text-primary-600 hover:text-primary-700 font-medium"
                 >
                   Edit
                 </button>
@@ -171,7 +238,7 @@ export default function AccountPage() {
                     id="firstName"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
                     placeholder="Enter your first name"
                   />
                 </div>
@@ -184,7 +251,7 @@ export default function AccountPage() {
                     id="lastName"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
                     placeholder="Enter your last name"
                   />
                 </div>
@@ -193,13 +260,12 @@ export default function AccountPage() {
                   <p className="font-medium text-gray-900 break-all text-sm">
                     {customer?.email || 'Not available'}
                   </p>
-                  <p className="text-xs text-gray-400 mt-1">Email cannot be changed here</p>
                 </div>
                 <div className="flex gap-2 pt-2">
                   <button
                     type="submit"
                     disabled={isUpdating}
-                    className="flex-1 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="flex-1 px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     {isUpdating ? 'Saving...' : 'Save'}
                   </button>
@@ -216,15 +282,11 @@ export default function AccountPage() {
             ) : (
               <div className="space-y-3">
                 <div>
-                  <p className="text-sm text-gray-500">First Name</p>
+                  <p className="text-sm text-gray-500">Name</p>
                   <p className="font-medium text-gray-900">
-                    {customer?.firstName || <span className="text-gray-400 italic">Not set</span>}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Last Name</p>
-                  <p className="font-medium text-gray-900">
-                    {customer?.lastName || <span className="text-gray-400 italic">Not set</span>}
+                    {customer?.firstName && customer?.lastName
+                      ? `${customer.firstName} ${customer.lastName}`
+                      : customer?.firstName || customer?.lastName || <span className="text-gray-400 italic">Not set</span>}
                   </p>
                 </div>
                 <div>
@@ -236,46 +298,108 @@ export default function AccountPage() {
               </div>
             )}
           </div>
+
+          {/* Tab Navigation */}
+          <nav className="bg-white shadow rounded-lg overflow-hidden" aria-label="Account navigation">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors ${
+                  activeTab === tab.id
+                    ? 'bg-primary-50 text-primary-700 border-l-4 border-primary-600'
+                    : 'text-gray-600 hover:bg-gray-50 border-l-4 border-transparent'
+                }`}
+                aria-current={activeTab === tab.id ? 'page' : undefined}
+              >
+                {tab.icon}
+                <span className="font-medium">{tab.name}</span>
+              </button>
+            ))}
+          </nav>
         </div>
 
         {/* Main Content */}
-        <div className="lg:col-span-2">
-          <div className="bg-white shadow rounded-lg p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Account Features</h2>
-
-            <div className="space-y-4">
-              <div className="p-4 bg-blue-50 rounded-lg">
-                <h3 className="font-semibold text-blue-900 mb-2">Store Credit</h3>
-                <p className="text-sm text-blue-700">
-                  With the new Customer Accounts, you can now receive and use store credit
-                  for future purchases. Store credit will be automatically applied at checkout.
-                </p>
+        <div className="flex-1 min-w-0">
+          {activeTab === 'overview' && (
+            <div className="space-y-8">
+              {/* Quick Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-white shadow rounded-lg p-4 text-center">
+                  <p className="text-2xl font-bold text-primary-600">0</p>
+                  <p className="text-sm text-gray-500">Orders</p>
+                </div>
+                <div className="bg-white shadow rounded-lg p-4 text-center">
+                  <p className="text-2xl font-bold text-primary-600">0</p>
+                  <p className="text-sm text-gray-500">Wishlist</p>
+                </div>
+                <div className="bg-white shadow rounded-lg p-4 text-center">
+                  <p className="text-2xl font-bold text-primary-600">0</p>
+                  <p className="text-sm text-gray-500">Reviews</p>
+                </div>
+                <div className="bg-white shadow rounded-lg p-4 text-center">
+                  <p className="text-2xl font-bold text-primary-600">0</p>
+                  <p className="text-sm text-gray-500">Points</p>
+                </div>
               </div>
 
-              <div className="p-4 bg-green-50 rounded-lg">
-                <h3 className="font-semibold text-green-900 mb-2">Secure Login</h3>
-                <p className="text-sm text-green-700">
-                  Your account uses passwordless authentication for enhanced security.
-                  No passwords to remember or worry about being stolen.
-                </p>
-              </div>
+              {/* Early Access Section */}
+              <section>
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">Early Access</h2>
+                <EarlyAccessSection />
+              </section>
 
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">Order History</h3>
-                <p className="text-sm text-gray-700 mb-3">
-                  View your order history and track shipments in your Shopify account.
-                </p>
-                <a
-                  href={`https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || ''}/account`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-                >
-                  View on Shopify →
-                </a>
-              </div>
+              {/* Birthday Section */}
+              <section>
+                <BirthdaySection />
+              </section>
+
+              {/* Recently Viewed */}
+              <section>
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">Recently Viewed</h2>
+                <RecentlyViewed />
+              </section>
             </div>
-          </div>
+          )}
+
+          {activeTab === 'orders' && (
+            <section>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Order History</h2>
+              <OrderHistory />
+            </section>
+          )}
+
+          {activeTab === 'addresses' && (
+            <section>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Saved Addresses</h2>
+              <AddressBook />
+            </section>
+          )}
+
+          {activeTab === 'wishlist' && (
+            <section>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">My Wishlist</h2>
+              <WishlistPreview />
+            </section>
+          )}
+
+          {activeTab === 'rewards' && (
+            <div className="space-y-8">
+              {/* Loyalty Card */}
+              <section>
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">Loyalty Status</h2>
+                <LoyaltyCard points={250} tier="bronze" nextTierPoints={500} />
+              </section>
+
+              {/* Referral Section */}
+              <section>
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">Refer a Friend</h2>
+                <div className="bg-white shadow rounded-lg p-6">
+                  <ReferralSection />
+                </div>
+              </section>
+            </div>
+          )}
         </div>
       </div>
     </div>

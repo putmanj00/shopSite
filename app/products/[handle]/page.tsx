@@ -10,6 +10,7 @@ import ProductCardSkeleton from '@/components/product-card-skeleton';
 import ReviewList from '@/components/reviews/review-list';
 import ProductAccordion from '@/components/product-accordion';
 import { getProductAccordionSections } from '@/lib/product-utils';
+import RecentlyViewedTracker from '@/components/recently-viewed-tracker';
 
 interface ProductPageProps {
   params: Promise<{
@@ -117,6 +118,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+
+      {/* Track recently viewed product */}
+      <RecentlyViewedTracker product={product} />
 
       <div className="min-h-screen bg-gray-50">
         {/* Breadcrumbs */}

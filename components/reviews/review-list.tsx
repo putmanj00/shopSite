@@ -207,7 +207,7 @@ export default function ReviewList({ productId }: ReviewListProps) {
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                                     <img
                                                         src={photo}
-                                                        alt={`Review photo ${idx + 1}`}
+                                                        alt={`Customer submitted attachment ${idx + 1}`}
                                                         className="w-full h-full object-cover"
                                                         loading="lazy"
                                                     />

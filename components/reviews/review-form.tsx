@@ -141,9 +141,9 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
             </div>
 
             <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <p className="block text-sm font-medium text-gray-700 mb-2">
                     Add Photos (optional)
-                </label>
+                </p>
                 <div className="flex flex-wrap gap-2 mb-2">
                     {photos.map((photo, index) => (
                         <div key={index} className="relative w-20 h-20 border border-gray-200 rounded-lg overflow-hidden group">
