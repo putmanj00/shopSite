@@ -33,6 +33,30 @@ export default async function ProtectedAdminLayout({
                     >
                         Reviews
                     </Link>
+                    <Link
+                        href="/admin/inventory"
+                        className="block px-4 py-2 rounded-lg hover:bg-zinc-800 transition-colors"
+                    >
+                        Inventory
+                    </Link>
+                    <Link
+                        href="/admin/sales"
+                        className="block px-4 py-2 rounded-lg hover:bg-zinc-800 transition-colors"
+                    >
+                        Sales
+                    </Link>
+                    <Link
+                        href="/admin/customers"
+                        className="block px-4 py-2 rounded-lg hover:bg-zinc-800 transition-colors"
+                    >
+                        Customers
+                    </Link>
+                    <Link
+                        href="/admin/settings"
+                        className="block px-4 py-2 rounded-lg hover:bg-zinc-800 transition-colors"
+                    >
+                        Settings
+                    </Link>
                 </nav>
                 <div className="p-4 border-t border-zinc-800">
                     <form action={async () => {
@@ -57,6 +81,6 @@ export default async function ProtectedAdminLayout({
                     {children}
                 </div>
             </main>
-        </div>
+        </div >
     );
 }

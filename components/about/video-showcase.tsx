@@ -3,9 +3,11 @@
 import { useState, useRef, useEffect } from 'react';
 
 export default function VideoShowcase() {
-    const [isPlaying, setIsPlaying] = useState(false);
+    // Video logic reserved for when video content is available
+    // const [isPlaying, setIsPlaying] = useState(false);
+    // const videoRef = useRef<HTMLVideoElement>(null);
+
     const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -22,20 +24,20 @@ export default function VideoShowcase() {
         return () => mediaQuery.removeEventListener('change', handleChange);
     }, []);
 
-    const togglePlay = () => {
-        if (videoRef.current) {
-            if (isPlaying) {
-                videoRef.current.pause();
-            } else {
-                videoRef.current.play();
-            }
-            setIsPlaying(!isPlaying);
-        }
-    };
+    // const togglePlay = () => {
+    //     if (videoRef.current) {
+    //         if (isPlaying) {
+    //             videoRef.current.pause();
+    //         } else {
+    //             videoRef.current.play();
+    //         }
+    //         setIsPlaying(!isPlaying);
+    //     }
+    // };
 
-    const handleVideoEnd = () => {
-        setIsPlaying(false);
-    };
+    // const handleVideoEnd = () => {
+    //     setIsPlaying(false);
+    // };
 
     return (
         <section className="bg-neutral-900 py-16 lg:py-24">
