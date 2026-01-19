@@ -700,3 +700,35 @@ Started: Sun Jan 12 2026
 
 ---
 
+
+## 2026-01-18 - Story #15: Conversion Rate Optimization Features
+**Status**: Completed
+
+**Implementation**:
+- Implemented **CRO Component Suite** managed via `components/cro/` directory
+- **Exit Intent Popup**: Detects mouse leaving viewport to offer discount
+- **Welcome Popup**: First-time visitor detection using localStorage
+- **Countdown Timer**: Urgency driver for sales/events
+- **Low Stock Badge**: Automatic urgency based on inventory levels
+- **Social Proof**: "Recent Purchase" notification popups (mock data)
+- **Back In Stock**: Email capture form for out-of-stock items with API route
+- **Analytics**: Unified component for GA4 and Facebook Pixel integration
+- Integrated all components into `RootLayout` for global availability
+
+**Files Changed**:
+- components/cro/exit-intent-popup.tsx
+- components/cro/welcome-popup.tsx
+- components/cro/recent-purchase-popup.tsx
+- components/cro/countdown-timer.tsx
+- components/cro/low-stock-badge.tsx
+- components/cro/back-in-stock-form.tsx
+- components/analytics.tsx
+- app/api/back-in-stock/route.ts
+- app/layout.tsx
+
+**Learnings for Future Iterations**:
+- **React Hydration**: Use `useEffect` + `setTimeout` pattern to handle client-side only features (like popups) to avoid hydration mismatches.
+- **Performance**: Lazy load heavy CRO components or use `next/dynamic` if they impact TBT (Total Blocking Time).
+- **Storage**: `localStorage` vs `sessionStorage` choice is critical for popup frequency (session for exit intent, local for welcome).
+
+---

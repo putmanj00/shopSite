@@ -717,7 +717,7 @@
       "title": "Conversion Rate Optimization Features",
       "description": "Implement CRO tactics proven by top-performing stores",
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "acceptanceCriteria": [
         "Exit-intent popup with discount offer",
         "First-time visitor welcome popup",
