@@ -96,7 +96,7 @@ export default function MissionValues() {
         <section className="bg-neutral-50 py-16 lg:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center max-w-3xl mx-auto mb-16">
-                    <span className="text-amber-600 font-medium text-sm uppercase tracking-wider">
+                    <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
                         What We Believe
                     </span>
                     <h2 className="mt-3 text-3xl font-bold text-neutral-900 sm:text-4xl">
@@ -115,7 +115,7 @@ export default function MissionValues() {
                             key={value.title}
                             className="text-center p-6 bg-white rounded-2xl shadow-sm"
                         >
-                            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-100 text-amber-600 mb-4">
+                            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-100 text-primary-600 mb-4">
                                 {value.icon}
                             </div>
                             <h3 className="text-lg font-semibold text-neutral-900">

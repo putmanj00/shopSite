@@ -43,7 +43,7 @@ export default function VideoShowcase() {
         <section className="bg-neutral-900 py-16 lg:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <span className="text-amber-400 font-medium text-sm uppercase tracking-wider">
+                    <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
                         Behind the Craft
                     </span>
                     <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
@@ -83,7 +83,7 @@ export default function VideoShowcase() {
                                         className="w-full h-full object-cover"
                                     />
                                     <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center p-6">
-                                        <span className="flex items-center justify-center w-20 h-20 rounded-full bg-amber-500/80 mb-4">
+                                        <span className="flex items-center justify-center w-20 h-20 rounded-full bg-primary-500/80 mb-4">
                                             <svg
                                                 className="w-8 h-8 text-white ml-1"
                                                 fill="currentColor"

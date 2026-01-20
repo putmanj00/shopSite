@@ -50,7 +50,7 @@ export default function BehindTheScenes() {
         <section className="bg-white py-16 lg:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <span className="text-amber-600 font-medium text-sm uppercase tracking-wider">
+                    <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
                         The Workshop
                     </span>
                     <h2 className="mt-3 text-3xl font-bold text-neutral-900 sm:text-4xl">

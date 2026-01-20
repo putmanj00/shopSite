@@ -1019,11 +1019,11 @@ Comprehensive rebrand from "Artisan Collective" to "Wildenflower" - a premium bo
 
 **Implementation**:
 - **Consolidated Links**: Fixed all 404 footer links by implementing a shared `ComingSoon` component and deploying it to 9 previously missing routes (Contact, FAQ, Privacy, etc.).
-- **Visual Polish**:
-  - Resized header logo to `w-56` for improved visibility.
-  - Updated About page hero with local brand asset.
-  - Replaced low-res/generic placeholders for Jewelry and Crystals with high-quality Unsplash images.
-- **Redirects**: Added redirect from `/our-story` to `/about`.
+- **Consistent Branding**: Conducted a full audit to remove generic "Amber" (yellow) and "Green" colors from UI components.
+  - Replaced Amber with Primary (Turquoise) in `BrandTimeline`, `MissionValues`, `MeetTheMakers`, `BehindTheScenes`, `VideoShowcase`, `PressMentions`, and `LoyaltyCard`.
+  - Replaced Green with Primary (Turquoise) in `Sustainability` ("Our Commitment") section.
+  - Replaced Amber with Secondary (Magenta) in `LowStockBadge`.
+- **Bug Fixes**: Fixed visual layout issue in `BrandTimeline` where the vertical line overlapped year text.
 
 **Files Changed**:
 - components/coming-soon.tsx - NEW: Shared placeholder component
@@ -1031,4 +1031,8 @@ Comprehensive rebrand from "Artisan Collective" to "Wildenflower" - a premium bo
 - components/homepage/category-cards.tsx - Updated images
 - components/header.tsx - Resized logo
 - app/about/page.tsx - Updated hero image
+- components/about/* - Updated 6 components to use brand colors
+- components/cro/low-stock-badge.tsx - Updated colors
+- components/account/loyalty-card.tsx - Updated colors
+
 

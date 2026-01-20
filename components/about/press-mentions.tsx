@@ -41,7 +41,7 @@ export default function PressMentions() {
         <section className="bg-neutral-100 py-16 lg:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <span className="text-amber-600 font-medium text-sm uppercase tracking-wider">
+                    <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
                         In the Press
                     </span>
                     <h2 className="mt-3 text-3xl font-bold text-neutral-900 sm:text-4xl">
@@ -79,7 +79,7 @@ export default function PressMentions() {
                                 className="bg-white p-8 rounded-2xl shadow-sm relative"
                             >
                                 <svg
-                                    className="absolute top-6 left-6 w-8 h-8 text-amber-200"
+                                    className="absolute top-6 left-6 w-8 h-8 text-primary-200"
                                     fill="currentColor"
                                     viewBox="0 0 32 32"
                                     aria-hidden="true"
@@ -89,7 +89,7 @@ export default function PressMentions() {
                                 <p className="text-xl font-medium text-neutral-800 italic pl-12">
                                     {press.quote}
                                 </p>
-                                <cite className="mt-4 block text-amber-600 font-semibold not-italic">
+                                <cite className="mt-4 block text-primary-600 font-semibold not-italic">
                                     — {press.name}
                                 </cite>
                             </blockquote>

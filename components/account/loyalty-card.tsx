@@ -9,10 +9,10 @@ interface LoyaltyCardProps {
 const tierConfig = {
   bronze: {
     name: 'Bronze',
-    color: 'bg-amber-600',
-    bgColor: 'bg-amber-50',
-    borderColor: 'border-amber-200',
-    textColor: 'text-amber-800',
+    color: 'bg-primary-600',
+    bgColor: 'bg-primary-50',
+    borderColor: 'border-primary-200',
+    textColor: 'text-primary-800',
     benefits: ['Exclusive member discounts', 'Early access to sales'],
   },
   silver: {

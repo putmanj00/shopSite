@@ -129,36 +129,36 @@ const practices: Practice[] = [
 
 export default function Sustainability() {
     return (
-        <section className="bg-green-900 text-white py-16 lg:py-24">
+        <section className="bg-primary-900 text-white py-16 lg:py-24">
             <div className="container mx-auto px-4">
                 <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
                     {/* Content */}
                     <div>
-                        <span className="text-green-300 font-medium text-sm uppercase tracking-wider">
+                        <span className="text-primary-300 font-medium text-sm uppercase tracking-wider">
                             Our Commitment
                         </span>
                         <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
                             Sustainability & Ethical Sourcing
                         </h2>
-                        <p className="mt-6 text-lg text-green-100 leading-relaxed">
+                        <p className="mt-6 text-lg text-primary-100 leading-relaxed">
                             We believe beautiful products shouldn&apos;t come at the cost of our
                             planet or people. Every material we use is carefully selected for
                             its environmental and social impact.
                         </p>
-                        <p className="mt-4 text-green-200 leading-relaxed">
+                        <p className="mt-4 text-primary-200 leading-relaxed">
                             From natural dyes to recycled metals, we&apos;re committed to making
                             sustainable choices at every step of our supply chain.
                         </p>
 
                         {/* Certifications */}
                         <div className="mt-8 flex flex-wrap gap-4">
-                            <span className="inline-flex items-center px-4 py-2 rounded-full bg-green-800 text-green-100 text-sm font-medium">
+                            <span className="inline-flex items-center px-4 py-2 rounded-full bg-primary-800 text-primary-100 text-sm font-medium">
                                 🌱 Certified B Corp
                             </span>
-                            <span className="inline-flex items-center px-4 py-2 rounded-full bg-green-800 text-green-100 text-sm font-medium">
+                            <span className="inline-flex items-center px-4 py-2 rounded-full bg-primary-800 text-primary-100 text-sm font-medium">
                                 ♻️ 1% for the Planet
                             </span>
-                            <span className="inline-flex items-center px-4 py-2 rounded-full bg-green-800 text-green-100 text-sm font-medium">
+                            <span className="inline-flex items-center px-4 py-2 rounded-full bg-primary-800 text-primary-100 text-sm font-medium">
                                 🤝 Fair Trade
                             </span>
                         </div>
@@ -169,13 +169,13 @@ export default function Sustainability() {
                         {practices.map((practice) => (
                             <div
                                 key={practice.title}
-                                className="p-4 bg-green-800/50 rounded-xl backdrop-blur-sm"
+                                className="p-4 bg-primary-800/50 rounded-xl backdrop-blur-sm"
                             >
-                                <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-green-700 text-green-200 mb-3">
+                                <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary-700 text-primary-200 mb-3">
                                     {practice.icon}
                                 </div>
                                 <h3 className="font-semibold text-white">{practice.title}</h3>
-                                <p className="mt-1 text-sm text-green-200 leading-relaxed">
+                                <p className="mt-1 text-sm text-primary-200 leading-relaxed">
                                     {practice.description}
                                 </p>
                             </div>

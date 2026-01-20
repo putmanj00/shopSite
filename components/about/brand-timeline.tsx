@@ -66,7 +66,7 @@ export default function BrandTimeline() {
                             >
                                 {/* Mobile: Left timeline dot */}
                                 <span
-                                    className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-amber-500 ring-4 ring-white lg:hidden"
+                                    className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary-500 ring-4 ring-white lg:hidden"
                                     aria-hidden="true"
                                 >
                                     <span className="h-2 w-2 rounded-full bg-white" />
@@ -91,15 +91,15 @@ export default function BrandTimeline() {
                                 {/* Desktop: Center dot */}
                                 <div className="hidden lg:flex lg:col-span-1 lg:order-2 justify-center">
                                     <div className="relative flex flex-col items-center">
-                                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 shadow-md">
+                                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-500 shadow-md">
                                             <span className="h-2 w-2 rounded-full bg-white" />
                                         </span>
-                                        <span className="mt-2 text-sm font-bold text-amber-600">
+                                        <span className="relative z-10 mt-2 bg-white px-2 text-sm font-bold text-primary-600">
                                             {event.year}
                                         </span>
                                         {index < events.length - 1 && (
                                             <div
-                                                className="absolute top-10 h-24 w-0.5 bg-amber-200"
+                                                className="absolute top-10 h-24 w-0.5 bg-primary-200"
                                                 aria-hidden="true"
                                             />
                                         )}
