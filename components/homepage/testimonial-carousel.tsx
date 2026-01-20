@@ -64,7 +64,7 @@ const testimonials: Testimonial[] = [
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-zinc-100 h-full flex flex-col">
+    <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-200 h-full flex flex-col">
       {/* Rating */}
       <div className="mb-4">
         <StarRating rating={testimonial.rating} size="sm" />
@@ -72,19 +72,19 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 
       {/* Quote */}
       <blockquote className="flex-1">
-        <p className="text-zinc-700 leading-relaxed">&ldquo;{testimonial.text}&rdquo;</p>
+        <p className="text-neutral-700 leading-relaxed">&ldquo;{testimonial.text}&rdquo;</p>
       </blockquote>
 
       {/* Product Purchased */}
       {testimonial.productPurchased && (
-        <p className="mt-4 text-sm text-zinc-500">
-          Purchased: <span className="font-medium">{testimonial.productPurchased}</span>
+        <p className="mt-4 text-sm text-neutral-500">
+          Purchased: <span className="font-medium text-primary-600">{testimonial.productPurchased}</span>
         </p>
       )}
 
       {/* Author */}
-      <div className="mt-6 flex items-center gap-3 pt-4 border-t border-zinc-100">
-        <div className="relative w-12 h-12 rounded-full overflow-hidden bg-zinc-200">
+      <div className="mt-6 flex items-center gap-3 pt-4 border-t border-neutral-100">
+        <div className="relative w-12 h-12 rounded-full overflow-hidden bg-neutral-200">
           <Image
             src={testimonial.avatar}
             alt={testimonial.name}
@@ -94,8 +94,8 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           />
         </div>
         <div>
-          <p className="font-semibold text-zinc-900">{testimonial.name}</p>
-          <p className="text-sm text-zinc-500">{testimonial.location}</p>
+          <p className="font-semibold text-neutral-900">{testimonial.name}</p>
+          <p className="text-sm text-neutral-500">{testimonial.location}</p>
         </div>
       </div>
     </div>
@@ -104,16 +104,16 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 
 export default function TestimonialCarousel() {
   return (
-    <section className="bg-zinc-50 py-16 lg:py-24">
+    <section className="bg-neutral-50 py-16 lg:py-24">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-zinc-900 sm:text-4xl">
-            What Our Customers Say
+          <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl font-heading">
+            Stories from Our Community
           </h2>
-          <p className="mt-4 text-lg text-zinc-600 max-w-2xl mx-auto">
-            Join thousands of happy customers who have discovered the joy of
-            handcrafted artisan products.
+          <p className="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">
+            Join thousands of seekers and dreamers who have found their treasures
+            with Wildenflower.
           </p>
         </div>
 
@@ -139,19 +139,19 @@ export default function TestimonialCarousel() {
         {/* Overall Stats */}
         <div className="mt-12 flex flex-wrap justify-center gap-8 text-center">
           <div>
-            <div className="text-3xl font-bold text-zinc-900">4.9</div>
+            <div className="text-3xl font-bold text-neutral-900 font-heading">4.9</div>
             <div className="flex justify-center mt-1">
               <StarRating rating={4.9} size="sm" />
             </div>
-            <div className="text-sm text-zinc-500 mt-1">Average Rating</div>
+            <div className="text-sm text-neutral-500 mt-1">Average Rating</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-zinc-900">2,500+</div>
-            <div className="text-sm text-zinc-500 mt-1">Happy Customers</div>
+            <div className="text-3xl font-bold text-neutral-900 font-heading">2,500+</div>
+            <div className="text-sm text-neutral-500 mt-1">Happy Seekers</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-zinc-900">98%</div>
-            <div className="text-sm text-zinc-500 mt-1">Would Recommend</div>
+            <div className="text-3xl font-bold text-neutral-900 font-heading">98%</div>
+            <div className="text-sm text-neutral-500 mt-1">Would Recommend</div>
           </div>
         </div>
       </div>

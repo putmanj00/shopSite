@@ -14,9 +14,10 @@ export function getShopifyClient(): StorefrontApiClient {
     return shopifyClient;
   }
 
-  // Validate required environment variables
-  const storeDomain = process.env.SHOPIFY_STORE_DOMAIN;
-  const storefrontAccessToken = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+  // Validate required environment variables (support both server and client side)
+  const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
+  const storefrontAccessToken = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+
 
   if (!storeDomain) {
     throw new Error('SHOPIFY_STORE_DOMAIN environment variable is required');

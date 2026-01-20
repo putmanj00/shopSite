@@ -1,11 +1,11 @@
 {
-  "name": "Artisan Collective",
-  "short_name": "Artisan",
-  "description": "Premium handmade goods - tie-dye apparel, leather goods, artisan jewelry, and original art",
+  "name": "Wildenflower",
+  "short_name": "Wildenflower",
+  "description": "Handpicked treasures for the untamed spirit. Curated bohemian jewelry, crystals, tie-dye, and artisan leather goods.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fdfcfa",
-  "theme_color": "#2e4a62",
+  "background_color": "#FDF8F3",
+  "theme_color": "#0D9488",
   "orientation": "portrait-primary",
   "scope": "/",
   "icons": [

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useCartStore } from '@/lib/cart-store';
 import { useAuthStore } from '@/lib/auth-store';
 import { useWishlistStore } from '@/lib/wishlist-store';
@@ -28,25 +29,33 @@ export default function Header() {
   const itemCount = cart?.totalQuantity || 0;
 
   return (
-    <header className="sticky top-0 z-30 bg-white border-b border-gray-200">
+    <header className="sticky top-0 z-30 bg-neutral-50 border-b border-neutral-200">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold text-gray-900">ShopSite</span>
+            <div className="relative h-10 w-56">
+              <Image
+                src="/images/wildenflower-full.png"
+                alt="Wildenflower"
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </div>
           </Link>
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center gap-8">
             <Link
               href="/"
-              className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
+              className="text-neutral-700 hover:text-primary-600 font-medium transition-colors"
             >
               Home
             </Link>
             <Link
               href="/collections/all"
-              className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
+              className="text-neutral-700 hover:text-primary-600 font-medium transition-colors"
             >
               Shop All
             </Link>
@@ -60,11 +69,11 @@ export default function Header() {
             {/* Wishlist Link */}
             <Link
               href="/wishlist"
-              className="relative min-w-11 min-h-11 p-2 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
+              className="relative min-w-11 min-h-11 p-2 flex items-center justify-center rounded-lg hover:bg-neutral-100 transition-colors"
               aria-label="Wishlist"
             >
               <svg
-                className="w-6 h-6 text-gray-900"
+                className="w-6 h-6 text-neutral-700"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -77,7 +86,7 @@ export default function Header() {
                 />
               </svg>
               {isMounted && wishlistItems.length > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-secondary-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
                   {wishlistItems.length}
                 </span>
               )}
@@ -87,11 +96,11 @@ export default function Header() {
             {isMounted && isAuthenticated ? (
               <Link
                 href="/account"
-                className="min-w-11 min-h-11 p-2 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
+                className="min-w-11 min-h-11 p-2 flex items-center justify-center rounded-lg hover:bg-neutral-100 transition-colors"
                 aria-label="Account"
               >
                 <svg
-                  className="w-6 h-6 text-gray-900"
+                  className="w-6 h-6 text-neutral-700"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -107,7 +116,7 @@ export default function Header() {
             ) : (
               <Link
                 href="/login"
-                className="min-h-11 px-3 flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
+                className="min-h-11 px-3 flex items-center text-sm font-medium text-neutral-700 hover:text-primary-600 transition-colors"
               >
                 Sign In
               </Link>
@@ -116,11 +125,11 @@ export default function Header() {
             {/* Cart Icon */}
             <button
               onClick={openCart}
-              className="relative min-w-11 min-h-11 p-2 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
+              className="relative min-w-11 min-h-11 p-2 flex items-center justify-center rounded-lg hover:bg-neutral-100 transition-colors"
               aria-label="Open cart"
             >
               <svg
-                className="w-6 h-6 text-gray-900"
+                className="w-6 h-6 text-neutral-700"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -135,7 +144,7 @@ export default function Header() {
 
               {/* Item Count Badge */}
               {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-blue-600 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
                   {itemCount > 9 ? '9+' : itemCount}
                 </span>
               )}

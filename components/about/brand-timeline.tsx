@@ -7,39 +7,39 @@ interface TimelineEvent {
 const events: TimelineEvent[] = [
     {
         year: '2018',
-        title: 'The Beginning',
+        title: 'A Seed is Planted',
         description:
-            'Maria Santos launched Artisan Collective from her home studio, selling tie-dye creations at local markets.',
+            'Wildenflower began at a local crystal and artisan market, born from a passion for handcrafted treasures and spiritual connection.',
     },
     {
         year: '2019',
-        title: 'First Artisan Partners',
+        title: 'Roots Take Hold',
         description:
-            'Expanded to include leather goods and jewelry, partnering with 5 talented local craftspeople.',
+            'Expanded to include leather goods and bohemian jewelry, partnering with our first artisan craftspeople.',
     },
     {
         year: '2020',
-        title: 'Online Launch',
+        title: 'Blooming Online',
         description:
-            'Launched our e-commerce platform, bringing handmade goods to customers nationwide.',
+            'Launched our digital home, bringing curated treasures to seekers and dreamers nationwide.',
     },
     {
         year: '2022',
-        title: 'Sustainability Pledge',
+        title: 'Sustainable Spirit',
         description:
-            'Committed to 100% sustainable materials and carbon-neutral shipping for all orders.',
+            'Committed to ethical sourcing and earth-friendly practices, honoring the natural world that inspires us.',
     },
     {
         year: '2024',
-        title: '50+ Artisan Partners',
+        title: 'A Growing Garden',
         description:
-            'Grew our community to over 50 artisan partners, each bringing unique skills and traditions.',
+            'Our community flourished to over 50 artisan partners, each bringing unique magic to our collection.',
     },
     {
         year: '2026',
-        title: 'Looking Ahead',
+        title: 'Ever Untamed',
         description:
-            'Continuing to expand our artisan network while maintaining our commitment to quality and authenticity.',
+            'Continuing to bloom wild and free, expanding our collection while staying true to our roots.',
     },
 ];
 
@@ -48,16 +48,16 @@ export default function BrandTimeline() {
         <section className="bg-white py-16 lg:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <span className="text-amber-600 font-medium text-sm uppercase tracking-wider">
+                    <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
                         Our Journey
                     </span>
-                    <h2 className="mt-3 text-3xl font-bold text-neutral-900 sm:text-4xl">
-                        The Artisan Collective Story
+                    <h2 className="mt-3 text-3xl font-bold text-neutral-900 sm:text-4xl font-heading">
+                        The Wildenflower Story
                     </h2>
                 </div>
 
                 <div className="max-w-4xl mx-auto">
-                    <ol className="relative border-l-2 border-amber-200 ml-4 lg:ml-0 lg:border-l-0">
+                    <ol className="relative border-l-2 border-primary-200 ml-4 lg:ml-0 lg:border-l-0">
                         {events.map((event, index) => (
                             <li
                                 key={event.year}

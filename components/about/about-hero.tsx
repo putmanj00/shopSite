@@ -6,7 +6,7 @@ export default function AboutHero() {
             {/* Background Image */}
             <div className="absolute inset-0">
                 <Image
-                    src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=1920&h=1080&fit=crop"
+                    src="/images/hero-background.png"
                     alt="Artisan workshop filled with handcrafted goods and tools"
                     fill
                     className="object-cover opacity-40"
@@ -19,24 +19,24 @@ export default function AboutHero() {
             {/* Content */}
             <div className="relative container mx-auto px-4 py-24 lg:py-32">
                 <div className="max-w-3xl">
-                    <span className="text-amber-400 font-medium text-sm uppercase tracking-wider">
-                        Our Story
+                    <span className="text-primary-300 font-medium text-sm uppercase tracking-wider">
+                        Born from a Love of the Untamed
                     </span>
-                    <h1 className="mt-4 text-4xl font-bold sm:text-5xl lg:text-6xl leading-tight">
-                        Where Passion Meets{' '}
-                        <span className="text-amber-400">Craftsmanship</span>
+                    <h1 className="mt-4 text-4xl font-bold sm:text-5xl lg:text-6xl leading-tight font-heading">
+                        Wild Beauty,{' '}
+                        <span className="text-primary-300">Crafted with Intention</span>
                     </h1>
                     <p className="mt-6 text-xl text-neutral-300 leading-relaxed">
-                        Founded in 2018, Artisan Collective began with a simple mission: to
-                        connect talented craftspeople with people who appreciate the beauty
-                        and quality of handmade goods. Today, we partner with over 50
-                        artisans across the country, bringing their unique creations to your
-                        doorstep.
+                        Wildenflower was born from a belief that the most beautiful things
+                        in life bloom freely. We curate handpicked treasures from talented
+                        artisans who pour their spirit into every creation — crystals,
+                        jewelry, tie-dye, and leather goods that connect you to something
+                        deeper.
                     </p>
                     <p className="mt-4 text-lg text-neutral-400 leading-relaxed">
-                        Every tie-dye pattern, every leather stitch, every jewelry setting,
-                        and every brushstroke tells a story of dedication, skill, and love
-                        for the craft.
+                        Every piece tells a story. Every treasure is chosen with intention.
+                        Like the wildflower that blooms where it chooses, we celebrate the
+                        untamed spirit in all of us.
                     </p>
                 </div>
             </div>

@@ -62,18 +62,18 @@ export default function Home() {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Store',
-    name: 'ShopSite',
-    description: 'Handcrafted artisan products including tie-dye, leather goods, jewelry, and original art.',
-    url: 'https://shopsite.com',
+    name: 'Wildenflower',
+    description: 'Handpicked treasures for the untamed spirit. Curated bohemian jewelry, crystals, tie-dye, and artisan leather goods.',
+    url: 'https://wildenflower.com',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://shopsite.com/search?q={search_term_string}',
+      target: 'https://wildenflower.com/search?q={search_term_string}',
       'query-input': 'required name=search_term_string'
     }
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen bg-neutral-50">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -81,10 +81,10 @@ export default function Home() {
 
       {/* Enhanced Hero with background image */}
       <EnhancedHero
-        heading="Handcrafted Artisan Treasures"
-        subheading="Discover unique tie-dye, leather, jewelry, and art pieces made with passion by skilled artisans."
+        heading="Embrace Your Wild Beauty"
+        subheading="Handpicked treasures for the untamed spirit. Crystals, jewelry, tie-dye, and artisan goods — all crafted with intention."
         ctas={[
-          { label: 'Shop Now', href: '/collections', variant: 'primary' },
+          { label: 'Explore Treasures', href: '/collections', variant: 'primary' },
           { label: 'Our Story', href: '#brand-story', variant: 'secondary' },
         ]}
       />

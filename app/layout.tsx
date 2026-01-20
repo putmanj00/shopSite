@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cormorant_Garamond, Nunito, Sacramento } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -16,41 +16,57 @@ import Analytics from "@/components/analytics";
 import { CurrencyProvider } from "@/lib/currency-context";
 import GeolocationHandler from "@/components/geolocation-handler";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Heading font: Elegant serif with personality
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Body font: Clean, warm, and readable
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+// Accent font: Hand-drawn script for special callouts
+const sacramento = Sacramento({
+  variable: "--font-sacramento",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://shopsite.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://wildenflower.com'),
   title: {
-    default: 'Artisan Collective - Premium Handmade Goods',
-    template: '%s | Artisan Collective',
+    default: 'Wildenflower - Wild Beauty, Crafted with Intention',
+    template: '%s | Wildenflower',
   },
   description:
-    'Discover handcrafted tie-dye apparel, leather goods, artisan jewelry, and original art. Premium quality, made with love by skilled artisans.',
+    'Handpicked treasures for the untamed spirit. Discover curated tie-dye apparel, artisan leather goods, unique jewelry, and crystals. Crafted with intention, worn with meaning.',
   keywords: [
-    'handmade',
-    'artisan',
+    'bohemian',
+    'crystals',
+    'artisan jewelry',
     'tie-dye',
     'leather goods',
-    'jewelry',
-    'original art',
     'handcrafted',
-    'premium',
+    'spiritual',
+    'gemstones',
+    'boho fashion',
+    'handmade gifts',
   ],
-  authors: [{ name: 'Artisan Collective' }],
-  creator: 'Artisan Collective',
+  authors: [{ name: 'Wildenflower' }],
+  creator: 'Wildenflower',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Artisan Collective',
+    title: 'Wildenflower',
   },
   formatDetection: {
     telephone: true,
@@ -61,17 +77,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://artisancollective.com',
-    title: 'Artisan Collective - Premium Handmade Goods',
+    url: 'https://wildenflower.com',
+    title: 'Wildenflower - Wild Beauty, Crafted with Intention',
     description:
-      'Discover handcrafted tie-dye apparel, leather goods, artisan jewelry, and original art.',
-    siteName: 'Artisan Collective',
+      'Handpicked treasures for the untamed spirit. Curated bohemian jewelry, crystals, tie-dye, and artisan goods.',
+    siteName: 'Wildenflower',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Artisan Collective - Premium Handmade Goods',
+    title: 'Wildenflower - Wild Beauty, Crafted with Intention',
     description:
-      'Discover handcrafted tie-dye apparel, leather goods, artisan jewelry, and original art.',
+      'Handpicked treasures for the untamed spirit. Curated bohemian jewelry, crystals, tie-dye, and artisan goods.',
   },
   robots: {
     index: true,
@@ -93,7 +109,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#2e4a62',
+  themeColor: '#0D9488', // Deep Turquoise - primary brand color
 };
 
 export default function RootLayout({
@@ -104,7 +120,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${nunito.variable} ${cormorant.variable} ${sacramento.variable} antialiased font-sans`}
       >
         <CurrencyProvider>
           <GeolocationHandler />

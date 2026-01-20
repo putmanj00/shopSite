@@ -21,11 +21,11 @@ export function EmailLayout({ children, previewText }: EmailLayoutProps) {
       <body style={{
         margin: 0,
         padding: 0,
-        backgroundColor: '#f8fafc',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+        backgroundColor: '#FDF8F3', // Warm Cream
+        fontFamily: 'Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
         fontSize: '16px',
         lineHeight: '1.6',
-        color: '#1e293b',
+        color: '#1C1917', // Charcoal
       }}>
         {/* Preview text (hidden) */}
         {previewText && (
@@ -44,7 +44,7 @@ export function EmailLayout({ children, previewText }: EmailLayoutProps) {
           width="100%"
           style={{
             borderCollapse: 'collapse',
-            backgroundColor: '#f8fafc',
+            backgroundColor: '#FDF8F3', // Warm Cream
           }}
         >
           <tbody>
@@ -68,16 +68,17 @@ export function EmailLayout({ children, previewText }: EmailLayoutProps) {
                       <td style={{
                         padding: '32px 40px',
                         textAlign: 'center',
-                        borderBottom: '1px solid #e2e8f0',
+                        borderBottom: '1px solid #e7ddd1',
                       }}>
                         <a href={baseUrl} style={{ textDecoration: 'none' }}>
                           <span style={{
-                            fontSize: '24px',
+                            fontSize: '28px',
                             fontWeight: 700,
-                            color: '#2563eb',
-                            letterSpacing: '-0.5px',
+                            color: '#0D9488', // Deep Turquoise
+                            letterSpacing: '0.5px',
+                            fontFamily: 'Georgia, serif',
                           }}>
-                            Artisan Collective
+                            Wildenflower
                           </span>
                         </a>
                       </td>
@@ -94,8 +95,8 @@ export function EmailLayout({ children, previewText }: EmailLayoutProps) {
                     <tr>
                       <td style={{
                         padding: '24px 40px',
-                        borderTop: '1px solid #e2e8f0',
-                        backgroundColor: '#f8fafc',
+                        borderTop: '1px solid #e7ddd1',
+                        backgroundColor: '#FDF8F3', // Warm Cream
                         borderBottomLeftRadius: '12px',
                         borderBottomRightRadius: '12px',
                       }}>
@@ -104,20 +105,20 @@ export function EmailLayout({ children, previewText }: EmailLayoutProps) {
                           <tbody>
                             <tr>
                               <td align="center" style={{ paddingBottom: '16px' }}>
-                                <a href={`${baseUrl}/social/facebook`} style={{ margin: '0 8px', textDecoration: 'none', color: '#64748b' }}>Facebook</a>
-                                <a href={`${baseUrl}/social/instagram`} style={{ margin: '0 8px', textDecoration: 'none', color: '#64748b' }}>Instagram</a>
-                                <a href={`${baseUrl}/social/twitter`} style={{ margin: '0 8px', textDecoration: 'none', color: '#64748b' }}>Twitter</a>
+                                <a href={`${baseUrl}/social/facebook`} style={{ margin: '0 8px', textDecoration: 'none', color: '#78716C' }}>Facebook</a>
+                                <a href={`${baseUrl}/social/instagram`} style={{ margin: '0 8px', textDecoration: 'none', color: '#78716C' }}>Instagram</a>
+                                <a href={`${baseUrl}/social/pinterest`} style={{ margin: '0 8px', textDecoration: 'none', color: '#78716C' }}>Pinterest</a>
                               </td>
                             </tr>
                             <tr>
-                              <td align="center" style={{ fontSize: '12px', color: '#94a3b8' }}>
+                              <td align="center" style={{ fontSize: '12px', color: '#78716C' }}>
                                 <p style={{ margin: '0 0 8px 0' }}>
-                                  © 2026 Artisan Collective. All rights reserved.
+                                  © 2026 Wildenflower. All rights reserved.
                                 </p>
                                 <p style={{ margin: '0' }}>
-                                  <a href={`${baseUrl}/unsubscribe`} style={{ color: '#64748b' }}>Unsubscribe</a>
+                                  <a href={`${baseUrl}/unsubscribe`} style={{ color: '#0D9488' }}>Unsubscribe</a>
                                   {' | '}
-                                  <a href={`${baseUrl}/privacy`} style={{ color: '#64748b' }}>Privacy Policy</a>
+                                  <a href={`${baseUrl}/privacy`} style={{ color: '#0D9488' }}>Privacy Policy</a>
                                 </p>
                               </td>
                             </tr>
@@ -148,12 +149,13 @@ export function EmailButton({
 }) {
   const styles = {
     primary: {
-      backgroundColor: '#2563eb',
+      backgroundColor: '#0D9488', // Deep Turquoise
       color: '#ffffff',
     },
     secondary: {
-      backgroundColor: '#f1f5f9',
-      color: '#1e293b',
+      backgroundColor: '#FDF8F3', // Warm Cream
+      color: '#1C1917', // Charcoal
+      border: '1px solid #e7ddd1',
     },
   };
 
@@ -194,7 +196,7 @@ export function EmailProductCard({ title, price, imageUrl, href }: EmailProductP
         color: 'inherit',
         padding: '12px',
         borderRadius: '8px',
-        border: '1px solid #e2e8f0',
+        border: '1px solid #e7ddd1',
         marginBottom: '12px',
       }}
     >
@@ -218,8 +220,8 @@ export function EmailProductCard({ title, price, imageUrl, href }: EmailProductP
               </td>
             )}
             <td style={{ verticalAlign: 'middle', paddingLeft: imageUrl ? '16px' : '0' }}>
-              <p style={{ margin: '0 0 4px 0', fontWeight: 600, color: '#1e293b' }}>{title}</p>
-              <p style={{ margin: 0, color: '#64748b' }}>{price}</p>
+              <p style={{ margin: '0 0 4px 0', fontWeight: 600, color: '#1C1917' }}>{title}</p>
+              <p style={{ margin: 0, color: '#78716C' }}>{price}</p>
             </td>
           </tr>
         </tbody>

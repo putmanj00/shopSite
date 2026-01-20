@@ -9,28 +9,28 @@ import Sustainability from '@/components/about/sustainability';
 import PressMentions from '@/components/about/press-mentions';
 
 export const metadata: Metadata = {
-    title: 'About Us | Artisan Collective',
+    title: 'Our Story | Wildenflower',
     description:
-        'Discover the story behind Artisan Collective. Meet our talented artisans, learn about our commitment to handcrafted quality, and explore our sustainable practices.',
+        'Born from a love of the untamed. Discover the Wildenflower story, meet our artisan partners, and explore our commitment to handpicked treasures crafted with intention.',
     openGraph: {
-        title: 'About Us | Artisan Collective',
+        title: 'Our Story | Wildenflower',
         description:
-            'Discover the story behind Artisan Collective. Meet our talented artisans and learn about our commitment to handcrafted quality.',
+            'Born from a love of the untamed. Discover the Wildenflower story and meet our artisan partners.',
         type: 'website',
         images: [
             {
-                url: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=1200&h=630&fit=crop',
+                url: 'https://images.unsplash.com/photo-1599643478518-17488fbbcd75?w=1200&h=630&fit=crop',
                 width: 1200,
                 height: 630,
-                alt: 'Artisan workshop',
+                alt: 'Artisan workshop with handcrafted treasures',
             },
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'About Us | Artisan Collective',
+        title: 'Our Story | Wildenflower',
         description:
-            'Discover the story behind Artisan Collective. Meet our talented artisans and learn about our commitment to handcrafted quality.',
+            'Born from a love of the untamed. Discover the Wildenflower story and meet our artisan partners.',
     },
 };
 

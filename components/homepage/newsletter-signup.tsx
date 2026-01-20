@@ -47,13 +47,13 @@ export default function NewsletterSignup() {
   };
 
   return (
-    <section className="bg-zinc-900 py-16 lg:py-20">
+    <section className="bg-primary-900 py-16 lg:py-20">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-2xl text-center">
           {/* Icon */}
-          <div className="mx-auto mb-6 w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center">
+          <div className="mx-auto mb-6 w-16 h-16 bg-primary-500/20 rounded-full flex items-center justify-center">
             <svg
-              className="w-8 h-8 text-amber-500"
+              className="w-8 h-8 text-primary-300"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -67,12 +67,12 @@ export default function NewsletterSignup() {
             </svg>
           </div>
 
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Get 15% Off Your First Order
+          <h2 className="text-3xl font-bold text-white sm:text-4xl font-heading">
+            Join the Wildenflower Community
           </h2>
-          <p className="mt-4 text-lg text-zinc-400">
-            Join our community of artisan enthusiasts. Be the first to know about
-            new collections, exclusive offers, and behind-the-scenes stories.
+          <p className="mt-4 text-lg text-primary-200">
+            Get 15% off your first order and be the first to discover new treasures,
+            exclusive offers, and stories from our artisan partners.
           </p>
 
           {/* Form */}
@@ -88,13 +88,13 @@ export default function NewsletterSignup() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 disabled={status === 'loading' || status === 'success'}
-                className="flex-1 px-5 py-4 text-zinc-900 bg-white rounded-lg sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-amber-500 disabled:opacity-50"
+                className="flex-1 px-5 py-4 text-neutral-900 bg-white rounded-lg sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary-400 disabled:opacity-50"
                 aria-describedby={message ? 'newsletter-message' : undefined}
               />
               <button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className="px-8 py-4 bg-amber-500 text-zinc-900 font-semibold rounded-lg sm:rounded-l-none hover:bg-amber-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-accent-500 text-white font-semibold rounded-lg sm:rounded-l-none hover:bg-accent-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {status === 'loading' ? (
                   <>
@@ -151,7 +151,7 @@ export default function NewsletterSignup() {
             )}
           </form>
 
-          <p className="mt-4 text-sm text-zinc-500">
+          <p className="mt-4 text-sm text-primary-300">
             We respect your privacy. Unsubscribe at any time.
           </p>
         </div>

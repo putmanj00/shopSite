@@ -17,13 +17,13 @@ interface EnhancedHeroProps {
 }
 
 export default function EnhancedHero({
-  heading = 'Handcrafted Artisan Treasures',
-  subheading = 'Discover unique tie-dye, leather, jewelry, and art pieces made with passion by skilled artisans.',
+  heading = 'Embrace Your Wild Beauty',
+  subheading = 'Handpicked treasures for the untamed spirit. Crystals, jewelry, tie-dye, and artisan goods — all crafted with intention.',
   ctas = [
-    { label: 'Shop Now', href: '/collections/all', variant: 'primary' },
+    { label: 'Explore Treasures', href: '/collections/all', variant: 'primary' },
     { label: 'Our Story', href: '#brand-story', variant: 'secondary' },
   ],
-  backgroundImage = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop',
+  backgroundImage = '/images/hero-background.png',
   backgroundVideo,
   overlayOpacity = 50,
 }: EnhancedHeroProps) {
@@ -68,11 +68,11 @@ export default function EnhancedHero({
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-24 md:py-32">
         <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 font-heading">
             {heading.split(' ').map((word, index, arr) => (
               <span key={index}>
                 {index >= arr.length - 2 ? (
-                  <span className="text-amber-400">{word}</span>
+                  <span className="text-primary-300">{word}</span>
                 ) : (
                   word
                 )}
@@ -82,7 +82,7 @@ export default function EnhancedHero({
           </h1>
 
           {subheading && (
-            <p className="text-lg md:text-xl text-zinc-200 mb-8 max-w-2xl">
+            <p className="text-lg md:text-xl text-neutral-200 mb-8 max-w-2xl">
               {subheading}
             </p>
           )}
@@ -96,8 +96,8 @@ export default function EnhancedHero({
                   className={`
                     inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-lg transition-all hover:scale-105
                     ${cta.variant === 'secondary'
-                      ? 'border-2 border-white text-white hover:bg-white hover:text-zinc-900'
-                      : 'bg-amber-500 text-zinc-900 hover:bg-amber-400'
+                      ? 'border-2 border-white text-white hover:bg-white hover:text-neutral-900'
+                      : 'bg-primary-500 text-white hover:bg-primary-400'
                     }
                   `}
                 >

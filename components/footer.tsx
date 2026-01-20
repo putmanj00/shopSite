@@ -2,11 +2,11 @@ import Link from 'next/link';
 
 const footerLinks = {
   shop: [
-    { name: 'All Products', href: '/collections/all' },
+    { name: 'All Treasures', href: '/collections/all' },
     { name: 'Tie-Dye', href: '/collections/tie-dye' },
     { name: 'Leather Goods', href: '/collections/leather' },
     { name: 'Jewelry', href: '/collections/jewelry' },
-    { name: 'Art & Prints', href: '/collections/art' },
+    { name: 'Crystals & Stones', href: '/collections/crystals' },
   ],
   support: [
     { name: 'Contact Us', href: '/contact' },
@@ -122,7 +122,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Brand */}
             <div className="flex items-center">
-              <span className="text-xl font-bold text-white">Artisan Collective</span>
+              <span className="text-xl font-bold text-white font-heading tracking-wide">Wildenflower</span>
             </div>
 
             {/* Social Links */}
@@ -195,7 +195,7 @@ export default function Footer() {
 
             {/* Copyright */}
             <p className="text-sm text-neutral-400">
-              © {currentYear} Artisan Collective. All rights reserved.
+              © {currentYear} Wildenflower. All rights reserved.
             </p>
           </div>
         </div>

@@ -834,3 +834,201 @@ Started: Sun Jan 12 2026
 **Files Changed**:
 - `package.json`: Added `tunnel` script.
 - `domain_connection_guide.md`: Added local auth best practices.
+
+## 2026-01-19 - Story #23: Checkout Flow Scenario Tests
+**Status**: In Progress
+
+**Implementation**:
+- **Objective**: Ensure customers can successfully add items to cart and check out.
+- **Plan**: Extend existing Playwright suite (`scripts/ui-tests.ts`) with a dedicated Checkout Workflow.
+- **Skill Usage**: Adapting `webapp-testing` principles to project's TypeScript/Playwright setup.
+
+---
+
+## 2026-01-19 - Story #24: Wildenflower Brand Strategy Kit Implementation
+**Status**: In Progress (90% Complete)
+
+**Overview**:
+Comprehensive rebrand from "Artisan Collective" to "Wildenflower" - a premium bohemian marketplace for spiritual seekers and creatives.
+
+**Brand Foundation**:
+- **Name**: Wildenflower (German "wilden" = untamed + flower)
+- **Tagline**: "Wild Beauty, Crafted with Intention"
+- **Positioning**: Premium bohemian marketplace, quality over quantity
+- **Target Audience**: Spiritual seekers, creatives, free spirits (28-45, upper-middle income)
+
+**Color Palette (Boho Brights)**:
+| Role | Color | Hex |
+|------|-------|-----|
+| Primary | Deep Turquoise | #0D9488 |
+| Secondary | Magenta Rose | #BE185D |
+| Accent | Saffron Gold | #D97706 |
+| Teal | Teal | #0891B2 |
+| Background | Warm Cream | #FDF8F3 |
+| Text Primary | Charcoal | #1C1917 |
+| Text Muted | Warm Gray | #78716C |
+
+**Typography**:
+- Headings: Cormorant Garamond (elegant serif)
+- Body: Nunito (clean, warm)
+- Accent: Sacramento (hand-drawn script)
+
+**Implementation Completed**:
+
+1. **Brand Foundation (prd.json)**:
+   - Added comprehensive `brandIdentity` section
+   - Mission, values, target audience personas
+   - Voice & tone guidelines with example phrases
+   - Complete color palette and typography specs
+   - Logo guidelines and visual style specs
+
+2. **Design System (app/globals.css)**:
+   - Updated all color variables to Boho Brights palette
+   - Added teal color scale
+   - Added heading/accent font styles
+   - Updated Tailwind theme inline configuration
+
+3. **Core Layout (app/layout.tsx)**:
+   - Added Google Fonts: Cormorant Garamond, Nunito, Sacramento
+   - Updated all metadata (title, description, keywords)
+   - Updated theme color to Deep Turquoise (#0D9488)
+   - Updated OpenGraph and Twitter card content
+
+4. **Header/Footer Branding**:
+   - Updated logo text to "Wildenflower"
+   - Applied new color scheme throughout
+   - Updated footer copyright and links
+
+5. **Homepage Components**:
+   - enhanced-hero.tsx: New headline "Embrace Your Wild Beauty"
+   - brand-story.tsx: New narrative with Wildenflower voice
+   - category-cards.tsx: Replaced Art with Crystals category, updated copy
+   - trust-bar.tsx: "Crafted with Intention", turquoise icons
+   - newsletter-signup.tsx: "Join the Wildenflower Community"
+   - testimonial-carousel.tsx: "Stories from Our Community"
+
+6. **CRO Popups**:
+   - welcome-popup.tsx: "Welcome, Free Spirit"
+   - exit-intent-popup.tsx: "Wait, Wild One!"
+
+7. **Email Templates**:
+   - email-layout.tsx: New brand colors, Wildenflower name
+   - Updated header, footer, buttons, product cards
+
+8. **PWA (public/manifest.json)**:
+   - Updated name, description, theme color, background color
+
+9. **About Page Components (In Progress)**:
+   - about-hero.tsx: New narrative "Born from a Love of the Untamed"
+   - brand-timeline.tsx: Wildenflower journey events, primary colors
+   - app/about/page.tsx: Updated metadata
+
+**Files Changed** (Complete):
+- prd.json
+- app/globals.css
+- app/layout.tsx
+- app/page.tsx
+- components/header.tsx
+- components/footer.tsx
+- components/homepage/enhanced-hero.tsx
+- components/homepage/brand-story.tsx
+- components/homepage/category-cards.tsx
+- components/homepage/trust-bar.tsx
+- components/homepage/newsletter-signup.tsx
+- components/homepage/testimonial-carousel.tsx
+- components/cro/welcome-popup.tsx
+- components/cro/exit-intent-popup.tsx
+- components/emails/email-layout.tsx
+- public/manifest.json
+- app/about/page.tsx
+- components/about/about-hero.tsx
+- components/about/brand-timeline.tsx
+
+**Remaining Work**:
+- Update remaining amber colors in: mission-values.tsx, meet-the-makers.tsx, video-showcase.tsx, behind-the-scenes.tsx, press-mentions.tsx
+- Update email templates: welcome-email.tsx, birthday-email.tsx, loyalty-upgrade-email.tsx
+- Update static pages: contact, faq, thank-you, offline, collections
+- Update account components: referral-section.tsx
+- Update admin layout
+- Update instagram-gallery.tsx
+- Update lib/email.ts
+- Final build verification
+
+**Learnings for Future Iterations**:
+- **Google Fonts Integration**: Use next/font/google for automatic optimization and CSS variable injection
+- **Tailwind Theme Extension**: Use @theme inline for custom color scales beyond defaults
+- **Brand Voice Consistency**: Document example phrases in PRD for consistent copy across components
+- **Color System Migration**: Update both CSS variables and component classes for complete migration
+- **Typography Classes**:    - .font-heading and .font-accent utility classes for easy typography application
+
+---
+
+## 2026-01-19 - Story #24: Brand Identity & Visual Assets
+**Status**: Completed
+
+**Implementation**:
+- **Logo Generation**: Created three variations of the Wildenflower logo (Icon, Wordmark, Full) in a minimalist, bohemian style.
+- **Asset Implementation**:
+  - Updated `components/header.tsx` to use `wildenflower-full.png` instead of text.
+  - Updated `components/homepage/enhanced-hero.tsx` to use a new warm, lifestyle background image.
+  - Updated `components/homepage/category-cards.tsx` to use new images for Tie-Dye and Leather categories.
+- **Favicon**: Updated `favicon.ico` and `public/icons/icon.png` with the new floral icon.
+- **Directory Structure**: Created `public/images` and `public/icons` to organize static assets.
+
+**Files Changed**:
+- public/images/* - NEW: Logo and photography assets
+- components/header.tsx - Updated to use image logo
+- components/homepage/enhanced-hero.tsx - Updated background image
+- components/homepage/category-cards.tsx - Updated category images
+- public/favicon.ico - Updated
+- prd.json - Added Story #24
+
+**Learnings for Future Iterations**:
+- **Asset Management**: Storing static images in `public/images` allows for easy referencing in Next.js Image components using absolute paths like `/images/filename.png`.
+- **Image Rate Limits**: Generative AI tools have rate limits; batched generation or prioritizing key assets (hero, logo) is important.
+- **Header Customization**: Using an `Image` component in the header provides a more professional look than styled text, but requires careful sizing and `priority` loading to prevent layout shift (CLS).
+
+---
+
+## 2026-01-20 - Story #23: Checkout Flow Scenario Tests
+**Status**: Completed
+
+**Implementation**:
+- **Enhanced UI Tests**: Updated `scripts/ui-tests.ts` with a robust `testCheckoutFlow` function.
+- **Robustness**: Added logic to retry multiple products if the first one is out of stock.
+- **Verification**:
+  - Verifies "Add to Cart" successfully increments cart count (visual check).
+  - Verifies Cart Drawer opens (handling auto-open vs manual click).
+  - Verifies "Proceed to Checkout" button is enabled and redirects to Shopify/Checkouts domain.
+- **Cart Workflow**: Added specific checks for cart drawer obstruction and state.
+
+**Update (2026-01-20)**: Attempted to generate missing Jewelry/Crystals images but hit API rate limit again. These remain as placeholders.
+
+**Files Changed**:
+- scripts/ui-tests.ts - Enhanced test logic
+- prd.json - Updated Story #23 status
+
+**Learnings for Future Iterations**:
+- **Test Robustness**: UI tests on a live/dev storefront must account for dynamic inventory (Out of Stock states). Retrying with multiple products improves test reliability.
+- **Drawer Interaction**: Animation states or pre-existing open states can block click interactions. Using explicit visibility checks for target buttons (like "Proceed to Checkout") is often more reliable than assuming a specific open/close sequence.
+
+---
+
+## 2026-01-20 - Brand Polish & Finalization
+**Status**: Completed
+
+**Implementation**:
+- **Consolidated Links**: Fixed all 404 footer links by implementing a shared `ComingSoon` component and deploying it to 9 previously missing routes (Contact, FAQ, Privacy, etc.).
+- **Visual Polish**:
+  - Resized header logo to `w-56` for improved visibility.
+  - Updated About page hero with local brand asset.
+  - Replaced low-res/generic placeholders for Jewelry and Crystals with high-quality Unsplash images.
+- **Redirects**: Added redirect from `/our-story` to `/about`.
+
+**Files Changed**:
+- components/coming-soon.tsx - NEW: Shared placeholder component
+- app/*/page.tsx - NEW: 9 new placeholder pages for footer links
+- components/homepage/category-cards.tsx - Updated images
+- components/header.tsx - Resized logo
+- app/about/page.tsx - Updated hero image
+

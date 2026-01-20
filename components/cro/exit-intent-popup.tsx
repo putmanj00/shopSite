@@ -108,34 +108,34 @@ export default function ExitIntentPopup({
                 </button>
 
                 <div className="bg-gradient-to-br from-primary-600 to-primary-700 p-8 text-center text-white">
-                    <div className="text-6xl mb-4">🎁</div>
-                    <h2 id="exit-intent-title" className="text-2xl font-bold mb-2">
-                        Wait! Don&apos;t leave yet!
+                    <div className="text-6xl mb-4">✨</div>
+                    <h2 id="exit-intent-title" className="text-2xl font-bold mb-2 font-heading">
+                        Wait, Wild One!
                     </h2>
                     <p className="text-primary-100">
-                        Here&apos;s a special offer just for you
+                        Here&apos;s a special treasure just for you
                     </p>
                 </div>
 
                 <div className="p-8">
                     {isSubmitted ? (
                         <div className="text-center">
-                            <div className="text-5xl mb-4">✨</div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">You&apos;re all set!</h3>
-                            <p className="text-gray-600 mb-4">
+                            <div className="text-5xl mb-4">🌸</div>
+                            <h3 className="text-xl font-bold text-neutral-900 mb-2 font-heading">You&apos;re all set!</h3>
+                            <p className="text-neutral-600 mb-4">
                                 Check your email for your exclusive discount code.
                             </p>
-                            <div className="bg-gray-100 rounded-lg p-4">
-                                <p className="text-sm text-gray-500 mb-1">Your code:</p>
-                                <p className="text-2xl font-bold text-primary-600 font-mono">{discountCode}</p>
+                            <div className="bg-primary-50 rounded-lg p-4">
+                                <p className="text-sm text-primary-600 mb-1">Your code:</p>
+                                <p className="text-2xl font-bold text-primary-700 font-mono">{discountCode}</p>
                             </div>
                         </div>
                     ) : (
                         <>
                             <div className="text-center mb-6">
                                 <p className="text-4xl font-bold text-primary-600 mb-2">{discountPercent}% OFF</p>
-                                <p className="text-gray-600">
-                                    Enter your email to unlock your exclusive discount
+                                <p className="text-neutral-600">
+                                    Enter your email to unlock your exclusive treasure discount
                                 </p>
                             </div>
 

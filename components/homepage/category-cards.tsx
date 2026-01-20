@@ -14,30 +14,30 @@ const categories: Category[] = [
   {
     handle: 'tie-dye',
     title: 'Tie-Dye',
-    description: 'Vibrant, hand-dyed textiles and apparel',
-    image: 'https://images.unsplash.com/photo-1527576539890-dfa815648363?w=600&h=800&fit=crop',
+    description: 'Vibrant, hand-dyed apparel for the free spirit',
+    image: '/images/category-tiedye.png',
     productCount: 45,
   },
   {
     handle: 'leather',
     title: 'Leather',
-    description: 'Hand-tooled bags, wallets, and accessories',
-    image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop',
+    description: 'Hand-tooled bags, wallets, and treasures',
+    image: '/images/category-leather.png',
     productCount: 32,
   },
   {
     handle: 'jewelry',
     title: 'Jewelry',
-    description: 'Unique handcrafted pieces and gemstones',
-    image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&h=800&fit=crop',
+    description: 'Handcrafted pieces worn with intention',
+    image: 'https://images.unsplash.com/photo-1599643478518-17488fbbcd75?w=800&q=80',
     productCount: 67,
   },
   {
-    handle: 'art',
-    title: 'Art',
-    description: 'Original paintings, prints, and sculptures',
-    image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&h=800&fit=crop',
-    productCount: 28,
+    handle: 'crystals',
+    title: 'Crystals',
+    description: 'Ethically sourced stones and gems',
+    image: 'https://images.unsplash.com/photo-1617116462723-5e927c692885?w=800&q=80',
+    productCount: 54,
   },
 ];
 
@@ -45,7 +45,7 @@ function CategoryCard({ category }: { category: Category }) {
   return (
     <Link
       href={`/collections/${category.handle}`}
-      className="group relative block aspect-[3/4] overflow-hidden rounded-2xl bg-zinc-200"
+      className="group relative block aspect-[3/4] overflow-hidden rounded-2xl bg-neutral-200"
     >
       {/* Background Image */}
       <Image
@@ -61,18 +61,18 @@ function CategoryCard({ category }: { category: Category }) {
 
       {/* Content */}
       <div className="absolute inset-0 flex flex-col justify-end p-6">
-        <h3 className="text-2xl font-bold text-white mb-2 transform transition-transform duration-300 group-hover:translate-y-0 translate-y-2">
+        <h3 className="text-2xl font-bold text-white mb-2 transform transition-transform duration-300 group-hover:translate-y-0 translate-y-2 font-heading">
           {category.title}
         </h3>
-        <p className="text-zinc-300 text-sm mb-3 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+        <p className="text-neutral-300 text-sm mb-3 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
           {category.description}
         </p>
         <div className="flex items-center justify-between">
-          <span className="text-xs text-zinc-400">
-            {category.productCount} Products
+          <span className="text-xs text-neutral-400">
+            {category.productCount} Treasures
           </span>
-          <span className="inline-flex items-center text-amber-400 text-sm font-medium opacity-0 transform translate-x-[-10px] transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
-            Shop Now
+          <span className="inline-flex items-center text-primary-300 text-sm font-medium opacity-0 transform translate-x-[-10px] transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+            Explore
             <svg
               className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1"
               fill="none"
@@ -91,7 +91,7 @@ function CategoryCard({ category }: { category: Category }) {
       </div>
 
       {/* Hover Border Effect */}
-      <div className="absolute inset-0 rounded-2xl border-2 border-transparent transition-colors duration-300 group-hover:border-amber-400/50" />
+      <div className="absolute inset-0 rounded-2xl border-2 border-transparent transition-colors duration-300 group-hover:border-primary-400/50" />
     </Link>
   );
 }
@@ -102,12 +102,12 @@ export default function CategoryCards() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-zinc-900 sm:text-4xl">
-            Shop by Category
+          <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl font-heading">
+            Treasures Chosen with Intention
           </h2>
-          <p className="mt-4 text-lg text-zinc-600 max-w-2xl mx-auto">
-            Explore our curated collections of handcrafted artisan goods, each
-            piece telling its own unique story.
+          <p className="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">
+            Explore our curated collections of handpicked artisan goods. Each
+            piece carries its own story, waiting to become part of yours.
           </p>
         </div>
 

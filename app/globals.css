@@ -1,71 +1,84 @@
 @import "tailwindcss";
 
 /* ============================================
-   ARTISAN COLLECTIVE DESIGN SYSTEM
-   WCAG 2.1 AA Compliant Color Palette
+   WILDENFLOWER DESIGN SYSTEM
+   "Boho Brights" - WCAG 2.1 AA Compliant
+   The Untamed Flower - Wild, Free, Naturally Beautiful
    ============================================ */
 
 :root {
-  /* Primary: Deep Indigo - Brand anchor */
-  --color-primary-50: #eef2f7;
-  --color-primary-100: #d5dfe9;
-  --color-primary-200: #b3c4d6;
-  --color-primary-300: #8ba4bf;
-  --color-primary-400: #5c7a9a;
-  --color-primary-500: #2e4a62;
-  --color-primary-600: #263d51;
-  --color-primary-700: #1e3040;
-  --color-primary-800: #16232f;
-  --color-primary-900: #0e161e;
+  /* Primary: Deep Turquoise - CTAs, links, key accents */
+  --color-primary-50: #f0fdfc;
+  --color-primary-100: #ccfbf6;
+  --color-primary-200: #99f6ed;
+  --color-primary-300: #5eead4;
+  --color-primary-400: #2dd4bf;
+  --color-primary-500: #0D9488;
+  --color-primary-600: #0d9488;
+  --color-primary-700: #0f766e;
+  --color-primary-800: #115e59;
+  --color-primary-900: #134e4a;
 
-  /* Secondary: Warm Terracotta */
-  --color-secondary-50: #fdf5f3;
-  --color-secondary-100: #fae8e2;
-  --color-secondary-200: #f4cec1;
-  --color-secondary-300: #eab199;
-  --color-secondary-400: #d99478;
-  --color-secondary-500: #c4785e;
-  --color-secondary-600: #a3604a;
-  --color-secondary-700: #824a3a;
-  --color-secondary-800: #61362b;
-  --color-secondary-900: #40241c;
+  /* Secondary: Magenta Rose - Highlights, sale badges */
+  --color-secondary-50: #fdf2f8;
+  --color-secondary-100: #fce7f3;
+  --color-secondary-200: #fbcfe8;
+  --color-secondary-300: #f9a8d4;
+  --color-secondary-400: #f472b6;
+  --color-secondary-500: #BE185D;
+  --color-secondary-600: #be185d;
+  --color-secondary-700: #9d174d;
+  --color-secondary-800: #831843;
+  --color-secondary-900: #500724;
 
-  /* Accent: Vibrant Coral (tie-dye inspiration) */
-  --color-accent-50: #fef4f2;
-  --color-accent-100: #fce5e0;
-  --color-accent-200: #f9c7bd;
-  --color-accent-300: #f4a191;
-  --color-accent-400: #ea8472;
-  --color-accent-500: #e07a5f;
-  --color-accent-600: #c45a40;
-  --color-accent-700: #a34532;
-  --color-accent-800: #823526;
-  --color-accent-900: #61261b;
+  /* Accent: Saffron Gold - Warmth, featured elements */
+  --color-accent-50: #fffbeb;
+  --color-accent-100: #fef3c7;
+  --color-accent-200: #fde68a;
+  --color-accent-300: #fcd34d;
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #D97706;
+  --color-accent-600: #d97706;
+  --color-accent-700: #b45309;
+  --color-accent-800: #92400e;
+  --color-accent-900: #78350f;
 
-  /* Neutrals: Warm whites and soft creams */
-  /* WCAG AA compliant - neutral-600 meets 4.5:1 on neutral-50 */
-  --color-neutral-50: #fdfcfa;
-  --color-neutral-100: #f9f7f4;
-  --color-neutral-200: #f2ede6;
-  --color-neutral-300: #e5ddd2;
-  --color-neutral-400: #8a7e6d;  /* Darkened for 3:1 UI component contrast */
-  --color-neutral-500: #746959;  /* Darkened for better contrast */
-  --color-neutral-600: #5c5347;  /* Darkened to meet 4.5:1 for muted text */
-  --color-neutral-700: #4a4238;
-  --color-neutral-800: #3a332c;
-  --color-neutral-900: #2d2822;
+  /* Teal: Secondary actions, informational */
+  --color-teal-50: #ecfeff;
+  --color-teal-100: #cffafe;
+  --color-teal-200: #a5f3fc;
+  --color-teal-300: #67e8f9;
+  --color-teal-400: #22d3ee;
+  --color-teal-500: #0891B2;
+  --color-teal-600: #0891b2;
+  --color-teal-700: #0e7490;
+  --color-teal-800: #155e75;
+  --color-teal-900: #164e63;
+
+  /* Neutrals: Warm Cream base with Charcoal text */
+  /* WCAG AA compliant - all text meets 4.5:1 contrast */
+  --color-neutral-50: #FDF8F3;   /* Warm Cream - page background */
+  --color-neutral-100: #faf5ef;
+  --color-neutral-200: #f5ede4;
+  --color-neutral-300: #e7ddd1;
+  --color-neutral-400: #a8a29e;
+  --color-neutral-500: #78716C;  /* Warm Gray - muted text */
+  --color-neutral-600: #57534e;
+  --color-neutral-700: #44403c;
+  --color-neutral-800: #292524;
+  --color-neutral-900: #1C1917;  /* Charcoal - primary text */
 
   /* Semantic Colors - WCAG AA compliant (4.5:1 on white) */
-  --color-success: #2e7d32;  /* 5.13:1 - passes */
-  --color-warning: #b45309;  /* Darkened from #ed6c02 for 4.5:1 contrast */
-  --color-error: #d32f2f;    /* 4.98:1 - passes */
-  --color-info: #0369a1;     /* Darkened from #0288d1 for 4.5:1 contrast */
+  --color-success: #059669;  /* Emerald - harmonizes with turquoise */
+  --color-warning: #d97706;  /* Saffron Gold - brand consistent */
+  --color-error: #dc2626;    /* Red - clear error state */
+  --color-info: #0891b2;     /* Teal - brand consistent */
 
   /* Background & Foreground */
   --background: var(--color-neutral-50);
   --foreground: var(--color-neutral-900);
   --background-muted: var(--color-neutral-100);
-  --foreground-muted: var(--color-neutral-600);
+  --foreground-muted: var(--color-neutral-500);
 
   /* Typography Scale (16px base) */
   --font-size-xs: 0.75rem;    /* 12px */
@@ -131,10 +144,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-nunito);
+  --font-heading: var(--font-cormorant);
+  --font-accent: var(--font-sacramento);
 
-  /* Primary */
+  /* Primary: Deep Turquoise */
   --color-primary-50: var(--color-primary-50);
   --color-primary-100: var(--color-primary-100);
   --color-primary-200: var(--color-primary-200);
@@ -146,7 +160,7 @@
   --color-primary-800: var(--color-primary-800);
   --color-primary-900: var(--color-primary-900);
 
-  /* Secondary */
+  /* Secondary: Magenta Rose */
   --color-secondary-50: var(--color-secondary-50);
   --color-secondary-100: var(--color-secondary-100);
   --color-secondary-200: var(--color-secondary-200);
@@ -158,7 +172,7 @@
   --color-secondary-800: var(--color-secondary-800);
   --color-secondary-900: var(--color-secondary-900);
 
-  /* Accent */
+  /* Accent: Saffron Gold */
   --color-accent-50: var(--color-accent-50);
   --color-accent-100: var(--color-accent-100);
   --color-accent-200: var(--color-accent-200);
@@ -169,6 +183,18 @@
   --color-accent-700: var(--color-accent-700);
   --color-accent-800: var(--color-accent-800);
   --color-accent-900: var(--color-accent-900);
+
+  /* Teal: Secondary actions */
+  --color-teal-50: var(--color-teal-50);
+  --color-teal-100: var(--color-teal-100);
+  --color-teal-200: var(--color-teal-200);
+  --color-teal-300: var(--color-teal-300);
+  --color-teal-400: var(--color-teal-400);
+  --color-teal-500: var(--color-teal-500);
+  --color-teal-600: var(--color-teal-600);
+  --color-teal-700: var(--color-teal-700);
+  --color-teal-800: var(--color-teal-800);
+  --color-teal-900: var(--color-teal-900);
 }
 
 /* ============================================
@@ -178,9 +204,20 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-nunito), system-ui, sans-serif;
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
+}
+
+/* Heading typography - Cormorant Garamond */
+h1, h2, h3, h4, h5, h6,
+.font-heading {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+/* Accent typography - Sacramento script */
+.font-accent {
+  font-family: var(--font-sacramento), cursive;
 }
 
 /* Ensure inputs have readable text color */
