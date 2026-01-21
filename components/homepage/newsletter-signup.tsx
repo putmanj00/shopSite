@@ -47,13 +47,13 @@ export default function NewsletterSignup() {
   };
 
   return (
-    <section className="bg-primary-900 py-16 lg:py-20">
+    <section className="bg-navy-900 py-16 lg:py-20">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-2xl text-center">
           {/* Icon */}
-          <div className="mx-auto mb-6 w-16 h-16 bg-primary-500/20 rounded-full flex items-center justify-center">
+          <div className="mx-auto mb-6 w-16 h-16 bg-primary-600/20 rounded-full flex items-center justify-center">
             <svg
-              className="w-8 h-8 text-primary-300"
+              className="w-8 h-8 text-primary-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -68,11 +68,11 @@ export default function NewsletterSignup() {
           </div>
 
           <h2 className="text-3xl font-bold text-white sm:text-4xl font-heading">
-            Join the Wildenflower Community
+            Join the Trippy Tribe
           </h2>
-          <p className="mt-4 text-lg text-primary-200">
-            Get 15% off your first order and be the first to discover new treasures,
-            exclusive offers, and stories from our artisan partners.
+          <p className="mt-4 text-lg text-primary-300">
+            Get 15% off your first order plus early access to new drops,
+            festival-ready finds, and groovy exclusives.
           </p>
 
           {/* Form */}
@@ -88,7 +88,7 @@ export default function NewsletterSignup() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 disabled={status === 'loading' || status === 'success'}
-                className="flex-1 px-5 py-4 text-neutral-900 bg-white rounded-lg sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary-400 disabled:opacity-50"
+                className="flex-1 px-5 py-4 text-neutral-900 bg-white rounded-lg sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:opacity-50"
                 aria-describedby={message ? 'newsletter-message' : undefined}
               />
               <button
@@ -151,7 +151,7 @@ export default function NewsletterSignup() {
             )}
           </form>
 
-          <p className="mt-4 text-sm text-primary-300">
+          <p className="mt-4 text-sm text-primary-400">
             We respect your privacy. Unsubscribe at any time.
           </p>
         </div>

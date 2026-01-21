@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 
     const result = await sendEmail({
       to: email,
-      subject: 'Welcome to ShopSite!',
+      subject: 'Welcome to Wildenflower!',
       react: WelcomeEmail({ firstName }),
     });
 

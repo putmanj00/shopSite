@@ -25,24 +25,24 @@ export default function BrandStory() {
           {/* Content Section */}
           <div className="lg:pl-8">
             <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
-              Born from a Love of the Untamed
+              Born from the Counterculture
             </span>
             <h2 className="mt-3 text-3xl font-bold text-neutral-900 sm:text-4xl lg:text-5xl font-heading">
-              Wild Beauty,{' '}
-              <span className="text-primary-600">Crafted with Intention</span>
+              Art You Can Wear,{' '}
+              <span className="text-primary-600">Magic You Can Feel</span>
             </h2>
             <div className="mt-6 space-y-4 text-neutral-600 text-lg leading-relaxed">
               <p>
-                Like the wildflower that blooms where it chooses, every piece in our
-                collection celebrates the untamed spirit. From vibrant tie-dye
-                textiles to hand-selected crystals and artisan jewelry, each treasure
-                is chosen with intention and care.
+                Like the psychedelic patterns in a mandala, every piece in our
+                collection radiates outward with cosmic energy. From trippy tie-dye
+                to sacred geometry art and crystal treasures, each item carries
+                the spirit of the counterculture.
               </p>
               <p>
-                We partner directly with skilled craftspeople who pour their energy
+                We partner directly with artisans who channel their creative flow
                 into every creation. When you choose Wildenflower, you&apos;re not just
-                finding a beautiful piece—you&apos;re connecting with the maker&apos;s story
-                and supporting authentic craftsmanship.
+                buying art—you&apos;re wearing your vibe and supporting the handmade
+                movement.
               </p>
             </div>
 
@@ -62,7 +62,7 @@ export default function BrandStory() {
               href="/collections"
               className="mt-8 inline-flex items-center gap-2 text-primary-600 font-semibold hover:text-primary-700 transition-colors group"
             >
-              Explore Our Treasures
+              Explore the Vibe
               <svg
                 className="w-5 h-5 transition-transform group-hover:translate-x-1"
                 fill="none"

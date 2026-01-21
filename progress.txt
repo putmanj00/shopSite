@@ -1035,4 +1035,94 @@ Comprehensive rebrand from "Artisan Collective" to "Wildenflower" - a premium bo
 - components/cro/low-stock-badge.tsx - Updated colors
 - components/account/loyalty-card.tsx - Updated colors
 
+---
 
+## 2026-01-20 - Asset Organization
+**Status**: Completed
+
+**Implementation**:
+- **Consolidation**: Moved `Instagram` asset folder from User Desktop to the `shopSite` project root.
+- **Organization**: Centralized Instagram-related design assets and promotional materials within the repository for easier access and version control.
+
+**Files Moved**:
+- `/Users/jamesputman/Desktop/Instagram` -> `/Users/jamesputman/SRC/shopSite/Instagram`
+
+---
+
+## 2026-01-20 - Brand Refresh: Playful & Psychedelic Identity
+**Status**: In Progress
+
+**Overview**:
+Major rebrand from "Boho Brights" to "Playful & Psychedelic" identity that better reflects the vibrant tie-dye apparel, mandala dot art, and sacred geometry aesthetic.
+
+**Brand Strategy Changes**:
+- **Previous Tagline**: "Wild Beauty, Crafted with Intention"
+- **New Tagline**: "Art You Can Wear, Magic You Can Feel"
+- **Brand Vibe**: Playful & Psychedelic - trippy, festival-ready, colorful counterculture with hippie heritage
+- **Target Customers**: Festival/event shoppers, spiritual practitioners, art collectors, gift buyers
+- **Positioning**: Wearable art and handcrafted treasures for free spirits
+
+**New Color Palette**:
+| Role | Color | Hex | Usage |
+|------|-------|-----|-------|
+| Primary | Cosmic Purple | #7C3AED | Primary CTAs, brand anchor, links |
+| Primary Dark | Purple Dark | #5B21B6 | Hover states, headers |
+| Primary Light | Purple Light | #A78BFA | Backgrounds, accents |
+| Secondary | Electric Magenta | #EC4899 | Sale badges, highlights |
+| Teal | Psychedelic Teal | #06B6D4 | Secondary actions, info |
+| Lime | Lime Pop | #84CC16 | Success states |
+| Orange | Sunset Orange | #F97316 | Warmth, featured elements |
+| Gold | Golden Hour | #EAB308 | Premium, special |
+| Navy | Deep Navy | #1E1B4B | Dark backgrounds, contrast |
+
+**Typography Updates**:
+- **Display Font**: Changed from Cormorant Garamond (serif) to Righteous (groovy/psychedelic)
+- **Body Font**: Nunito (unchanged - maintains readability)
+- **Accent Font**: Sacramento (unchanged - for handwritten callouts)
+
+**Logo Direction**: "Cosmic Bloom"
+- Simple geometric flower with mandala-inspired symmetry
+- 6-8 petal design with sacred geometry influence
+- Color variations: Rainbow gradient, single purple, monochrome
+
+**Files Updated**:
+- prd.json - Complete brand identity overhaul
+- app/globals.css - New CSS color variables and Tailwind theme
+- app/layout.tsx - Righteous font, new metadata, purple theme color
+- public/manifest.json - New description and theme color
+- components/footer.tsx - Navy background instead of turquoise
+- components/homepage/enhanced-hero.tsx - New headline and CTA copy
+
+**Remaining Work**:
+- Update remaining homepage components
+- Update email templates with new colors
+- Update remaining components using old colors
+- Build verification
+
+**Learnings**:
+- **CSS Variable Architecture**: Using CSS variables for all colors allows easy theme switching
+- **Font Loading**: Righteous has only one weight (400) vs Cormorant's multiple weights
+- **Color Migration**: Primary-500/600 references automatically update due to CSS variable changes
+
+
+## 2026-01-20 - Email Template Rebranding
+**Status**: Completed
+
+**Implementation**:
+- **Brand Consistency**: Updated all email templates to match the new "Cosmic Purple" (#7C3AED) brand identity, replacing legacy "Deep Turquoise" (#0D9488) and "Sky Blue" themes.
+- **Visual Updates**:
+  - Validated and updated `email-layout.tsx` for consistent footer and button styling.
+  - Refreshed color schemes in `welcome-email.tsx`, `shipping-notification-email.tsx`, `delivery-confirmation-email.tsx`, and others.
+  - Ensured urgency colors (Red/Amber) in `abandoned-cart-email.tsx` and `winback-email.tsx` work harmoniously with the new palette.
+
+**Files Changed**:
+- components/emails/email-layout.tsx
+- components/emails/welcome-email.tsx
+- components/emails/order-confirmation-email.tsx
+- components/emails/shipping-notification-email.tsx
+- components/emails/delivery-confirmation-email.tsx
+- components/emails/post-purchase-email.tsx
+- components/emails/winback-email.tsx
+- components/emails/birthday-email.tsx
+- components/emails/new-collection-email.tsx
+- components/emails/loyalty-upgrade-email.tsx

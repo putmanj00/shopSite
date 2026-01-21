@@ -3,19 +3,20 @@
   "description": "A curated, premium bohemian marketplace for spiritual seekers and creatives. Featuring handcrafted tie-dye apparel, artisan leather goods, unique jewelry, and crystals/gems/polished stones. Built on research from top-performing Shopify stores generating $1M-$136M annually, with WCAG 2.1 AA accessibility compliance and conversion-optimized design patterns.",
   "targetProducts": [
     "Tie-dye clothing and apparel",
-    "Handcrafted leather goods (bags, wallets, accessories)",
+    "Mandala and dot art (paintings, home decor)",
     "Artisan jewelry (handmade, unique pieces)",
-    "Crystals, gems, and polished stones"
+    "Crystals, gems, and sacred geometry items"
   ],
   "brandIdentity": {
     "name": "Wildenflower",
     "etymology": "From German 'wilden' (untamed) + flower - The Untamed Flower",
-    "tagline": "Wild Beauty, Crafted with Intention",
-    "mission": "To celebrate the untamed spirit in all of us by curating handpicked treasures that honor authentic craftsmanship, spiritual connection, and the wild beauty of nature. Each piece in our collection is chosen with intention, inviting you to express your truest self.",
+    "tagline": "Art You Can Wear, Magic You Can Feel",
+    "brandVibe": "Playful & Psychedelic - trippy, festival-ready, colorful counterculture with hippie heritage",
+    "mission": "To celebrate the free spirit in all of us through wearable art and handcrafted treasures. Our tie-dye apparel, mandala dot art, and sacred geometry pieces honor authentic craftsmanship while embracing vibrant, psychedelic aesthetics.",
     "positioning": {
-      "market": "Premium bohemian marketplace",
-      "differentiator": "Quality over quantity - curated, higher-end pieces for discerning seekers",
-      "audience": "Spiritual seekers, creatives, and free spirits who value authenticity and craftsmanship"
+      "market": "Wearable art and handcrafted treasures for free spirits",
+      "differentiator": "Festival-ready, vibrant pieces that blend sacred geometry with hippie heritage",
+      "audience": "Festival/event shoppers, spiritual practitioners, art collectors, and gift buyers"
     },
     "values": [
       {
@@ -73,65 +74,101 @@
     },
     "voiceAndTone": {
       "personality": [
-        "Warm",
-        "Mystical",
-        "Elevated",
+        "Playful",
+        "Vibrant",
+        "Free-spirited",
+        "Trippy",
         "Welcoming"
       ],
       "languageStyle": {
         "do": [
-          "Use intentional, earthy language",
-          "Evoke natural imagery",
-          "Speak to the spirit, not just the product",
-          "Be warm and inviting"
+          "Use colorful, psychedelic language",
+          "Evoke festival vibes and hippie heritage",
+          "Celebrate sacred geometry and mandala aesthetics",
+          "Be playful and fun while honoring craftsmanship"
         ],
         "avoid": [
           "Corporate jargon",
           "Pushy sales language",
-          "Overly technical descriptions",
-          "Mass-market messaging"
+          "Overly serious or stiff messaging",
+          "Mass-market/generic descriptions"
         ]
       },
       "examplePhrases": [
-        "Handpicked treasures for the untamed spirit",
-        "Crafted with intention, worn with meaning",
-        "Wild beauty, captured in every piece",
-        "Where craftsmanship meets consciousness",
-        "Treasures for seekers and dreamers"
+        "Groovy finds for wild souls",
+        "Trippy treasures, handmade with love",
+        "Wear your vibe",
+        "Festival-ready, spirit-approved",
+        "Art you can wear, magic you can feel"
+      ],
+      "taglineOptions": [
+        "Art You Can Wear, Magic You Can Feel",
+        "Handcrafted for Free Spirits",
+        "Where Color Comes Alive"
       ],
       "headlineExamples": {
-        "hero": "Embrace Your Wild Beauty",
-        "collection": "Treasures Chosen with Intention",
-        "product": "Handcrafted for the Untamed Spirit",
-        "about": "Born from a Love of the Untamed"
+        "hero": "Where Color Comes Alive",
+        "collection": "Trippy Treasures Await",
+        "product": "Handcrafted for Free Spirits",
+        "about": "Born from the Counterculture"
       }
     },
     "colorPalette": {
-      "description": "Boho Brights - Vibrant yet grounded palette inspired by desert sunsets, crystals, and free-spirited bohemian aesthetics",
+      "description": "Playful & Psychedelic - Vibrant rainbow palette inspired by tie-dye, sacred geometry, and counterculture aesthetics",
       "colors": {
         "primary": {
-          "name": "Deep Turquoise",
-          "hex": "#0D9488",
-          "rgb": "13, 148, 136",
-          "usage": "Primary CTAs, links, key accents, brand recognition"
+          "name": "Cosmic Purple",
+          "hex": "#7C3AED",
+          "rgb": "124, 58, 237",
+          "usage": "Primary CTAs, brand anchor, links"
+        },
+        "primaryDark": {
+          "name": "Purple Dark",
+          "hex": "#5B21B6",
+          "rgb": "91, 33, 182",
+          "usage": "Hover states, headers"
+        },
+        "primaryLight": {
+          "name": "Purple Light",
+          "hex": "#A78BFA",
+          "rgb": "167, 139, 250",
+          "usage": "Backgrounds, accents"
         },
         "secondary": {
-          "name": "Magenta Rose",
-          "hex": "#BE185D",
-          "rgb": "190, 24, 93",
-          "usage": "Highlights, sale badges, secondary accents"
+          "name": "Electric Magenta",
+          "hex": "#EC4899",
+          "rgb": "236, 72, 153",
+          "usage": "Sale badges, highlights"
         },
-        "accent1": {
-          "name": "Saffron Gold",
-          "hex": "#D97706",
-          "rgb": "217, 119, 6",
-          "usage": "Warmth, hover states, featured elements"
+        "teal": {
+          "name": "Psychedelic Teal",
+          "hex": "#06B6D4",
+          "rgb": "6, 182, 212",
+          "usage": "Secondary actions, info"
         },
-        "accent2": {
-          "name": "Teal",
-          "hex": "#0891B2",
-          "rgb": "8, 145, 178",
-          "usage": "Secondary actions, informational elements"
+        "lime": {
+          "name": "Lime Pop",
+          "hex": "#84CC16",
+          "rgb": "132, 204, 22",
+          "usage": "Success states, fresh accents"
+        },
+        "orange": {
+          "name": "Sunset Orange",
+          "hex": "#F97316",
+          "rgb": "249, 115, 22",
+          "usage": "Warmth, featured elements"
+        },
+        "gold": {
+          "name": "Golden Hour",
+          "hex": "#EAB308",
+          "rgb": "234, 179, 8",
+          "usage": "Premium/gold tier, special"
+        },
+        "navy": {
+          "name": "Deep Navy",
+          "hex": "#1E1B4B",
+          "rgb": "30, 27, 75",
+          "usage": "Dark backgrounds, contrast"
         },
         "background": {
           "name": "Warm Cream",
@@ -154,16 +191,22 @@
       },
       "accessibility": {
         "note": "All color combinations meet WCAG 2.1 AA contrast requirements (4.5:1 for normal text, 3:1 for large text)",
-        "primaryOnBackground": "Passes AA - 5.2:1 ratio",
+        "primaryOnBackground": "Passes AA - 4.8:1 ratio (Cosmic Purple on Cream)",
         "textOnBackground": "Passes AA - 15.8:1 ratio",
-        "mutedOnBackground": "Passes AA - 4.6:1 ratio"
+        "mutedOnBackground": "Passes AA - 4.6:1 ratio",
+        "navyOnCream": "Passes AA - 14.2:1 ratio"
       }
     },
     "typography": {
+      "display": {
+        "primary": "Righteous",
+        "fallback": "system-ui, sans-serif",
+        "description": "Groovy, psychedelic-inspired display font for hero headlines and special callouts"
+      },
       "headings": {
-        "primary": "Cormorant Garamond",
-        "fallback": "Georgia, serif",
-        "description": "Elegant serif with personality - evokes artisan quality and bohemian sophistication"
+        "primary": "Nunito",
+        "fallback": "system-ui, sans-serif",
+        "description": "Clean, warm, and highly readable - maintains playful feel while being accessible"
       },
       "body": {
         "primary": "Nunito",
@@ -173,7 +216,7 @@
       "accent": {
         "primary": "Sacramento",
         "fallback": "cursive",
-        "description": "Hand-drawn script for special callouts, sale badges, and decorative text"
+        "description": "Hand-drawn script for sale badges, handwritten notes, and special callouts"
       },
       "scale": {
         "hero": "4.5rem (72px)",
@@ -185,19 +228,31 @@
       }
     },
     "logoGuidelines": {
-      "direction": "Hand-drawn/illustrated aesthetic",
+      "concept": "Cosmic Bloom",
+      "direction": "Simple geometric flower with mandala-inspired symmetry",
       "icon": {
-        "description": "Stylized wildflower - simple but organic, single-line or minimalist botanical illustration",
-        "style": "Single continuous line or minimalist botanical sketch"
+        "description": "6-8 petal geometric flower with subtle sacred geometry influence",
+        "style": "Clean lines suggesting both a wildflower and a mandala, scalable from 16px to 512px",
+        "colors": {
+          "fullColor": "Rainbow gradient petals on purple background",
+          "singleColor": "Purple on light, cream on dark",
+          "monochrome": "Black/white for print"
+        }
       },
       "wordmark": {
-        "description": "Wildenflower in elegant serif with subtle hand-drawn feel",
-        "font": "Cormorant Garamond or custom lettering"
+        "description": "Wildenflower in psychedelic/groovy 60s-70s lettering",
+        "characteristics": [
+          "Wavy, organic letterforms",
+          "Variable stroke weights",
+          "Slight bounce/rhythm between letters"
+        ],
+        "font": "Righteous or custom groovy lettering"
       },
       "variations": [
-        "Full logo (icon + wordmark)",
-        "Icon only (for favicons, app icons)",
-        "Wordmark only (for headers, emails)"
+        "Full Logo: Icon + Wordmark (horizontal)",
+        "Stacked Logo: Icon above Wordmark (vertical)",
+        "Icon Only: For favicon, app icons, social profile",
+        "Wordmark Only: For email headers, space-constrained areas"
       ],
       "requiredFiles": [
         "SVG (scalable)",
@@ -208,20 +263,28 @@
     },
     "visualStyle": {
       "photography": {
-        "style": "Warm, natural light, lifestyle-focused",
-        "mood": "Desert sunset meets crystal shop meets free spirit",
-        "props": "Natural elements - dried flowers, raw stones, linen, wood, sage"
+        "style": "Vibrant, colorful, festival-inspired",
+        "mood": "Festival vibes meets sacred geometry meets free spirit",
+        "props": "Colorful fabrics, crystals, mandala backgrounds, rainbow elements"
       },
+      "keyVisualThemes": [
+        "Sacred geometry patterns (mandalas, triangles)",
+        "Psychedelic/trippy aesthetics",
+        "Rich jewel tones with rainbow vibrancy",
+        "Handcrafted artisan quality",
+        "Bohemian/hippie heritage"
+      ],
       "patterns": [
-        "Subtle tie-dye watercolor washes",
-        "Botanical line drawings",
-        "Geometric crystal shapes"
+        "Bold tie-dye swirls and spirals",
+        "Mandala and sacred geometry",
+        "Rainbow gradients",
+        "Trippy psychedelic patterns"
       ],
       "textures": [
-        "Linen fabric",
-        "Natural stone",
-        "Raw crystal surfaces",
-        "Handmade paper"
+        "Tie-dye fabric",
+        "Natural stone with vibrant crystals",
+        "Handpainted dot art surfaces",
+        "Festival-ready materials"
       ]
     }
   },

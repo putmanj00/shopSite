@@ -116,14 +116,14 @@ export function BirthdayEmail({
           lineHeight: 1.6,
         }}>
           &ldquo;May this year bring you joy, creativity, and beautiful handcrafted
-          treasures to brighten your days. Thank you for being part of our artisan family!&rdquo;
+          treasures to brighten your days. Thank you for being part of our Wildenflower community!&rdquo;
         </p>
         <p style={{
           margin: '12px 0 0 0',
           color: '#a16207',
           fontWeight: 600,
         }}>
-          — The Artisan Collective Team
+          — The Wildenflower Team
         </p>
       </div>
 

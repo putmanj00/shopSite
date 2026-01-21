@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Accessibility Statement | Artisan Collective',
+  title: 'Accessibility Statement | Wildenflower',
   description:
     'Our commitment to digital accessibility. Learn about our WCAG 2.1 AA compliance efforts and how to request accommodations.',
 };
@@ -17,7 +17,7 @@ export default function AccessibilityPage() {
 
         <div className="prose prose-neutral max-w-none">
           <p className="text-lg text-neutral-700 mb-8">
-            Artisan Collective is committed to ensuring digital accessibility for
+            Wildenflower is committed to ensuring digital accessibility for
             people with disabilities. We continually improve the user experience
             for everyone and apply the relevant accessibility standards.
           </p>
@@ -33,7 +33,7 @@ export default function AccessibilityPage() {
               AA, and Level AAA.
             </p>
             <p className="text-neutral-700">
-              Artisan Collective is{' '}
+              Wildenflower is{' '}
               <strong>partially conformant with WCAG 2.1 level AA</strong>. Partially
               conformant means that some parts of the content do not fully conform
               to the accessibility standard.
@@ -142,17 +142,17 @@ export default function AccessibilityPage() {
               Feedback and Contact
             </h2>
             <p className="text-neutral-700 mb-4">
-              We welcome your feedback on the accessibility of Artisan Collective.
+              We welcome your feedback on the accessibility of Wildenflower.
               Please let us know if you encounter accessibility barriers:
             </p>
             <ul className="list-none space-y-2 text-neutral-700">
               <li>
                 <strong>Email:</strong>{' '}
                 <a
-                  href="mailto:accessibility@artisancollective.com"
+                  href="mailto:accessibility@wildenflower.com"
                   className="text-primary-600 hover:text-primary-700 underline"
                 >
-                  accessibility@artisancollective.com
+                  accessibility@wildenflower.com
                 </a>
               </li>
               <li>
@@ -184,7 +184,7 @@ export default function AccessibilityPage() {
               Assessment Approach
             </h2>
             <p className="text-neutral-700">
-              Artisan Collective assesses the accessibility of our website through
+              Wildenflower assesses the accessibility of our website through
               the following methods:
             </p>
             <ul className="list-disc list-inside space-y-2 text-neutral-700 mt-4">

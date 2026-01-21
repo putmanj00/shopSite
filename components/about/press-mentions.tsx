@@ -44,7 +44,7 @@ export default function PressMentions() {
                     <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
                         In the Press
                     </span>
-                    <h2 className="mt-3 text-3xl font-bold text-neutral-900 sm:text-4xl">
+                    <h2 className="mt-3 text-3xl font-bold font-heading text-neutral-900 sm:text-4xl">
                         As Seen In
                     </h2>
                 </div>

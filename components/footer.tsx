@@ -33,7 +33,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="bg-primary-900 text-neutral-100"
+      className="bg-navy-900 text-neutral-100"
       role="contentinfo"
       aria-label="Site footer"
     >
@@ -118,7 +118,7 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-primary-700 mt-12 pt-8">
+        <div className="border-t border-navy-700 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Brand */}
             <div className="flex items-center">

@@ -1,5 +1,5 @@
-// Service Worker for Artisan Collective PWA
-const CACHE_NAME = 'artisan-collective-v1';
+// Service Worker for Wildenflower PWA
+const CACHE_NAME = 'wildenflower-v1';
 const OFFLINE_URL = '/offline';
 
 // Assets to cache on install

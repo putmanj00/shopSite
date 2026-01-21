@@ -75,13 +75,13 @@ export function OrderConfirmationEmail({
 
       {/* Order number card */}
       <div style={{
-        backgroundColor: '#f0f9ff',
+        backgroundColor: '#f5f3ff', // violet-50
         borderRadius: '12px',
         padding: '24px',
         textAlign: 'center',
         marginBottom: '32px',
       }}>
-        <p style={{ margin: '0 0 8px 0', color: '#0369a1', fontWeight: 600, textTransform: 'uppercase', fontSize: '12px', letterSpacing: '1px' }}>
+        <p style={{ margin: '0 0 8px 0', color: '#5B21B6', fontWeight: 600, textTransform: 'uppercase', fontSize: '12px', letterSpacing: '1px' }}>
           Order Number
         </p>
         <p style={{
@@ -237,7 +237,7 @@ export function OrderConfirmationEmail({
         color: '#64748b',
       }}>
         Questions about your order? Reply to this email or{' '}
-        <a href={`${baseUrl}/contact`} style={{ color: '#2563eb' }}>contact us</a>.
+        <a href={`${baseUrl}/contact`} style={{ color: '#7C3AED' }}>contact us</a>.
       </p>
     </EmailLayout>
   );

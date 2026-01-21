@@ -15,7 +15,7 @@ export function WelcomeEmail({
   discountPercent = 15,
 }: WelcomeEmailProps) {
   return (
-    <EmailLayout previewText={`Welcome to Artisan Collective, ${firstName}! Enjoy ${discountPercent}% off your first order.`}>
+    <EmailLayout previewText={`Welcome to Wildenflower, ${firstName}! Enjoy ${discountPercent}% off your first order.`}>
       {/* Welcome message */}
       <h1 style={{
         fontSize: '28px',
@@ -33,20 +33,20 @@ export function WelcomeEmail({
 
       {/* Discount banner */}
       <div style={{
-        backgroundColor: '#f0fdf4',
-        border: '2px dashed #22c55e',
+        backgroundColor: '#f5f3ff', // violet-50
+        border: '2px dashed #7C3AED', // Cosmic Purple
         borderRadius: '12px',
         padding: '24px',
         textAlign: 'center',
         marginBottom: '32px',
       }}>
-        <p style={{ margin: '0 0 8px 0', color: '#16a34a', fontWeight: 600 }}>
+        <p style={{ margin: '0 0 8px 0', color: '#5B21B6', fontWeight: 600 }}>
           Your Exclusive Welcome Gift
         </p>
         <p style={{
           fontSize: '32px',
           fontWeight: 700,
-          color: '#15803d',
+          color: '#4C1D95',
           margin: '0 0 8px 0',
         }}>
           {discountPercent}% OFF
@@ -80,9 +80,9 @@ export function WelcomeEmail({
           Our Story
         </h2>
         <p style={{ color: '#475569', margin: '0 0 16px 0' }}>
-          Founded by a passionate group of artisans, Artisan Collective celebrates the beauty of
-          handcrafted goods. Every piece in our collection tells a story — of skilled hands,
-          timeless techniques, and sustainable practices passed down through generations.
+          Wildenflower celebrates the wild beauty of handmade craftsmanship. Every piece in our
+          collection tells a story — of makers who pour their souls into their work, of sustainable
+          practices, and of authentic artistry that mass production can never replicate.
         </p>
         <p style={{ color: '#475569', margin: 0 }}>
           When you shop with us, you&apos;re not just buying a product — you&apos;re supporting
@@ -109,7 +109,7 @@ export function WelcomeEmail({
           <tbody>
             <tr>
               <td style={{ padding: '8px 0', verticalAlign: 'top' }}>
-                <span style={{ color: '#2563eb', marginRight: '8px' }}>✨</span>
+                <span style={{ color: '#7C3AED', marginRight: '8px' }}>✨</span>
               </td>
               <td style={{ padding: '8px 0', color: '#475569' }}>
                 Early access to new collections
@@ -117,7 +117,7 @@ export function WelcomeEmail({
             </tr>
             <tr>
               <td style={{ padding: '8px 0', verticalAlign: 'top' }}>
-                <span style={{ color: '#2563eb', marginRight: '8px' }}>🎁</span>
+                <span style={{ color: '#7C3AED', marginRight: '8px' }}>🎁</span>
               </td>
               <td style={{ padding: '8px 0', color: '#475569' }}>
                 Exclusive member-only discounts
@@ -125,7 +125,7 @@ export function WelcomeEmail({
             </tr>
             <tr>
               <td style={{ padding: '8px 0', verticalAlign: 'top' }}>
-                <span style={{ color: '#2563eb', marginRight: '8px' }}>📖</span>
+                <span style={{ color: '#7C3AED', marginRight: '8px' }}>📖</span>
               </td>
               <td style={{ padding: '8px 0', color: '#475569' }}>
                 Behind-the-scenes artisan stories
@@ -133,7 +133,7 @@ export function WelcomeEmail({
             </tr>
             <tr>
               <td style={{ padding: '8px 0', verticalAlign: 'top' }}>
-                <span style={{ color: '#2563eb', marginRight: '8px' }}>💝</span>
+                <span style={{ color: '#7C3AED', marginRight: '8px' }}>💝</span>
               </td>
               <td style={{ padding: '8px 0', color: '#475569' }}>
                 Special birthday surprises

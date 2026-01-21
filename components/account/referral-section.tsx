@@ -181,7 +181,7 @@ export default function ReferralSection({
             </svg>
           </a>
           <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Get 20% off your first order at Artisan Collective! Use my referral code: ${referralCode}`)}&url=${encodeURIComponent(referralLink)}`}
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Get 20% off your first order at Wildenflower! Use my referral code: ${referralCode}`)}&url=${encodeURIComponent(referralLink)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="p-3 bg-black text-white rounded-lg hover:opacity-90 transition-opacity"
@@ -192,7 +192,7 @@ export default function ReferralSection({
             </svg>
           </a>
           <a
-            href={`mailto:?subject=${encodeURIComponent('Get 20% off at Artisan Collective!')}&body=${encodeURIComponent(`I thought you might like Artisan Collective! Use my referral code ${referralCode} to get 20% off your first order: ${referralLink}`)}`}
+            href={`mailto:?subject=${encodeURIComponent('Get 20% off at Wildenflower!')}&body=${encodeURIComponent(`I thought you might like Wildenflower! Use my referral code ${referralCode} to get 20% off your first order: ${referralLink}`)}`}
             className="p-3 bg-gray-600 text-white rounded-lg hover:opacity-90 transition-opacity"
             aria-label="Share via Email"
           >

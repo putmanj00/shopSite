@@ -259,7 +259,7 @@ async function seedShopify() {
           productSet: {
             title: product.title,
             descriptionHtml: `<p>${product.description}</p>`,
-            vendor: 'Artisan Collective',
+            vendor: 'Wildenflower',
             status: 'ACTIVE',
             productOptions: [
               {

@@ -39,12 +39,12 @@ const makers: Maker[] = [
     },
     {
         name: 'David Rivera',
-        role: 'Visual Artist',
-        specialty: 'Original Artwork',
-        bio: 'David\u0027s vibrant paintings capture the spirit of handmade creativity and artisan culture.',
+        role: 'Crystal Curator',
+        specialty: 'Crystals & Stones',
+        bio: 'David sources ethically-mined crystals and stones, bringing earth\u0027s natural beauty to every collection.',
         image:
             'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop',
-        collectionHandle: 'art',
+        collectionHandle: 'crystals',
     },
 ];
 
@@ -54,9 +54,9 @@ export default function MeetTheMakers() {
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
                     <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
-                        The Artisans
+                        The Makers
                     </span>
-                    <h2 className="mt-3 text-3xl font-bold text-neutral-900 sm:text-4xl">
+                    <h2 className="mt-3 text-3xl font-bold font-heading text-neutral-900 sm:text-4xl">
                         Meet the Makers
                     </h2>
                     <p className="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">

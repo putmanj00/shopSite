@@ -99,13 +99,13 @@ export default function MissionValues() {
                     <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
                         What We Believe
                     </span>
-                    <h2 className="mt-3 text-3xl font-bold text-neutral-900 sm:text-4xl">
+                    <h2 className="mt-3 text-3xl font-bold font-heading text-neutral-900 sm:text-4xl">
                         Our Mission
                     </h2>
                     <p className="mt-6 text-xl text-neutral-700 leading-relaxed">
-                        We exist to celebrate the beauty of handmade craftsmanship, connect
-                        talented artisans with appreciative customers, and preserve
-                        traditional techniques for future generations.
+                        We exist to celebrate the wild beauty of handmade craftsmanship,
+                        connecting makers who pour their souls into every piece with those
+                        who cherish authenticity over mass production.
                     </p>
                 </div>
 

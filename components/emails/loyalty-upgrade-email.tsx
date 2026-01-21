@@ -199,7 +199,7 @@ export function LoyaltyUpgradeEmail({
         color: '#64748b',
         fontStyle: 'italic',
       }}>
-        Thank you for being a valued member of the Artisan Collective family!
+        Thank you for being a valued member of the Wildenflower community!
       </p>
     </EmailLayout>
   );

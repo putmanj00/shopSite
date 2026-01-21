@@ -53,7 +53,7 @@ export default function BehindTheScenes() {
                     <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
                         The Workshop
                     </span>
-                    <h2 className="mt-3 text-3xl font-bold text-neutral-900 sm:text-4xl">
+                    <h2 className="mt-3 text-3xl font-bold font-heading text-neutral-900 sm:text-4xl">
                         Behind the Scenes
                     </h2>
                     <p className="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">

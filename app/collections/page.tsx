@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { getAllCollections } from '@/lib/shopify-helpers';
 
 export const metadata: Metadata = {
-  title: 'Collections | ShopSite',
-  description: 'Browse all our product collections',
+  title: 'Collections | Wildenflower',
+  description: 'Browse all our handcrafted collections',
 };
 
 export default async function CollectionsPage() {
@@ -15,7 +15,7 @@ export default async function CollectionsPage() {
     <div className="min-h-screen bg-zinc-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold font-heading text-gray-900 mb-4">
             Browse Collections
           </h1>
           <p className="text-lg text-gray-600">
@@ -47,7 +47,7 @@ export default async function CollectionsPage() {
                   </div>
                 )}
                 <div className="p-6">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
                     {collection.title}
                   </h2>
                   {collection.description && (
@@ -55,7 +55,7 @@ export default async function CollectionsPage() {
                       {collection.description}
                     </p>
                   )}
-                  <div className="mt-4 flex items-center text-blue-600 font-medium">
+                  <div className="mt-4 flex items-center text-primary-600 font-medium">
                     Shop Collection
                     <svg
                       className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform"

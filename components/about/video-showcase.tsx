@@ -46,7 +46,7 @@ export default function VideoShowcase() {
                     <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
                         Behind the Craft
                     </span>
-                    <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+                    <h2 className="mt-3 text-3xl font-bold font-heading text-white sm:text-4xl">
                         Watch the Creation Process
                     </h2>
                     <p className="mt-4 text-lg text-neutral-400 max-w-2xl mx-auto">

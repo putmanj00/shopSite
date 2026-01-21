@@ -127,7 +127,7 @@ export function DeliveryConfirmationEmail({
               style={{
                 display: 'inline-block',
                 padding: '8px 16px',
-                backgroundColor: '#2563eb',
+                backgroundColor: '#7C3AED', // Cosmic Purple
                 color: '#ffffff',
                 borderRadius: '6px',
                 textDecoration: 'none',
@@ -174,7 +174,7 @@ export function DeliveryConfirmationEmail({
         </p>
         <a
           href={`${baseUrl}/care-guides`}
-          style={{ color: '#2563eb', fontSize: '14px', fontWeight: 500 }}
+          style={{ color: '#7C3AED', fontSize: '14px', fontWeight: 500 }}
         >
           View Care Guides →
         </a>

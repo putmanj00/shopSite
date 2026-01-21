@@ -54,13 +54,13 @@ export function ShippingNotificationEmail({
 
       {/* Tracking info card */}
       <div style={{
-        backgroundColor: '#eff6ff',
+        backgroundColor: '#f5f3ff', // violet-50
         borderRadius: '12px',
         padding: '24px',
         marginBottom: '32px',
         textAlign: 'center',
       }}>
-        <p style={{ margin: '0 0 8px 0', color: '#3b82f6', fontWeight: 600, textTransform: 'uppercase', fontSize: '12px', letterSpacing: '1px' }}>
+        <p style={{ margin: '0 0 8px 0', color: '#7C3AED', fontWeight: 600, textTransform: 'uppercase', fontSize: '12px', letterSpacing: '1px' }}>
           Tracking Number
         </p>
         <p style={{
@@ -158,7 +158,7 @@ export function ShippingNotificationEmail({
         </h3>
         <p style={{ margin: 0, fontSize: '14px', color: '#64748b' }}>
           If you have any questions about your order, our customer service team is here to help.
-          Just reply to this email or contact us at support@artisancollective.com.
+          Just reply to this email or contact us at <a href="mailto:support@artisancollective.com" style={{ color: '#7C3AED', textDecoration: 'none' }}>support@artisancollective.com</a>.
         </p>
       </div>
     </EmailLayout>

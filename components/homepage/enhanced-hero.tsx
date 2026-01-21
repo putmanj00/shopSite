@@ -17,10 +17,10 @@ interface EnhancedHeroProps {
 }
 
 export default function EnhancedHero({
-  heading = 'Embrace Your Wild Beauty',
-  subheading = 'Handpicked treasures for the untamed spirit. Crystals, jewelry, tie-dye, and artisan goods — all crafted with intention.',
+  heading = 'Where Color Comes Alive',
+  subheading = 'Trippy treasures for free spirits. Vibrant tie-dye, mandala art, crystals, and festival-ready handcrafted goods — art you can wear, magic you can feel.',
   ctas = [
-    { label: 'Explore Treasures', href: '/collections/all', variant: 'primary' },
+    { label: 'Shop the Vibe', href: '/collections/all', variant: 'primary' },
     { label: 'Our Story', href: '#brand-story', variant: 'secondary' },
   ],
   backgroundImage = '/images/hero-background.png',
@@ -97,7 +97,7 @@ export default function EnhancedHero({
                     inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-lg transition-all hover:scale-105
                     ${cta.variant === 'secondary'
                       ? 'border-2 border-white text-white hover:bg-white hover:text-neutral-900'
-                      : 'bg-primary-500 text-white hover:bg-primary-400'
+                      : 'bg-primary-600 text-white hover:bg-primary-500'
                     }
                   `}
                 >

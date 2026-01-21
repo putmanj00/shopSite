@@ -2,58 +2,94 @@
 
 /* ============================================
    WILDENFLOWER DESIGN SYSTEM
-   "Boho Brights" - WCAG 2.1 AA Compliant
-   The Untamed Flower - Wild, Free, Naturally Beautiful
+   "Playful & Psychedelic" - WCAG 2.1 AA Compliant
+   Art You Can Wear, Magic You Can Feel
    ============================================ */
 
 :root {
-  /* Primary: Deep Turquoise - CTAs, links, key accents */
-  --color-primary-50: #f0fdfc;
-  --color-primary-100: #ccfbf6;
-  --color-primary-200: #99f6ed;
-  --color-primary-300: #5eead4;
-  --color-primary-400: #2dd4bf;
-  --color-primary-500: #0D9488;
-  --color-primary-600: #0d9488;
-  --color-primary-700: #0f766e;
-  --color-primary-800: #115e59;
-  --color-primary-900: #134e4a;
+  /* Primary: Cosmic Purple - CTAs, links, brand anchor */
+  --color-primary-50: #faf5ff;
+  --color-primary-100: #f3e8ff;
+  --color-primary-200: #e9d5ff;
+  --color-primary-300: #d8b4fe;
+  --color-primary-400: #c084fc;
+  --color-primary-500: #A78BFA;
+  --color-primary-600: #7C3AED;
+  --color-primary-700: #6d28d9;
+  --color-primary-800: #5B21B6;
+  --color-primary-900: #4c1d95;
 
-  /* Secondary: Magenta Rose - Highlights, sale badges */
+  /* Secondary: Electric Magenta - Sale badges, highlights */
   --color-secondary-50: #fdf2f8;
   --color-secondary-100: #fce7f3;
   --color-secondary-200: #fbcfe8;
   --color-secondary-300: #f9a8d4;
   --color-secondary-400: #f472b6;
-  --color-secondary-500: #BE185D;
-  --color-secondary-600: #be185d;
-  --color-secondary-700: #9d174d;
-  --color-secondary-800: #831843;
-  --color-secondary-900: #500724;
+  --color-secondary-500: #EC4899;
+  --color-secondary-600: #db2777;
+  --color-secondary-700: #be185d;
+  --color-secondary-800: #9d174d;
+  --color-secondary-900: #831843;
 
-  /* Accent: Saffron Gold - Warmth, featured elements */
-  --color-accent-50: #fffbeb;
-  --color-accent-100: #fef3c7;
-  --color-accent-200: #fde68a;
-  --color-accent-300: #fcd34d;
-  --color-accent-400: #fbbf24;
-  --color-accent-500: #D97706;
-  --color-accent-600: #d97706;
-  --color-accent-700: #b45309;
-  --color-accent-800: #92400e;
-  --color-accent-900: #78350f;
+  /* Accent: Sunset Orange - Warmth, featured elements */
+  --color-accent-50: #fff7ed;
+  --color-accent-100: #ffedd5;
+  --color-accent-200: #fed7aa;
+  --color-accent-300: #fdba74;
+  --color-accent-400: #fb923c;
+  --color-accent-500: #F97316;
+  --color-accent-600: #ea580c;
+  --color-accent-700: #c2410c;
+  --color-accent-800: #9a3412;
+  --color-accent-900: #7c2d12;
 
-  /* Teal: Secondary actions, informational */
+  /* Teal: Psychedelic Teal - Secondary actions, informational */
   --color-teal-50: #ecfeff;
   --color-teal-100: #cffafe;
   --color-teal-200: #a5f3fc;
   --color-teal-300: #67e8f9;
   --color-teal-400: #22d3ee;
-  --color-teal-500: #0891B2;
+  --color-teal-500: #06B6D4;
   --color-teal-600: #0891b2;
   --color-teal-700: #0e7490;
   --color-teal-800: #155e75;
   --color-teal-900: #164e63;
+
+  /* Lime: Lime Pop - Success states, fresh accents */
+  --color-lime-50: #f7fee7;
+  --color-lime-100: #ecfccb;
+  --color-lime-200: #d9f99d;
+  --color-lime-300: #bef264;
+  --color-lime-400: #a3e635;
+  --color-lime-500: #84CC16;
+  --color-lime-600: #65a30d;
+  --color-lime-700: #4d7c0f;
+  --color-lime-800: #3f6212;
+  --color-lime-900: #365314;
+
+  /* Gold: Golden Hour - Premium, special elements */
+  --color-gold-50: #fefce8;
+  --color-gold-100: #fef9c3;
+  --color-gold-200: #fef08a;
+  --color-gold-300: #fde047;
+  --color-gold-400: #facc15;
+  --color-gold-500: #EAB308;
+  --color-gold-600: #ca8a04;
+  --color-gold-700: #a16207;
+  --color-gold-800: #854d0e;
+  --color-gold-900: #713f12;
+
+  /* Navy: Deep Navy - Dark backgrounds, contrast */
+  --color-navy-50: #eef2ff;
+  --color-navy-100: #e0e7ff;
+  --color-navy-200: #c7d2fe;
+  --color-navy-300: #a5b4fc;
+  --color-navy-400: #818cf8;
+  --color-navy-500: #6366f1;
+  --color-navy-600: #4f46e5;
+  --color-navy-700: #4338ca;
+  --color-navy-800: #3730a3;
+  --color-navy-900: #1E1B4B;
 
   /* Neutrals: Warm Cream base with Charcoal text */
   /* WCAG AA compliant - all text meets 4.5:1 contrast */
@@ -69,10 +105,10 @@
   --color-neutral-900: #1C1917;  /* Charcoal - primary text */
 
   /* Semantic Colors - WCAG AA compliant (4.5:1 on white) */
-  --color-success: #059669;  /* Emerald - harmonizes with turquoise */
-  --color-warning: #d97706;  /* Saffron Gold - brand consistent */
+  --color-success: #84CC16;  /* Lime Pop - brand consistent */
+  --color-warning: #F97316;  /* Sunset Orange - brand consistent */
   --color-error: #dc2626;    /* Red - clear error state */
-  --color-info: #0891b2;     /* Teal - brand consistent */
+  --color-info: #06B6D4;     /* Psychedelic Teal - brand consistent */
 
   /* Background & Foreground */
   --background: var(--color-neutral-50);
@@ -119,7 +155,7 @@
   --radius-full: 9999px;
 
   /* Focus Ring (WCAG compliant) */
-  --focus-ring-color: var(--color-primary-500);
+  --focus-ring-color: var(--color-primary-600);
   --focus-ring-width: 3px;
   --focus-ring-offset: 2px;
 
@@ -145,10 +181,10 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-nunito);
-  --font-heading: var(--font-cormorant);
+  --font-heading: var(--font-righteous);
   --font-accent: var(--font-sacramento);
 
-  /* Primary: Deep Turquoise */
+  /* Primary: Cosmic Purple */
   --color-primary-50: var(--color-primary-50);
   --color-primary-100: var(--color-primary-100);
   --color-primary-200: var(--color-primary-200);
@@ -160,7 +196,7 @@
   --color-primary-800: var(--color-primary-800);
   --color-primary-900: var(--color-primary-900);
 
-  /* Secondary: Magenta Rose */
+  /* Secondary: Electric Magenta */
   --color-secondary-50: var(--color-secondary-50);
   --color-secondary-100: var(--color-secondary-100);
   --color-secondary-200: var(--color-secondary-200);
@@ -172,7 +208,7 @@
   --color-secondary-800: var(--color-secondary-800);
   --color-secondary-900: var(--color-secondary-900);
 
-  /* Accent: Saffron Gold */
+  /* Accent: Sunset Orange */
   --color-accent-50: var(--color-accent-50);
   --color-accent-100: var(--color-accent-100);
   --color-accent-200: var(--color-accent-200);
@@ -184,7 +220,7 @@
   --color-accent-800: var(--color-accent-800);
   --color-accent-900: var(--color-accent-900);
 
-  /* Teal: Secondary actions */
+  /* Teal: Psychedelic Teal */
   --color-teal-50: var(--color-teal-50);
   --color-teal-100: var(--color-teal-100);
   --color-teal-200: var(--color-teal-200);
@@ -195,6 +231,42 @@
   --color-teal-700: var(--color-teal-700);
   --color-teal-800: var(--color-teal-800);
   --color-teal-900: var(--color-teal-900);
+
+  /* Lime: Lime Pop */
+  --color-lime-50: var(--color-lime-50);
+  --color-lime-100: var(--color-lime-100);
+  --color-lime-200: var(--color-lime-200);
+  --color-lime-300: var(--color-lime-300);
+  --color-lime-400: var(--color-lime-400);
+  --color-lime-500: var(--color-lime-500);
+  --color-lime-600: var(--color-lime-600);
+  --color-lime-700: var(--color-lime-700);
+  --color-lime-800: var(--color-lime-800);
+  --color-lime-900: var(--color-lime-900);
+
+  /* Gold: Golden Hour */
+  --color-gold-50: var(--color-gold-50);
+  --color-gold-100: var(--color-gold-100);
+  --color-gold-200: var(--color-gold-200);
+  --color-gold-300: var(--color-gold-300);
+  --color-gold-400: var(--color-gold-400);
+  --color-gold-500: var(--color-gold-500);
+  --color-gold-600: var(--color-gold-600);
+  --color-gold-700: var(--color-gold-700);
+  --color-gold-800: var(--color-gold-800);
+  --color-gold-900: var(--color-gold-900);
+
+  /* Navy: Deep Navy */
+  --color-navy-50: var(--color-navy-50);
+  --color-navy-100: var(--color-navy-100);
+  --color-navy-200: var(--color-navy-200);
+  --color-navy-300: var(--color-navy-300);
+  --color-navy-400: var(--color-navy-400);
+  --color-navy-500: var(--color-navy-500);
+  --color-navy-600: var(--color-navy-600);
+  --color-navy-700: var(--color-navy-700);
+  --color-navy-800: var(--color-navy-800);
+  --color-navy-900: var(--color-navy-900);
 }
 
 /* ============================================
@@ -209,10 +281,10 @@ body {
   line-height: var(--line-height-normal);
 }
 
-/* Heading typography - Cormorant Garamond */
+/* Heading typography - Righteous (groovy display font) */
 h1, h2, h3, h4, h5, h6,
 .font-heading {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-righteous), system-ui, sans-serif;
 }
 
 /* Accent typography - Sacramento script */
@@ -288,7 +360,7 @@ input, textarea, select {
   transform: translateX(-50%);
   z-index: 9999;
   padding: var(--space-3) var(--space-6);
-  background-color: var(--color-primary-500);
+  background-color: var(--color-primary-600);
   color: white;
   font-weight: 600;
   text-decoration: none;

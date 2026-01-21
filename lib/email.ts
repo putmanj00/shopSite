@@ -25,7 +25,7 @@ export async function sendEmail({ to, subject, react }: SendEmailParams) {
 
   try {
     const data = await resend.emails.send({
-      from: 'ShopSite <onboarding@resend.dev>', // Default Resend test domain
+      from: 'Wildenflower <onboarding@resend.dev>', // Default Resend test domain
       to,
       subject,
       react,

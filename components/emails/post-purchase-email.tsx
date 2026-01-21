@@ -123,7 +123,7 @@ export function PostPurchaseEmail({
 
       {/* Referral program */}
       <div style={{
-        backgroundColor: '#eff6ff',
+        backgroundColor: '#f5f3ff', // violet-50
         borderRadius: '12px',
         padding: '24px',
         textAlign: 'center',
@@ -131,12 +131,12 @@ export function PostPurchaseEmail({
         <h2 style={{
           fontSize: '18px',
           fontWeight: 600,
-          color: '#1e40af',
+          color: '#5B21B6', // purple-800
           margin: '0 0 12px 0',
         }}>
           Share the Love 💙
         </h2>
-        <p style={{ color: '#3b82f6', margin: '0 0 16px 0', fontSize: '14px' }}>
+        <p style={{ color: '#7C3AED', margin: '0 0 16px 0', fontSize: '14px' }}>
           Refer a friend and you&apos;ll both get $15 off your next order!
         </p>
         <EmailButton href={`${baseUrl}/account?tab=rewards`}>

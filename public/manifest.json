@@ -1,11 +1,11 @@
 {
   "name": "Wildenflower",
   "short_name": "Wildenflower",
-  "description": "Handpicked treasures for the untamed spirit. Curated bohemian jewelry, crystals, tie-dye, and artisan leather goods.",
+  "description": "Art you can wear, magic you can feel. Trippy treasures including vibrant tie-dye, mandala art, crystals, and festival-ready handcrafted goods.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FDF8F3",
-  "theme_color": "#0D9488",
+  "theme_color": "#7C3AED",
   "orientation": "portrait-primary",
   "scope": "/",
   "icons": [

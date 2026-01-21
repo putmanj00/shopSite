@@ -74,9 +74,9 @@ export function EmailLayout({ children, previewText }: EmailLayoutProps) {
                           <span style={{
                             fontSize: '28px',
                             fontWeight: 700,
-                            color: '#0D9488', // Deep Turquoise
+                            color: '#7C3AED', // Cosmic Purple
                             letterSpacing: '0.5px',
-                            fontFamily: 'Georgia, serif',
+                            fontFamily: 'system-ui, sans-serif',
                           }}>
                             Wildenflower
                           </span>
@@ -116,9 +116,9 @@ export function EmailLayout({ children, previewText }: EmailLayoutProps) {
                                   © 2026 Wildenflower. All rights reserved.
                                 </p>
                                 <p style={{ margin: '0' }}>
-                                  <a href={`${baseUrl}/unsubscribe`} style={{ color: '#0D9488' }}>Unsubscribe</a>
+                                  <a href={`${baseUrl}/unsubscribe`} style={{ color: '#7C3AED' }}>Unsubscribe</a>
                                   {' | '}
-                                  <a href={`${baseUrl}/privacy`} style={{ color: '#0D9488' }}>Privacy Policy</a>
+                                  <a href={`${baseUrl}/privacy`} style={{ color: '#7C3AED' }}>Privacy Policy</a>
                                 </p>
                               </td>
                             </tr>
@@ -149,7 +149,7 @@ export function EmailButton({
 }) {
   const styles = {
     primary: {
-      backgroundColor: '#0D9488', // Deep Turquoise
+      backgroundColor: '#7C3AED', // Cosmic Purple
       color: '#ffffff',
     },
     secondary: {

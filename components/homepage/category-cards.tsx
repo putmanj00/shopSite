@@ -14,28 +14,28 @@ const categories: Category[] = [
   {
     handle: 'tie-dye',
     title: 'Tie-Dye',
-    description: 'Vibrant, hand-dyed apparel for the free spirit',
+    description: 'Psychedelic swirls and festival-ready vibes',
     image: '/images/category-tiedye.png',
     productCount: 45,
   },
   {
-    handle: 'leather',
-    title: 'Leather',
-    description: 'Hand-tooled bags, wallets, and treasures',
+    handle: 'mandala-art',
+    title: 'Mandala Art',
+    description: 'Sacred geometry meets trippy dot art',
     image: '/images/category-leather.png',
     productCount: 32,
   },
   {
     handle: 'jewelry',
     title: 'Jewelry',
-    description: 'Handcrafted pieces worn with intention',
+    description: 'Handcrafted pieces with cosmic energy',
     image: 'https://images.unsplash.com/photo-1599643478518-17488fbbcd75?w=800&q=80',
     productCount: 67,
   },
   {
     handle: 'crystals',
     title: 'Crystals',
-    description: 'Ethically sourced stones and gems',
+    description: 'High-vibe stones for free spirits',
     image: 'https://images.unsplash.com/photo-1617116462723-5e927c692885?w=800&q=80',
     productCount: 54,
   },
@@ -103,11 +103,11 @@ export default function CategoryCards() {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl font-heading">
-            Treasures Chosen with Intention
+            Trippy Treasures Await
           </h2>
           <p className="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">
-            Explore our curated collections of handpicked artisan goods. Each
-            piece carries its own story, waiting to become part of yours.
+            Explore our groovy collections of handcrafted wearable art. Each
+            piece carries cosmic energy, waiting to become part of your vibe.
           </p>
         </div>
 

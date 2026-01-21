@@ -110,7 +110,7 @@ export function WinbackEmail({
             <tbody>
               <tr>
                 <td style={{ padding: '8px 0', verticalAlign: 'top', width: '24px' }}>
-                  <span style={{ color: '#2563eb' }}>✨</span>
+                  <span style={{ color: '#7C3AED' }}>✨</span>
                 </td>
                 <td style={{ padding: '8px 0', color: '#475569' }}>
                   <strong>New Collections</strong> — Fresh arrivals from talented artisans
@@ -118,7 +118,7 @@ export function WinbackEmail({
               </tr>
               <tr>
                 <td style={{ padding: '8px 0', verticalAlign: 'top' }}>
-                  <span style={{ color: '#2563eb' }}>🎁</span>
+                  <span style={{ color: '#7C3AED' }}>🎁</span>
                 </td>
                 <td style={{ padding: '8px 0', color: '#475569' }}>
                   <strong>Loyalty Rewards</strong> — Earn points on every purchase
@@ -126,7 +126,7 @@ export function WinbackEmail({
               </tr>
               <tr>
                 <td style={{ padding: '8px 0', verticalAlign: 'top' }}>
-                  <span style={{ color: '#2563eb' }}>🚚</span>
+                  <span style={{ color: '#7C3AED' }}>🚚</span>
                 </td>
                 <td style={{ padding: '8px 0', color: '#475569' }}>
                   <strong>Free Shipping</strong> — On orders over $75
@@ -176,7 +176,7 @@ export function WinbackEmail({
         color: '#94a3b8',
       }}>
         If you no longer wish to receive promotional emails, you can update your
-        {' '}<a href={`${baseUrl}/account/preferences`} style={{ color: '#64748b' }}>email preferences</a>.
+        {' '}<a href={`${baseUrl}/account/preferences`} style={{ color: '#7C3AED' }}>email preferences</a>.
       </p>
     </EmailLayout>
   );

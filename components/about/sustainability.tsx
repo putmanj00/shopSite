@@ -137,7 +137,7 @@ export default function Sustainability() {
                         <span className="text-primary-300 font-medium text-sm uppercase tracking-wider">
                             Our Commitment
                         </span>
-                        <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
+                        <h2 className="mt-3 text-3xl font-bold font-heading sm:text-4xl">
                             Sustainability & Ethical Sourcing
                         </h2>
                         <p className="mt-6 text-lg text-primary-100 leading-relaxed">

@@ -18,7 +18,7 @@ export default async function ProtectedAdminLayout({
             {/* Sidebar */}
             <aside className="w-64 bg-zinc-900 text-white flex-shrink-0 hidden md:flex flex-col">
                 <div className="p-6 border-b border-zinc-800">
-                    <h2 className="text-xl font-bold tracking-tight">ShopSite Admin</h2>
+                    <h2 className="text-xl font-bold tracking-tight">Wildenflower Admin</h2>
                 </div>
                 <nav className="flex-1 p-4 space-y-2">
                     <Link
@@ -74,7 +74,7 @@ export default async function ProtectedAdminLayout({
             {/* Main Content */}
             <main className="flex-1 overflow-y-auto">
                 <div className="md:hidden bg-zinc-900 text-white p-4 flex justify-between items-center">
-                    <h2 className="font-bold">ShopSite Admin</h2>
+                    <h2 className="font-bold">Wildenflower Admin</h2>
                     <Link href="/admin/reviews" className="text-sm text-zinc-300">Reviews</Link>
                 </div>
                 <div className="p-8">

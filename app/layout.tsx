@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Nunito, Sacramento } from "next/font/google";
+import { Righteous, Nunito, Sacramento } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -16,11 +16,11 @@ import Analytics from "@/components/analytics";
 import { CurrencyProvider } from "@/lib/currency-context";
 import GeolocationHandler from "@/components/geolocation-handler";
 
-// Heading font: Elegant serif with personality
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+// Display font: Groovy psychedelic-inspired for headlines
+const righteous = Righteous({
+  variable: "--font-righteous",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400"],
   display: "swap",
 });
 
@@ -43,22 +43,22 @@ const sacramento = Sacramento({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://wildenflower.com'),
   title: {
-    default: 'Wildenflower - Wild Beauty, Crafted with Intention',
+    default: 'Wildenflower - Art You Can Wear, Magic You Can Feel',
     template: '%s | Wildenflower',
   },
   description:
-    'Handpicked treasures for the untamed spirit. Discover curated tie-dye apparel, artisan leather goods, unique jewelry, and crystals. Crafted with intention, worn with meaning.',
+    'Trippy treasures for free spirits. Discover vibrant tie-dye apparel, mandala dot art, unique jewelry, and crystals. Festival-ready, handcrafted with love.',
   keywords: [
-    'bohemian',
-    'crystals',
-    'artisan jewelry',
+    'psychedelic',
     'tie-dye',
-    'leather goods',
+    'mandala art',
+    'festival fashion',
+    'crystals',
+    'sacred geometry',
+    'hippie',
+    'bohemian',
     'handcrafted',
-    'spiritual',
-    'gemstones',
-    'boho fashion',
-    'handmade gifts',
+    'trippy',
   ],
   authors: [{ name: 'Wildenflower' }],
   creator: 'Wildenflower',
@@ -78,16 +78,16 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://wildenflower.com',
-    title: 'Wildenflower - Wild Beauty, Crafted with Intention',
+    title: 'Wildenflower - Art You Can Wear, Magic You Can Feel',
     description:
-      'Handpicked treasures for the untamed spirit. Curated bohemian jewelry, crystals, tie-dye, and artisan goods.',
+      'Trippy treasures for free spirits. Vibrant tie-dye, mandala art, crystals, and festival-ready handcrafted goods.',
     siteName: 'Wildenflower',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Wildenflower - Wild Beauty, Crafted with Intention',
+    title: 'Wildenflower - Art You Can Wear, Magic You Can Feel',
     description:
-      'Handpicked treasures for the untamed spirit. Curated bohemian jewelry, crystals, tie-dye, and artisan goods.',
+      'Trippy treasures for free spirits. Vibrant tie-dye, mandala art, crystals, and festival-ready handcrafted goods.',
   },
   robots: {
     index: true,
@@ -109,7 +109,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#0D9488', // Deep Turquoise - primary brand color
+  themeColor: '#7C3AED', // Cosmic Purple - primary brand color
 };
 
 export default function RootLayout({
@@ -120,7 +120,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${nunito.variable} ${cormorant.variable} ${sacramento.variable} antialiased font-sans`}
+        className={`${nunito.variable} ${righteous.variable} ${sacramento.variable} antialiased font-sans`}
       >
         <CurrencyProvider>
           <GeolocationHandler />
