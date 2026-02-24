@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Righteous, Nunito, Sacramento } from "next/font/google";
+import { Playfair_Display, Lora } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -16,49 +16,39 @@ import Analytics from "@/components/analytics";
 import { CurrencyProvider } from "@/lib/currency-context";
 import GeolocationHandler from "@/components/geolocation-handler";
 
-// Display font: Groovy psychedelic-inspired for headlines
-const righteous = Righteous({
-  variable: "--font-righteous",
+// Heading font: Playfair Display — classic serif for botanical warmth
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["700"],
   display: "swap",
 });
 
-// Body font: Clean, warm, and readable
-const nunito = Nunito({
-  variable: "--font-nunito",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-// Accent font: Hand-drawn script for special callouts
-const sacramento = Sacramento({
-  variable: "--font-sacramento",
+// Body font: Lora — warm, readable serif for brand voice
+const lora = Lora({
+  variable: "--font-lora",
   subsets: ["latin"],
   weight: ["400"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://wildenflower.com'),
   title: {
-    default: 'Wildenflower - Art You Can Wear, Magic You Can Feel',
+    default: 'Wildenflower | Tie-Dye, Leather Goods, Jewelry & Art',
     template: '%s | Wildenflower',
   },
   description:
-    'Trippy treasures for free spirits. Discover vibrant tie-dye apparel, mandala dot art, unique jewelry, and crystals. Festival-ready, handcrafted with love.',
+    'Made by hand. Found by heart. Wildenflower offers tie-dye apparel, leather goods, handcrafted jewelry, and original art — each piece made with care, found by the person it was meant for.',
   keywords: [
-    'psychedelic',
     'tie-dye',
-    'mandala art',
-    'festival fashion',
-    'crystals',
-    'sacred geometry',
-    'hippie',
-    'bohemian',
-    'handcrafted',
-    'trippy',
+    'leather goods',
+    'handcrafted jewelry',
+    'original art',
+    'handmade',
+    'botanical',
+    'wildenflower',
   ],
   authors: [{ name: 'Wildenflower' }],
   creator: 'Wildenflower',
@@ -78,16 +68,16 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://wildenflower.com',
-    title: 'Wildenflower - Art You Can Wear, Magic You Can Feel',
-    description:
-      'Trippy treasures for free spirits. Vibrant tie-dye, mandala art, crystals, and festival-ready handcrafted goods.',
     siteName: 'Wildenflower',
+    title: 'Wildenflower | Tie-Dye, Leather Goods, Jewelry & Art',
+    description:
+      'Made by hand. Found by heart. Tie-dye, leather goods, handcrafted jewelry, and original art crafted with care.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Wildenflower - Art You Can Wear, Magic You Can Feel',
+    title: 'Wildenflower | Tie-Dye, Leather Goods, Jewelry & Art',
     description:
-      'Trippy treasures for free spirits. Vibrant tie-dye, mandala art, crystals, and festival-ready handcrafted goods.',
+      'Made by hand. Found by heart. Tie-dye, leather goods, jewelry, and original art from Wildenflower.',
   },
   robots: {
     index: true,
@@ -109,7 +99,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#7C3AED', // Cosmic Purple - primary brand color
+  themeColor: '#1E3B30', // forest green — Wildenflower brand
 };
 
 export default function RootLayout({
@@ -118,10 +108,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${nunito.variable} ${righteous.variable} ${sacramento.variable} antialiased font-sans`}
-      >
+    <html lang="en" className={`${playfairDisplay.variable} ${lora.variable} antialiased`}>
+      <body>
         <CurrencyProvider>
           <GeolocationHandler />
           <SkipLink />
