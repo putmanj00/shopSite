@@ -6,8 +6,8 @@ function EmptyProducts() {
   return (
     <section className="container mx-auto px-4 py-16">
       <div className="text-center">
-        <h2 className="mb-4 text-3xl font-bold text-zinc-900">
-          Featured Products
+        <h2 className="mb-4 text-3xl font-bold text-forest font-heading">
+          Freshly Gathered
         </h2>
         <p className="text-zinc-600">
           No products available at the moment. Check back soon!
@@ -54,12 +54,12 @@ export default async function FeaturedProducts() {
   return (
     <section className="container mx-auto px-4 py-16">
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-zinc-900 md:text-4xl">
-          Featured Products
+        <h2 className="text-3xl font-bold text-forest md:text-4xl font-heading">
+          Freshly Gathered
         </h2>
         <Link
           href="/collections/all"
-          className="text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700 md:text-base"
+          className="text-sm font-semibold text-terracotta transition-colors hover:text-terracotta/80 md:text-base"
         >
           View All →
         </Link>
