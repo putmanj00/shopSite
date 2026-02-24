@@ -14,29 +14,29 @@ const categories: Category[] = [
   {
     handle: 'tie-dye',
     title: 'Tie-Dye',
-    description: 'Psychedelic swirls and festival-ready vibes',
-    image: '/images/category-tiedye.png',
+    description: 'Hand-dyed in small batches. Each piece blooms differently.',
+    image: '/assets/images/headers/botanical-header-small.png',
     productCount: 45,
   },
   {
     handle: 'mandala-art',
     title: 'Mandala Art',
-    description: 'Sacred geometry meets trippy dot art',
-    image: '/images/category-leather.png',
+    description: 'Drawn by hand, one patient line at a time.',
+    image: '/assets/images/headers/botanical-header-large1.png',
     productCount: 32,
   },
   {
     handle: 'jewelry',
     title: 'Jewelry',
-    description: 'Handcrafted pieces with cosmic energy',
-    image: 'https://images.unsplash.com/photo-1599643478518-17488fbbcd75?w=800&q=80',
+    description: 'Foraged shapes, gathered light.',
+    image: '/assets/images/splash/splash-bloom-elements.png',
     productCount: 67,
   },
   {
     handle: 'crystals',
     title: 'Crystals',
-    description: 'High-vibe stones for free spirits',
-    image: 'https://images.unsplash.com/photo-1617116462723-5e927c692885?w=800&q=80',
+    description: 'Earth-kept for years. Yours now.',
+    image: '/assets/images/headers/botanical-header-large.png',
     productCount: 54,
   },
 ];
@@ -71,7 +71,7 @@ function CategoryCard({ category }: { category: Category }) {
           <span className="text-xs text-neutral-400">
             {category.productCount} Treasures
           </span>
-          <span className="inline-flex items-center text-primary-300 text-sm font-medium opacity-0 transform translate-x-[-10px] transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+          <span className="inline-flex items-center text-gold text-sm font-medium opacity-0 transform translate-x-[-10px] transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
             Explore
             <svg
               className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1"
@@ -91,23 +91,22 @@ function CategoryCard({ category }: { category: Category }) {
       </div>
 
       {/* Hover Border Effect */}
-      <div className="absolute inset-0 rounded-2xl border-2 border-transparent transition-colors duration-300 group-hover:border-primary-400/50" />
+      <div className="absolute inset-0 rounded-2xl border-2 border-transparent transition-colors duration-300 group-hover:border-gold/50" />
     </Link>
   );
 }
 
 export default function CategoryCards() {
   return (
-    <section className="bg-white py-16 lg:py-24">
+    <section className="bg-parchment py-16 lg:py-24">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl font-heading">
-            Trippy Treasures Await
+          <h2 className="text-3xl font-bold text-forest sm:text-4xl font-heading">
+            Find Your Wild
           </h2>
-          <p className="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">
-            Explore our groovy collections of handcrafted wearable art. Each
-            piece carries cosmic energy, waiting to become part of your vibe.
+          <p className="mt-4 text-lg text-ink-brown max-w-2xl mx-auto">
+            Each collection is a gathering — wild-crafted things made slowly and meant to last.
           </p>
         </div>
 
