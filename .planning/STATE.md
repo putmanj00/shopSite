@@ -54,6 +54,9 @@ Recent decisions affecting current work:
 - [02-01]: User swapped logo-full.png to logo-mark.png and sized container w-12 h-12 — compact square mark fits nav height better than full landscape logo
 - [02-01]: Cart/wishlist badges use bg-terracotta — warm alert color on forest green; gold reserved for borders and text accents
 - [02-01]: hover:bg-white/10 pattern for icon buttons on dark botanical backgrounds
+- [03-01]: BotanicalDivider fern-mushroom placed after CategoryCards (at category boundary) for cleaner visual rhythm
+- [03-01]: overlayOpacity=25 for botanical illustration hero — lighter overlay lets illustration show through naturally
+- [03-01]: Page-level BotanicalDivider insertion pattern established: after hero (wildflower), after categories (fern-mushroom), after featured (fern-spiral)
 - [03-02]: All four category image paths switched from /images/ and Unsplash to /assets/images/ local botanical assets
 - [03-02]: Hover CTA and border accents changed from primary-* to gold — consistent with Phase 2 palette decision (gold for borders/text accents)
 - [03-02]: bg-parchment + text-forest + text-ink-brown + text-gold established as homepage section pattern
@@ -69,5 +72,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 03-02-PLAN.md — CategoryCards fully botanically voiced with Find Your Wild heading, parchment background, botanical images, and gold hover states.
+Stopped at: Completed 03-01-PLAN.md — Homepage parchment canvas, botanical hero props, three BotanicalDividers, Freshly Gathered heading with terracotta link.
 Resume file: None

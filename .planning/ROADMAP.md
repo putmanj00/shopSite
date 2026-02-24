@@ -97,6 +97,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Design Foundation | 3/3 | Complete | 2026-02-24 |
 | 2. Header | 1/1 | Complete   | 2026-02-24 |
-| 3. Homepage | 1/3 | In progress | - |
+| 3. Homepage | 2/3 | In Progress|  |
 | 4. Product Detail | 0/TBD | Not started | - |
 | 5. Supporting Pages | 0/TBD | Not started | - |
