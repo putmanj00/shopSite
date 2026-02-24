@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import EnhancedHero from '@/components/homepage/enhanced-hero';
+import { BotanicalDivider } from '@/components/ui/botanical-divider';
 import CategoryCards from '@/components/homepage/category-cards';
 import FeaturedProducts from '@/components/featured-products';
 import BrandStory from '@/components/homepage/brand-story';
@@ -73,7 +74,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-[#F5EDD6]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -81,19 +82,25 @@ export default function Home() {
 
       {/* Enhanced Hero with background image */}
       <EnhancedHero
-        heading="Embrace Your Wild Beauty"
-        subheading="Handpicked treasures for the untamed spirit. Crystals, jewelry, tie-dye, and artisan goods — all crafted with intention."
+        heading="Made by hand. Found by heart."
+        subheading="Gathered from maker hands and meadow roots. Every piece finds the heart that needs it."
+        backgroundImage="/assets/images/headers/botanical-header-large.png"
+        overlayOpacity={25}
         ctas={[
-          { label: 'Explore Treasures', href: '/collections', variant: 'primary' },
+          { label: 'Wander the Shop', href: '/collections', variant: 'primary' },
           { label: 'Our Story', href: '#brand-story', variant: 'secondary' },
         ]}
       />
 
+      <BotanicalDivider variant="wildflower" />
+
       {/* Category Cards */}
       <CategoryCards />
 
+      <BotanicalDivider variant="fern-mushroom" />
+
       {/* Personalized Recommendations (Client-side only) */}
-      <div className="bg-zinc-50">
+      <div>
         <PersonalizedRecommendations />
       </div>
 
@@ -101,6 +108,8 @@ export default function Home() {
       <Suspense fallback={<FeaturedProductsSkeleton />}>
         <FeaturedProducts />
       </Suspense>
+
+      <BotanicalDivider variant="fern-spiral" />
 
       {/* Brand Story */}
       <div id="brand-story">
