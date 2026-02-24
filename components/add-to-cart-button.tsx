@@ -48,8 +48,8 @@ export default function AddToCartButton({
             !variant.availableForSale
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
               : isLoading
-                ? 'bg-blue-400 text-white cursor-wait'
-                : 'bg-blue-600 text-white hover:bg-blue-700 active:scale-95'
+                ? 'bg-terracotta/60 text-white cursor-wait'
+                : 'bg-terracotta text-white hover:bg-terracotta/90 active:scale-95'
           }
         `}
       >

@@ -86,7 +86,7 @@ export default function VariantSelector({
 
         return (
           <div key={optionName}>
-            <label className="block text-sm font-semibold text-gray-900 mb-3">
+            <label className="block text-sm font-semibold text-ink-brown mb-3">
               {optionName}: <span className="font-normal">{currentValue}</span>
             </label>
             <div className="flex flex-wrap gap-2">
@@ -103,10 +103,10 @@ export default function VariantSelector({
                       px-4 py-2 border rounded-md text-sm font-medium transition-all
                       ${
                         isSelected
-                          ? 'border-blue-600 bg-blue-600 text-white'
+                          ? 'border-2 border-forest bg-forest/10 text-forest'
                           : isAvailable
-                            ? 'border-gray-300 bg-white text-gray-900 hover:border-gray-400'
-                            : 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed line-through'
+                            ? 'border border-gold/40 bg-white text-ink-brown hover:border-forest hover:text-forest'
+                            : 'border border-gold/20 bg-parchment text-sage cursor-not-allowed line-through'
                       }
                     `}
                   >

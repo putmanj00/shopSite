@@ -43,23 +43,23 @@ export default function ProductInfo({ product }: ProductInfoProps) {
     <div className="space-y-6">
       {/* Product Title */}
       <div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl sm:text-4xl font-bold text-ink-brown mb-2">
           {product.title}
         </h1>
         {product.vendor && (
-          <p className="text-lg text-gray-600">by {product.vendor}</p>
+          <p className="text-lg text-sage">by {product.vendor}</p>
         )}
       </div>
 
       {/* Price */}
-      <div className="border-t border-b border-gray-200 py-4">
+      <div className="border-t border-b border-gold/30 py-4">
         <div className="flex items-baseline gap-3">
-          <span className="text-3xl font-bold text-gray-900">
+          <span className="text-3xl font-bold text-terracotta">
             <Price amount={price.amount} currencyCode={price.currencyCode} />
           </span>
           {hasDiscount && compareAtPrice && (
             <>
-              <span className="text-xl text-gray-500 line-through">
+              <span className="text-xl text-sage line-through">
                 <Price amount={compareAtPrice.amount} currencyCode={compareAtPrice.currencyCode} />
               </span>
               <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold">
@@ -112,7 +112,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       {showSizeGuideButton && (
         <button
           onClick={() => setShowSizeGuide(true)}
-          className="text-sm text-primary-600 hover:text-primary-700 font-medium underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+          className="text-sm text-forest hover:text-forest/80 font-medium underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 rounded"
         >
           View Size Guide
         </button>
@@ -123,25 +123,25 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         <AddToCartButton variant={selectedVariant} id="main-add-to-cart" />
         <WishlistButton
           product={product}
-          className="!p-3 border border-gray-200 !bg-white hover:!bg-gray-50 !text-gray-400 hover:!text-red-500 rounded-lg h-12 w-12 flex items-center justify-center"
+          className="!p-3 border border-gold/30 !bg-white hover:!bg-parchment !text-sage hover:!text-red-500 rounded-lg h-12 w-12 flex items-center justify-center"
         />
       </div>
 
       {/* Product Meta */}
-      <div className="border-t border-gray-200 pt-6 space-y-3">
+      <div className="border-t border-gold/30 pt-6 space-y-3">
         {product.productType && (
           <div className="flex items-center gap-2 text-sm">
-            <span className="font-semibold text-gray-700">Category:</span>
-            <span className="text-gray-600">{product.productType}</span>
+            <span className="font-semibold text-ink-brown">Category:</span>
+            <span className="text-earth">{product.productType}</span>
           </div>
         )}
         {product.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
-            <span className="font-semibold text-gray-700 text-sm">Tags:</span>
+            <span className="font-semibold text-ink-brown text-sm">Tags:</span>
             {product.tags.slice(0, 5).map((tag) => (
               <span
                 key={tag}
-                className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs"
+                className="bg-parchment text-ink-brown border border-gold/30 px-3 py-1 rounded-full text-xs"
               >
                 {tag}
               </span>
@@ -151,7 +151,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       </div>
 
       {/* Social Share */}
-      <div className="border-t border-gray-200 pt-6">
+      <div className="border-t border-gold/30 pt-6">
         <SocialShareButtons
           title={product.title}
           description={product.description}
