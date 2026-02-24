@@ -60,5 +60,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 01-02-PLAN.md — dark mode sweep done, 01-03 (visual verification checkpoint) is next
+Stopped at: Completed 01-01-PLAN.md — botanical tokens/fonts/globals done, 01-03 (visual verification checkpoint) is next
 Resume file: None
