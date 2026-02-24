@@ -73,25 +73,25 @@
 
 ## Traceability
 
-| Requirement | Phase | Status |
-|-------------|-------|--------|
-| DESIGN-01 | Phase 1 | Pending |
-| DESIGN-02 | Phase 1 | Pending |
-| DESIGN-03 | Phase 1 | Pending |
-| DESIGN-04 | Phase 1 | Pending |
-| DESIGN-05 | Phase 1 | Pending |
-| HEAD-01 | Phase 2 | Pending |
-| HEAD-02 | Phase 2 | Pending |
-| HOME-01 | Phase 3 | Pending |
-| HOME-02 | Phase 3 | Pending |
-| HOME-03 | Phase 3 | Pending |
-| HOME-04 | Phase 3 | Pending |
-| HOME-05 | Phase 3 | Pending |
-| PROD-01 | Phase 4 | Pending |
-| PROD-02 | Phase 4 | Pending |
-| SUPP-01 | Phase 5 | Pending |
-| SUPP-02 | Phase 5 | Pending |
-| SUPP-03 | Phase 5 | Pending |
+| Requirement | Phase | Phase Name | Status |
+|-------------|-------|------------|--------|
+| DESIGN-01 | Phase 1 | Design Foundation | Pending |
+| DESIGN-02 | Phase 1 | Design Foundation | Pending |
+| DESIGN-03 | Phase 1 | Design Foundation | Pending |
+| DESIGN-04 | Phase 1 | Design Foundation | Pending |
+| DESIGN-05 | Phase 1 | Design Foundation | Pending |
+| HEAD-01 | Phase 2 | Header | Pending |
+| HEAD-02 | Phase 2 | Header | Pending |
+| HOME-01 | Phase 3 | Homepage | Pending |
+| HOME-02 | Phase 3 | Homepage | Pending |
+| HOME-03 | Phase 3 | Homepage | Pending |
+| HOME-04 | Phase 3 | Homepage | Pending |
+| HOME-05 | Phase 3 | Homepage | Pending |
+| PROD-01 | Phase 4 | Product Detail | Pending |
+| PROD-02 | Phase 4 | Product Detail | Pending |
+| SUPP-01 | Phase 5 | Supporting Pages | Pending |
+| SUPP-02 | Phase 5 | Supporting Pages | Pending |
+| SUPP-03 | Phase 5 | Supporting Pages | Pending |
 
 **Coverage:**
 - v1 requirements: 17 total
@@ -100,4 +100,4 @@
 
 ---
 *Requirements defined: 2026-02-23*
-*Last updated: 2026-02-23 after initial definition*
+*Last updated: 2026-02-24 after roadmap creation*
