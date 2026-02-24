@@ -76,7 +76,12 @@ Plans:
   1. Product detail page typography (headings, prices, descriptions) renders in Playfair Display and Lora with Wildenflower palette colors — no generic font stack or grey/white color scheme
   2. BotanicalHeader image (small or large variant) is visible at the top of product detail pages
   3. All product detail functionality (add to cart, variant selection, image gallery) continues to work
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — BotanicalHeader insertion + parchment page shell + breadcrumb restyling (page.tsx + breadcrumbs.tsx)
+- [ ] 04-02-PLAN.md — Component color/typography sweep: product-info, add-to-cart-button, variant-selector, accordion, sticky cart, reviews
+- [ ] 04-03-PLAN.md — Visual verification checkpoint (human approve before Phase 5)
 
 ### Phase 5: Supporting Pages
 **Goal**: About, FAQ, and Blog pages are botanically dressed — each has its header image and the relevant botanical assets placed within the existing layout
@@ -99,5 +104,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Design Foundation | 3/3 | Complete | 2026-02-24 |
 | 2. Header | 1/1 | Complete   | 2026-02-24 |
 | 3. Homepage | 4/4 | Complete   | 2026-02-24 |
-| 4. Product Detail | 0/TBD | Not started | - |
+| 4. Product Detail | 0/3 | In progress | - |
 | 5. Supporting Pages | 0/TBD | Not started | - |
