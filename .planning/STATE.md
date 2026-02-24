@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 2 of 5 (Header)
-Plan: 0 of TBD in current phase
-Status: Phase 1 complete — Phase 2 ready to begin
-Last activity: 2026-02-24 — Completed 01-03 (visual verification, user approved)
+Plan: 1 of TBD in current phase
+Status: Phase 2 in progress — 02-01 complete (header botanically branded, user approved)
+Last activity: 2026-02-24 — Completed 02-01 (botanical palette applied to header, user approved logo-mark.png)
 
-Progress: [███░░░░░░░] 20% (3/15 estimated plans)
+Progress: [████░░░░░░] 27% (4/15 estimated plans)
 
 ## Performance Metrics
 
@@ -49,6 +49,9 @@ Recent decisions affecting current work:
 - [01-01]: Suppressed dark mode via color-scheme: light on :root — simpler than disabling Tailwind dark variant
 - [01-02]: Removed all dark: classes from botanical components rather than leaving as suppressed dead code
 - [01-03]: User visually approved all five Phase 1 checks — parchment background, Playfair Display headings, Lora body, correct browser title, dark mode suppressed
+- [02-01]: User swapped logo-full.png to logo-mark.png and sized container w-12 h-12 — compact square mark fits nav height better than full landscape logo
+- [02-01]: Cart/wishlist badges use bg-terracotta — warm alert color on forest green; gold reserved for borders and text accents
+- [02-01]: hover:bg-white/10 pattern for icon buttons on dark botanical backgrounds
 
 ### Pending Todos
 
@@ -61,5 +64,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 01-03-PLAN.md — Phase 1 Design Foundation complete and user-approved. Phase 2 (Header) is next.
+Stopped at: Completed 02-01-PLAN.md — Botanical palette applied to header, user approved with logo-mark.png and w-12 h-12 adjustments. Phase 2 plan 02-01 complete.
 Resume file: None

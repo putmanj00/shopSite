@@ -15,8 +15,8 @@
 
 ### Header
 
-- [ ] **HEAD-01**: Logo image swapped to Wildenflower logo mark (public/assets/images/logo/logo-full.png or logo-mark.png) replacing current text/placeholder logo
-- [ ] **HEAD-02**: Header background, nav link colors, and interactive states updated to Wildenflower palette — no layout or structural changes
+- [x] **HEAD-01**: Logo image swapped to Wildenflower logo mark (public/assets/images/logo/logo-full.png or logo-mark.png) replacing current text/placeholder logo
+- [x] **HEAD-02**: Header background, nav link colors, and interactive states updated to Wildenflower palette — no layout or structural changes
 
 ### Homepage
 

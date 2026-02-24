@@ -13,7 +13,7 @@ This roadmap migrates the warm botanical visual identity from the wildenflowerSh
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Design Foundation** - Establish Wildenflower color tokens, fonts, globals, and metadata
-- [ ] **Phase 2: Header** - Swap logo and apply botanical palette to header/nav
+- [x] **Phase 2: Header** - Swap logo and apply botanical palette to header/nav (completed 2026-02-24)
 - [ ] **Phase 3: Homepage** - Migrate hero, categories, dividers, and product grid heading
 - [ ] **Phase 4: Product Detail** - Apply botanical typography and BotanicalHeader to product pages
 - [ ] **Phase 5: Supporting Pages** - Migrate About, FAQ, and Blog/Field Notes with botanical assets
@@ -91,7 +91,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Design Foundation | 3/3 | Complete | 2026-02-24 |
-| 2. Header | 0/1 | Not started | - |
+| 2. Header | 1/1 | Complete   | 2026-02-24 |
 | 3. Homepage | 0/TBD | Not started | - |
 | 4. Product Detail | 0/TBD | Not started | - |
 | 5. Supporting Pages | 0/TBD | Not started | - |
