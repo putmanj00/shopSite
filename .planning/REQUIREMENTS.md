@@ -7,11 +7,11 @@
 
 ### Design Foundation
 
-- [ ] **DESIGN-01**: Tailwind CSS theme extended with Wildenflower color tokens: parchment (#F5EDD6), terracotta (#C8642A), gold (#C9A642), sage (#7B8B6F), forest (#1E3B30), dustyRose (#D08B7A), inkBrown (#5C4033), earth (#3B2F2F)
-- [ ] **DESIGN-02**: Playfair Display (700 bold, heading) and Lora (400 regular, body) loaded via next/font/google, replacing Righteous, Nunito, and Sacramento font variables in layout.tsx
+- [x] **DESIGN-01**: Tailwind CSS theme extended with Wildenflower color tokens: parchment (#F5EDD6), terracotta (#C8642A), gold (#C9A642), sage (#7B8B6F), forest (#1E3B30), dustyRose (#D08B7A), inkBrown (#5C4033), earth (#3B2F2F)
+- [x] **DESIGN-02**: Playfair Display (700 bold, heading) and Lora (400 regular, body) loaded via next/font/google, replacing Righteous, Nunito, and Sacramento font variables in layout.tsx
 - [x] **DESIGN-03**: globals.css updated — default page background parchment, default text inkBrown/earth
-- [ ] **DESIGN-04**: Layout metadata updated — remove "psychedelic/tie-dye/trippy" language, use Wildenflower botanical brand voice ("Made by hand. Found by heart." tagline, handmade goods copy)
-- [ ] **DESIGN-05**: Viewport theme color updated from Cosmic Purple (#7C3AED) to forest (#1E3B30)
+- [x] **DESIGN-04**: Layout metadata updated — remove "psychedelic/tie-dye/trippy" language, use Wildenflower botanical brand voice ("Made by hand. Found by heart." tagline, handmade goods copy)
+- [x] **DESIGN-05**: Viewport theme color updated from Cosmic Purple (#7C3AED) to forest (#1E3B30)
 
 ### Header
 
@@ -75,11 +75,11 @@
 
 | Requirement | Phase | Phase Name | Status |
 |-------------|-------|------------|--------|
-| DESIGN-01 | Phase 1 | Design Foundation | Pending |
-| DESIGN-02 | Phase 1 | Design Foundation | Pending |
+| DESIGN-01 | Phase 1 | Design Foundation | Complete |
+| DESIGN-02 | Phase 1 | Design Foundation | Complete |
 | DESIGN-03 | Phase 1 | Design Foundation | Complete |
-| DESIGN-04 | Phase 1 | Design Foundation | Pending |
-| DESIGN-05 | Phase 1 | Design Foundation | Pending |
+| DESIGN-04 | Phase 1 | Design Foundation | Complete |
+| DESIGN-05 | Phase 1 | Design Foundation | Complete |
 | HEAD-01 | Phase 2 | Header | Pending |
 | HEAD-02 | Phase 2 | Header | Pending |
 | HOME-01 | Phase 3 | Homepage | Pending |
@@ -100,4 +100,4 @@
 
 ---
 *Requirements defined: 2026-02-23*
-*Last updated: 2026-02-24 after 01-02 completion (DESIGN-03 marked complete)*
+*Last updated: 2026-02-24 after 01-03 completion (all DESIGN requirements marked complete — Phase 1 user-approved)*
