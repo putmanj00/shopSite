@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Design Foundation** - Establish Wildenflower color tokens, fonts, globals, and metadata
 - [x] **Phase 2: Header** - Swap logo and apply botanical palette to header/nav (completed 2026-02-24)
-- [ ] **Phase 3: Homepage** - Migrate hero, categories, dividers, and product grid heading
+- [x] **Phase 3: Homepage** - Migrate hero, categories, dividers, and product grid heading (completed 2026-02-24)
 - [ ] **Phase 4: Product Detail** - Apply botanical typography and BotanicalHeader to product pages
 - [ ] **Phase 5: Supporting Pages** - Migrate About, FAQ, and Blog/Field Notes with botanical assets
 
@@ -48,7 +48,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 02-01-PLAN.md — Botanical palette + logo swap on header.tsx and currency-selector.tsx, with visual verification checkpoint
+- [x] 02-01-PLAN.md — Botanical palette + logo swap on header.tsx and currency-selector.tsx, with visual verification checkpoint (completed 2026-02-24)
 
 ### Phase 3: Homepage
 **Goal**: The homepage feels like Wildenflower — parchment background, botanical hero image and copy, warm botanical category section, BotanicalDividers between sections, and "Freshly Gathered" product grid heading
@@ -63,9 +63,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Page layout: parchment background, EnhancedHero botanical props, 3 BotanicalDivider insertions, FeaturedProducts heading
+- [x] 03-01-PLAN.md — Page layout: parchment background, EnhancedHero botanical props, 3 BotanicalDivider insertions, FeaturedProducts heading (completed 2026-02-24)
 - [x] 03-02-PLAN.md — CategoryCards: Wildenflower copy, parchment bg, botanical images, gold hover states (completed 2026-02-24)
-- [ ] 03-03-PLAN.md — Visual verification checkpoint (human approve before Phase 4)
+- [x] 03-03-PLAN.md — Visual verification checkpoint — user approved all five criteria (completed 2026-02-24)
 
 ### Phase 4: Product Detail
 **Goal**: Product pages feel botanically branded — typography, colors, and header image match the Wildenflower identity
@@ -97,6 +97,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Design Foundation | 3/3 | Complete | 2026-02-24 |
 | 2. Header | 1/1 | Complete   | 2026-02-24 |
-| 3. Homepage | 2/3 | In Progress|  |
+| 3. Homepage | 3/3 | Complete   | 2026-02-24 |
 | 4. Product Detail | 0/TBD | Not started | - |
 | 5. Supporting Pages | 0/TBD | Not started | - |
