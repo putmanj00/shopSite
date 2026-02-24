@@ -51,16 +51,21 @@ Plans:
 - [ ] 02-01-PLAN.md — Botanical palette + logo swap on header.tsx and currency-selector.tsx, with visual verification checkpoint
 
 ### Phase 3: Homepage
-**Goal**: The homepage feels like Wildenflower — parchment background, botanical hero, warm category colors, dividers between sections, and the "Freshly Gathered" product grid
+**Goal**: The homepage feels like Wildenflower — parchment background, botanical hero image and copy, warm botanical category section, BotanicalDividers between sections, and "Freshly Gathered" product grid heading
 **Depends on**: Phase 2
 **Requirements**: HOME-01, HOME-02, HOME-03, HOME-04, HOME-05
 **Success Criteria** (what must be TRUE):
   1. Homepage background is parchment — the neutral-50 grey background is gone
-  2. The hero section displays the HeroCard component with "Made by hand. Found by heart." tagline and forest-colored background
-  3. Category section displays Wildenflower palette colors and Playfair Display/Lora typography — no prior color scheme visible
+  2. The hero section (EnhancedHero) shows botanical-header-large.png with "Made by hand. Found by heart." heading and Wildenflower voice CTAs
+  3. Category section heading reads "Find Your Wild" with Wildenflower palette colors, botanical copy, and botanical images — no prior color scheme or psychedelic language visible
   4. BotanicalDivider renders visibly after the hero, after categories, and after featured products
-  5. Featured products section heading reads "Freshly Gathered"
-**Plans**: TBD
+  5. Featured products section heading reads "Freshly Gathered" with terracotta View All link
+**Plans**: 3 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Page layout: parchment background, EnhancedHero botanical props, 3 BotanicalDivider insertions, FeaturedProducts heading
+- [ ] 03-02-PLAN.md — CategoryCards: Wildenflower copy, parchment bg, botanical images, gold hover states
+- [ ] 03-03-PLAN.md — Visual verification checkpoint (human approve before Phase 4)
 
 ### Phase 4: Product Detail
 **Goal**: Product pages feel botanically branded — typography, colors, and header image match the Wildenflower identity
@@ -92,6 +97,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Design Foundation | 3/3 | Complete | 2026-02-24 |
 | 2. Header | 1/1 | Complete   | 2026-02-24 |
-| 3. Homepage | 0/TBD | Not started | - |
+| 3. Homepage | 0/3 | Not started | - |
 | 4. Product Detail | 0/TBD | Not started | - |
 | 5. Supporting Pages | 0/TBD | Not started | - |
