@@ -98,14 +98,14 @@ function CategoryCard({ category }: { category: Category }) {
 
 export default function CategoryCards() {
   return (
-    <section className="bg-parchment py-16 lg:py-24">
+    <section className="bg-parchment pt-4 pb-16 lg:pb-24">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-forest sm:text-4xl font-heading">
             Find Your Wild
           </h2>
-          <p className="mt-4 text-lg text-ink-brown max-w-2xl mx-auto">
+          <p className="mt-2 text-lg text-ink-brown max-w-2xl mx-auto">
             Each collection is a gathering — wild-crafted things made slowly and meant to last.
           </p>
         </div>

@@ -34,9 +34,9 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <div className="relative h-10 w-10">
+            <div className="relative h-12 w-12">
               <Image
-                src="/assets/images/logo/logo-full.png"
+                src="/assets/images/logo/logo-mark.png"
                 alt="Wildenflower"
                 fill
                 className="object-contain"
