@@ -45,7 +45,10 @@ Plans:
   1. Wildenflower logo mark (or full logo) renders in the header — no text placeholder or prior logo visible
   2. Header background, nav link colors, and hover/active states use the Wildenflower palette (no purple/psychedelic remnants)
   3. Header layout and navigation structure is unchanged — all existing nav links still work
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 02-01-PLAN.md — Botanical palette + logo swap on header.tsx and currency-selector.tsx, with visual verification checkpoint
 
 ### Phase 3: Homepage
 **Goal**: The homepage feels like Wildenflower — parchment background, botanical hero, warm category colors, dividers between sections, and the "Freshly Gathered" product grid
@@ -88,7 +91,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Design Foundation | 3/3 | Complete | 2026-02-24 |
-| 2. Header | 0/TBD | Not started | - |
+| 2. Header | 0/1 | Not started | - |
 | 3. Homepage | 0/TBD | Not started | - |
 | 4. Product Detail | 0/TBD | Not started | - |
 | 5. Supporting Pages | 0/TBD | Not started | - |
