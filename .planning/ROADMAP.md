@@ -34,7 +34,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [ ] 01-01-PLAN.md — Botanical tokens, fonts, globals, metadata, viewport (layout.tsx + globals.css + manifest.json)
-- [ ] 01-02-PLAN.md — Dark mode sweep: remove all dark: classes from 4 botanical component files
+- [x] 01-02-PLAN.md — Dark mode sweep: remove all dark: classes from 4 botanical component files
 - [ ] 01-03-PLAN.md — Visual verification checkpoint (human approve before Phase 2)
 
 ### Phase 2: Header
@@ -87,7 +87,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Design Foundation | 0/3 | Planned | - |
+| 1. Design Foundation | 2/3 | In progress | - |
 | 2. Header | 0/TBD | Not started | - |
 | 3. Homepage | 0/TBD | Not started | - |
 | 4. Product Detail | 0/TBD | Not started | - |
