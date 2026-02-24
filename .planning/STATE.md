@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 4 of 5 (Product Detail)
-Plan: 0 of 2 in current phase
-Status: Phase 3 complete — all five homepage requirements (HOME-01 through HOME-05) visually approved. Phase 4 authorized.
-Last activity: 2026-02-24 — Completed 03-03 (visual verification approved — Phase 3 homepage complete)
+Plan: 1 of 2 in current phase
+Status: Phase 4 in progress — Plan 01 (BotanicalHeader + parchment canvas) complete.
+Last activity: 2026-02-24 — Completed 04-01 (BotanicalHeader insertion + parchment canvas + breadcrumb restyling)
 
-Progress: [█████░░░░░] 40% (6/15 estimated plans)
+Progress: [█████░░░░░] 47% (7/15 estimated plans)
 
 ## Performance Metrics
 
@@ -63,6 +63,9 @@ Recent decisions affecting current work:
 - [03-03]: User visually approved all five Phase 3 criteria on 2026-02-24 — Phase 4 (Product Detail) authorized to proceed
 - [03-04]: Gap closure — heading renders as flat {heading} text node; no word-splitting .split/.map logic remains in EnhancedHero
 - [03-04]: Primary CTA ternary changed from bg-primary-600 (Cosmic Purple) to bg-terracotta — HOME-02 gap fully closed and user approved 2026-02-24
+- [04-01]: BotanicalHeader small variant placed outside/above min-h-screen wrapper — same pattern as homepage BotanicalDividers
+- [04-01]: White card wrappers (accordion, reviews) preserved — bg-white rounded-lg shadow-sm stays white on parchment (paper-on-linen pattern)
+- [04-01]: Breadcrumb bar is bg-parchment border-b border-gold/30, not bg-white — seamless flow from BotanicalHeader
 
 ### Pending Todos
 
@@ -75,5 +78,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 03-04-PLAN.md — Gap closure approved, HOME-02 fully closed (no purple in heading or CTA), Phase 4 ready.
+Stopped at: Completed 04-01-PLAN.md — BotanicalHeader small + parchment canvas on product page, breadcrumbs in sage/inkBrown. Plan 02 (component restyling) ready.
 Resume file: None

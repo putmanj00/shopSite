@@ -28,8 +28,8 @@
 
 ### Product Detail
 
-- [ ] **PROD-01**: Product detail page typography and colors updated to inherit from Wildenflower design tokens
-- [ ] **PROD-02**: BotanicalHeader (small or large variant) placed at top of product detail page
+- [x] **PROD-01**: Product detail page typography and colors updated to inherit from Wildenflower design tokens
+- [x] **PROD-02**: BotanicalHeader (small or large variant) placed at top of product detail page
 
 ### Supporting Pages
 
