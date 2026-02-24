@@ -22,16 +22,16 @@ export default function CurrencySelector() {
         <div className="relative" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors px-2 py-1 rounded-md hover:bg-gray-100"
+                className="flex items-center gap-1 text-sm font-medium text-parchment hover:text-white transition-colors px-2 py-1 rounded-md hover:bg-white/10"
                 aria-label="Select currency"
                 aria-expanded={isOpen}
             >
                 <span>{currency}</span>
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-parchment/60">
                     {availableCurrencies.find(c => c.code === currency)?.symbol}
                 </span>
                 <svg
-                    className={`w-4 h-4 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                    className={`w-4 h-4 text-parchment/60 transition-transform ${isOpen ? 'rotate-180' : ''}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
