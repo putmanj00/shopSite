@@ -11,6 +11,7 @@ import ReviewList from '@/components/reviews/review-list';
 import ProductAccordion from '@/components/product-accordion';
 import { getProductAccordionSections } from '@/lib/product-utils';
 import RecentlyViewedTracker from '@/components/recently-viewed-tracker';
+import { BotanicalHeader } from '@/components/ui/botanical-header';
 
 interface ProductPageProps {
   params: Promise<{
@@ -122,9 +123,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
       {/* Track recently viewed product */}
       <RecentlyViewedTracker product={product} />
 
-      <div className="min-h-screen bg-gray-50">
+      <BotanicalHeader variant="small" />
+
+      <div className="min-h-screen bg-parchment">
         {/* Breadcrumbs */}
-        <div className="bg-white border-b">
+        <div className="bg-parchment border-b border-gold/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <Breadcrumbs product={product} />
           </div>
@@ -158,7 +161,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           {/* Related Products */}
           <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            <h2 className="text-2xl font-bold text-ink-brown mb-6">
               You May Also Like
             </h2>
             <Suspense
