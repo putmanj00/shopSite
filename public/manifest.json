@@ -1,11 +1,11 @@
 {
   "name": "Wildenflower",
   "short_name": "Wildenflower",
-  "description": "Art you can wear, magic you can feel. Trippy treasures including vibrant tie-dye, mandala art, crystals, and festival-ready handcrafted goods.",
+  "description": "Made by hand. Found by heart. Wildenflower — tie-dye, leather goods, handcrafted jewelry, and original art.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FDF8F3",
-  "theme_color": "#7C3AED",
+  "background_color": "#F5EDD6",
+  "theme_color": "#1E3B30",
   "orientation": "portrait-primary",
   "scope": "/",
   "icons": [
