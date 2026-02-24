@@ -22,7 +22,7 @@
 
 - [ ] **HOME-01**: Page background updated from neutral-50 to parchment
 - [ ] **HOME-02**: EnhancedHero replaced with HeroCard component using "Made by hand. Found by heart." tagline and forest background (no other homepage sections moved)
-- [ ] **HOME-03**: Category section colors and typography updated to Wildenflower palette (no icon changes, no reordering)
+- [x] **HOME-03**: Category section colors and typography updated to Wildenflower palette (no icon changes, no reordering)
 - [ ] **HOME-04**: BotanicalDivider components added between homepage sections (after hero, after categories, after featured products)
 - [ ] **HOME-05**: Featured products section heading updated to "Freshly Gathered"
 
