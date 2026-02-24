@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-23)
 ## Current Position
 
 Phase: 4 of 5 (Product Detail)
-Plan: 1 of 2 in current phase
-Status: Phase 4 in progress — Plan 01 (BotanicalHeader + parchment canvas) complete.
-Last activity: 2026-02-24 — Completed 04-01 (BotanicalHeader insertion + parchment canvas + breadcrumb restyling)
+Plan: 2 of 2 in current phase — PHASE 4 COMPLETE
+Status: Phase 4 complete — both plans done. Product detail page fully botanical.
+Last activity: 2026-02-24 — Completed 04-02 (palette sweep across 9 product components)
 
-Progress: [█████░░░░░] 47% (7/15 estimated plans)
+Progress: [██████░░░░] 53% (8/15 estimated plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: ~2 min
-- Total execution time: ~8 min
+- Total plans completed: 8
+- Average duration: ~2.4 min
+- Total execution time: ~14 min
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [█████░░░░░] 47% (7/15 estimated plans)
 | 1. Design Foundation | 3 | ~4 min | ~1.5 min |
 | 2. Header | 1 | ~2 min | ~2 min |
 | 3. Homepage (complete) | 3 | ~4 min | ~1.5 min |
+| 4. Product Detail (complete) | 2 | ~8 min | ~4 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (2 min), 01-03 (0 min — human verify), 02-01 (2 min), 03-02 (3 min), 03-03 (0 min — human verify)
-- Trend: Consistent
+- Last 5 plans: 02-01 (2 min), 03-02 (3 min), 03-03 (0 min — human verify), 04-01 (2 min), 04-02 (6 min)
+- Trend: Consistent; 04-02 was heavier sweep (9 files)
 
 *Updated after each plan completion*
 
@@ -66,6 +67,10 @@ Recent decisions affecting current work:
 - [04-01]: BotanicalHeader small variant placed outside/above min-h-screen wrapper — same pattern as homepage BotanicalDividers
 - [04-01]: White card wrappers (accordion, reviews) preserved — bg-white rounded-lg shadow-sm stays white on parchment (paper-on-linen pattern)
 - [04-01]: Breadcrumb bar is bg-parchment border-b border-gold/30, not bg-white — seamless flow from BotanicalHeader
+- [04-02]: Sticky cart success state changed from bg-green-600 to bg-sage — botanical success state; green-600 was Cosmic-adjacent and out of palette
+- [04-02]: review-form sign-in prompt changed from bg-gray-50 to bg-parchment — consistent with locked 'white card on parchment' rule
+- [04-02]: size-guide-modal table alternating rows use bg-parchment/40 instead of bg-neutral-50 — consistent stripe pattern within white modal
+- [04-02]: image-gallery empty state bg-gray-200 replaced with bg-parchment — no gray backgrounds on visible elements
 
 ### Pending Todos
 
@@ -78,5 +83,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 04-01-PLAN.md — BotanicalHeader small + parchment canvas on product page, breadcrumbs in sage/inkBrown. Plan 02 (component restyling) ready.
+Stopped at: Completed 04-02-PLAN.md — palette sweep across 9 product detail components. Phase 4 complete. Phase 5 (Supporting Pages) next.
 Resume file: None
