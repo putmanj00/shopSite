@@ -30,7 +30,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Browser tab theme color shows forest green (#1E3B30) on mobile
   4. Page `<title>` and meta description use Wildenflower brand language ("Made by hand. Found by heart.") — no "psychedelic/tie-dye/trippy" language remains
   5. Tailwind theme tokens (parchment, terracotta, gold, sage, forest, dustyRose, inkBrown, earth) are available and usable in any component class
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Botanical tokens, fonts, globals, metadata, viewport (layout.tsx + globals.css + manifest.json)
+- [ ] 01-02-PLAN.md — Dark mode sweep: remove all dark: classes from 4 botanical component files
+- [ ] 01-03-PLAN.md — Visual verification checkpoint (human approve before Phase 2)
 
 ### Phase 2: Header
 **Goal**: The site header identifies as Wildenflower — logo, colors, and nav styling reflect the botanical palette
@@ -82,7 +87,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Design Foundation | 0/TBD | Not started | - |
+| 1. Design Foundation | 0/3 | Planned | - |
 | 2. Header | 0/TBD | Not started | - |
 | 3. Homepage | 0/TBD | Not started | - |
 | 4. Product Detail | 0/TBD | Not started | - |
