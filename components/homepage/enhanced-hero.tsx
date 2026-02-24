@@ -69,16 +69,7 @@ export default function EnhancedHero({
       <div className="relative z-10 container mx-auto px-4 py-24 md:py-32">
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 font-heading">
-            {heading.split(' ').map((word, index, arr) => (
-              <span key={index}>
-                {index >= arr.length - 2 ? (
-                  <span className="text-primary-300">{word}</span>
-                ) : (
-                  word
-                )}
-                {index < arr.length - 1 ? ' ' : ''}
-              </span>
-            ))}
+            {heading}
           </h1>
 
           {subheading && (
@@ -97,7 +88,7 @@ export default function EnhancedHero({
                     inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-lg transition-all hover:scale-105
                     ${cta.variant === 'secondary'
                       ? 'border-2 border-white text-white hover:bg-white hover:text-neutral-900'
-                      : 'bg-primary-600 text-white hover:bg-primary-500'
+                      : 'bg-terracotta text-white hover:bg-terracotta/90'
                     }
                   `}
                 >
