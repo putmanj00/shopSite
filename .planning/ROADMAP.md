@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Design Foundation** - Establish Wildenflower color tokens, fonts, globals, and metadata
 - [x] **Phase 2: Header** - Swap logo and apply botanical palette to header/nav (completed 2026-02-24)
 - [x] **Phase 3: Homepage** - Migrate hero, categories, dividers, and product grid heading (completed 2026-02-24)
-- [ ] **Phase 4: Product Detail** - Apply botanical typography and BotanicalHeader to product pages
+- [x] **Phase 4: Product Detail** - Apply botanical typography and BotanicalHeader to product pages (completed 2026-02-24)
 - [ ] **Phase 5: Supporting Pages** - Migrate About, FAQ, and Blog/Field Notes with botanical assets
 
 ## Phase Details
@@ -79,9 +79,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — BotanicalHeader insertion + parchment page shell + breadcrumb restyling (page.tsx + breadcrumbs.tsx)
-- [ ] 04-02-PLAN.md — Component color/typography sweep: product-info, add-to-cart-button, variant-selector, accordion, sticky cart, reviews
-- [ ] 04-03-PLAN.md — Visual verification checkpoint (human approve before Phase 5)
+- [x] 04-01-PLAN.md — BotanicalHeader insertion + parchment page shell + breadcrumb restyling (page.tsx + breadcrumbs.tsx)
+- [x] 04-02-PLAN.md — Component color/typography sweep: product-info, add-to-cart-button, variant-selector, accordion, sticky cart, reviews
+- [x] 04-03-PLAN.md — Visual verification checkpoint (human approve before Phase 5)
 
 ### Phase 5: Supporting Pages
 **Goal**: About, FAQ, and Blog pages are botanically dressed — each has its header image and the relevant botanical assets placed within the existing layout
@@ -104,5 +104,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Design Foundation | 3/3 | Complete | 2026-02-24 |
 | 2. Header | 1/1 | Complete   | 2026-02-24 |
 | 3. Homepage | 4/4 | Complete   | 2026-02-24 |
-| 4. Product Detail | 2/3 | In Progress|  |
+| 4. Product Detail | 3/3 | Complete   | 2026-02-24 |
 | 5. Supporting Pages | 0/TBD | Not started | - |

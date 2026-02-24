@@ -87,8 +87,8 @@
 | HOME-03 | Phase 3 | Homepage | Pending |
 | HOME-04 | Phase 3 | Homepage | Pending |
 | HOME-05 | Phase 3 | Homepage | Pending |
-| PROD-01 | Phase 4 | Product Detail | Pending |
-| PROD-02 | Phase 4 | Product Detail | Pending |
+| PROD-01 | Phase 4 | Product Detail | Complete |
+| PROD-02 | Phase 4 | Product Detail | Complete |
 | SUPP-01 | Phase 5 | Supporting Pages | Pending |
 | SUPP-02 | Phase 5 | Supporting Pages | Pending |
 | SUPP-03 | Phase 5 | Supporting Pages | Pending |
