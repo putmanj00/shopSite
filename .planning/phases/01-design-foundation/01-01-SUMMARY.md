@@ -80,7 +80,7 @@ Each task was committed atomically:
 1. **Task 1: Fonts, @theme tokens, and globals.css botanical reset** - `34bbb49` (feat)
 2. **Task 2: Update PWA manifest theme color and brand description** - `87c2561` (feat)
 
-**Plan metadata:** (docs commit follows)
+**Plan metadata:** `9bac368` (docs)
 
 ## Files Created/Modified
 - `app/layout.tsx` - Replaced 3 psychedelic fonts with Playfair Display + Lora; font variables on `<html>`; botanical metadata and forest green viewport theme color
@@ -106,6 +106,16 @@ None - no external service configuration required.
 - Design foundation complete. All phases can now consume botanical tokens via Tailwind utilities (bg-parchment, bg-forest, text-ink-brown, font-playfair, font-lora, etc.)
 - Phase 2 (Header) can proceed: logo swap and botanical palette on nav components will inherit correct fonts and colors automatically
 - Dev server will render parchment background and correct serif fonts on any page
+
+## Self-Check: PASSED
+
+- FOUND: app/layout.tsx
+- FOUND: app/globals.css
+- FOUND: public/manifest.json
+- FOUND: .planning/phases/01-design-foundation/01-01-SUMMARY.md
+- FOUND: commit 34bbb49 (Task 1)
+- FOUND: commit 87c2561 (Task 2)
+- FOUND: commit 9bac368 (docs/metadata)
 
 ---
 *Phase: 01-design-foundation*
