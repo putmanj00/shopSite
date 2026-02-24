@@ -64,7 +64,7 @@ export default function StickyAddToCart({
 
   return (
     <div
-      className={`lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 shadow-lg z-40 transform transition-transform duration-300 ${isVisible ? 'translate-y-0' : 'translate-y-full'
+      className={`lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gold/30 shadow-lg z-40 transform transition-transform duration-300 ${isVisible ? 'translate-y-0' : 'translate-y-full'
         }`}
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       role="region"
@@ -73,15 +73,15 @@ export default function StickyAddToCart({
       <div className="px-4 py-3 flex items-center gap-4">
         {/* Product Info */}
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-neutral-900 truncate">
+          <p className="text-sm font-medium text-ink-brown truncate">
             {product.title}
           </p>
           <div className="flex items-center gap-2">
-            <span className="text-lg font-bold text-neutral-900">
+            <span className="text-lg font-bold text-terracotta">
               <Price amount={price.amount} currencyCode={price.currencyCode} />
             </span>
             {hasDiscount && compareAtPrice && (
-              <span className="text-sm text-neutral-500 line-through">
+              <span className="text-sm text-sage line-through">
                 <Price amount={compareAtPrice.amount} currencyCode={compareAtPrice.currencyCode} />
               </span>
             )}
@@ -92,10 +92,10 @@ export default function StickyAddToCart({
         <button
           onClick={handleAddToCart}
           disabled={!selectedVariant.availableForSale || isAdding}
-          className={`flex-shrink-0 px-6 py-3 rounded-lg font-semibold text-white transition-all min-w-[140px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${showSuccess
-            ? 'bg-green-600'
+          className={`flex-shrink-0 px-6 py-3 rounded-lg font-semibold text-white transition-all min-w-[140px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 ${showSuccess
+            ? 'bg-sage'
             : selectedVariant.availableForSale
-              ? 'bg-primary-600 hover:bg-primary-700 active:bg-primary-800'
+              ? 'bg-terracotta hover:bg-terracotta/90 active:bg-terracotta/80'
               : 'bg-neutral-400 cursor-not-allowed'
             }`}
           aria-label={

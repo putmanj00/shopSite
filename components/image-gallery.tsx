@@ -15,8 +15,8 @@ export default function ImageGallery({ product }: ImageGalleryProps) {
 
   if (images.length === 0) {
     return (
-      <div className="aspect-square bg-gray-200 rounded-lg flex items-center justify-center">
-        <span className="text-gray-400 text-lg">No image available</span>
+      <div className="aspect-square bg-parchment rounded-lg flex items-center justify-center">
+        <span className="text-sage text-lg">No image available</span>
       </div>
     );
   }
@@ -69,8 +69,8 @@ export default function ImageGallery({ product }: ImageGalleryProps) {
                 setIsZoomed(false);
               }}
               className={`relative aspect-square rounded-md overflow-hidden transition-all ${index === selectedImageIndex
-                  ? 'ring-2 ring-blue-500 ring-offset-2'
-                  : 'ring-1 ring-gray-200 hover:ring-gray-400'
+                  ? 'ring-2 ring-forest ring-offset-2'
+                  : 'ring-1 ring-gold/30 hover:ring-gold/60'
                 }`}
             >
               <Image
@@ -87,7 +87,7 @@ export default function ImageGallery({ product }: ImageGalleryProps) {
 
       {/* Image Counter */}
       {images.length > 1 && (
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-sm text-sage">
           {selectedImageIndex + 1} / {images.length}
         </p>
       )}

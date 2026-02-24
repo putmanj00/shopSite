@@ -106,20 +106,20 @@ export default function SizeGuideModal({
         className="relative w-full max-w-2xl bg-white rounded-xl shadow-2xl max-h-[90vh] overflow-hidden"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gold/30">
           <h2
             id="size-guide-title"
-            className="text-xl font-semibold text-neutral-900"
+            className="text-xl font-semibold text-ink-brown"
           >
             Size Guide
           </h2>
           <button
             onClick={onClose}
-            className="p-2 -mr-2 rounded-lg hover:bg-neutral-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+            className="p-2 -mr-2 rounded-lg hover:bg-parchment transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2"
             aria-label="Close size guide"
           >
             <svg
-              className="w-5 h-5 text-neutral-500"
+              className="w-5 h-5 text-sage"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -146,11 +146,11 @@ export default function SizeGuideModal({
           )}
 
           {/* How to Measure */}
-          <div className="mt-8 p-4 bg-neutral-50 rounded-lg">
-            <h3 className="text-sm font-semibold text-neutral-900 mb-2">
+          <div className="mt-8 p-4 bg-parchment rounded-lg">
+            <h3 className="text-sm font-semibold text-ink-brown mb-2">
               How to Measure
             </h3>
-            <p className="text-sm text-neutral-600">
+            <p className="text-sm text-earth">
               For the most accurate fit, take measurements over undergarments.
               Use a flexible measuring tape and keep it snug but not tight.
               If you&apos;re between sizes, we recommend sizing up for a more comfortable fit.
@@ -158,8 +158,8 @@ export default function SizeGuideModal({
           </div>
 
           {/* Contact */}
-          <p className="mt-4 text-sm text-neutral-600 text-center">
-            Need help? <a href="/contact" className="text-primary-600 hover:text-primary-700 font-medium">Contact us</a> for personalized sizing assistance.
+          <p className="mt-4 text-sm text-earth text-center">
+            Need help? <a href="/contact" className="text-forest hover:text-forest/80 font-medium">Contact us</a> for personalized sizing assistance.
           </p>
         </div>
       </div>
@@ -170,27 +170,27 @@ export default function SizeGuideModal({
 function ApparelSizeGuide() {
   return (
     <div>
-      <h3 className="text-lg font-semibold text-neutral-900 mb-4">Apparel Size Chart</h3>
+      <h3 className="text-lg font-semibold text-ink-brown mb-4">Apparel Size Chart</h3>
 
       {/* Size Table */}
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-neutral-100">
-              <th className="px-4 py-3 text-left font-semibold text-neutral-900">Size</th>
-              <th className="px-4 py-3 text-left font-semibold text-neutral-900">Chest (in)</th>
-              <th className="px-4 py-3 text-left font-semibold text-neutral-900">Waist (in)</th>
-              <th className="px-4 py-3 text-left font-semibold text-neutral-900">Length (in)</th>
+            <tr className="bg-parchment">
+              <th className="px-4 py-3 text-left font-semibold text-ink-brown">Size</th>
+              <th className="px-4 py-3 text-left font-semibold text-ink-brown">Chest (in)</th>
+              <th className="px-4 py-3 text-left font-semibold text-ink-brown">Waist (in)</th>
+              <th className="px-4 py-3 text-left font-semibold text-ink-brown">Length (in)</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-neutral-200">
-            <tr><td className="px-4 py-3">XS</td><td className="px-4 py-3">32-34</td><td className="px-4 py-3">26-28</td><td className="px-4 py-3">27</td></tr>
-            <tr className="bg-neutral-50"><td className="px-4 py-3">S</td><td className="px-4 py-3">35-37</td><td className="px-4 py-3">29-31</td><td className="px-4 py-3">28</td></tr>
-            <tr><td className="px-4 py-3">M</td><td className="px-4 py-3">38-40</td><td className="px-4 py-3">32-34</td><td className="px-4 py-3">29</td></tr>
-            <tr className="bg-neutral-50"><td className="px-4 py-3">L</td><td className="px-4 py-3">41-43</td><td className="px-4 py-3">35-37</td><td className="px-4 py-3">30</td></tr>
-            <tr><td className="px-4 py-3">XL</td><td className="px-4 py-3">44-46</td><td className="px-4 py-3">38-40</td><td className="px-4 py-3">31</td></tr>
-            <tr className="bg-neutral-50"><td className="px-4 py-3">2XL</td><td className="px-4 py-3">47-49</td><td className="px-4 py-3">41-43</td><td className="px-4 py-3">32</td></tr>
-            <tr><td className="px-4 py-3">3XL</td><td className="px-4 py-3">50-52</td><td className="px-4 py-3">44-46</td><td className="px-4 py-3">33</td></tr>
+          <tbody className="divide-y divide-gold/20">
+            <tr><td className="px-4 py-3 text-earth">XS</td><td className="px-4 py-3 text-earth">32-34</td><td className="px-4 py-3 text-earth">26-28</td><td className="px-4 py-3 text-earth">27</td></tr>
+            <tr className="bg-parchment/40"><td className="px-4 py-3 text-earth">S</td><td className="px-4 py-3 text-earth">35-37</td><td className="px-4 py-3 text-earth">29-31</td><td className="px-4 py-3 text-earth">28</td></tr>
+            <tr><td className="px-4 py-3 text-earth">M</td><td className="px-4 py-3 text-earth">38-40</td><td className="px-4 py-3 text-earth">32-34</td><td className="px-4 py-3 text-earth">29</td></tr>
+            <tr className="bg-parchment/40"><td className="px-4 py-3 text-earth">L</td><td className="px-4 py-3 text-earth">41-43</td><td className="px-4 py-3 text-earth">35-37</td><td className="px-4 py-3 text-earth">30</td></tr>
+            <tr><td className="px-4 py-3 text-earth">XL</td><td className="px-4 py-3 text-earth">44-46</td><td className="px-4 py-3 text-earth">38-40</td><td className="px-4 py-3 text-earth">31</td></tr>
+            <tr className="bg-parchment/40"><td className="px-4 py-3 text-earth">2XL</td><td className="px-4 py-3 text-earth">47-49</td><td className="px-4 py-3 text-earth">41-43</td><td className="px-4 py-3 text-earth">32</td></tr>
+            <tr><td className="px-4 py-3 text-earth">3XL</td><td className="px-4 py-3 text-earth">50-52</td><td className="px-4 py-3 text-earth">44-46</td><td className="px-4 py-3 text-earth">33</td></tr>
           </tbody>
         </table>
       </div>
@@ -203,23 +203,23 @@ function JewelrySizeGuide() {
     <div className="space-y-8">
       {/* Ring Size Guide */}
       <div>
-        <h3 className="text-lg font-semibold text-neutral-900 mb-4">Ring Size Chart</h3>
+        <h3 className="text-lg font-semibold text-ink-brown mb-4">Ring Size Chart</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-neutral-100">
-                <th className="px-4 py-3 text-left font-semibold text-neutral-900">US Size</th>
-                <th className="px-4 py-3 text-left font-semibold text-neutral-900">Inner Diameter (mm)</th>
-                <th className="px-4 py-3 text-left font-semibold text-neutral-900">Circumference (mm)</th>
+              <tr className="bg-parchment">
+                <th className="px-4 py-3 text-left font-semibold text-ink-brown">US Size</th>
+                <th className="px-4 py-3 text-left font-semibold text-ink-brown">Inner Diameter (mm)</th>
+                <th className="px-4 py-3 text-left font-semibold text-ink-brown">Circumference (mm)</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-200">
-              <tr><td className="px-4 py-3">5</td><td className="px-4 py-3">15.7</td><td className="px-4 py-3">49.3</td></tr>
-              <tr className="bg-neutral-50"><td className="px-4 py-3">6</td><td className="px-4 py-3">16.5</td><td className="px-4 py-3">51.9</td></tr>
-              <tr><td className="px-4 py-3">7</td><td className="px-4 py-3">17.3</td><td className="px-4 py-3">54.4</td></tr>
-              <tr className="bg-neutral-50"><td className="px-4 py-3">8</td><td className="px-4 py-3">18.1</td><td className="px-4 py-3">56.9</td></tr>
-              <tr><td className="px-4 py-3">9</td><td className="px-4 py-3">19.0</td><td className="px-4 py-3">59.5</td></tr>
-              <tr className="bg-neutral-50"><td className="px-4 py-3">10</td><td className="px-4 py-3">19.8</td><td className="px-4 py-3">62.1</td></tr>
+            <tbody className="divide-y divide-gold/20">
+              <tr><td className="px-4 py-3 text-earth">5</td><td className="px-4 py-3 text-earth">15.7</td><td className="px-4 py-3 text-earth">49.3</td></tr>
+              <tr className="bg-parchment/40"><td className="px-4 py-3 text-earth">6</td><td className="px-4 py-3 text-earth">16.5</td><td className="px-4 py-3 text-earth">51.9</td></tr>
+              <tr><td className="px-4 py-3 text-earth">7</td><td className="px-4 py-3 text-earth">17.3</td><td className="px-4 py-3 text-earth">54.4</td></tr>
+              <tr className="bg-parchment/40"><td className="px-4 py-3 text-earth">8</td><td className="px-4 py-3 text-earth">18.1</td><td className="px-4 py-3 text-earth">56.9</td></tr>
+              <tr><td className="px-4 py-3 text-earth">9</td><td className="px-4 py-3 text-earth">19.0</td><td className="px-4 py-3 text-earth">59.5</td></tr>
+              <tr className="bg-parchment/40"><td className="px-4 py-3 text-earth">10</td><td className="px-4 py-3 text-earth">19.8</td><td className="px-4 py-3 text-earth">62.1</td></tr>
             </tbody>
           </table>
         </div>
@@ -227,22 +227,22 @@ function JewelrySizeGuide() {
 
       {/* Bracelet Size Guide */}
       <div>
-        <h3 className="text-lg font-semibold text-neutral-900 mb-4">Bracelet Size Chart</h3>
+        <h3 className="text-lg font-semibold text-ink-brown mb-4">Bracelet Size Chart</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-neutral-100">
-                <th className="px-4 py-3 text-left font-semibold text-neutral-900">Size</th>
-                <th className="px-4 py-3 text-left font-semibold text-neutral-900">Wrist (in)</th>
-                <th className="px-4 py-3 text-left font-semibold text-neutral-900">Bracelet Length (in)</th>
+              <tr className="bg-parchment">
+                <th className="px-4 py-3 text-left font-semibold text-ink-brown">Size</th>
+                <th className="px-4 py-3 text-left font-semibold text-ink-brown">Wrist (in)</th>
+                <th className="px-4 py-3 text-left font-semibold text-ink-brown">Bracelet Length (in)</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-200">
-              <tr><td className="px-4 py-3">XS</td><td className="px-4 py-3">5.5-6.0</td><td className="px-4 py-3">6.5</td></tr>
-              <tr className="bg-neutral-50"><td className="px-4 py-3">S</td><td className="px-4 py-3">6.0-6.5</td><td className="px-4 py-3">7.0</td></tr>
-              <tr><td className="px-4 py-3">M</td><td className="px-4 py-3">6.5-7.0</td><td className="px-4 py-3">7.5</td></tr>
-              <tr className="bg-neutral-50"><td className="px-4 py-3">L</td><td className="px-4 py-3">7.0-7.5</td><td className="px-4 py-3">8.0</td></tr>
-              <tr><td className="px-4 py-3">XL</td><td className="px-4 py-3">7.5-8.0</td><td className="px-4 py-3">8.5</td></tr>
+            <tbody className="divide-y divide-gold/20">
+              <tr><td className="px-4 py-3 text-earth">XS</td><td className="px-4 py-3 text-earth">5.5-6.0</td><td className="px-4 py-3 text-earth">6.5</td></tr>
+              <tr className="bg-parchment/40"><td className="px-4 py-3 text-earth">S</td><td className="px-4 py-3 text-earth">6.0-6.5</td><td className="px-4 py-3 text-earth">7.0</td></tr>
+              <tr><td className="px-4 py-3 text-earth">M</td><td className="px-4 py-3 text-earth">6.5-7.0</td><td className="px-4 py-3 text-earth">7.5</td></tr>
+              <tr className="bg-parchment/40"><td className="px-4 py-3 text-earth">L</td><td className="px-4 py-3 text-earth">7.0-7.5</td><td className="px-4 py-3 text-earth">8.0</td></tr>
+              <tr><td className="px-4 py-3 text-earth">XL</td><td className="px-4 py-3 text-earth">7.5-8.0</td><td className="px-4 py-3 text-earth">8.5</td></tr>
             </tbody>
           </table>
         </div>
@@ -255,7 +255,7 @@ function GeneralSizeGuide() {
   return (
     <div className="text-center py-8">
       <svg
-        className="mx-auto h-12 w-12 text-neutral-400 mb-4"
+        className="mx-auto h-12 w-12 text-sage mb-4"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -268,7 +268,7 @@ function GeneralSizeGuide() {
           d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
         />
       </svg>
-      <p className="text-neutral-600">
+      <p className="text-earth">
         Size information varies by product. Please check the product description for specific measurements,
         or contact us for sizing assistance.
       </p>

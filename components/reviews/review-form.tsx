@@ -20,11 +20,11 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
 
     if (!isAuthenticated || !customer) {
         return (
-            <div className="bg-gray-50 p-6 rounded-lg text-center">
-                <p className="text-gray-600 mb-4">Please sign in to write a review.</p>
+            <div className="bg-parchment p-6 rounded-lg text-center">
+                <p className="text-earth mb-4">Please sign in to write a review.</p>
                 <a
                     href={`/login?returnTo=/products/${productId}`}
-                    className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                    className="inline-block bg-terracotta text-white px-6 py-2 rounded-lg font-medium hover:bg-terracotta/90 transition-colors"
                 >
                     Sign In
                 </a>
@@ -96,8 +96,8 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white border border-gray-200 p-6 rounded-lg shadow-sm">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Write a Review</h3>
+        <form onSubmit={handleSubmit} className="bg-white border border-gold/30 p-6 rounded-lg shadow-sm">
+            <h3 className="text-lg font-bold text-ink-brown mb-4">Write a Review</h3>
 
             {error && (
                 <div className="mb-4 bg-red-50 text-red-700 p-3 rounded-md text-sm">
@@ -106,12 +106,12 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
             )}
 
             <div className="mb-4">
-                <span id="rating-label" className="block text-sm font-medium text-gray-700 mb-1">Rating</span>
+                <span id="rating-label" className="block text-sm font-medium text-ink-brown mb-1">Rating</span>
                 <StarRating rating={rating} size="lg" interactive onRatingChange={setRating} ariaLabelledBy="rating-label" />
             </div>
 
             <div className="mb-4">
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="title" className="block text-sm font-medium text-ink-brown mb-1">
                     Review Title
                 </label>
                 <input
@@ -120,13 +120,13 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
-                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                    className="w-full rounded-md border-gold/40 shadow-sm focus:border-forest focus:ring-forest sm:text-sm border p-2 text-ink-brown"
                     placeholder="Give your review a title"
                 />
             </div>
 
             <div className="mb-6">
-                <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="content" className="block text-sm font-medium text-ink-brown mb-1">
                     Review Content
                 </label>
                 <textarea
@@ -135,18 +135,18 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     required
-                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                    className="w-full rounded-md border-gold/40 shadow-sm focus:border-forest focus:ring-forest sm:text-sm border p-2 text-ink-brown"
                     placeholder="Share your thoughts about this product..."
                 />
             </div>
 
             <div className="mb-6">
-                <p className="block text-sm font-medium text-gray-700 mb-2">
+                <p className="block text-sm font-medium text-ink-brown mb-2">
                     Add Photos (optional)
                 </p>
                 <div className="flex flex-wrap gap-2 mb-2">
                     {photos.map((photo, index) => (
-                        <div key={index} className="relative w-20 h-20 border border-gray-200 rounded-lg overflow-hidden group">
+                        <div key={index} className="relative w-20 h-20 border border-gold/30 rounded-lg overflow-hidden group">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src={photo} alt="Preview" className="w-full h-full object-cover" />
                             <button
@@ -161,7 +161,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
                             </button>
                         </div>
                     ))}
-                    <label className="w-20 h-20 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-gray-400 transition-colors">
+                    <label className="w-20 h-20 flex items-center justify-center border-2 border-dashed border-gold/40 rounded-lg cursor-pointer hover:border-gold/70 transition-colors">
                         <input
                             type="file"
                             accept="image/*"
@@ -169,19 +169,19 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
                             onChange={handlePhotoUpload}
                             className="hidden"
                         />
-                        <svg className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-6 h-6 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                         </svg>
                         <span className="sr-only">Upload photos</span>
                     </label>
                 </div>
-                <p className="text-xs text-gray-500">You can upload up to 3 photos.</p>
+                <p className="text-xs text-sage">You can upload up to 3 photos.</p>
             </div>
 
             <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 transition-colors"
+                className="w-full bg-terracotta text-white py-2 px-4 rounded-md font-semibold hover:bg-terracotta/90 focus:outline-none focus:ring-2 focus:ring-terracotta focus:ring-offset-2 disabled:opacity-50 transition-colors"
             >
                 {isSubmitting ? 'Submitting...' : 'Submit Review'}
             </button>

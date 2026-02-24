@@ -51,7 +51,7 @@ export default function ProductAccordion({ sections }: ProductAccordionProps) {
   if (sections.length === 0) return null;
 
   return (
-    <div className="divide-y divide-neutral-200 border-t border-b border-neutral-200">
+    <div className="divide-y divide-gold/20 border-t border-b border-gold/20">
       {sections.map((section) => {
         const isOpen = openSections.has(section.id);
         const headingId = `${baseId}-${section.id}-heading`;
@@ -66,13 +66,13 @@ export default function ProductAccordion({ sections }: ProductAccordionProps) {
                 onKeyDown={(e) => handleKeyDown(e, section.id)}
                 aria-expanded={isOpen}
                 aria-controls={contentId}
-                className="w-full flex items-center justify-between py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+                className="w-full flex items-center justify-between py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 rounded"
               >
-                <span className="text-base font-semibold text-neutral-900">
+                <span className="text-base font-semibold text-ink-brown">
                   {section.title}
                 </span>
                 <svg
-                  className={`w-5 h-5 text-neutral-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
+                  className={`w-5 h-5 text-sage transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
                     }`}
                   fill="none"
                   stroke="currentColor"
@@ -98,11 +98,11 @@ export default function ProductAccordion({ sections }: ProductAccordionProps) {
             >
               {typeof section.content === 'string' ? (
                 <div
-                  className="prose prose-sm max-w-none text-neutral-600"
+                  className="prose prose-sm max-w-none text-earth"
                   dangerouslySetInnerHTML={{ __html: section.content }}
                 />
               ) : (
-                <div className="text-neutral-600">{section.content}</div>
+                <div className="text-earth">{section.content}</div>
               )}
             </div>
           </div>
