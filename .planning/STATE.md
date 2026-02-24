@@ -61,6 +61,8 @@ Recent decisions affecting current work:
 - [03-02]: Hover CTA and border accents changed from primary-* to gold — consistent with Phase 2 palette decision (gold for borders/text accents)
 - [03-02]: bg-parchment + text-forest + text-ink-brown + text-gold established as homepage section pattern
 - [03-03]: User visually approved all five Phase 3 criteria on 2026-02-24 — Phase 4 (Product Detail) authorized to proceed
+- [03-04]: Gap closure — heading renders as flat {heading} text node; no word-splitting .split/.map logic remains in EnhancedHero
+- [03-04]: Primary CTA ternary changed from bg-primary-600 (Cosmic Purple) to bg-terracotta — HOME-02 gap fully closed and user approved 2026-02-24
 
 ### Pending Todos
 
@@ -73,5 +75,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 03-03-PLAN.md — Visual verification approved, Phase 3 homepage complete, Phase 4 authorized.
+Stopped at: Completed 03-04-PLAN.md — Gap closure approved, HOME-02 fully closed (no purple in heading or CTA), Phase 4 ready.
 Resume file: None

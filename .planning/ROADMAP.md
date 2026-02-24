@@ -66,6 +66,7 @@ Plans:
 - [x] 03-01-PLAN.md — Page layout: parchment background, EnhancedHero botanical props, 3 BotanicalDivider insertions, FeaturedProducts heading (completed 2026-02-24)
 - [x] 03-02-PLAN.md — CategoryCards: Wildenflower copy, parchment bg, botanical images, gold hover states (completed 2026-02-24)
 - [x] 03-03-PLAN.md — Visual verification checkpoint — user approved all five criteria (completed 2026-02-24)
+- [x] 03-04-PLAN.md — Gap closure: removed Cosmic Purple word-coloring and CTA button color from EnhancedHero; HOME-02 fully closed (completed 2026-02-24)
 
 ### Phase 4: Product Detail
 **Goal**: Product pages feel botanically branded — typography, colors, and header image match the Wildenflower identity
@@ -97,6 +98,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Design Foundation | 3/3 | Complete | 2026-02-24 |
 | 2. Header | 1/1 | Complete   | 2026-02-24 |
-| 3. Homepage | 3/3 | Complete   | 2026-02-24 |
+| 3. Homepage | 4/4 | Complete   | 2026-02-24 |
 | 4. Product Detail | 0/TBD | Not started | - |
 | 5. Supporting Pages | 0/TBD | Not started | - |
