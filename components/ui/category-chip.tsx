@@ -13,12 +13,12 @@ interface CategoryChipProps {
 
 const CATEGORY_ICONS: Record<string, string> = {
     mushroom: '/assets/images/icons/categories/icon-mushroom.png',
-    sunburst: '/assets/images/icons/categories/icon-sunburst.png',
+    sunburst: '/assets/images/icons/categories/icon-sunburst-v2.png',
     vines: '/assets/images/icons/categories/icon-vines-circle.png',
     'vines-circle': '/assets/images/icons/categories/icon-vines-circle.png',
     seedling: '/assets/images/icons/categories/icon-seedling.png',
     fern: '/assets/images/icons/categories/icon-fern.png',
-    crystal: '/assets/images/icons/categories/icon-crystal.png',
+    crystal: '/assets/images/icons/categories/icon-crystal-v2.png',
     wildflower: '/assets/images/icons/categories/icon-wildflower.png',
     vine: '/assets/images/icons/categories/icon-vine.png',
 };

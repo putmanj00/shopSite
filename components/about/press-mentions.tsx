@@ -1,4 +1,3 @@
-import Image from 'next/image';
 
 interface PressMention {
     name: string;
@@ -57,12 +56,11 @@ export default function PressMentions() {
                             className="group relative grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"
                         >
                             <div className="h-12 w-32 relative flex items-center justify-center">
-                                <Image
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
                                     src={press.logo}
                                     alt={`${press.name} logo`}
-                                    fill
-                                    className="object-contain"
-                                    sizes="128px"
+                                    className="object-contain max-h-full max-w-full"
                                 />
                             </div>
                         </div>

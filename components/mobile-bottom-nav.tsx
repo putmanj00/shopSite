@@ -57,7 +57,7 @@ export default function MobileBottomNav() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
           />
         </svg>
       ),
@@ -136,11 +136,10 @@ export default function MobileBottomNav() {
             <Link
               key={item.label}
               href={item.href}
-              className={`flex flex-col items-center justify-center min-w-16 min-h-12 px-2 py-1 transition-colors ${
-                item.isActive
+              className={`flex flex-col items-center justify-center min-w-16 min-h-12 px-2 py-1 transition-colors ${item.isActive
                   ? 'text-primary-600'
                   : 'text-neutral-600 hover:text-primary-600'
-              }`}
+                }`}
               aria-current={item.isActive ? 'page' : undefined}
             >
               {item.icon}

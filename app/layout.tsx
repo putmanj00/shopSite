@@ -92,6 +92,10 @@ export const metadata: Metadata = {
   },
   other: {
     'mobile-web-app-capable': 'yes',
+    'geo.region': 'US-KY',
+    'geo.placename': 'Alexandria, Kentucky',
+    'geo.position': '38.9592;-84.3877',
+    'ICBM': '38.9592, -84.3877',
   },
 };
 

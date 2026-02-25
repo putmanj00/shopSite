@@ -47,13 +47,13 @@ export default function NewsletterSignup() {
   };
 
   return (
-    <section className="bg-navy-900 py-16 lg:py-20">
+    <section className="bg-forest py-16 lg:py-20">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-2xl text-center">
           {/* Icon */}
-          <div className="mx-auto mb-6 w-16 h-16 bg-primary-600/20 rounded-full flex items-center justify-center">
+          <div className="mx-auto mb-6 w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center">
             <svg
-              className="w-8 h-8 text-primary-400"
+              className="w-8 h-8 text-gold"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -68,11 +68,11 @@ export default function NewsletterSignup() {
           </div>
 
           <h2 className="text-3xl font-bold text-white sm:text-4xl font-heading">
-            Join the Trippy Tribe
+            Join the Wildenflower Circle
           </h2>
-          <p className="mt-4 text-lg text-primary-300">
-            Get 15% off your first order plus early access to new drops,
-            festival-ready finds, and groovy exclusives.
+          <p className="mt-4 text-lg text-parchment/80">
+            Get 15% off your first order plus early access to new arrivals,
+            maker stories, and seasonal finds — straight to your inbox.
           </p>
 
           {/* Form */}
@@ -88,13 +88,13 @@ export default function NewsletterSignup() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 disabled={status === 'loading' || status === 'success'}
-                className="flex-1 px-5 py-4 text-neutral-900 bg-white rounded-lg sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:opacity-50"
+                className="flex-1 px-5 py-4 text-ink-brown bg-parchment rounded-lg sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-gold disabled:opacity-50"
                 aria-describedby={message ? 'newsletter-message' : undefined}
               />
               <button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className="px-8 py-4 bg-accent-500 text-white font-semibold rounded-lg sm:rounded-l-none hover:bg-accent-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-terracotta text-white font-semibold rounded-lg sm:rounded-l-none hover:bg-terracotta/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {status === 'loading' ? (
                   <>
@@ -151,7 +151,7 @@ export default function NewsletterSignup() {
             )}
           </form>
 
-          <p className="mt-4 text-sm text-primary-400">
+          <p className="mt-4 text-sm text-parchment/50">
             We respect your privacy. Unsubscribe at any time.
           </p>
         </div>

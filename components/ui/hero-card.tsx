@@ -37,6 +37,7 @@ export function HeroCard({
                     alt="Botanical Hero"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     fill
+                    priority
                     className="object-cover"
                 />
             </div>

@@ -12,12 +12,15 @@ import ProductAccordion from '@/components/product-accordion';
 import { getProductAccordionSections } from '@/lib/product-utils';
 import RecentlyViewedTracker from '@/components/recently-viewed-tracker';
 import { BotanicalHeader } from '@/components/ui/botanical-header';
+import { buildBreadcrumbList, SITE_URL } from '@/lib/structured-data';
 
 interface ProductPageProps {
   params: Promise<{
     handle: string;
   }>;
 }
+
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   const handles = await getAllProductsHandles();
@@ -88,6 +91,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
   // Generate structured data for SEO
   const price = product.priceRange.minVariantPrice;
 
+  const breadcrumbData = buildBreadcrumbList([
+    { name: 'Home', url: SITE_URL },
+    { name: 'Shop', url: `${SITE_URL}/collections` },
+    { name: product.title, url: `${SITE_URL}/products/${handle}` },
+  ]);
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -118,6 +127,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
 
       {/* Track recently viewed product */}

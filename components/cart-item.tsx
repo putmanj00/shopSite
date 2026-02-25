@@ -66,7 +66,7 @@ export default function CartItem({ line }: CartItemProps) {
         <div>
           <Link
             href={`/products/${merchandise.product.handle}`}
-            className="font-semibold text-gray-900 hover:text-blue-600 transition-colors line-clamp-2"
+            className="font-semibold text-ink-brown hover:text-terracotta transition-colors line-clamp-2"
           >
             {merchandise.product.title}
           </Link>

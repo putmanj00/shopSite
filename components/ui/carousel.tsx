@@ -248,9 +248,9 @@ export default function Carousel({
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                  className={`w-2.5 h-2.5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-terracotta focus:ring-offset-2 ${
                     index === currentIndex
-                      ? 'bg-blue-600'
+                      ? 'bg-terracotta'
                       : 'bg-gray-300 hover:bg-gray-400'
                   }`}
                   role="tab"

@@ -243,7 +243,7 @@ function QuickViewContent({
                 <Link
                   href={`/products/${product.handle}`}
                   onClick={onClose}
-                  className="flex-1 py-3 px-4 text-center text-blue-600 font-semibold border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
+                  className="flex-1 py-3 px-4 text-center text-terracotta font-semibold border border-terracotta rounded-lg hover:bg-terracotta/10 transition-colors"
                 >
                   View Full Details
                 </Link>

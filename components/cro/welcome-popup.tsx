@@ -124,17 +124,17 @@ export default function WelcomePopup({
                         ) : (
                             <>
                                 <div className="text-center mb-6">
-                                    <h2 id="welcome-title" className="text-2xl font-bold text-neutral-900 mb-2 font-heading">
-                                        Welcome, Free Spirit ✨
+                                    <h2 id="welcome-title" className="text-2xl font-bold text-ink-brown mb-2 font-heading">
+                                        Join the Wildenflower Circle
                                     </h2>
-                                    <p className="text-neutral-600">
-                                        Join our community of seekers and get
+                                    <p className="text-earth">
+                                        New arrivals, maker stories, and
                                     </p>
-                                    <p className="text-4xl font-bold text-primary-600 my-2">
+                                    <p className="text-4xl font-bold text-terracotta my-2">
                                         {discountPercent}% OFF
                                     </p>
-                                    <p className="text-neutral-600 text-sm">
-                                        your first treasure
+                                    <p className="text-earth text-sm">
+                                        your first order
                                     </p>
                                 </div>
 

@@ -24,45 +24,45 @@ export default function BrandStory() {
 
           {/* Content Section */}
           <div className="lg:pl-8">
-            <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
-              Born from the Counterculture
+            <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
+              Made by Hand
             </span>
-            <h2 className="mt-3 text-3xl font-bold text-neutral-900 sm:text-4xl lg:text-5xl font-heading">
-              Art You Can Wear,{' '}
-              <span className="text-primary-600">Magic You Can Feel</span>
+            <h2 className="mt-3 text-3xl font-bold text-ink-brown sm:text-4xl lg:text-5xl font-heading">
+              Found by the heart{' '}
+              <span className="text-terracotta">that needs it</span>
             </h2>
-            <div className="mt-6 space-y-4 text-neutral-600 text-lg leading-relaxed">
+            <div className="mt-6 space-y-4 text-earth text-lg leading-relaxed">
               <p>
-                Like the psychedelic patterns in a mandala, every piece in our
-                collection radiates outward with cosmic energy. From trippy tie-dye
-                to sacred geometry art and crystal treasures, each item carries
-                the spirit of the counterculture.
+                Every piece in our shop starts in someone&apos;s hands — dyed in
+                a backyard, tooled at a workbench, thrown on a wheel, set stone
+                by stone. We find makers who pour genuine care into what they
+                make, and we bring their work to you.
               </p>
               <p>
-                We partner directly with artisans who channel their creative flow
-                into every creation. When you choose Wildenflower, you&apos;re not just
-                buying art—you&apos;re wearing your vibe and supporting the handmade
-                movement.
+                When you choose Wildenflower, you&apos;re not just buying
+                something to own. You&apos;re carrying forward the intention of
+                the person who made it — and supporting a slower, more
+                considered way of making things.
               </p>
             </div>
 
             {/* Features */}
             <div className="mt-8 grid grid-cols-2 gap-6">
               <div>
-                <div className="text-3xl font-bold text-neutral-900 font-heading">50+</div>
-                <div className="text-sm text-neutral-600">Artisan Partners</div>
+                <div className="text-3xl font-bold text-ink-brown font-heading">100%</div>
+                <div className="text-sm text-earth">Handpicked Treasures</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-neutral-900 font-heading">100%</div>
-                <div className="text-sm text-neutral-600">Handpicked Treasures</div>
+                <div className="text-3xl font-bold text-ink-brown font-heading">30-day</div>
+                <div className="text-sm text-earth">Return Policy</div>
               </div>
             </div>
 
             <Link
               href="/collections"
-              className="mt-8 inline-flex items-center gap-2 text-primary-600 font-semibold hover:text-primary-700 transition-colors group"
+              className="mt-8 inline-flex items-center gap-2 text-terracotta font-semibold hover:text-terracotta/80 transition-colors group"
             >
-              Explore the Vibe
+              Explore the Collection
               <svg
                 className="w-5 h-5 transition-transform group-hover:translate-x-1"
                 fill="none"

@@ -85,18 +85,18 @@ export default function CartDrawer() {
       >
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-900">
-              Shopping Cart
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gold/20">
+            <h2 className="text-2xl font-bold text-forest font-heading">
+              Your Gathering
               {!isEmpty && (
-                <span className="ml-2 text-lg font-normal text-gray-500">
+                <span className="ml-2 text-lg font-normal text-earth">
                   ({cart?.totalQuantity} {cart?.totalQuantity === 1 ? 'item' : 'items'})
                 </span>
               )}
             </h2>
             <button
               onClick={closeCart}
-              className="p-2 -mr-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 -mr-2 rounded-lg hover:bg-parchment transition-colors"
               aria-label="Close cart"
             >
               <svg
@@ -131,17 +131,17 @@ export default function CartDrawer() {
                   d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                 />
               </svg>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Your cart is empty
+              <h3 className="text-xl font-semibold text-forest font-heading mb-2">
+                Your basket is empty
               </h3>
-              <p className="text-gray-500 mb-6">
-                Add some products to get started!
+              <p className="text-earth mb-6">
+                Wander the shop and find something made for you.
               </p>
               <button
                 onClick={closeCart}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                className="px-6 py-3 bg-terracotta text-white rounded-lg font-semibold hover:bg-terracotta/90 transition-colors"
               >
-                Continue Shopping
+                Explore the Shop
               </button>
             </div>
           ) : (
@@ -175,20 +175,20 @@ export default function CartDrawer() {
 
                 {/* Subtotal */}
                 <div className="flex items-center justify-between text-lg">
-                  <span className="font-semibold text-gray-900">Subtotal</span>
-                  <span className="font-bold text-gray-900">
+                  <span className="font-semibold text-forest font-heading">Subtotal</span>
+                  <span className="font-bold text-forest">
                     {cart && <Price amount={cart.cost.subtotalAmount.amount} currencyCode={cart.cost.subtotalAmount.currencyCode} />}
                   </span>
                 </div>
 
                 {/* Tax Notice */}
                 {cart?.cost.totalTaxAmount && (
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-earth">
                     Tax: <Price amount={cart.cost.totalTaxAmount.amount} currencyCode={cart.cost.totalTaxAmount.currencyCode} />
                   </p>
                 )}
 
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-earth">
                   Shipping and taxes calculated at checkout
                 </p>
 
@@ -215,7 +215,7 @@ export default function CartDrawer() {
                     }
                   }}
                   disabled={!cart?.checkoutUrl || isRedirecting}
-                  className="w-full py-4 bg-blue-600 text-white text-center rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full py-4 bg-terracotta text-white text-center rounded-lg font-semibold hover:bg-terracotta/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isRedirecting ? (
                     <>
@@ -236,7 +236,7 @@ export default function CartDrawer() {
                 {/* Continue Shopping */}
                 <button
                   onClick={closeCart}
-                  className="w-full py-3 text-blue-600 text-center font-semibold hover:text-blue-700 transition-colors"
+                  className="w-full py-3 text-terracotta text-center font-semibold hover:text-terracotta/80 transition-colors"
                 >
                   Continue Shopping
                 </button>

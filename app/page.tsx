@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { localBusinessSchema, organizationSchema } from '@/lib/structured-data';
 import EnhancedHero from '@/components/homepage/enhanced-hero';
 import { BotanicalDivider } from '@/components/ui/botanical-divider';
 import CategoryCards from '@/components/homepage/category-cards';
@@ -78,6 +79,14 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
 
       {/* Enhanced Hero with background image */}

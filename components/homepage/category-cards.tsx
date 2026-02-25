@@ -7,6 +7,8 @@ interface Category {
   description: string;
   image: string;
   productCount: number;
+  imageClassName?: string;
+  cardClassName?: string;
 }
 
 // Placeholder data - will be replaced with dynamic data when collections are set up in Shopify
@@ -15,29 +17,55 @@ const categories: Category[] = [
     handle: 'tie-dye',
     title: 'Tie-Dye',
     description: 'Hand-dyed in small batches. Each piece blooms differently.',
-    image: '/assets/images/headers/botanical-header-small.png',
+    image: '/assets/images/icons/categories/icon-sunburst-v2.png',
     productCount: 45,
+    imageClassName: 'object-cover',
+    cardClassName: 'bg-[#EFE8D6]',
   },
   {
-    handle: 'mandala-art',
-    title: 'Mandala Art',
-    description: 'Drawn by hand, one patient line at a time.',
-    image: '/assets/images/headers/botanical-header-large1.png',
-    productCount: 32,
+    handle: 'leather',
+    title: 'Leather',
+    description: 'Tooled by hand, worn for decades.',
+    image: '/assets/images/icons/categories/icon-leather-v2.png',
+    productCount: 28,
+    imageClassName: 'object-0',
+    cardClassName: 'bg-[#EFE8D6]',
   },
   {
     handle: 'jewelry',
     title: 'Jewelry',
     description: 'Foraged shapes, gathered light.',
-    image: '/assets/images/splash/splash-bloom-elements.png',
+    image: '/assets/images/icons/categories/icon-jewelry.jpeg',
     productCount: 67,
+    imageClassName: 'object-0',
+    cardClassName: 'bg-[#EFE8D6]',
   },
   {
     handle: 'crystals',
     title: 'Crystals',
     description: 'Earth-kept for years. Yours now.',
-    image: '/assets/images/headers/botanical-header-large.png',
+    image: '/assets/images/icons/categories/icon-crystal-v2.jpeg',
     productCount: 54,
+    imageClassName: 'object-0',
+    cardClassName: 'bg-[#EFE8D6]',
+  },
+  {
+    handle: 'artwork',
+    title: 'Artwork',
+    description: 'Original pieces — no prints, no copies.',
+    image: '/assets/images/icons/categories/icon-artwork.png',
+    productCount: 19,
+    imageClassName: 'object-0',
+    cardClassName: 'bg-[#EFE8D6]',
+  },
+  {
+    handle: 'ceramics',
+    title: 'Ceramics',
+    description: 'Thrown on the wheel, fired with care.',
+    image: '/assets/images/icons/categories/icon-ceramics.jpeg',
+    productCount: 33,
+    imageClassName: 'object-cover',
+    cardClassName: 'bg-[#EFE8D6]',
   },
 ];
 
@@ -45,14 +73,14 @@ function CategoryCard({ category }: { category: Category }) {
   return (
     <Link
       href={`/collections/${category.handle}`}
-      className="group relative block aspect-[3/4] overflow-hidden rounded-2xl bg-neutral-200"
+      className={`group relative block aspect-[3/4] overflow-hidden rounded-2xl ${category.cardClassName || 'bg-neutral-200'}`}
     >
       {/* Background Image */}
       <Image
         src={category.image}
         alt={category.title}
         fill
-        className="object-cover transition-transform duration-500 group-hover:scale-110"
+        className={`transition-transform duration-500 group-hover:scale-110 ${category.imageClassName || 'object-cover'}`}
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
       />
 
@@ -111,7 +139,7 @@ export default function CategoryCards() {
         </div>
 
         {/* Category Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category) => (
             <CategoryCard key={category.handle} category={category} />
           ))}

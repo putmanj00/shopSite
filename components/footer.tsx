@@ -117,8 +117,17 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
+        {/* NAP — Name/Address/Phone (local SEO) */}
+        {/* TODO: Update address and phone with confirmed Wildenflower business details */}
         <div className="border-t border-gold/20 mt-12 pt-8">
+          <address className="not-italic text-sm text-parchment/50 text-center mb-6">
+            <span className="font-semibold text-parchment/70">Wildenflower</span>
+            {' · '}Alexandria, KY{' · '}Northern Kentucky
+          </address>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-gold/10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Brand */}
             <div className="flex items-center">
@@ -130,7 +139,7 @@ export default function Footer() {
               <ul className="flex items-center gap-4">
                 <li>
                   <a
-                    href="https://instagram.com"
+                    href="https://instagram.com/wildenflower/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-parchment/50 hover:text-parchment transition-colors p-3 -m-3"

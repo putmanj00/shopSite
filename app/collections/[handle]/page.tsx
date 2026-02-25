@@ -5,6 +5,7 @@ import CollectionContent from '@/components/collection-content';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
 import type { Metadata } from 'next';
 import type { ShopifyCollection } from '@/types/shopify';
+import { buildBreadcrumbList, SITE_URL } from '@/lib/structured-data';
 
 interface CollectionPageProps {
   params: Promise<{
@@ -20,6 +21,8 @@ interface CollectionPageProps {
     page?: string;
   }>;
 }
+
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const handles = await getAllCollectionsHandles();
@@ -115,8 +118,18 @@ export default async function CollectionPage({
     notFound();
   }
 
+  const breadcrumbData = buildBreadcrumbList([
+    { name: 'Home', url: SITE_URL },
+    { name: 'Collections', url: `${SITE_URL}/collections` },
+    { name: collection.title, url: `${SITE_URL}/collections/${handle}` },
+  ]);
+
   return (
     <div className="min-h-screen bg-parchment">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
       {/* Collection Header */}
       <section className="bg-parchment py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

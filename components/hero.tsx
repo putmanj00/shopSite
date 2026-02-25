@@ -7,7 +7,7 @@ export default function Hero() {
         <div className="mx-auto max-w-4xl text-center">
           <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
             Discover Your Perfect{' '}
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-terracotta to-gold bg-clip-text text-transparent">
               Style
             </span>
           </h1>

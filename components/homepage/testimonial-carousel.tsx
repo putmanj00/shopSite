@@ -112,8 +112,7 @@ export default function TestimonialCarousel() {
             Stories from Our Community
           </h2>
           <p className="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">
-            Join thousands of seekers and dreamers who have found their treasures
-            with Wildenflower.
+            Real words from people who brought a little Wildenflower into their lives.
           </p>
         </div>
 
@@ -136,7 +135,7 @@ export default function TestimonialCarousel() {
           </Carousel>
         </div>
 
-        {/* Overall Stats */}
+        {/* Stats */}
         <div className="mt-12 flex flex-wrap justify-center gap-8 text-center">
           <div>
             <div className="text-3xl font-bold text-neutral-900 font-heading">4.9</div>
@@ -146,12 +145,12 @@ export default function TestimonialCarousel() {
             <div className="text-sm text-neutral-500 mt-1">Average Rating</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-neutral-900 font-heading">2,500+</div>
-            <div className="text-sm text-neutral-500 mt-1">Happy Seekers</div>
+            <div className="text-3xl font-bold text-neutral-900 font-heading">30-day</div>
+            <div className="text-sm text-neutral-500 mt-1">Return Policy</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-neutral-900 font-heading">98%</div>
-            <div className="text-sm text-neutral-500 mt-1">Would Recommend</div>
+            <div className="text-3xl font-bold text-neutral-900 font-heading">100%</div>
+            <div className="text-sm text-neutral-500 mt-1">Handmade Goods</div>
           </div>
         </div>
       </div>

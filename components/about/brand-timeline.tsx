@@ -21,7 +21,7 @@ const events: TimelineEvent[] = [
         year: '2020',
         title: 'Blooming Online',
         description:
-            'Launched our digital home, bringing curated treasures to seekers and dreamers nationwide.',
+            'Launched our digital home, bringing handcrafted treasures to people across the country.',
     },
     {
         year: '2022',

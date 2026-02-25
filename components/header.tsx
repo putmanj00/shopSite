@@ -7,6 +7,7 @@ import { useAuthStore } from '@/lib/auth-store';
 import { useWishlistStore } from '@/lib/wishlist-store';
 import { useState, useEffect } from 'react';
 import CurrencySelector from '@/components/currency-selector';
+import MobileDrawer from '@/components/mobile-drawer';
 
 export default function Header() {
   const { cart, openCart } = useCartStore();
@@ -32,32 +33,59 @@ export default function Header() {
     <header className="sticky top-0 z-30 bg-forest border-b border-gold">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <div className="relative h-12 w-12">
-              <Image
-                src="/assets/images/logo/logo-mark.png"
-                alt="Wildenflower"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </Link>
+          <div className="flex items-center gap-2">
+            <MobileDrawer />
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <div className="relative h-12 w-12">
+                <Image
+                  src="/assets/images/logo/logo-mark.png"
+                  alt="Wildenflower"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </Link>
+          </div>
 
           {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-8">
-            <Link
-              href="/"
-              className="text-parchment hover:text-gold font-medium transition-colors"
-            >
-              Home
-            </Link>
+          <div className="hidden md:flex items-center gap-6 lg:gap-8">
             <Link
               href="/collections/all"
-              className="text-parchment hover:text-gold font-medium transition-colors"
+              className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
             >
               Shop All
+            </Link>
+            <Link
+              href="/collections/leather"
+              className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
+            >
+              Leather Goods
+            </Link>
+            <Link
+              href="/collections/jewelry"
+              className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
+            >
+              Jewelry
+            </Link>
+            <Link
+              href="/collections/tie-dye"
+              className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
+            >
+              Tie-Dye
+            </Link>
+            <Link
+              href="/collections/art"
+              className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
+            >
+              Art
+            </Link>
+            <Link
+              href="/about"
+              className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
+            >
+              Our Story
             </Link>
           </div>
 
