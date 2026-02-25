@@ -76,5 +76,19 @@ A shopper lands on a beautiful, nature-inspired handmade goods storefront and im
 | Tailwind CSS for design tokens | Already in use, extend theme rather than replace | — Pending |
 | Untracked botanical components in components/ui/ | Already partially built from previous attempt — review and use | — Pending |
 
+## Current Milestone: v1.1 — UX Cleanup & Navigation
+
+**Goal:** Remove deceptive content and navigation confusion so every shopper path leads cleanly to real products.
+
+**Target features:**
+- Remove all fake social proof (purchase popups, fake testimonials, fabricated stats, fake engagement counts)
+- Kill the duplicate `/collections` page; redirect to `/collections/all`; fix all stale links
+- Fix nav and footer category labels — all 6 categories present and correct everywhere
+- Clean up product data — vendor names, test products, imageless product filtering
+- Polish `/collections/all` page heading, subtitle, and botanical header
+- Footer cleanup — remove dead links, align SHOP column with 6-category system
+
+**Phase 5 (SUPP-01–03) deferred to v1.2 — UX cleanup is higher priority.**
+
 ---
-*Last updated: 2026-02-23 after initialization*
+*Last updated: 2026-02-25 after milestone v1.1 initialized*

@@ -2,19 +2,19 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-23)
+See: .planning/PROJECT.md (updated 2026-02-25)
 
 **Core value:** A shopper lands on a beautiful, nature-inspired handmade goods storefront and immediately feels the warmth and authenticity of the Wildenflower brand — while the Shopify integration underneath works reliably.
-**Current focus:** Phase 4 — Product Detail
+**Current focus:** Milestone v1.1 — UX Cleanup & Navigation (defining requirements)
 
 ## Current Position
 
-Phase: 4 of 5 (Product Detail)
-Plan: 2 of 2 in current phase — PHASE 4 COMPLETE
-Status: Phase 4 complete — both plans done. Product detail page fully botanical.
-Last activity: 2026-02-24 — Completed 04-02 (palette sweep across 9 product components)
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements for milestone v1.1 — UX Cleanup & Navigation
+Last activity: 2026-02-25 — Milestone v1.1 started
 
-Progress: [██████░░░░] 53% (8/15 estimated plans)
+Progress: [░░░░░░░░░░] 0% (milestone v1.1)
 
 ## Performance Metrics
 
@@ -82,6 +82,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-24
-Stopped at: Completed 04-02-PLAN.md — palette sweep across 9 product detail components. Phase 4 complete. Phase 5 (Supporting Pages) next.
+Last session: 2026-02-25
+Stopped at: Starting milestone v1.1 — UX Cleanup & Navigation. Phase 5 (Supporting Pages) deferred to v1.2. New phases begin at 6.
 Resume file: None
