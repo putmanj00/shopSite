@@ -45,19 +45,19 @@ const events: TimelineEvent[] = [
 
 export default function BrandTimeline() {
     return (
-        <section className="bg-white py-16 lg:py-24">
+        <section className="bg-parchment py-16 lg:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
+                    <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
                         Our Journey
                     </span>
-                    <h2 className="mt-3 text-3xl font-bold text-neutral-900 sm:text-4xl font-heading">
+                    <h2 className="mt-3 text-3xl font-bold text-ink-brown sm:text-4xl font-heading">
                         The Wildenflower Story
                     </h2>
                 </div>
 
                 <div className="max-w-4xl mx-auto">
-                    <ol className="relative border-l-2 border-primary-200 ml-4 lg:ml-0 lg:border-l-0">
+                    <ol className="relative border-l-2 border-gold/30 ml-4 lg:ml-0 lg:border-l-0">
                         {events.map((event, index) => (
                             <li
                                 key={event.year}
@@ -66,10 +66,10 @@ export default function BrandTimeline() {
                             >
                                 {/* Mobile: Left timeline dot */}
                                 <span
-                                    className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary-500 ring-4 ring-white lg:hidden"
+                                    className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-sage ring-4 ring-parchment lg:hidden"
                                     aria-hidden="true"
                                 >
-                                    <span className="h-2 w-2 rounded-full bg-white" />
+                                    <span className="h-2 w-2 rounded-full bg-parchment" />
                                 </span>
 
                                 {/* Desktop: Alternating layout */}
@@ -77,12 +77,12 @@ export default function BrandTimeline() {
                                     className={`lg:col-span-4 ${index % 2 === 0 ? 'lg:order-1' : 'lg:order-3'}`}
                                 >
                                     <div
-                                        className={`bg-neutral-50 rounded-xl p-6 ${index % 2 === 0 ? '' : 'lg:ml-auto'}`}
+                                        className={`bg-white rounded-xl p-6 ${index % 2 === 0 ? '' : 'lg:ml-auto'}`}
                                     >
-                                        <h3 className="text-lg font-semibold text-neutral-900">
+                                        <h3 className="text-lg font-semibold text-ink-brown">
                                             {event.title}
                                         </h3>
-                                        <p className="mt-2 text-neutral-600 leading-relaxed">
+                                        <p className="mt-2 text-earth leading-relaxed">
                                             {event.description}
                                         </p>
                                     </div>
@@ -91,15 +91,15 @@ export default function BrandTimeline() {
                                 {/* Desktop: Center dot */}
                                 <div className="hidden lg:flex lg:col-span-1 lg:order-2 justify-center">
                                     <div className="relative flex flex-col items-center">
-                                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-500 shadow-md">
-                                            <span className="h-2 w-2 rounded-full bg-white" />
+                                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sage shadow-md">
+                                            <span className="h-2 w-2 rounded-full bg-parchment" />
                                         </span>
-                                        <span className="relative z-10 mt-2 bg-white px-2 text-sm font-bold text-primary-600">
+                                        <span className="relative z-10 mt-2 bg-parchment px-2 text-sm font-bold text-terracotta">
                                             {event.year}
                                         </span>
                                         {index < events.length - 1 && (
                                             <div
-                                                className="absolute top-10 h-24 w-0.5 bg-primary-200"
+                                                className="absolute top-10 h-24 w-0.5 bg-gold/30"
                                                 aria-hidden="true"
                                             />
                                         )}
@@ -107,7 +107,7 @@ export default function BrandTimeline() {
                                 </div>
 
                                 {/* Mobile: Year badge */}
-                                <time className="mb-2 text-sm font-bold text-amber-600 lg:hidden">
+                                <time className="mb-2 text-sm font-bold text-terracotta lg:hidden">
                                     {event.year}
                                 </time>
 

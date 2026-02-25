@@ -92,7 +92,12 @@ Plans:
   2. FAQ page shows botanical-header-faq.png at the top; accordion expand/collapse icons use fern-expand.png and fern-collapse.png
   3. Blog/Field Notes page shows botanical-header-blog.png at the top
   4. All existing content and structure on each page is preserved — only botanical visuals are added
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [x] 05-01-PLAN.md — About page: BotanicalHeader (about variant) + divider-fallen-log between MissionValues and Sustainability (completed 2026-02-24)
+- [x] 05-02-PLAN.md — FAQ page: full accordion build replacing ComingSoon (data file + accordion component + page content + page rewrite) (completed 2026-02-24)
+- [x] 05-03-PLAN.md — Blog page: BotanicalHeader (blog variant) above ComingSoon placeholder (completed 2026-02-24)
 
 ## Progress
 
@@ -105,4 +110,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Header | 1/1 | Complete   | 2026-02-24 |
 | 3. Homepage | 4/4 | Complete   | 2026-02-24 |
 | 4. Product Detail | 3/3 | Complete   | 2026-02-24 |
-| 5. Supporting Pages | 0/TBD | Not started | - |
+| 5. Supporting Pages | 3/3 | Complete | 2026-02-24 |

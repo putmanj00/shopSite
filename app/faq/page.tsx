@@ -1,11 +1,17 @@
-import ComingSoon from '@/components/coming-soon';
 import type { Metadata } from 'next';
+import { BotanicalHeader } from '@/components/ui/botanical-header';
+import { FaqPageContent } from '@/components/faq/faq-page-content';
 
 export const metadata: Metadata = {
     title: 'FAQ | Wildenflower',
-    description: 'Frequently asked questions about Wildenflower products and services.',
+    description: 'Everything you might want to know about Wildenflower — from our handmade products to shipping and returns.',
 };
 
 export default function FAQPage() {
-    return <ComingSoon title="Frequently Asked Questions" description="We are compiling a list of common questions to help you better." />;
+    return (
+        <>
+            <BotanicalHeader variant="faq" />
+            <FaqPageContent />
+        </>
+    );
 }

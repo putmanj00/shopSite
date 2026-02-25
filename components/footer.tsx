@@ -33,7 +33,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="bg-navy-900 text-neutral-100"
+      className="bg-forest text-parchment/90"
       role="contentinfo"
       aria-label="Site footer"
     >
@@ -42,7 +42,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Shop Links */}
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-neutral-300 mb-4">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-gold mb-4">
               Shop
             </h2>
             <ul className="space-y-3">
@@ -50,7 +50,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-neutral-400 hover:text-white transition-colors focus-visible:text-white"
+                    className="text-parchment/60 hover:text-parchment transition-colors focus-visible:text-parchment"
                   >
                     {link.name}
                   </Link>
@@ -118,7 +118,7 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-navy-700 mt-12 pt-8">
+        <div className="border-t border-gold/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Brand */}
             <div className="flex items-center">
@@ -133,7 +133,7 @@ export default function Footer() {
                     href="https://instagram.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-neutral-400 hover:text-white transition-colors p-3 -m-3"
+                    className="text-parchment/50 hover:text-parchment transition-colors p-3 -m-3"
                     aria-label="Follow us on Instagram"
                   >
                     <svg
@@ -194,7 +194,7 @@ export default function Footer() {
             </nav>
 
             {/* Copyright */}
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm text-parchment/50">
               © {currentYear} Wildenflower. All rights reserved.
             </p>
           </div>

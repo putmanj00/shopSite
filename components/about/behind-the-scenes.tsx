@@ -47,16 +47,16 @@ export default function BehindTheScenes() {
     const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
 
     return (
-        <section className="bg-white py-16 lg:py-24">
+        <section className="bg-parchment py-16 lg:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
+                    <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
                         The Workshop
                     </span>
-                    <h2 className="mt-3 text-3xl font-bold font-heading text-neutral-900 sm:text-4xl">
+                    <h2 className="mt-3 text-3xl font-bold font-heading text-ink-brown sm:text-4xl">
                         Behind the Scenes
                     </h2>
-                    <p className="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">
+                    <p className="mt-4 text-lg text-earth max-w-2xl mx-auto">
                         Take a peek inside our artisan workshops where creativity and
                         craftsmanship come together.
                     </p>
@@ -67,7 +67,7 @@ export default function BehindTheScenes() {
                         <button
                             key={index}
                             onClick={() => setSelectedImage(image)}
-                            className="group relative aspect-[3/2] overflow-hidden rounded-xl bg-neutral-200 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                            className="group relative aspect-[3/2] overflow-hidden rounded-xl bg-sage/20 focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
                             aria-label={`View larger: ${image.alt}`}
                         >
                             <Image
@@ -95,7 +95,7 @@ export default function BehindTheScenes() {
             >
                 {selectedImage && (
                     <div className="space-y-4">
-                        <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg bg-neutral-200">
+                        <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg bg-sage/20">
                             <Image
                                 src={selectedImage.src.replace('w=600', 'w=1200').replace('h=400', 'h=800')}
                                 alt={selectedImage.alt}
@@ -104,7 +104,7 @@ export default function BehindTheScenes() {
                                 sizes="(max-width: 1024px) 100vw, 1024px"
                             />
                         </div>
-                        <p className="text-neutral-600 text-center">{selectedImage.caption}</p>
+                        <p className="text-earth text-center">{selectedImage.caption}</p>
                     </div>
                 )}
             </Modal>

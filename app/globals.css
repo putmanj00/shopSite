@@ -9,17 +9,17 @@
 :root {
   color-scheme: light;
 
-  /* Primary: Cosmic Purple - CTAs, links, brand anchor */
-  --color-primary-50: #faf5ff;
-  --color-primary-100: #f3e8ff;
-  --color-primary-200: #e9d5ff;
-  --color-primary-300: #d8b4fe;
-  --color-primary-400: #c084fc;
-  --color-primary-500: #A78BFA;
-  --color-primary-600: #7C3AED;
-  --color-primary-700: #6d28d9;
-  --color-primary-800: #5B21B6;
-  --color-primary-900: #4c1d95;
+  /* Primary: Terracotta - CTAs, links, brand anchor (remapped from purple to botanical) */
+  --color-primary-50: #fdf5f0;
+  --color-primary-100: #fae8db;
+  --color-primary-200: #f3ccb0;
+  --color-primary-300: #e6a97a;
+  --color-primary-400: #d98a4f;
+  --color-primary-500: #C8642A;
+  --color-primary-600: #b05523;
+  --color-primary-700: #8f441c;
+  --color-primary-800: #6e3415;
+  --color-primary-900: #4d250f;
 
   /* Secondary: Electric Magenta - Sale badges, highlights */
   --color-secondary-50: #fdf2f8;
@@ -95,39 +95,57 @@
 
   /* Neutrals: Warm Cream base with Charcoal text */
   /* WCAG AA compliant - all text meets 4.5:1 contrast */
-  --color-neutral-50: #FDF8F3;   /* Warm Cream - page background */
+  --color-neutral-50: #FDF8F3;
+  /* Warm Cream - page background */
   --color-neutral-100: #faf5ef;
   --color-neutral-200: #f5ede4;
   --color-neutral-300: #e7ddd1;
   --color-neutral-400: #a8a29e;
-  --color-neutral-500: #78716C;  /* Warm Gray - muted text */
+  --color-neutral-500: #78716C;
+  /* Warm Gray - muted text */
   --color-neutral-600: #57534e;
   --color-neutral-700: #44403c;
   --color-neutral-800: #292524;
-  --color-neutral-900: #1C1917;  /* Charcoal - primary text */
+  --color-neutral-900: #1C1917;
+  /* Charcoal - primary text */
 
   /* Semantic Colors - WCAG AA compliant (4.5:1 on white) */
-  --color-success: #84CC16;  /* Lime Pop - brand consistent */
-  --color-warning: #F97316;  /* Sunset Orange - brand consistent */
-  --color-error: #dc2626;    /* Red - clear error state */
-  --color-info: #06B6D4;     /* Psychedelic Teal - brand consistent */
+  --color-success: #84CC16;
+  /* Lime Pop - brand consistent */
+  --color-warning: #F97316;
+  /* Sunset Orange - brand consistent */
+  --color-error: #dc2626;
+  /* Red - clear error state */
+  --color-info: #06B6D4;
+  /* Psychedelic Teal - brand consistent */
 
   /* Background & Foreground */
-  --background: #F5EDD6;   /* parchment */
-  --foreground: #5C4033;   /* inkBrown */
+  --background: #F5EDD6;
+  /* parchment */
+  --foreground: #5C4033;
+  /* inkBrown */
   --background-muted: var(--color-neutral-100);
   --foreground-muted: var(--color-neutral-500);
 
   /* Typography Scale (16px base) */
-  --font-size-xs: 0.75rem;    /* 12px */
-  --font-size-sm: 0.875rem;   /* 14px */
-  --font-size-base: 1rem;     /* 16px - minimum for body */
-  --font-size-lg: 1.125rem;   /* 18px */
-  --font-size-xl: 1.25rem;    /* 20px */
-  --font-size-2xl: 1.5rem;    /* 24px */
-  --font-size-3xl: 1.875rem;  /* 30px */
-  --font-size-4xl: 2.25rem;   /* 36px */
-  --font-size-5xl: 3rem;      /* 48px */
+  --font-size-xs: 0.75rem;
+  /* 12px */
+  --font-size-sm: 0.875rem;
+  /* 14px */
+  --font-size-base: 1rem;
+  /* 16px - minimum for body */
+  --font-size-lg: 1.125rem;
+  /* 18px */
+  --font-size-xl: 1.25rem;
+  /* 20px */
+  --font-size-2xl: 1.5rem;
+  /* 24px */
+  --font-size-3xl: 1.875rem;
+  /* 30px */
+  --font-size-4xl: 2.25rem;
+  /* 36px */
+  --font-size-5xl: 3rem;
+  /* 48px */
 
   /* Line Heights */
   --line-height-tight: 1.25;
@@ -135,18 +153,30 @@
   --line-height-relaxed: 1.75;
 
   /* Spacing Scale */
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-5: 1.25rem;   /* 20px */
-  --space-6: 1.5rem;    /* 24px */
-  --space-8: 2rem;      /* 32px */
-  --space-10: 2.5rem;   /* 40px */
-  --space-12: 3rem;     /* 48px */
-  --space-16: 4rem;     /* 64px */
-  --space-20: 5rem;     /* 80px */
-  --space-24: 6rem;     /* 96px */
+  --space-1: 0.25rem;
+  /* 4px */
+  --space-2: 0.5rem;
+  /* 8px */
+  --space-3: 0.75rem;
+  /* 12px */
+  --space-4: 1rem;
+  /* 16px */
+  --space-5: 1.25rem;
+  /* 20px */
+  --space-6: 1.5rem;
+  /* 24px */
+  --space-8: 2rem;
+  /* 32px */
+  --space-10: 2.5rem;
+  /* 40px */
+  --space-12: 3rem;
+  /* 48px */
+  --space-16: 4rem;
+  /* 64px */
+  --space-20: 5rem;
+  /* 80px */
+  --space-24: 6rem;
+  /* 96px */
 
   /* Border Radius */
   --radius-sm: 0.25rem;
@@ -186,7 +216,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* Primary: Cosmic Purple */
+  /* Primary: Terracotta (botanical) */
   --color-primary-50: var(--color-primary-50);
   --color-primary-100: var(--color-primary-100);
   --color-primary-200: var(--color-primary-200);
@@ -284,13 +314,20 @@ body {
 }
 
 /* Heading typography - Playfair Display (botanical serif) */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-playfair), Georgia, serif;
   font-weight: 700;
 }
 
 /* Ensure inputs have readable text color */
-input, textarea, select {
+input,
+textarea,
+select {
   color: var(--color-gray-900, #111827);
 }
 
@@ -366,6 +403,7 @@ input, textarea, select {
    ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -415,7 +453,18 @@ a {
 }
 
 /* Allow text selection on content */
-p, span, h1, h2, h3, h4, h5, h6, li, td, th, label {
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+td,
+th,
+label {
   -webkit-user-select: text;
   user-select: text;
 }

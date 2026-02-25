@@ -106,10 +106,10 @@ export default function MobileFilterDrawer({
       <div className="fixed inset-y-0 right-0 w-full max-w-sm bg-white z-50 lg:hidden flex flex-col shadow-xl">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b">
-          <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+          <h2 className="text-lg font-semibold text-ink-brown">Filters</h2>
           <button
             onClick={onClose}
-            className="min-w-11 min-h-11 p-2 flex items-center justify-center hover:bg-gray-100 rounded-lg transition-colors"
+            className="min-w-11 min-h-11 p-2 flex items-center justify-center hover:bg-parchment rounded-lg transition-colors"
             aria-label="Close filters"
           >
             <svg
@@ -136,11 +136,11 @@ export default function MobileFilterDrawer({
               onClick={() => toggleSection('price')}
               className="flex items-center justify-between w-full mb-3"
             >
-              <h3 className="text-sm font-semibold text-gray-900">
+              <h3 className="text-sm font-semibold text-ink-brown">
                 Price Range
               </h3>
               <svg
-                className={`w-5 h-5 text-gray-500 transition-transform ${expandedSections.price ? 'rotate-180' : ''}`}
+                className={`w-5 h-5 text-earth/60 transition-transform ${expandedSections.price ? 'rotate-180' : ''}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -162,20 +162,20 @@ export default function MobileFilterDrawer({
                     placeholder="Min"
                     value={localPriceMin}
                     onChange={(e) => setLocalPriceMin(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gold/30 rounded-lg text-sm focus:ring-2 focus:ring-terracotta focus:border-transparent"
                   />
-                  <span className="text-gray-500">-</span>
+                  <span className="text-earth/60">-</span>
                   <input
                     type="number"
                     placeholder="Max"
                     value={localPriceMax}
                     onChange={(e) => setLocalPriceMax(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gold/30 rounded-lg text-sm focus:ring-2 focus:ring-terracotta focus:border-transparent"
                   />
                 </div>
                 <button
                   onClick={handlePriceApply}
-                  className="w-full px-3 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
+                  className="w-full px-3 py-2 bg-terracotta text-white rounded-lg hover:bg-terracotta/90 transition-colors text-sm font-medium"
                 >
                   Apply Price
                 </button>
@@ -190,11 +190,11 @@ export default function MobileFilterDrawer({
                 onClick={() => toggleSection('type')}
                 className="flex items-center justify-between w-full mb-3"
               >
-                <h3 className="text-sm font-semibold text-gray-900">
+                <h3 className="text-sm font-semibold text-ink-brown">
                   Product Type
                 </h3>
                 <svg
-                  className={`w-5 h-5 text-gray-500 transition-transform ${expandedSections.type ? 'rotate-180' : ''}`}
+                  className={`w-5 h-5 text-earth/60 transition-transform ${expandedSections.type ? 'rotate-180' : ''}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -213,15 +213,15 @@ export default function MobileFilterDrawer({
                   {productTypes.map((type) => (
                     <label
                       key={type}
-                      className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors"
+                      className="flex items-center gap-2 cursor-pointer hover:bg-parchment p-2 rounded transition-colors"
                     >
                       <input
                         type="checkbox"
                         checked={selectedType === type}
                         onChange={() => handleTypeSelect(type)}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+                        className="w-4 h-4 text-terracotta border-gold/30 rounded focus:ring-2 focus:ring-terracotta"
                       />
-                      <span className="text-sm text-gray-700">{type}</span>
+                      <span className="text-sm text-earth">{type}</span>
                     </label>
                   ))}
                 </div>
@@ -236,9 +236,9 @@ export default function MobileFilterDrawer({
                 onClick={() => toggleSection('tags')}
                 className="flex items-center justify-between w-full mb-3"
               >
-                <h3 className="text-sm font-semibold text-gray-900">Tags</h3>
+                <h3 className="text-sm font-semibold text-ink-brown">Tags</h3>
                 <svg
-                  className={`w-5 h-5 text-gray-500 transition-transform ${expandedSections.tags ? 'rotate-180' : ''}`}
+                  className={`w-5 h-5 text-earth/60 transition-transform ${expandedSections.tags ? 'rotate-180' : ''}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -257,15 +257,15 @@ export default function MobileFilterDrawer({
                   {tags.map((tag) => (
                     <label
                       key={tag}
-                      className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors"
+                      className="flex items-center gap-2 cursor-pointer hover:bg-parchment p-2 rounded transition-colors"
                     >
                       <input
                         type="checkbox"
                         checked={selectedTags.includes(tag)}
                         onChange={() => handleTagToggle(tag)}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+                        className="w-4 h-4 text-terracotta border-gold/30 rounded focus:ring-2 focus:ring-terracotta"
                       />
-                      <span className="text-sm text-gray-700">{tag}</span>
+                      <span className="text-sm text-earth">{tag}</span>
                     </label>
                   ))}
                 </div>
@@ -282,14 +282,14 @@ export default function MobileFilterDrawer({
                 onClearFilters();
                 onClose();
               }}
-              className="w-full px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+              className="w-full px-4 py-3 border border-gold/30 text-earth rounded-lg hover:bg-parchment transition-colors font-medium"
             >
               Clear All Filters
             </button>
           )}
           <button
             onClick={handleApply}
-            className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="w-full px-4 py-3 bg-terracotta text-white rounded-lg hover:bg-terracotta/90 transition-colors font-medium"
           >
             Show Results
           </button>

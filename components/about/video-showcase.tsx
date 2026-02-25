@@ -24,39 +24,24 @@ export default function VideoShowcase() {
         return () => mediaQuery.removeEventListener('change', handleChange);
     }, []);
 
-    // const togglePlay = () => {
-    //     if (videoRef.current) {
-    //         if (isPlaying) {
-    //             videoRef.current.pause();
-    //         } else {
-    //             videoRef.current.play();
-    //         }
-    //         setIsPlaying(!isPlaying);
-    //     }
-    // };
-
-    // const handleVideoEnd = () => {
-    //     setIsPlaying(false);
-    // };
-
     return (
-        <section className="bg-neutral-900 py-16 lg:py-24">
+        <section className="bg-forest py-16 lg:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
+                    <span className="text-gold font-medium text-sm uppercase tracking-wider">
                         Behind the Craft
                     </span>
-                    <h2 className="mt-3 text-3xl font-bold font-heading text-white sm:text-4xl">
+                    <h2 className="mt-3 text-3xl font-bold font-heading text-parchment sm:text-4xl">
                         Watch the Creation Process
                     </h2>
-                    <p className="mt-4 text-lg text-neutral-400 max-w-2xl mx-auto">
+                    <p className="mt-4 text-lg text-parchment/60 max-w-2xl mx-auto">
                         Step inside our artisan workshops and witness the dedication that
                         goes into every handcrafted piece.
                     </p>
                 </div>
 
                 <div className="max-w-4xl mx-auto">
-                    <div className="relative aspect-video rounded-2xl overflow-hidden bg-neutral-800 shadow-2xl">
+                    <div className="relative aspect-video rounded-2xl overflow-hidden bg-forest/80 shadow-2xl">
                         {prefersReducedMotion ? (
                             // Static image for users who prefer reduced motion
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -67,7 +52,7 @@ export default function VideoShowcase() {
                                     className="w-full h-full object-cover"
                                 />
                                 <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                                    <p className="text-white text-lg bg-neutral-900/80 px-6 py-3 rounded-lg">
+                                    <p className="text-parchment text-lg bg-forest/80 px-6 py-3 rounded-lg">
                                         Video content available (reduced motion enabled)
                                     </p>
                                 </div>
@@ -83,7 +68,7 @@ export default function VideoShowcase() {
                                         className="w-full h-full object-cover"
                                     />
                                     <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center p-6">
-                                        <span className="flex items-center justify-center w-20 h-20 rounded-full bg-primary-500/80 mb-4">
+                                        <span className="flex items-center justify-center w-20 h-20 rounded-full bg-terracotta/80 mb-4">
                                             <svg
                                                 className="w-8 h-8 text-white ml-1"
                                                 fill="currentColor"
@@ -93,10 +78,10 @@ export default function VideoShowcase() {
                                                 <path d="M8 5v14l11-7z" />
                                             </svg>
                                         </span>
-                                        <p className="text-white text-lg font-medium">
+                                        <p className="text-parchment text-lg font-medium">
                                             Video Coming Soon
                                         </p>
-                                        <p className="text-neutral-300 text-sm mt-2 max-w-md">
+                                        <p className="text-parchment/70 text-sm mt-2 max-w-md">
                                             Our behind-the-scenes documentary showcasing our artisan
                                             crafting process is currently in production.
                                         </p>
@@ -107,7 +92,7 @@ export default function VideoShowcase() {
                         )}
                     </div>
 
-                    <p className="mt-4 text-center text-neutral-500 text-sm">
+                    <p className="mt-4 text-center text-parchment/50 text-sm">
                         Video includes English captions for accessibility
                     </p>
                 </div>

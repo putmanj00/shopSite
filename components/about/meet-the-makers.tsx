@@ -41,7 +41,7 @@ const makers: Maker[] = [
         name: 'David Rivera',
         role: 'Crystal Curator',
         specialty: 'Crystals & Stones',
-        bio: 'David sources ethically-mined crystals and stones, bringing earth\u0027s natural beauty to every collection.',
+        bio: 'David sources ethically-mined crystals and stones, bringing earth\'s natural beauty to every collection.',
         image:
             'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop',
         collectionHandle: 'crystals',
@@ -50,16 +50,16 @@ const makers: Maker[] = [
 
 export default function MeetTheMakers() {
     return (
-        <section className="bg-neutral-50 py-16 lg:py-24">
+        <section className="bg-parchment py-16 lg:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
+                    <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
                         The Makers
                     </span>
-                    <h2 className="mt-3 text-3xl font-bold font-heading text-neutral-900 sm:text-4xl">
+                    <h2 className="mt-3 text-3xl font-bold font-heading text-ink-brown sm:text-4xl">
                         Meet the Makers
                     </h2>
-                    <p className="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">
+                    <p className="mt-4 text-lg text-earth max-w-2xl mx-auto">
                         Every product in our collection is crafted by skilled artisans who
                         pour their passion and expertise into each piece.
                     </p>
@@ -81,16 +81,16 @@ export default function MeetTheMakers() {
                                 />
                             </div>
                             <div className="p-6">
-                                <h3 className="text-lg font-semibold text-neutral-900">
+                                <h3 className="text-lg font-semibold text-ink-brown">
                                     {maker.name}
                                 </h3>
-                                <p className="text-primary-600 text-sm font-medium">
+                                <p className="text-terracotta text-sm font-medium">
                                     {maker.role}
                                 </p>
-                                <p className="text-neutral-500 text-sm mt-1">
+                                <p className="text-sage text-sm mt-1">
                                     {maker.specialty}
                                 </p>
-                                <p className="mt-3 text-neutral-600 text-sm leading-relaxed">
+                                <p className="mt-3 text-earth text-sm leading-relaxed">
                                     {maker.bio}
                                 </p>
                             </div>

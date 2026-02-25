@@ -306,7 +306,7 @@ export default function CollectionContent({
           {/* Mobile Filter Button */}
           <button
             onClick={() => setIsMobileFilterOpen(true)}
-            className="lg:hidden flex items-center gap-2 px-4 min-h-11 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+            className="lg:hidden flex items-center gap-2 px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-parchment transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
             aria-label="Open filters"
           >
             <svg
@@ -325,7 +325,7 @@ export default function CollectionContent({
             </svg>
             Filters
             {hasActiveFilters && (
-              <span className="bg-primary-600 text-white text-xs px-2 py-0.5 rounded-full">
+              <span className="bg-terracotta text-white text-xs px-2 py-0.5 rounded-full">
                 •
               </span>
             )}
@@ -390,13 +390,13 @@ export default function CollectionContent({
         {/* Product Grid */}
         <div className="flex-1" id="product-grid">
           {/* Results Count */}
-          <div className="mb-4 text-sm text-neutral-600" aria-live="polite">
+          <div className="mb-4 text-sm text-earth" aria-live="polite">
             Showing {paginatedProducts.length} of {filteredProducts.length}{' '}
             products
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="ml-2 text-primary-600 hover:text-primary-700 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+                className="ml-2 text-terracotta hover:text-terracotta/80 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 rounded"
               >
                 Clear filters
               </button>
@@ -427,7 +427,7 @@ export default function CollectionContent({
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="px-4 min-h-11 border border-neutral-300 rounded-lg hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                    className="px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-parchment disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 text-ink-brown"
                     aria-label="Go to previous page"
                   >
                     Previous
@@ -451,17 +451,16 @@ export default function CollectionContent({
                         return (
                           <div key={page} className="flex items-center gap-1">
                             {showEllipsis && (
-                              <span className="px-2 text-neutral-400" aria-hidden="true">
+                              <span className="px-2 text-earth/40" aria-hidden="true">
                                 ...
                               </span>
                             )}
                             <button
                               onClick={() => handlePageChange(page)}
-                              className={`min-w-11 min-h-11 px-3 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
-                                page === currentPage
-                                  ? 'bg-primary-600 text-white'
-                                  : 'border border-neutral-300 hover:bg-neutral-50'
-                              }`}
+                              className={`min-w-11 min-h-11 px-3 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 ${page === currentPage
+                                  ? 'bg-terracotta text-white'
+                                  : 'border border-gold/30 hover:bg-parchment text-ink-brown'
+                                }`}
                               aria-label={`Go to page ${page}`}
                               aria-current={page === currentPage ? 'page' : undefined}
                             >
@@ -475,7 +474,7 @@ export default function CollectionContent({
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="px-4 min-h-11 border border-neutral-300 rounded-lg hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                    className="px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-parchment disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 text-ink-brown"
                     aria-label="Go to next page"
                   >
                     Next
@@ -487,7 +486,7 @@ export default function CollectionContent({
             // Empty State
             <div className="text-center py-12" role="status">
               <svg
-                className="mx-auto h-12 w-12 text-neutral-400"
+                className="mx-auto h-12 w-12 text-earth/40"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -500,16 +499,16 @@ export default function CollectionContent({
                   d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <h3 className="mt-4 text-lg font-medium text-neutral-900">
+              <h3 className="mt-4 text-lg font-medium text-ink-brown">
                 No products found
               </h3>
-              <p className="mt-2 text-neutral-600">
+              <p className="mt-2 text-earth">
                 Try adjusting your filters or search query
               </p>
               {hasActiveFilters && (
                 <button
                   onClick={clearFilters}
-                  className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                  className="mt-4 px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-terracotta/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
                 >
                   Clear all filters
                 </button>

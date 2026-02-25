@@ -93,16 +93,16 @@ const values: Value[] = [
 
 export default function MissionValues() {
     return (
-        <section className="bg-neutral-50 py-16 lg:py-24">
+        <section className="bg-parchment py-16 lg:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center max-w-3xl mx-auto mb-16">
-                    <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
+                    <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
                         What We Believe
                     </span>
-                    <h2 className="mt-3 text-3xl font-bold font-heading text-neutral-900 sm:text-4xl">
+                    <h2 className="mt-3 text-3xl font-bold font-heading text-ink-brown sm:text-4xl">
                         Our Mission
                     </h2>
-                    <p className="mt-6 text-xl text-neutral-700 leading-relaxed">
+                    <p className="mt-6 text-xl text-earth leading-relaxed">
                         We exist to celebrate the wild beauty of handmade craftsmanship,
                         connecting makers who pour their souls into every piece with those
                         who cherish authenticity over mass production.
@@ -115,13 +115,13 @@ export default function MissionValues() {
                             key={value.title}
                             className="text-center p-6 bg-white rounded-2xl shadow-sm"
                         >
-                            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-100 text-primary-600 mb-4">
+                            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sage/20 text-terracotta mb-4">
                                 {value.icon}
                             </div>
-                            <h3 className="text-lg font-semibold text-neutral-900">
+                            <h3 className="text-lg font-semibold text-ink-brown">
                                 {value.title}
                             </h3>
-                            <p className="mt-2 text-neutral-600 text-sm leading-relaxed">
+                            <p className="mt-2 text-earth text-sm leading-relaxed">
                                 {value.description}
                             </p>
                         </div>

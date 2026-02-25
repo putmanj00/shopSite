@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 
 interface BotanicalHeaderProps {
-  variant?: 'large' | 'small' | 'faq' | 'blog';
+  variant?: 'large' | 'small' | 'faq' | 'blog' | 'about';
   className?: string;
 }
 
@@ -13,6 +13,7 @@ const HEADER_ASSETS = {
   small: '/assets/images/headers/botanical-header-small.png',
   faq: '/assets/images/headers/botanical-header-faq.png',
   blog: '/assets/images/headers/botanical-header-blog.png',
+  about: '/assets/images/headers/botanical-header-large-about.png',
 };
 
 const ASPECT_RATIOS = {
@@ -20,6 +21,7 @@ const ASPECT_RATIOS = {
   small: 1170 / 360, // 3.25
   faq: 1170 / 400,   // 2.925
   blog: 1170 / 480,  // 2.4375
+  about: 1408 / 768, // ~1.83 (same as large)
 };
 
 export function BotanicalHeader({ variant = 'large', className = '' }: BotanicalHeaderProps) {

@@ -9,7 +9,7 @@ function EmptyProducts() {
         <h2 className="mb-4 text-3xl font-bold text-forest font-heading">
           Freshly Gathered
         </h2>
-        <p className="text-zinc-600">
+        <p className="text-earth">
           No products available at the moment. Check back soon!
         </p>
       </div>

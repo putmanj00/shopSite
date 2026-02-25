@@ -38,13 +38,13 @@ const pressLogos: PressMention[] = [
 
 export default function PressMentions() {
     return (
-        <section className="bg-neutral-100 py-16 lg:py-24">
+        <section className="bg-white py-16 lg:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <span className="text-primary-600 font-medium text-sm uppercase tracking-wider">
+                    <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
                         In the Press
                     </span>
-                    <h2 className="mt-3 text-3xl font-bold font-heading text-neutral-900 sm:text-4xl">
+                    <h2 className="mt-3 text-3xl font-bold font-heading text-ink-brown sm:text-4xl">
                         As Seen In
                     </h2>
                 </div>
@@ -76,20 +76,20 @@ export default function PressMentions() {
                         .map((press) => (
                             <blockquote
                                 key={press.name}
-                                className="bg-white p-8 rounded-2xl shadow-sm relative"
+                                className="bg-parchment p-8 rounded-2xl shadow-sm relative"
                             >
                                 <svg
-                                    className="absolute top-6 left-6 w-8 h-8 text-primary-200"
+                                    className="absolute top-6 left-6 w-8 h-8 text-gold/40"
                                     fill="currentColor"
                                     viewBox="0 0 32 32"
                                     aria-hidden="true"
                                 >
                                     <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
                                 </svg>
-                                <p className="text-xl font-medium text-neutral-800 italic pl-12">
+                                <p className="text-xl font-medium text-ink-brown italic pl-12">
                                     {press.quote}
                                 </p>
-                                <cite className="mt-4 block text-primary-600 font-semibold not-italic">
+                                <cite className="mt-4 block text-terracotta font-semibold not-italic">
                                     — {press.name}
                                 </cite>
                             </blockquote>

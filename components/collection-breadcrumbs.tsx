@@ -30,7 +30,7 @@ export default function CollectionBreadcrumbs({
         >
           <Link
             href="/"
-            className="text-neutral-600 hover:text-neutral-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+            className="text-earth hover:text-terracotta transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 rounded"
             itemProp="item"
           >
             <span itemProp="name">Home</span>
@@ -40,7 +40,7 @@ export default function CollectionBreadcrumbs({
 
         <li aria-hidden="true">
           <svg
-            className="w-4 h-4 text-neutral-400"
+            className="w-4 h-4 text-sage"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -92,7 +92,7 @@ export default function CollectionBreadcrumbs({
           aria-current="page"
         >
           <span
-            className="text-neutral-900 font-medium"
+            className="text-ink-brown font-medium"
             itemProp="name"
           >
             {collectionTitle}

@@ -64,14 +64,14 @@ export default function FilterPanel({
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4 sticky top-4">
+    <div className="bg-white border border-gold/20 rounded-xl p-4 sticky top-4">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4 pb-4 border-b">
-        <h3 className="text-lg font-semibold text-gray-900">Filters</h3>
+      <div className="flex items-center justify-between mb-4 pb-4 border-b border-gold/20">
+        <h3 className="text-lg font-semibold text-ink-brown">Filters</h3>
         {hasActiveFilters && (
           <button
             onClick={onClearFilters}
-            className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+            className="text-sm text-terracotta hover:text-terracotta/80 font-medium"
           >
             Clear all
           </button>
@@ -84,9 +84,9 @@ export default function FilterPanel({
           onClick={() => toggleSection('price')}
           className="flex items-center justify-between w-full mb-3"
         >
-          <h4 className="text-sm font-semibold text-gray-900">Price Range</h4>
+          <h4 className="text-sm font-semibold text-ink-brown">Price Range</h4>
           <svg
-            className={`w-5 h-5 text-gray-500 transition-transform ${expandedSections.price ? 'rotate-180' : ''}`}
+            className={`w-5 h-5 text-earth/60 transition-transform ${expandedSections.price ? 'rotate-180' : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -108,20 +108,20 @@ export default function FilterPanel({
                 placeholder="Min"
                 value={priceMin}
                 onChange={(e) => setPriceMin(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gold/30 rounded-lg text-sm text-ink-brown focus:ring-2 focus:ring-terracotta focus:border-transparent"
               />
-              <span className="text-gray-500">-</span>
+              <span className="text-earth/60">-</span>
               <input
                 type="number"
                 placeholder="Max"
                 value={priceMax}
                 onChange={(e) => setPriceMax(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gold/30 rounded-lg text-sm text-ink-brown focus:ring-2 focus:ring-terracotta focus:border-transparent"
               />
             </div>
             <button
               onClick={handlePriceApply}
-              className="w-full px-3 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
+              className="w-full px-3 py-2 bg-terracotta text-white rounded-lg hover:bg-terracotta/90 transition-colors text-sm font-medium"
             >
               Apply
             </button>
@@ -136,11 +136,11 @@ export default function FilterPanel({
             onClick={() => toggleSection('type')}
             className="flex items-center justify-between w-full mb-3"
           >
-            <h4 className="text-sm font-semibold text-gray-900">
+            <h4 className="text-sm font-semibold text-ink-brown">
               Product Type
             </h4>
             <svg
-              className={`w-5 h-5 text-gray-500 transition-transform ${expandedSections.type ? 'rotate-180' : ''}`}
+              className={`w-5 h-5 text-earth/60 transition-transform ${expandedSections.type ? 'rotate-180' : ''}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -159,15 +159,15 @@ export default function FilterPanel({
               {productTypes.map((type) => (
                 <label
                   key={type}
-                  className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors"
+                  className="flex items-center gap-2 cursor-pointer hover:bg-parchment p-2 rounded-lg transition-colors"
                 >
                   <input
                     type="checkbox"
                     checked={selectedType === type}
                     onChange={() => handleTypeSelect(type)}
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+                    className="w-4 h-4 text-terracotta border-gold/30 rounded focus:ring-2 focus:ring-terracotta"
                   />
-                  <span className="text-sm text-gray-700">{type}</span>
+                  <span className="text-sm text-earth">{type}</span>
                 </label>
               ))}
             </div>
@@ -182,9 +182,9 @@ export default function FilterPanel({
             onClick={() => toggleSection('tags')}
             className="flex items-center justify-between w-full mb-3"
           >
-            <h4 className="text-sm font-semibold text-gray-900">Tags</h4>
+            <h4 className="text-sm font-semibold text-ink-brown">Tags</h4>
             <svg
-              className={`w-5 h-5 text-gray-500 transition-transform ${expandedSections.tags ? 'rotate-180' : ''}`}
+              className={`w-5 h-5 text-earth/60 transition-transform ${expandedSections.tags ? 'rotate-180' : ''}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -203,15 +203,15 @@ export default function FilterPanel({
               {tags.map((tag) => (
                 <label
                   key={tag}
-                  className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors"
+                  className="flex items-center gap-2 cursor-pointer hover:bg-parchment p-2 rounded-lg transition-colors"
                 >
                   <input
                     type="checkbox"
                     checked={selectedTags.includes(tag)}
                     onChange={() => handleTagToggle(tag)}
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+                    className="w-4 h-4 text-terracotta border-gold/30 rounded focus:ring-2 focus:ring-terracotta"
                   />
-                  <span className="text-sm text-gray-700">{tag}</span>
+                  <span className="text-sm text-earth">{tag}</span>
                 </label>
               ))}
             </div>

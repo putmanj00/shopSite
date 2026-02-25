@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import AboutHero from '@/components/about/about-hero';
 import BrandTimeline from '@/components/about/brand-timeline';
 import MeetTheMakers from '@/components/about/meet-the-makers';
@@ -54,6 +55,17 @@ export default function AboutPage() {
 
             {/* Mission and Values */}
             <MissionValues />
+
+            {/* Fallen Log Divider */}
+            <div className="w-full h-32 my-6 flex items-center justify-center mx-auto max-w-[1500px] relative">
+                <Image
+                    src="/assets/images/about/dividder-fallen-log-no-bg.png"
+                    alt="Botanical divider - fallen log"
+                    fill
+                    sizes="(max-width: 1500px) 100vw, 1500px"
+                    className="object-contain"
+                />
+            </div>
 
             {/* Sustainability */}
             <Sustainability />
