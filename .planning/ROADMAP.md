@@ -99,10 +99,15 @@ Plans:
 - [x] 05-02-PLAN.md — FAQ page: full accordion build replacing ComingSoon (data file + accordion component + page content + page rewrite) (completed 2026-02-24)
 - [x] 05-03-PLAN.md — Blog page: BotanicalHeader (blog variant) above ComingSoon placeholder (completed 2026-02-24)
 
+- [x] **Phase 6: Copy & Brand Cleanup** — Remove purple remnants, fix cart CTAs, eliminate psychedelic copy, fix category list, update AGENTS.md (completed 2026-02-24)
+- [x] **Phase 7: Cart & Conversion UX** — Free shipping bar, trust signals, brand-consistent cart styling (completed 2026-02-24)
+- [x] **Phase 8: SEO Enhancement** — ISR, expanded JSON-LD (LocalBusiness, BreadcrumbList, FAQPage), local SEO page, NAP footer (completed 2026-02-24)
+- [x] **Phase 9: Performance & Dependency Audit** — Image priority fix, next.config domain cleanup, Wikimedia removed (completed 2026-02-24)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -111,3 +116,97 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 3. Homepage | 4/4 | Complete   | 2026-02-24 |
 | 4. Product Detail | 3/3 | Complete   | 2026-02-24 |
 | 5. Supporting Pages | 3/3 | Complete | 2026-02-24 |
+| 6. Copy & Brand Cleanup | — | Complete | 2026-02-24 |
+| 7. Cart & Conversion UX | — | Complete | 2026-02-24 |
+| 8. SEO Enhancement | — | Complete | 2026-02-24 |
+| 9. Performance & Deps | — | Complete | 2026-02-24 |
+
+---
+
+## Milestone v1.1: UX Cleanup & Navigation
+
+**Milestone Goal:** Remove deceptive content and navigation confusion so every shopper path leads cleanly to real products. CRITICAL trust issues (fake social proof) are resolved first, then routing integrity, then label accuracy, product data quality, collections polish, and footer cleanup.
+
+**Phase summary:**
+- [ ] **Phase 10: Trust Cleanup** - Remove all fake social proof (purchase popups, testimonials, fabricated stats, fake engagement)
+- [ ] **Phase 11: Navigation Routing** - Fix /collections redirect, hero CTA link, and all stale /collections hrefs
+- [ ] **Phase 12: Navigation Labels** - Correct all 6 category labels and hrefs in top nav
+- [ ] **Phase 13: Product Data Quality** - Fix vendor names, hide test products, filter imageless products, add card corner overlays
+- [ ] **Phase 14: Collections Polish** - Update /collections/all heading, subtitle, botanical header, and breadcrumb
+- [ ] **Phase 15: Footer Cleanup** - Align SHOP column with 6-category system, remove dead links
+
+### Phase 10: Trust Cleanup
+**Goal**: Every shopper encounters only real content — no fabricated purchase activity, fake reviews, invented statistics, or false engagement numbers anywhere on the site
+**Depends on**: Phase 9 (v1.0 complete)
+**Requirements**: TRST-01, TRST-02, TRST-03, TRST-04
+**Success Criteria** (what must be TRUE):
+  1. No purchase notification popup ("Someone just bought...") appears on any page visit, including homepage on first load
+  2. No testimonials section displays stock-photo reviewer headshots or names (Sarah M., Michael R., Emily L., or similar fabricated personas)
+  3. No stats block shows fabricated numbers ("2,500+ Happy Seekers", "4.9 Average Rating", "98% Would Recommend", "50+ Artisan Partners") anywhere on the site
+  4. No Instagram-style gallery shows fake engagement counts (likes/comments overlaid on photos); if photos are Unsplash stock, the entire section is removed
+**Plans**: TBD
+
+### Phase 11: Navigation Routing
+**Goal**: Every internal link that previously pointed at /collections now resolves correctly — shoppers are never dropped on a broken or duplicate page
+**Depends on**: Phase 10
+**Requirements**: NAV-01, NAV-02, NAV-03
+**Success Criteria** (what must be TRUE):
+  1. Visiting /collections in a browser (any method) results in a 301 redirect to /collections/all — the /collections route itself returns no content
+  2. The "Wander the Shop" CTA button on the hero navigates to /collections/all, not /collections
+  3. A codebase search for href="/collections" (exact, no handle suffix) returns zero results
+**Plans**: TBD
+
+### Phase 12: Navigation Labels
+**Goal**: The top navigation accurately presents all six product categories with correct names and working links — shoppers can reach any category directly from the header
+**Depends on**: Phase 11
+**Requirements**: NAV-04, NAV-05
+**Success Criteria** (what must be TRUE):
+  1. Top nav dropdown or category list shows exactly 6 categories: Tie-Dye, Leather, Jewelry, Crystals, Artwork, Ceramics — no categories missing or duplicated
+  2. Each category link resolves to the correct /collections/[handle] URL (e.g., /collections/leather, /collections/artwork)
+  3. Category labels read "Leather" (not "Leather Goods") and "Artwork" (not "Art") — exact label match
+**Plans**: TBD
+
+### Phase 13: Product Data Quality
+**Goal**: Every product card shown to shoppers presents real, complete product data — correct vendor attribution, no test placeholders, no broken image states, and botanical corner overlays on cards
+**Depends on**: Phase 12
+**Requirements**: PRDS-01, PRDS-02, PRDS-03, PRDS-04
+**Success Criteria** (what must be TRUE):
+  1. Products with vendor "My Store" display "Wildenflower" as the vendor on both product cards and product detail pages
+  2. Test and placeholder products (e.g., products named "ring" or "Generic Tiedye") do not appear in any product grid or collection page
+  3. Products with no featured image are absent from all product grids — no broken image placeholders, grey boxes, or fallback icons are visible
+  4. Product cards display botanical corner overlays (card-corner-topleft.png at top-left, card-corner-bottomright.png at bottom-right) as decorative accents
+**Plans**: TBD
+
+### Phase 14: Collections Polish
+**Goal**: The /collections/all page presents itself with Wildenflower brand voice — correct heading, subtitle, botanical header image, and breadcrumb that tells shoppers exactly where they are
+**Depends on**: Phase 13
+**Requirements**: COLL-01, COLL-02, COLL-03, COLL-04
+**Success Criteria** (what must be TRUE):
+  1. The /collections/all page heading reads "All Treasures" — not "All Products" or any generic label
+  2. A subtitle below the heading reads "Every handmade treasure in one place"
+  3. A botanical header image (botanical-header-small-web.png) is visible in the title area above or alongside the heading
+  4. The breadcrumb trail reads "Home > Shop > All Treasures" with correct link targets
+**Plans**: TBD
+
+### Phase 15: Footer Cleanup
+**Goal**: The footer SHOP column is a complete and accurate directory of the store — all six categories present, all links functional, no links pointing to pages that return 404
+**Depends on**: Phase 14
+**Requirements**: FOOT-01, FOOT-02
+**Success Criteria** (what must be TRUE):
+  1. Footer SHOP column lists exactly 7 entries in order: All Treasures, Tie-Dye, Leather, Jewelry, Crystals, Artwork, Ceramics — each linking to its correct /collections/[handle] URL
+  2. Every link in the footer resolves to a page that exists — no Size Guide, Sustainability, Press, or other dead links remain; clicking any footer link does not result in a 404
+**Plans**: TBD
+
+## v1.1 Progress
+
+**Execution Order:**
+Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
+
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 10. Trust Cleanup | v1.1 | 0/TBD | Not started | - |
+| 11. Navigation Routing | v1.1 | 0/TBD | Not started | - |
+| 12. Navigation Labels | v1.1 | 0/TBD | Not started | - |
+| 13. Product Data Quality | v1.1 | 0/TBD | Not started | - |
+| 14. Collections Polish | v1.1 | 0/TBD | Not started | - |
+| 15. Footer Cleanup | v1.1 | 0/TBD | Not started | - |

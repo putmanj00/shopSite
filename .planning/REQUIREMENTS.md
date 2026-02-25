@@ -15,7 +15,7 @@ All DESIGN, HEAD, HOME, PROD requirements complete. SUPP-01–03 deferred to v1.
 
 ## v1.1 Requirements
 
-Requirements for UX Cleanup & Navigation milestone. Phases continue numbering from Phase 5 (starting at Phase 6).
+Requirements for UX Cleanup & Navigation milestone. Phases continue numbering from Phase 9 (starting at Phase 10).
 
 ### Trust
 
@@ -85,25 +85,25 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TRST-01 | Phase 6 | Pending |
-| TRST-02 | Phase 6 | Pending |
-| TRST-03 | Phase 6 | Pending |
-| TRST-04 | Phase 6 | Pending |
-| NAV-01 | Phase 7 | Pending |
-| NAV-02 | Phase 7 | Pending |
-| NAV-03 | Phase 7 | Pending |
-| NAV-04 | Phase 8 | Pending |
-| NAV-05 | Phase 8 | Pending |
-| PRDS-01 | Phase 9 | Pending |
-| PRDS-02 | Phase 9 | Pending |
-| PRDS-03 | Phase 9 | Pending |
-| PRDS-04 | Phase 9 | Pending |
-| COLL-01 | Phase 10 | Pending |
-| COLL-02 | Phase 10 | Pending |
-| COLL-03 | Phase 10 | Pending |
-| COLL-04 | Phase 10 | Pending |
-| FOOT-01 | Phase 11 | Pending |
-| FOOT-02 | Phase 11 | Pending |
+| TRST-01 | Phase 10 | Pending |
+| TRST-02 | Phase 10 | Pending |
+| TRST-03 | Phase 10 | Pending |
+| TRST-04 | Phase 10 | Pending |
+| NAV-01 | Phase 11 | Pending |
+| NAV-02 | Phase 11 | Pending |
+| NAV-03 | Phase 11 | Pending |
+| NAV-04 | Phase 12 | Pending |
+| NAV-05 | Phase 12 | Pending |
+| PRDS-01 | Phase 13 | Pending |
+| PRDS-02 | Phase 13 | Pending |
+| PRDS-03 | Phase 13 | Pending |
+| PRDS-04 | Phase 13 | Pending |
+| COLL-01 | Phase 14 | Pending |
+| COLL-02 | Phase 14 | Pending |
+| COLL-03 | Phase 14 | Pending |
+| COLL-04 | Phase 14 | Pending |
+| FOOT-01 | Phase 15 | Pending |
+| FOOT-02 | Phase 15 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 19 total
@@ -112,4 +112,4 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 
 ---
 *Requirements defined: 2026-02-25*
-*Last updated: 2026-02-25 after milestone v1.1 initialization*
+*Last updated: 2026-02-25 after roadmap creation — phases corrected to 10–15 (phases 6–9 occupied by v1.0 work)*
