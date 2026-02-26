@@ -190,7 +190,12 @@ Plans:
   1. Products with vendor "My Store" display "Wildenflower" as the vendor on both product cards and product detail pages
   2. Test and placeholder products (e.g., products named "ring" or "Generic Tiedye") do not appear in any product grid or collection page
   3. Products with no featured image are absent from all product grids — no broken image placeholders, grey boxes, or fallback icons are visible
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 13-01-PLAN.md — Create lib/product-filters.ts helpers; apply isShowableProduct filter to featured-products, collection-content, related-products (PRDS-02, PRDS-03)
+- [ ] 13-02-PLAN.md — Apply normalizeVendor to product-card, product-info, quick-view-modal; add botanical corner overlays to product-card (PRDS-01, PRDS-04)
+- [ ] 13-03-PLAN.md — Visual verification checkpoint (human approve all four PRDS requirements)
 
 ### Phase 14: Collections Polish
 **Goal**: The /collections/all page presents itself with Wildenflower brand voice — correct heading, subtitle, botanical header image, and breadcrumb that tells shoppers exactly where they are
