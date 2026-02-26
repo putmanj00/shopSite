@@ -43,7 +43,7 @@ export default function WishlistPreview() {
         <h3 className="font-medium text-gray-900 mb-1">Your wishlist is empty</h3>
         <p className="text-sm text-gray-500 mb-4">Save items you love to buy later.</p>
         <Link
-          href="/collections"
+          href="/collections/all"
           className="inline-block px-4 py-2 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700 transition-colors"
         >
           Browse Products

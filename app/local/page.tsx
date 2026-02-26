@@ -92,7 +92,7 @@ export default function LocalPage() {
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="/collections"
+                  href="/collections/all"
                   className="inline-block px-6 py-3 bg-terracotta text-white rounded-lg font-semibold hover:bg-terracotta/90 transition-colors"
                 >
                   Shop Online

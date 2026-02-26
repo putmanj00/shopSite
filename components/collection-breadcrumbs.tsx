@@ -60,7 +60,7 @@ export default function CollectionBreadcrumbs({
           itemType="https://schema.org/ListItem"
         >
           <Link
-            href="/collections"
+            href="/collections/all"
             className="text-neutral-600 hover:text-neutral-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
             itemProp="item"
           >

@@ -17,13 +17,13 @@ export default function Hero() {
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              href="/collections"
+              href="/collections/all"
               className="inline-flex items-center justify-center rounded-lg bg-white px-8 py-4 text-base font-semibold text-zinc-900 transition-all hover:bg-zinc-100 hover:scale-105"
             >
               Shop Now
             </Link>
             <Link
-              href="/collections"
+              href="/collections/all"
               className="inline-flex items-center justify-center rounded-lg border-2 border-white px-8 py-4 text-base font-semibold text-white transition-all hover:bg-white hover:text-zinc-900 hover:scale-105"
             >
               Browse Collections

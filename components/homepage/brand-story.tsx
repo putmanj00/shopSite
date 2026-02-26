@@ -59,7 +59,7 @@ export default function BrandStory() {
             </div>
 
             <Link
-              href="/collections"
+              href="/collections/all"
               className="mt-8 inline-flex items-center gap-2 text-terracotta font-semibold hover:text-terracotta/80 transition-colors group"
             >
               Explore the Collection

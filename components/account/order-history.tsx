@@ -266,7 +266,7 @@ export default function OrderHistory() {
         <h3 className="text-lg font-medium text-gray-900 mb-2">No orders yet</h3>
         <p className="text-gray-500 mb-4">When you place an order, it will appear here.</p>
         <Link
-          href="/collections"
+          href="/collections/all"
           className="inline-block px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
         >
           Start Shopping

@@ -65,7 +65,7 @@ export default function Home() {
         backgroundImage="/assets/images/headers/botanical-hero2.png"
         overlayOpacity={15}
         ctas={[
-          { label: 'Wander the Shop', href: '/collections', variant: 'primary' },
+          { label: 'Wander the Shop', href: '/collections/all', variant: 'primary' },
           { label: 'Our Story', href: '#brand-story', variant: 'secondary' },
         ]}
       />
