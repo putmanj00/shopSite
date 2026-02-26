@@ -29,14 +29,14 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 - [x] **NAV-01**: Shopper visiting `/collections` is automatically redirected to `/collections/all` (301 permanent redirect)
 - [x] **NAV-02**: "Wander the Shop" hero CTA links to `/collections/all`, not `/collections`
 - [x] **NAV-03**: No stale `href="/collections"` links remain anywhere in the codebase
-- [ ] **NAV-04**: Top nav shows all 6 categories: Tie-Dye, Leather, Jewelry, Crystals, Artwork, Ceramics — with correct `/collections/[handle]` hrefs
-- [ ] **NAV-05**: Nav category labels are correct: "Leather" (not "Leather Goods"), "Artwork" (not "Art")
+- [x] **NAV-04**: Top nav shows all 6 categories: Tie-Dye, Leather, Jewelry, Crystals, Artwork, Ceramics — with correct `/collections/[handle]` hrefs
+- [x] **NAV-05**: Nav category labels are correct: "Leather" (not "Leather Goods"), "Artwork" (not "Art")
 
 ### Products
 
 - [ ] **PRDS-01**: Products from vendor "My Store" display vendor as "Wildenflower" on product cards and detail pages
-- [ ] **PRDS-02**: Test/placeholder products ("ring", "Generic Tiedye") are hidden from storefront or removed
-- [ ] **PRDS-03**: Products with no featured image are filtered out of all product grids (not shown as broken cards)
+- [x] **PRDS-02**: Test/placeholder products ("ring", "Generic Tiedye") are hidden from storefront or removed
+- [x] **PRDS-03**: Products with no featured image are filtered out of all product grids (not shown as broken cards)
 - [ ] **PRDS-04**: Botanical card corner overlays (`card-corner-topleft.png`, `card-corner-bottomright.png`) appear on product cards
 
 ### Collections
@@ -92,11 +92,11 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 | NAV-01 | Phase 11 | Complete |
 | NAV-02 | Phase 11 | Complete |
 | NAV-03 | Phase 11 | Complete |
-| NAV-04 | Phase 12 | Pending |
-| NAV-05 | Phase 12 | Pending |
+| NAV-04 | Phase 12 | Complete |
+| NAV-05 | Phase 12 | Complete |
 | PRDS-01 | Phase 13 | Pending |
-| PRDS-02 | Phase 13 | Pending |
-| PRDS-03 | Phase 13 | Pending |
+| PRDS-02 | Phase 13 | Complete |
+| PRDS-03 | Phase 13 | Complete |
 | PRDS-04 | Phase 13 | Pending |
 | COLL-01 | Phase 14 | Pending |
 | COLL-02 | Phase 14 | Pending |

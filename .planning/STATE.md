@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-26T21:19:12.645Z"
+last_updated: "2026-02-26T21:43:47Z"
 progress:
   total_phases: 8
   completed_phases: 8
@@ -22,10 +22,10 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 
 ## Current Position
 
-Phase: 12 of 15 (navigation-labels) — Complete
-Plan: 3/3 in current phase — COMPLETE
-Status: Active — Phase 12 complete; MobileDrawer accordion + layout.tsx fully wired; desktop + mobile nav human-verified with all 6 correct labels.
-Last activity: 2026-02-26 — Phase 12 Plan 03: MobileDrawer refactored with Shop accordion (AnimatePresence); navItems wired to both Header and MobileDrawer; human-approved.
+Phase: 13 of 15 (product-data-quality) — In Progress
+Plan: 1/3 in current phase — COMPLETE
+Status: Active — Phase 13 Plan 01 complete; product filter helpers created; test/imageless products filtered from all three grid surfaces.
+Last activity: 2026-02-26 — Phase 13 Plan 01: lib/product-filters.ts created; isShowableProduct applied to featured-products, collection-content, related-products.
 
 Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 
@@ -62,6 +62,7 @@ Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 | Phase 12 P01 | 1 | 2 tasks | 2 files |
 | Phase 12 P02 | 2 | 2 tasks | 2 files |
 | Phase 12 P03 | ~5min | 2 tasks (1 auto + 1 human-verify approved) | 2 files |
+| Phase 13 P01 | 2min | 2 tasks | 4 files (1 created + 3 modified) |
 
 ## Accumulated Context
 
@@ -96,6 +97,8 @@ Recent decisions affecting current work:
 - [12-02]: Dropdown uses both hover (onMouseEnter/Leave) and click (onClick toggle) triggers
 - [Phase 12]: MobileDrawer receives navItems via header.tsx prop forwarding — MobileDrawer is rendered inside Header not layout.tsx directly
 - [12-03]: Phase 12 Navigation Labels complete — desktop dropdown + mobile accordion human-verified with all 6 correct category labels (NAV-01 through NAV-05 satisfied)
+- [13-01]: isShowableProduct applied as first filter in collection-content useMemo; before currentProductId filter in related-products — guard is upstream of product-specific logic
+- [13-01]: PRDS-01 normalizeVendor exported from lib/product-filters.ts; ready for Plan 02 to consume on product cards/detail pages
 
 ### Pending Todos
 
@@ -104,10 +107,10 @@ None.
 ### Blockers/Concerns
 
 - OAuth auth routes (app/api/auth/customer/) are fragile — visual changes only, no logic changes
-- PRDS-01 (vendor "My Store" → "Wildenflower"): preferred fix is code-side display override; Shopify Admin rename is a manual option but not required
+- PRDS-01 (vendor "My Store" → "Wildenflower"): normalizeVendor helper built in lib/product-filters.ts — Plan 02 applies it to product card/detail page display
 
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 12-03-PLAN.md — MobileDrawer Shop accordion with AnimatePresence; navItems wired to both Header and MobileDrawer; desktop + mobile nav human-verified. Phase 12 complete.
+Stopped at: Completed 13-01-PLAN.md — lib/product-filters.ts created; isShowableProduct applied to all three product grid surfaces (featured-products, collection-content, related-products). PRDS-02 and PRDS-03 satisfied.
 Resume file: None
