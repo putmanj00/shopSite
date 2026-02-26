@@ -96,35 +96,6 @@ export default function SustainabilityPage() {
                 </div>
             </section>
 
-            {/* Impact Numbers */}
-            <section className="bg-sage/10 py-16 lg:py-20">
-                <div className="container mx-auto px-4">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold font-heading text-ink-brown sm:text-4xl">
-                            Our Impact
-                        </h2>
-                    </div>
-                    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 max-w-4xl mx-auto text-center">
-                        <div>
-                            <p className="text-4xl font-bold text-terracotta">100%</p>
-                            <p className="mt-2 text-earth text-sm">Carbon Neutral Shipping</p>
-                        </div>
-                        <div>
-                            <p className="text-4xl font-bold text-terracotta">200+</p>
-                            <p className="mt-2 text-earth text-sm">Artisan Partners</p>
-                        </div>
-                        <div>
-                            <p className="text-4xl font-bold text-terracotta">0</p>
-                            <p className="mt-2 text-earth text-sm">Single-Use Plastics</p>
-                        </div>
-                        <div>
-                            <p className="text-4xl font-bold text-terracotta">15</p>
-                            <p className="mt-2 text-earth text-sm">Countries Represented</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Timeline */}
             <section className="bg-parchment py-16 lg:py-24">
                 <div className="container mx-auto px-4 max-w-3xl">
