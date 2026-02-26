@@ -545,3 +545,19 @@ export const GET_ALL_COLLECTIONS_HANDLES = `
     }
   }
 `;
+
+// Query to get a named navigation menu (e.g., 'main-menu')
+export const GET_MENU_QUERY = `
+  query getMenu($handle: String!) {
+    menu(handle: $handle) {
+      handle
+      title
+      items {
+        id
+        title
+        url
+        type
+      }
+    }
+  }
+`;
