@@ -50,7 +50,7 @@ export default function CartItem({ line }: CartItemProps) {
       {/* Product Image */}
       <Link
         href={`/products/${merchandise.product.handle}`}
-        className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100"
+        className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-sage/10"
       >
         <Image
           src={imageUrl}
@@ -77,7 +77,7 @@ export default function CartItem({ line }: CartItemProps) {
             merchandise.selectedOptions.some(
               (option) => option.name !== 'Title'
             ) && (
-              <div className="mt-1 text-sm text-gray-500">
+              <div className="mt-1 text-sm text-earth/70">
                 {merchandise.selectedOptions
                   .filter((option) => option.name !== 'Title')
                   .map((option) => option.value)
@@ -91,10 +91,10 @@ export default function CartItem({ line }: CartItemProps) {
               parseFloat(merchandise.compareAtPrice.amount) >
               parseFloat(merchandise.price.amount) ? (
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-gray-900">
+                <span className="font-semibold text-forest">
                   <Price amount={merchandise.price.amount} currencyCode={merchandise.price.currencyCode} />
                 </span>
-                <span className="text-sm text-gray-500 line-through">
+                <span className="text-sm text-earth/50 line-through">
                   <Price amount={merchandise.compareAtPrice.amount} currencyCode={merchandise.compareAtPrice.currencyCode} />
                 </span>
               </div>
@@ -134,7 +134,7 @@ export default function CartItem({ line }: CartItemProps) {
             <button
               onClick={() => handleQuantityChange(quantity - 1)}
               disabled={isUpdating || quantity <= 1}
-              className="min-w-11 min-h-11 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="min-w-11 min-h-11 flex items-center justify-center rounded-md border border-gold/40 hover:bg-sage/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               aria-label="Decrease quantity"
             >
               <svg
@@ -152,14 +152,14 @@ export default function CartItem({ line }: CartItemProps) {
               </svg>
             </button>
 
-            <span className="w-8 text-center font-medium text-gray-900">
+            <span className="w-8 text-center font-medium text-forest">
               {quantity}
             </span>
 
             <button
               onClick={() => handleQuantityChange(quantity + 1)}
               disabled={isUpdating}
-              className="min-w-11 min-h-11 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="min-w-11 min-h-11 flex items-center justify-center rounded-md border border-gold/40 hover:bg-sage/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               aria-label="Increase quantity"
             >
               <svg
@@ -181,7 +181,7 @@ export default function CartItem({ line }: CartItemProps) {
           <button
             onClick={handleRemove}
             disabled={isRemoving}
-            className="min-h-11 px-2 flex items-center text-sm text-red-600 hover:text-red-700 font-medium transition-colors disabled:opacity-50"
+            className="min-h-11 px-2 flex items-center text-sm text-terracotta hover:text-terracotta/80 font-medium transition-colors disabled:opacity-50"
           >
             Remove
           </button>
@@ -190,7 +190,7 @@ export default function CartItem({ line }: CartItemProps) {
 
       {/* Line Total */}
       <div className="flex-shrink-0 text-right">
-        <div className="font-semibold text-gray-900">
+        <div className="font-semibold text-forest">
           <Price amount={cost.totalAmount.amount} currencyCode={cost.totalAmount.currencyCode} />
         </div>
       </div>

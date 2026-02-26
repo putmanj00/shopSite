@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
+import Image from 'next/image';
 
 import { useCartStore } from '@/lib/cart-store';
 import { useAuthStore } from '@/lib/auth-store';
@@ -41,7 +42,6 @@ export default function CartDrawer() {
   const lines = useMemo(() => cart?.lines.edges || [], [cart?.lines.edges]);
   const isEmpty = lines.length === 0;
 
-  // Calculate cart totals and metadata for new features
   const cartSubtotal = useMemo(() => {
     if (!cart?.cost.subtotalAmount) return 0;
     return parseFloat(cart.cost.subtotalAmount.amount);
@@ -57,9 +57,7 @@ export default function CartDrawer() {
     return lines.map((line) => line.node.merchandise.product.id);
   }, [lines]);
 
-  // Placeholder discount code handlers (would connect to Shopify API)
   const handleApplyDiscount = async (code: string) => {
-    // TODO: Implement Shopify cart discount code mutation
     console.log('Applying discount code:', code);
     throw new Error('Discount codes coming soon!');
   };
@@ -78,39 +76,45 @@ export default function CartDrawer() {
       {/* Drawer */}
       <div
         className={`
-          fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50
+          fixed top-0 right-0 h-full w-full max-w-md bg-parchment shadow-2xl z-50
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : 'translate-x-full'}
         `}
       >
         <div className="flex flex-col h-full">
-          {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gold/20">
-            <h2 className="text-2xl font-bold text-forest font-heading">
-              Your Gathering
-              {!isEmpty && (
-                <span className="ml-2 text-lg font-normal text-earth">
-                  ({cart?.totalQuantity} {cart?.totalQuantity === 1 ? 'item' : 'items'})
-                </span>
-              )}
-            </h2>
+
+          {/* Header — forest with botanical image */}
+          <div className="relative flex items-center justify-between px-6 py-5 bg-forest overflow-hidden flex-shrink-0">
+            {/* Botanical backdrop */}
+            <div className="absolute inset-0 opacity-20 pointer-events-none" aria-hidden="true">
+              <Image
+                src="/assets/images/headers/botanical-header-small.png"
+                alt=""
+                fill
+                className="object-cover object-top"
+                priority
+              />
+            </div>
+            <div className="relative">
+              <p className="text-gold font-medium text-xs uppercase tracking-widest mb-0.5">
+                Wildenflower
+              </p>
+              <h2 className="text-xl font-bold text-white font-heading leading-tight">
+                Your Gathering
+                {!isEmpty && (
+                  <span className="ml-2 text-base font-normal text-parchment/70">
+                    ({cart?.totalQuantity} {cart?.totalQuantity === 1 ? 'item' : 'items'})
+                  </span>
+                )}
+              </h2>
+            </div>
             <button
               onClick={closeCart}
-              className="p-2 -mr-2 rounded-lg hover:bg-parchment transition-colors"
+              className="relative p-2 -mr-2 rounded-lg text-parchment/70 hover:text-parchment hover:bg-white/10 transition-colors"
               aria-label="Close cart"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
@@ -118,23 +122,18 @@ export default function CartDrawer() {
           {/* Cart Contents */}
           {isEmpty ? (
             <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
-              <svg
-                className="w-24 h-24 text-gray-300 mb-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+              <div className="relative w-56 h-36 mb-2 opacity-50">
+                <Image
+                  src="/assets/images/headers/botanical-header-small.png"
+                  alt="Botanical illustration"
+                  fill
+                  className="object-contain"
                 />
-              </svg>
+              </div>
               <h3 className="text-xl font-semibold text-forest font-heading mb-2">
                 Your basket is empty
               </h3>
-              <p className="text-earth mb-6">
+              <p className="text-earth mb-6 max-w-xs leading-relaxed">
                 Wander the shop and find something made for you.
               </p>
               <button
@@ -148,21 +147,30 @@ export default function CartDrawer() {
             <>
               {/* Items List */}
               <div className="flex-1 overflow-y-auto px-6">
-                <div className="divide-y divide-gray-200">
+                <div className="divide-y divide-gold/20">
                   {lines.map(({ node }) => (
                     <CartItem key={node.id} line={node} />
                   ))}
                 </div>
 
-                {/* Cross-sell Recommendations */}
                 <CartCrossSell
                   cartProductTypes={cartProductTypes}
                   cartProductIds={cartProductIds}
                 />
               </div>
 
+              {/* Botanical divider strip */}
+              <div className="relative h-14 flex-shrink-0 -mb-1 opacity-30 pointer-events-none" aria-hidden="true">
+                <Image
+                  src="/assets/images/about/dividder-fallen-log-no-bg.png"
+                  alt=""
+                  fill
+                  className="object-contain object-center"
+                />
+              </div>
+
               {/* Footer */}
-              <div className="border-t border-gray-200 px-6 py-4 space-y-4">
+              <div className="border-t border-gold/30 bg-parchment px-6 py-4 space-y-4 flex-shrink-0">
                 {/* Free Shipping Progress Bar */}
                 <FreeShippingBar
                   currentTotal={cartSubtotal}
@@ -174,21 +182,20 @@ export default function CartDrawer() {
                 <DiscountCodeInput onApply={handleApplyDiscount} />
 
                 {/* Subtotal */}
-                <div className="flex items-center justify-between text-lg">
+                <div className="flex items-center justify-between text-lg border-t border-gold/20 pt-3">
                   <span className="font-semibold text-forest font-heading">Subtotal</span>
                   <span className="font-bold text-forest">
                     {cart && <Price amount={cart.cost.subtotalAmount.amount} currencyCode={cart.cost.subtotalAmount.currencyCode} />}
                   </span>
                 </div>
 
-                {/* Tax Notice */}
                 {cart?.cost.totalTaxAmount && (
                   <p className="text-sm text-earth">
                     Tax: <Price amount={cart.cost.totalTaxAmount.amount} currencyCode={cart.cost.totalTaxAmount.currencyCode} />
                   </p>
                 )}
 
-                <p className="text-sm text-earth">
+                <p className="text-sm text-earth/70">
                   Shipping and taxes calculated at checkout
                 </p>
 
@@ -207,7 +214,6 @@ export default function CartDrawer() {
                   onClick={() => {
                     if (cart?.checkoutUrl) {
                       setIsRedirecting(true);
-                      // Add logged_in=true for SSO with new Customer Accounts
                       const checkoutUrl = isAuthenticated
                         ? `${cart.checkoutUrl}${cart.checkoutUrl.includes('?') ? '&' : '?'}logged_in=true`
                         : cart.checkoutUrl;
@@ -236,7 +242,7 @@ export default function CartDrawer() {
                 {/* Continue Shopping */}
                 <button
                   onClick={closeCart}
-                  className="w-full py-3 text-terracotta text-center font-semibold hover:text-terracotta/80 transition-colors"
+                  className="w-full py-3 text-gold text-center font-semibold hover:text-gold/80 transition-colors"
                 >
                   Continue Shopping
                 </button>
