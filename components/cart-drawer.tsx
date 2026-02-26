@@ -13,6 +13,7 @@ import CartCrossSell from './cart/cart-cross-sell';
 import ExpressCheckoutButtons from './cart/express-checkout-buttons';
 import { TrustBadgesCompact } from './checkout/trust-badges';
 import GiftMessageInput from './checkout/gift-message-input';
+import Link from 'next/link';
 
 export default function CartDrawer() {
   const { cart, isOpen, closeCart } = useCartStore();
@@ -124,7 +125,7 @@ export default function CartDrawer() {
             <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
               <div className="relative w-56 h-36 mb-2 opacity-50">
                 <Image
-                  src="/assets/images/headers/botanical-header-small.png"
+                  src="/assets/images/empty-states/empty-cart.png"
                   alt="Botanical illustration"
                   fill
                   className="object-contain"
@@ -136,12 +137,13 @@ export default function CartDrawer() {
               <p className="text-earth mb-6 max-w-xs leading-relaxed">
                 Wander the shop and find something made for you.
               </p>
-              <button
+              <Link
+                href="/collections/all"
                 onClick={closeCart}
                 className="px-6 py-3 bg-terracotta text-white rounded-lg font-semibold hover:bg-terracotta/90 transition-colors"
               >
                 Explore the Shop
-              </button>
+              </Link>
             </div>
           ) : (
             <>
