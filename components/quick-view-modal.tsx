@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useQuickViewStore } from '@/lib/quick-view-store';
 import { isProductOnSale } from '@/lib/shopify-helpers';
+import { normalizeVendor } from '@/lib/product-filters';
 import Price from '@/components/price';
 import type { ShopifyProduct, ShopifyProductVariant } from '@/types/shopify';
 import VariantSelector from './variant-selector';
@@ -172,7 +173,7 @@ function QuickViewContent({
             {/* Vendor */}
             {product.vendor && (
               <p className="text-gold font-medium text-xs uppercase tracking-widest mb-2">
-                {product.vendor}
+                {normalizeVendor(product.vendor)}
               </p>
             )}
 

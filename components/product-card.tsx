@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ShopifyProduct } from '@/types/shopify';
 import { isProductOnSale } from '@/lib/shopify-helpers';
+import { normalizeVendor } from '@/lib/product-filters';
 import Price from '@/components/price';
 import { useQuickViewStore } from '@/lib/quick-view-store';
 import WishlistButton from './wishlist-button';
@@ -82,7 +83,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
         {product.vendor && (
-          <p className="mt-1 text-sm text-earth/60">{product.vendor}</p>
+          <p className="mt-1 text-sm text-earth/60">{normalizeVendor(product.vendor)}</p>
         )}
       </div>
     </Link>

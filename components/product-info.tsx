@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { ShopifyProduct, ShopifyProductVariant } from '@/types/shopify';
+import { normalizeVendor } from '@/lib/product-filters';
 
 import Price from '@/components/price';
 import VariantSelector from '@/components/variant-selector';
@@ -47,7 +48,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           {product.title}
         </h1>
         {product.vendor && (
-          <p className="text-lg text-sage">by {product.vendor}</p>
+          <p className="text-lg text-sage">by {normalizeVendor(product.vendor)}</p>
         )}
       </div>
 
