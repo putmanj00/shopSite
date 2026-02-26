@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-26T21:43:47Z"
+last_updated: "2026-02-26T21:47:25.895Z"
 progress:
-  total_phases: 8
+  total_phases: 9
   completed_phases: 8
-  total_plans: 24
-  completed_plans: 24
+  total_plans: 27
+  completed_plans: 26
 ---
 
 # Project State
@@ -23,9 +23,9 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 ## Current Position
 
 Phase: 13 of 15 (product-data-quality) — In Progress
-Plan: 1/3 in current phase — COMPLETE
-Status: Active — Phase 13 Plan 01 complete; product filter helpers created; test/imageless products filtered from all three grid surfaces.
-Last activity: 2026-02-26 — Phase 13 Plan 01: lib/product-filters.ts created; isShowableProduct applied to featured-products, collection-content, related-products.
+Plan: 2/3 in current phase — COMPLETE
+Status: Active — Phase 13 Plan 02 complete; normalizeVendor applied to product-card, product-info, quick-view-modal; botanical corner overlays added to product cards.
+Last activity: 2026-02-26 — Phase 13 Plan 02: normalizeVendor applied to 3 components; botanical corner overlays + No image fallback removal in product-card.tsx. PRDS-01 and PRDS-04 satisfied.
 
 Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 
@@ -63,6 +63,7 @@ Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 | Phase 12 P02 | 2 | 2 tasks | 2 files |
 | Phase 12 P03 | ~5min | 2 tasks (1 auto + 1 human-verify approved) | 2 files |
 | Phase 13 P01 | 2min | 2 tasks | 4 files (1 created + 3 modified) |
+| Phase 13 P02 | 2 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -99,6 +100,9 @@ Recent decisions affecting current work:
 - [12-03]: Phase 12 Navigation Labels complete — desktop dropdown + mobile accordion human-verified with all 6 correct category labels (NAV-01 through NAV-05 satisfied)
 - [13-01]: isShowableProduct applied as first filter in collection-content useMemo; before currentProductId filter in related-products — guard is upstream of product-specific logic
 - [13-01]: PRDS-01 normalizeVendor exported from lib/product-filters.ts; ready for Plan 02 to consume on product cards/detail pages
+- [Phase 13-02]: normalizeVendor pattern: always use normalizeVendor(product.vendor) in display, not product.vendor directly
+- [Phase 13-02]: Corner overlays z-10, pointer-events-none, below WishlistButton z-20 — brand decoration without blocking interactive elements
+- [Phase 13-02]: No image fallback removed from product-card.tsx — dead code since isShowableProduct upstream filter guarantees all rendered cards have images
 
 ### Pending Todos
 
@@ -107,10 +111,9 @@ None.
 ### Blockers/Concerns
 
 - OAuth auth routes (app/api/auth/customer/) are fragile — visual changes only, no logic changes
-- PRDS-01 (vendor "My Store" → "Wildenflower"): normalizeVendor helper built in lib/product-filters.ts — Plan 02 applies it to product card/detail page display
 
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 13-01-PLAN.md — lib/product-filters.ts created; isShowableProduct applied to all three product grid surfaces (featured-products, collection-content, related-products). PRDS-02 and PRDS-03 satisfied.
+Stopped at: Completed 13-02-PLAN.md — normalizeVendor applied to product-card, product-info, quick-view-modal; botanical corner overlays added to product-card.tsx; No image fallback removed. PRDS-01 and PRDS-04 satisfied.
 Resume file: None

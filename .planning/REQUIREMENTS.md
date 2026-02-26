@@ -34,10 +34,10 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 
 ### Products
 
-- [ ] **PRDS-01**: Products from vendor "My Store" display vendor as "Wildenflower" on product cards and detail pages
+- [x] **PRDS-01**: Products from vendor "My Store" display vendor as "Wildenflower" on product cards and detail pages
 - [x] **PRDS-02**: Test/placeholder products ("ring", "Generic Tiedye") are hidden from storefront or removed
 - [x] **PRDS-03**: Products with no featured image are filtered out of all product grids (not shown as broken cards)
-- [ ] **PRDS-04**: Botanical card corner overlays (`card-corner-topleft.png`, `card-corner-bottomright.png`) appear on product cards
+- [x] **PRDS-04**: Botanical card corner overlays (`card-corner-topleft.png`, `card-corner-bottomright.png`) appear on product cards
 
 ### Collections
 
@@ -94,10 +94,10 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 | NAV-03 | Phase 11 | Complete |
 | NAV-04 | Phase 12 | Complete |
 | NAV-05 | Phase 12 | Complete |
-| PRDS-01 | Phase 13 | Pending |
+| PRDS-01 | Phase 13 | Complete |
 | PRDS-02 | Phase 13 | Complete |
 | PRDS-03 | Phase 13 | Complete |
-| PRDS-04 | Phase 13 | Pending |
+| PRDS-04 | Phase 13 | Complete |
 | COLL-01 | Phase 14 | Pending |
 | COLL-02 | Phase 14 | Pending |
 | COLL-03 | Phase 14 | Pending |

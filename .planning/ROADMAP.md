@@ -227,6 +227,6 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 | 10. Trust Cleanup | v1.1 | 4/4 | Complete | 2026-02-26 |
 | 11. Navigation Routing | v1.1 | Complete    | 2026-02-26 | 2026-02-26 |
 | 12. Navigation Labels | 3/3 | Complete    | 2026-02-26 | - |
-| 13. Product Data Quality | 1/3 | In Progress|  | - |
+| 13. Product Data Quality | 2/3 | In Progress|  | - |
 | 14. Collections Polish | v1.1 | 0/TBD | Not started | - |
 | 15. Footer Cleanup | v1.1 | 0/TBD | Not started | - |
