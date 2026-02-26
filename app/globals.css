@@ -302,6 +302,24 @@
 }
 
 /* ============================================
+   PAGE LINKS & PROSE HOVER STATES
+   ============================================ */
+
+/* Give inline links and prose links a consistent button-like hover transition */
+.prose a {
+  transition: opacity 150ms ease, color 150ms ease;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.prose a:hover,
+a.hover\:underline:hover {
+  opacity: 0.8;
+  color: var(--color-terracotta);
+}
+
+
+/* ============================================
    BASE STYLES
    ============================================ */
 

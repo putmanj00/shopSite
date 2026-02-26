@@ -2,9 +2,9 @@ import Image from 'next/image';
 
 export default function AboutHero() {
     return (
-        <section className="relative bg-forest text-white overflow-hidden">
+        <section className="relative bg-forest text-white overflow-visible">
             {/* Background Image — mushroom header */}
-            <div className="absolute inset-0">
+            <div className="absolute inset-0 overflow-hidden">
                 <Image
                     src="/assets/images/headers/botanical-header-large-about.png"
                     alt="Botanical mushroom illustration"
@@ -40,13 +40,14 @@ export default function AboutHero() {
             </div>
 
             {/* Decorative bottom curve */}
-            <div className="absolute bottom-0 left-0 right-0">
+            <div className="absolute -bottom-px left-0 right-0 z-10">
                 <svg
                     viewBox="0 0 1440 60"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-full h-auto block"
                     aria-hidden="true"
+                    preserveAspectRatio="none"
                 >
                     <path
                         d="M0 60V30C360 0 720 0 1080 30C1260 45 1380 52.5 1440 60V60H0Z"

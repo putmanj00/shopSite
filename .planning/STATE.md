@@ -24,8 +24,8 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 
 Phase: 13 of 15 (product-data-quality) — In Progress
 Plan: 2/3 in current phase — COMPLETE
-Status: Active — Phase 13 Plan 02 complete; normalizeVendor applied to product-card, product-info, quick-view-modal; botanical corner overlays added to product cards.
-Last activity: 2026-02-26 — Phase 13 Plan 02: normalizeVendor applied to 3 components; botanical corner overlays + No image fallback removal in product-card.tsx. PRDS-01 and PRDS-04 satisfied.
+Status: Active — Phase 13 Plan 02 complete; normalizeVendor applied to product-card, product-info, quick-view-modal; botanical corner overlays removed.
+Last activity: 2026-02-26 — Phase 13 Plan 02/03 modified: normalizeVendor applied, Artisan Collective normalized, botanical corner overlays removed based on feedback.
 
 Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 
@@ -101,7 +101,7 @@ Recent decisions affecting current work:
 - [13-01]: isShowableProduct applied as first filter in collection-content useMemo; before currentProductId filter in related-products — guard is upstream of product-specific logic
 - [13-01]: PRDS-01 normalizeVendor exported from lib/product-filters.ts; ready for Plan 02 to consume on product cards/detail pages
 - [Phase 13-02]: normalizeVendor pattern: always use normalizeVendor(product.vendor) in display, not product.vendor directly
-- [Phase 13-02]: Corner overlays z-10, pointer-events-none, below WishlistButton z-20 — brand decoration without blocking interactive elements
+- [Phase 13-02]: Corner overlays removed upon user feedback.
 - [Phase 13-02]: No image fallback removed from product-card.tsx — dead code since isShowableProduct upstream filter guarantees all rendered cards have images
 
 ### Pending Todos
@@ -115,5 +115,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 13-02-PLAN.md — normalizeVendor applied to product-card, product-info, quick-view-modal; botanical corner overlays added to product-card.tsx; No image fallback removed. PRDS-01 and PRDS-04 satisfied.
+Stopped at: User feedback iteration — normalizeVendor Artisan Collective mapping added; botanical corner overlays removed from product-card.tsx.
 Resume file: None

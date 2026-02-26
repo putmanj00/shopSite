@@ -4,6 +4,7 @@ import type { ShopifyProduct } from '@/types/shopify';
 // Maps known incorrect Shopify vendor values to correct brand display names.
 const VENDOR_OVERRIDES: Record<string, string> = {
   'My Store': 'Wildenflower',
+  'Artisan Collective': 'Wildenflower',
 };
 
 export function normalizeVendor(vendor: string): string {

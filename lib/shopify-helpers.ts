@@ -311,12 +311,12 @@ const FALLBACK_NAV_ITEMS: NavItem[] = [
   { label: 'Crystals', href: '/collections/crystals' },
   { label: 'Leather',  href: '/collections/leather' },
   { label: 'Ceramics', href: '/collections/ceramics' },
-  { label: 'Artwork',  href: '/collections/art' },
+  { label: 'Artwork',  href: '/collections/artwork' },
 ];
 
 // Valid collection handles for this store. Any item with a different handle is filtered out.
 const VALID_HANDLES = new Set([
-  'tie-dye', 'leather', 'jewelry', 'crystals', 'art', 'ceramics',
+  'tie-dye', 'leather', 'jewelry', 'crystals', 'artwork', 'ceramics',
 ]);
 
 /**

@@ -18,7 +18,7 @@ export default function TermsPage() {
             />
 
             <section className="bg-parchment py-16 lg:py-24">
-                <div className="container mx-auto px-4 max-w-3xl prose prose-lg prose-slate prose-headings:font-heading prose-headings:text-ink-brown prose-a:text-terracotta hover:prose-a:text-terracotta/80">
+                <div className="container mx-auto px-4 max-w-3xl prose prose-lg prose-slate prose-headings:font-heading prose-headings:text-ink-brown prose-a:text-terracotta">
                     <h2>1. Acceptance of Terms</h2>
                     <p>
                         By accessing and using the Wildenflower website (wildenflower.com), you accept

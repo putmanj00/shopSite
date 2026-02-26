@@ -64,23 +64,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           Quick View
         </button>
 
-        {/* Botanical corner overlays — decorative, pointer-events-none so they don't intercept clicks */}
-        <Image
-          src="/assets/images/corners/card-corner-topleft.png"
-          alt=""
-          aria-hidden="true"
-          width={60}
-          height={60}
-          className="absolute top-0 left-0 z-10 pointer-events-none select-none"
-        />
-        <Image
-          src="/assets/images/corners/card-corner-bottomright.png"
-          alt=""
-          aria-hidden="true"
-          width={60}
-          height={60}
-          className="absolute bottom-0 right-0 z-10 pointer-events-none select-none"
-        />
+
       </div>
       <div className="bg-white p-4 flex flex-col flex-grow rounded-b-2xl">
         <h3 className="mb-2 text-lg font-semibold text-ink-brown line-clamp-2 group-hover:text-terracotta">

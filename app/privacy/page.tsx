@@ -18,7 +18,7 @@ export default function PrivacyPage() {
             />
 
             <section className="bg-parchment py-16 lg:py-24">
-                <div className="container mx-auto px-4 max-w-3xl prose prose-lg prose-slate prose-headings:font-heading prose-headings:text-ink-brown prose-a:text-terracotta hover:prose-a:text-terracotta/80">
+                <div className="container mx-auto px-4 max-w-3xl prose prose-lg prose-slate prose-headings:font-heading prose-headings:text-ink-brown prose-a:text-terracotta">
                     <h2>Information We Collect</h2>
                     <p>
                         When you visit Wildenflower, we collect certain information about your device,
