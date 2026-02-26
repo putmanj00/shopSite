@@ -129,7 +129,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 **Phase summary:**
 - [x] **Phase 10: Trust Cleanup** - Remove all fake social proof (purchase popups, testimonials, fabricated stats, fake engagement) (completed 2026-02-26)
-- [ ] **Phase 11: Navigation Routing** - Fix /collections redirect, hero CTA link, and all stale /collections hrefs
+- [x] **Phase 11: Navigation Routing** - Fix /collections redirect, hero CTA link, and all stale /collections hrefs (completed 2026-02-26)
 - [ ] **Phase 12: Navigation Labels** - Correct all 6 category labels and hrefs in top nav
 - [ ] **Phase 13: Product Data Quality** - Fix vendor names, hide test products, filter imageless products, add card corner overlays
 - [ ] **Phase 14: Collections Polish** - Update /collections/all heading, subtitle, botanical header, and breadcrumb
@@ -216,7 +216,7 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 10. Trust Cleanup | 3/4 | Complete    | 2026-02-26 | - |
-| 11. Navigation Routing | 2/3 | In Progress|  | - |
+| 11. Navigation Routing | 3/3 | Complete   | 2026-02-26 | - |
 | 12. Navigation Labels | v1.1 | 0/TBD | Not started | - |
 | 13. Product Data Quality | v1.1 | 0/TBD | Not started | - |
 | 14. Collections Polish | v1.1 | 0/TBD | Not started | - |
