@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-26T04:57:00.000Z"
+last_updated: "2026-02-26T04:58:00.000Z"
 progress:
   total_phases: 7
   completed_phases: 6
@@ -57,6 +57,7 @@ Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 | Phase 11 P02 | 1 | 3 tasks | 9 files (8 modified + 1 deleted) |
 | Phase 11 P03 | 2 | 2 tasks (1 automated + 1 human-verify approved) | 0 files |
 | Phase 05-supporting-pages P01 | 1 | 2 tasks | 1 files |
+| Phase 05-supporting-pages P02 | 3 | 3 tasks (pre-implemented, verified complete) | 4 files |
 | Phase 05-supporting-pages P03 | 1 | 1 task (pre-implemented, verify only) | 0 files |
 
 ## Accumulated Context
@@ -83,6 +84,7 @@ Recent decisions affecting current work:
 - [11-03]: Phase 11 human-approved 2026-02-25 — NAV-01 (301 redirect), NAV-02 (CTA), NAV-03 (zero stale links) all confirmed in live dev server
 - [Phase 05-supporting-pages]: BotanicalHeader about variant pre-complete; only About page import + JSX insertion required for SUPP-01
 - [05-03]: Blog page BotanicalHeader variant=blog was pre-implemented in f70a1f0; page evolved from ComingSoon placeholder to full blog grid — SUPP-03 satisfied
+- [05-02]: FAQ page (SUPP-02) fully pre-implemented in f70a1f0 — data/faq-data.ts + faq-accordion.tsx + faq-page-content.tsx all complete. Server/Client split: metadata stays server, FaqPageContent is interactive client boundary. Additional buildFaqPageSchema structured data added beyond spec.
 
 ### Pending Todos
 
@@ -96,5 +98,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 05-01-PLAN.md — About page BotanicalHeader (about variant) + fallen-log divider. SUPP-01 complete.
+Stopped at: Completed 05-02-PLAN.md — FAQ page full accordion build. SUPP-02 verified complete (pre-implemented). data/faq-data.ts, faq-accordion.tsx, faq-page-content.tsx, app/faq/page.tsx all confirmed and committed.
 Resume file: None

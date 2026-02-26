@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Header** - Swap logo and apply botanical palette to header/nav (completed 2026-02-24)
 - [x] **Phase 3: Homepage** - Migrate hero, categories, dividers, and product grid heading (completed 2026-02-24)
 - [x] **Phase 4: Product Detail** - Apply botanical typography and BotanicalHeader to product pages (completed 2026-02-24)
-- [ ] **Phase 5: Supporting Pages** - Migrate About, FAQ, and Blog/Field Notes with botanical assets
+- [x] **Phase 5: Supporting Pages** - Migrate About, FAQ, and Blog/Field Notes with botanical assets (completed 2026-02-26)
 
 ## Phase Details
 
@@ -115,7 +115,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 2. Header | 1/1 | Complete   | 2026-02-24 |
 | 3. Homepage | 4/4 | Complete   | 2026-02-24 |
 | 4. Product Detail | 3/3 | Complete   | 2026-02-24 |
-| 5. Supporting Pages | 2/3 | In Progress|  |
+| 5. Supporting Pages | 3/3 | Complete   | 2026-02-26 |
 | 6. Copy & Brand Cleanup | — | Complete | 2026-02-24 |
 | 7. Cart & Conversion UX | — | Complete | 2026-02-24 |
 | 8. SEO Enhancement | — | Complete | 2026-02-24 |
