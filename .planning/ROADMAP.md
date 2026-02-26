@@ -144,7 +144,13 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
   2. No testimonials section displays stock-photo reviewer headshots or names (Sarah M., Michael R., Emily L., or similar fabricated personas)
   3. No stats block shows fabricated numbers ("2,500+ Happy Seekers", "4.9 Average Rating", "98% Would Recommend", "50+ Artisan Partners") anywhere on the site
   4. No Instagram-style gallery shows fake engagement counts (likes/comments overlaid on photos); if photos are Unsplash stock, the entire section is removed
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 10-01-PLAN.md — Remove fake purchase popups from layout.tsx, stub Instagram gallery, remove sustainability fabricated stats
+- [ ] 10-02-PLAN.md — Create FindUsInTheWild events section and data/events.json, stub TestimonialCarousel, update homepage page.tsx
+- [ ] 10-03-PLAN.md — Update welcome popup copy, botanical image, and delayed trigger timing
+- [ ] 10-04-PLAN.md — Visual verification checkpoint (human approve all four TRST requirements)
 
 ### Phase 11: Navigation Routing
 **Goal**: Every internal link that previously pointed at /collections now resolves correctly — shoppers are never dropped on a broken or duplicate page
@@ -204,7 +210,7 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 10. Trust Cleanup | v1.1 | 0/TBD | Not started | - |
+| 10. Trust Cleanup | v1.1 | 0/4 | In progress | - |
 | 11. Navigation Routing | v1.1 | 0/TBD | Not started | - |
 | 12. Navigation Labels | v1.1 | 0/TBD | Not started | - |
 | 13. Product Data Quality | v1.1 | 0/TBD | Not started | - |
