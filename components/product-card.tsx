@@ -32,7 +32,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       className="group relative block flex flex-col h-full overflow-hidden rounded-2xl bg-white shadow-sm transition-all hover:shadow-lg border border-gold/10"
     >
       <div className="relative aspect-square overflow-hidden bg-parchment rounded-t-2xl">
-        {firstImage ? (
+        {firstImage && (
           <Image
             src={firstImage.url}
             alt={firstImage.altText || product.title}
@@ -40,10 +40,6 @@ export default function ProductCard({ product }: ProductCardProps) {
             className="object-cover transition-transform duration-300 group-hover:scale-110"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
-        ) : (
-          <div className="flex h-full items-center justify-center text-earth/40">
-            No image
-          </div>
         )}
         {onSale && (
           <div className="absolute left-2 top-2 rounded-full bg-dusty-rose px-3 py-1 text-xs font-semibold text-white">
@@ -67,6 +63,24 @@ export default function ProductCard({ product }: ProductCardProps) {
         >
           Quick View
         </button>
+
+        {/* Botanical corner overlays — decorative, pointer-events-none so they don't intercept clicks */}
+        <Image
+          src="/assets/images/corners/card-corner-topleft.png"
+          alt=""
+          aria-hidden="true"
+          width={60}
+          height={60}
+          className="absolute top-0 left-0 z-10 pointer-events-none select-none"
+        />
+        <Image
+          src="/assets/images/corners/card-corner-bottomright.png"
+          alt=""
+          aria-hidden="true"
+          width={60}
+          height={60}
+          className="absolute bottom-0 right-0 z-10 pointer-events-none select-none"
+        />
       </div>
       <div className="bg-white p-4 flex flex-col flex-grow rounded-b-2xl">
         <h3 className="mb-2 text-lg font-semibold text-ink-brown line-clamp-2 group-hover:text-terracotta">
