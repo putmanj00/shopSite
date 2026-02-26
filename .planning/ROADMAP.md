@@ -131,7 +131,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 - [x] **Phase 10: Trust Cleanup** - Remove all fake social proof (purchase popups, testimonials, fabricated stats, fake engagement) (completed 2026-02-26)
 - [x] **Phase 11: Navigation Routing** - Fix /collections redirect, hero CTA link, and all stale /collections hrefs (completed 2026-02-26)
 - [x] **Phase 12: Navigation Labels** - Correct all 6 category labels and hrefs in top nav (completed 2026-02-26)
-- [ ] **Phase 13: Product Data Quality** - Fix vendor names, hide test products, filter imageless products, add card corner overlays
+- [x] **Phase 13: Product Data Quality** - Fix vendor names, hide test products, filter imageless products (completed 2026-02-26)
 - [ ] **Phase 14: Collections Polish** - Update /collections/all heading, subtitle, botanical header, and breadcrumb
 - [ ] **Phase 15: Footer Cleanup** - Align SHOP column with 6-category system, remove dead links
 
@@ -193,9 +193,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 13-01-PLAN.md — Create lib/product-filters.ts helpers; apply isShowableProduct filter to featured-products, collection-content, related-products (PRDS-02, PRDS-03)
-- [ ] 13-02-PLAN.md — Apply normalizeVendor to product-card, product-info, quick-view-modal; add botanical corner overlays to product-card (PRDS-01, PRDS-04)
-- [ ] 13-03-PLAN.md — Visual verification checkpoint (human approve all four PRDS requirements)
+- [x] 13-01-PLAN.md — Create lib/product-filters.ts helpers; apply isShowableProduct filter to featured-products, collection-content, related-products (PRDS-02, PRDS-03)
+- [x] 13-02-PLAN.md — Apply normalizeVendor to product-card, product-info, quick-view-modal; add botanical corner overlays to product-card (PRDS-01, PRDS-04)
+- [x] 13-03-PLAN.md — Visual verification checkpoint (human approve all four PRDS requirements)
 
 ### Phase 14: Collections Polish
 **Goal**: The /collections/all page presents itself with Wildenflower brand voice — correct heading, subtitle, botanical header image, and breadcrumb that tells shoppers exactly where they are
@@ -227,6 +227,6 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 | 10. Trust Cleanup | v1.1 | 4/4 | Complete | 2026-02-26 |
 | 11. Navigation Routing | v1.1 | Complete    | 2026-02-26 | 2026-02-26 |
 | 12. Navigation Labels | 3/3 | Complete    | 2026-02-26 | - |
-| 13. Product Data Quality | 2/3 | In Progress|  | - |
+| 13. Product Data Quality | 3/3 | Complete    | 2026-02-26 | - |
 | 14. Collections Polish | v1.1 | 0/TBD | Not started | - |
 | 15. Footer Cleanup | v1.1 | 0/TBD | Not started | - |
