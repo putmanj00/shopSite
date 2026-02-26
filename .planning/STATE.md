@@ -22,10 +22,10 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 
 ## Current Position
 
-Phase: 12 of 15 (navigation-labels) — In Progress
-Plan: 2/3 in current phase — COMPLETE
-Status: Active — Phase 12 Plan 02 complete; layout.tsx async + navItems prop; header.tsx Shop dropdown (Home | Shop | About). Plan 03 (mobile drawer) is next.
-Last activity: 2026-02-26 — Phase 12 Plan 02: Async RSC layout fetches navItems; header.tsx refactored with accessible Shop dropdown replacing flat category links. TypeScript clean.
+Phase: 12 of 15 (navigation-labels) — Complete
+Plan: 3/3 in current phase — COMPLETE
+Status: Active — Phase 12 complete; MobileDrawer accordion + layout.tsx fully wired; desktop + mobile nav human-verified with all 6 correct labels.
+Last activity: 2026-02-26 — Phase 12 Plan 03: MobileDrawer refactored with Shop accordion (AnimatePresence); navItems wired to both Header and MobileDrawer; human-approved.
 
 Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 
@@ -61,7 +61,7 @@ Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 | Phase 05-supporting-pages P03 | 1 | 1 task (pre-implemented, verify only) | 0 files |
 | Phase 12 P01 | 1 | 2 tasks | 2 files |
 | Phase 12 P02 | 2 | 2 tasks | 2 files |
-| Phase 12 P03 | 1 | 1 tasks | 2 files |
+| Phase 12 P03 | ~5min | 2 tasks (1 auto + 1 human-verify approved) | 2 files |
 
 ## Accumulated Context
 
@@ -95,6 +95,7 @@ Recent decisions affecting current work:
 - [12-02]: MobileDrawer left without navItems prop — Plan 03 adds it to avoid premature TypeScript error
 - [12-02]: Dropdown uses both hover (onMouseEnter/Leave) and click (onClick toggle) triggers
 - [Phase 12]: MobileDrawer receives navItems via header.tsx prop forwarding — MobileDrawer is rendered inside Header not layout.tsx directly
+- [12-03]: Phase 12 Navigation Labels complete — desktop dropdown + mobile accordion human-verified with all 6 correct category labels (NAV-01 through NAV-05 satisfied)
 
 ### Pending Todos
 
@@ -108,5 +109,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 12-02-PLAN.md — Async RSC layout with navItems fetch; header.tsx refactored with Home | Shop (dropdown) | About desktop nav. TypeScript clean.
+Stopped at: Completed 12-03-PLAN.md — MobileDrawer Shop accordion with AnimatePresence; navItems wired to both Header and MobileDrawer; desktop + mobile nav human-verified. Phase 12 complete.
 Resume file: None
