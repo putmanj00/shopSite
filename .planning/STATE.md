@@ -8,7 +8,7 @@ progress:
   total_phases: 7
   completed_phases: 5
   total_plans: 21
-  completed_plans: 16
+  completed_plans: 17
 ---
 
 # Project State
@@ -23,9 +23,9 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 ## Current Position
 
 Phase: 11 of 15 (Navigation Routing)
-Plan: 1/3 in current phase
+Plan: 2/3 in current phase
 Status: In progress
-Last activity: 2026-02-26 — Phase 11 Plan 01 complete; proxy.ts 301 redirect /collections → /collections/all (NAV-01)
+Last activity: 2026-02-26 — Phase 11 Plan 02 complete; all 8 href=/collections bare links → /collections/all, dead route deleted, sitemap cleaned (NAV-02, NAV-03)
 
 Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 
@@ -54,6 +54,7 @@ Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 | Phase 10-trust-cleanup P02 | 3 | 2 tasks | 4 files |
 | Phase 10-trust-cleanup P03 | 1 | 1 task | 1 file |
 | Phase 11 P01 | 1 | 1 tasks | 1 files |
+| Phase 11 P02 | 1 | 3 tasks | 9 files (8 modified + 1 deleted) |
 
 ## Accumulated Context
 
@@ -74,6 +75,8 @@ Recent decisions affecting current work:
 - [Phase 10-trust-cleanup]: Fake testimonials stubbed to null; FindUsInTheWild events section replaces testimonial slot using static events.json
 - [Phase 11]: Named export proxy (not middleware) — Next.js 16 renamed the convention
 - [Phase 11]: Exact matcher ['/collections', '/collections/'] — wildcard would intercept /collections/all causing redirect loops
+- [11-02]: app/collections/page.tsx deleted — proxy.ts intercepts /collections before file router; file was dead code
+- [11-02]: Bare /collections removed from sitemap — redirect URLs not canonical; /collections/all is the correct canonical entry
 
 ### Pending Todos
 
@@ -87,5 +90,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 11-01-PLAN.md — proxy.ts 301 redirect /collections → /collections/all, NAV-01 complete
+Stopped at: Completed 11-02-PLAN.md — all href=/collections links updated, dead route deleted, sitemap cleaned (NAV-02, NAV-03)
 Resume file: None

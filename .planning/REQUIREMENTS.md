@@ -27,8 +27,8 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 ### Navigation
 
 - [x] **NAV-01**: Shopper visiting `/collections` is automatically redirected to `/collections/all` (301 permanent redirect)
-- [ ] **NAV-02**: "Wander the Shop" hero CTA links to `/collections/all`, not `/collections`
-- [ ] **NAV-03**: No stale `href="/collections"` links remain anywhere in the codebase
+- [x] **NAV-02**: "Wander the Shop" hero CTA links to `/collections/all`, not `/collections`
+- [x] **NAV-03**: No stale `href="/collections"` links remain anywhere in the codebase
 - [ ] **NAV-04**: Top nav shows all 6 categories: Tie-Dye, Leather, Jewelry, Crystals, Artwork, Ceramics — with correct `/collections/[handle]` hrefs
 - [ ] **NAV-05**: Nav category labels are correct: "Leather" (not "Leather Goods"), "Artwork" (not "Art")
 
@@ -90,8 +90,8 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 | TRST-03 | Phase 10 | Complete |
 | TRST-04 | Phase 10 | Complete |
 | NAV-01 | Phase 11 | Complete |
-| NAV-02 | Phase 11 | Pending |
-| NAV-03 | Phase 11 | Pending |
+| NAV-02 | Phase 11 | Complete |
+| NAV-03 | Phase 11 | Complete |
 | NAV-04 | Phase 12 | Pending |
 | NAV-05 | Phase 12 | Pending |
 | PRDS-01 | Phase 13 | Pending |
