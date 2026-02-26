@@ -6,7 +6,7 @@ import CategoryCards from '@/components/homepage/category-cards';
 import FeaturedProducts from '@/components/featured-products';
 import BrandStory from '@/components/homepage/brand-story';
 import TrustBar from '@/components/homepage/trust-bar';
-import TestimonialCarousel from '@/components/homepage/testimonial-carousel';
+import FindUsInTheWild from '@/components/homepage/find-us-in-the-wild';
 import InstagramGallery from '@/components/homepage/instagram-gallery';
 import NewsletterSignup from '@/components/homepage/newsletter-signup';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
@@ -28,37 +28,6 @@ function FeaturedProductsSkeleton() {
   );
 }
 
-function TestimonialSkeleton() {
-  return (
-    <section className="bg-zinc-50 py-16 lg:py-24">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <div className="h-10 w-64 mx-auto animate-pulse rounded bg-zinc-200"></div>
-          <div className="h-6 w-96 mx-auto mt-4 animate-pulse rounded bg-zinc-200"></div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="bg-white rounded-2xl p-6 shadow-sm animate-pulse">
-              <div className="h-4 w-24 bg-zinc-200 rounded mb-4"></div>
-              <div className="space-y-2">
-                <div className="h-4 bg-zinc-200 rounded"></div>
-                <div className="h-4 bg-zinc-200 rounded w-5/6"></div>
-                <div className="h-4 bg-zinc-200 rounded w-4/6"></div>
-              </div>
-              <div className="flex items-center gap-3 mt-6 pt-4 border-t border-zinc-100">
-                <div className="w-12 h-12 bg-zinc-200 rounded-full"></div>
-                <div>
-                  <div className="h-4 w-24 bg-zinc-200 rounded"></div>
-                  <div className="h-3 w-16 bg-zinc-200 rounded mt-1"></div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 export default function Home() {
   const structuredData = {
@@ -128,10 +97,8 @@ export default function Home() {
       {/* Trust Bar */}
       <TrustBar />
 
-      {/* Testimonials */}
-      <Suspense fallback={<TestimonialSkeleton />}>
-        <TestimonialCarousel />
-      </Suspense>
+      {/* Find Us in the Wild — upcoming markets */}
+      <FindUsInTheWild />
 
       {/* Instagram Gallery */}
       <InstagramGallery />
