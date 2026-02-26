@@ -5,20 +5,41 @@ import Image from 'next/image';
 import { useCartStore } from '@/lib/cart-store';
 import { useAuthStore } from '@/lib/auth-store';
 import { useWishlistStore } from '@/lib/wishlist-store';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import CurrencySelector from '@/components/currency-selector';
 import MobileDrawer from '@/components/mobile-drawer';
+import type { NavItem } from '@/lib/shopify-helpers';
 
-export default function Header() {
+export default function Header({ navItems }: { navItems: NavItem[] }) {
   const { cart, openCart } = useCartStore();
   const { isAuthenticated, checkAuth } = useAuthStore();
   const { items: wishlistItems } = useWishlistStore();
   const [isMounted, setIsMounted] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Handle client-side hydration for Zustand stores
   useEffect(() => {
     const timer = setTimeout(() => setIsMounted(true), 0);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Close Shop dropdown on Escape key or outside click
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShopOpen(false);
+    };
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setShopOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   // Check auth status on mount
@@ -50,44 +71,71 @@ export default function Header() {
           </div>
 
           {/* Navigation Links */}
-          <div className="hidden lg:flex items-center gap-6 lg:gap-8">
+          <nav className="hidden lg:flex items-center gap-8" aria-label="Primary navigation">
+            {/* Home */}
             <Link
-              href="/collections/all"
+              href="/"
               className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
             >
-              Shop All
+              Home
             </Link>
-            <Link
-              href="/collections/leather"
-              className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
+
+            {/* Shop dropdown */}
+            <div
+              ref={dropdownRef}
+              className="relative"
+              onMouseEnter={() => setShopOpen(true)}
+              onMouseLeave={() => setShopOpen(false)}
             >
-              Leather Goods
-            </Link>
-            <Link
-              href="/collections/jewelry"
-              className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
-            >
-              Jewelry
-            </Link>
-            <Link
-              href="/collections/tie-dye"
-              className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
-            >
-              Tie-Dye
-            </Link>
-            <Link
-              href="/collections/art"
-              className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
-            >
-              Art
-            </Link>
+              <button
+                onClick={() => setShopOpen((prev) => !prev)}
+                aria-expanded={shopOpen}
+                aria-haspopup="true"
+                aria-controls="shop-dropdown"
+                className="text-parchment hover:text-terracotta font-medium transition-colors duration-200 flex items-center gap-1"
+              >
+                Shop
+                <svg
+                  className={`w-4 h-4 transition-transform duration-200 ${shopOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {shopOpen && (
+                <div
+                  id="shop-dropdown"
+                  role="menu"
+                  aria-label="Shop categories"
+                  className="absolute top-full left-0 mt-1 bg-forest border border-gold/30 rounded-md shadow-lg py-2 min-w-[10rem] z-50"
+                >
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      role="menuitem"
+                      className="block px-4 py-2 text-parchment hover:text-terracotta hover:bg-white/5 transition-colors font-medium"
+                      onClick={() => setShopOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* About */}
             <Link
               href="/about"
               className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
             >
-              Our Story
+              About
             </Link>
-          </div>
+          </nav>
 
           <div className="flex items-center gap-4">
             <div className="hidden lg:block">
