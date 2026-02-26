@@ -175,17 +175,21 @@ Plans:
   1. Top nav dropdown or category list shows exactly 6 categories: Tie-Dye, Leather, Jewelry, Crystals, Artwork, Ceramics — no categories missing or duplicated
   2. Each category link resolves to the correct /collections/[handle] URL (e.g., /collections/leather, /collections/artwork)
   3. Category labels read "Leather" (not "Leather Goods") and "Artwork" (not "Art") — exact label match
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 12-01-PLAN.md — Shopify menu query + NavItem interface + getNavMenu() helper with 6-item fallback (lib/shopify-queries.ts, lib/shopify-helpers.ts)
+- [ ] 12-02-PLAN.md — async layout.tsx + header.tsx Shop dropdown: Home | Shop (hover/keyboard dropdown) | About (app/layout.tsx, components/header.tsx)
+- [ ] 12-03-PLAN.md — mobile-drawer.tsx Shop accordion + layout.tsx MobileDrawer wiring + visual verification checkpoint
 
 ### Phase 13: Product Data Quality
-**Goal**: Every product card shown to shoppers presents real, complete product data — correct vendor attribution, no test placeholders, no broken image states, and botanical corner overlays on cards
+**Goal**: Every product card shown to shoppers presents real, complete product data — correct vendor attribution, no test placeholders, no broken image states
 **Depends on**: Phase 12
 **Requirements**: PRDS-01, PRDS-02, PRDS-03, PRDS-04
 **Success Criteria** (what must be TRUE):
   1. Products with vendor "My Store" display "Wildenflower" as the vendor on both product cards and product detail pages
   2. Test and placeholder products (e.g., products named "ring" or "Generic Tiedye") do not appear in any product grid or collection page
   3. Products with no featured image are absent from all product grids — no broken image placeholders, grey boxes, or fallback icons are visible
-  4. Product cards display botanical corner overlays (card-corner-topleft.png at top-left, card-corner-bottomright.png at bottom-right) as decorative accents
 **Plans**: TBD
 
 ### Phase 14: Collections Polish
@@ -217,7 +221,7 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 |-------|-----------|----------------|--------|-----------|
 | 10. Trust Cleanup | v1.1 | 4/4 | Complete | 2026-02-26 |
 | 11. Navigation Routing | v1.1 | Complete    | 2026-02-26 | 2026-02-26 |
-| 12. Navigation Labels | v1.1 | 0/TBD | Not started | - |
+| 12. Navigation Labels | v1.1 | 0/3 | Not started | - |
 | 13. Product Data Quality | v1.1 | 0/TBD | Not started | - |
 | 14. Collections Polish | v1.1 | 0/TBD | Not started | - |
 | 15. Footer Cleanup | v1.1 | 0/TBD | Not started | - |
