@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-26T02:34:30.784Z"
+last_updated: "2026-02-26T04:16:26.295Z"
 progress:
-  total_phases: 6
+  total_phases: 7
   completed_phases: 5
-  total_plans: 18
-  completed_plans: 15
+  total_plans: 21
+  completed_plans: 16
 ---
 
 # Project State
@@ -18,14 +18,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-25)
 
 **Core value:** A shopper lands on a beautiful, nature-inspired handmade goods storefront and immediately feels the warmth and authenticity of the Wildenflower brand — while the Shopify integration underneath works reliably.
-**Current focus:** Milestone v1.1 — Phase 10: Trust Cleanup (in progress)
+**Current focus:** Milestone v1.1 — Phase 11: Navigation Routing (in progress)
 
 ## Current Position
 
-Phase: 10 of 15 (Trust Cleanup)
-Plan: 3/4 in current phase
+Phase: 11 of 15 (Navigation Routing)
+Plan: 1/3 in current phase
 Status: In progress
-Last activity: 2026-02-26 — Phase 10 Plan 03 complete; welcome popup copy, image, and trigger timing updated
+Last activity: 2026-02-26 — Phase 11 Plan 01 complete; proxy.ts 301 redirect /collections → /collections/all (NAV-01)
 
 Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 
@@ -53,6 +53,7 @@ Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 | Phase 10 Plan 01 (trust-cleanup) | 2 min | 2 tasks | 3 files |
 | Phase 10-trust-cleanup P02 | 3 | 2 tasks | 4 files |
 | Phase 10-trust-cleanup P03 | 1 | 1 task | 1 file |
+| Phase 11 P01 | 1 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,8 @@ Recent decisions affecting current work:
 - [10-01]: instagram-gallery.tsx stubbed null with TODO comment — preserves integration point for real API
 - [10-01]: Sustainability qualitative descriptions retained; only fabricated stat numbers removed
 - [Phase 10-trust-cleanup]: Fake testimonials stubbed to null; FindUsInTheWild events section replaces testimonial slot using static events.json
+- [Phase 11]: Named export proxy (not middleware) — Next.js 16 renamed the convention
+- [Phase 11]: Exact matcher ['/collections', '/collections/'] — wildcard would intercept /collections/all causing redirect loops
 
 ### Pending Todos
 
@@ -84,5 +87,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 10-02-PLAN.md — FindUsInTheWild events section, TestimonialCarousel stubbed (TRST-02, TRST-03)
+Stopped at: Completed 11-01-PLAN.md — proxy.ts 301 redirect /collections → /collections/all, NAV-01 complete
 Resume file: None
