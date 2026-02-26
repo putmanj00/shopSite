@@ -23,9 +23,9 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 ## Current Position
 
 Phase: 12 of 15 (navigation-labels) — In Progress
-Plan: 1/3 in current phase — COMPLETE
-Status: Active — Phase 12 Plan 01 complete; NAV-04, NAV-05 satisfied. Data layer ready for header (12-02) and mobile drawer (12-03).
-Last activity: 2026-02-26 — Phase 12 Plan 01: GET_MENU_QUERY + NavItem interface + getNavMenu() + FALLBACK_NAV_ITEMS added. TypeScript clean.
+Plan: 2/3 in current phase — COMPLETE
+Status: Active — Phase 12 Plan 02 complete; layout.tsx async + navItems prop; header.tsx Shop dropdown (Home | Shop | About). Plan 03 (mobile drawer) is next.
+Last activity: 2026-02-26 — Phase 12 Plan 02: Async RSC layout fetches navItems; header.tsx refactored with accessible Shop dropdown replacing flat category links. TypeScript clean.
 
 Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 
@@ -60,6 +60,7 @@ Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 | Phase 05-supporting-pages P02 | 3 | 3 tasks (pre-implemented, verified complete) | 4 files |
 | Phase 05-supporting-pages P03 | 1 | 1 task (pre-implemented, verify only) | 0 files |
 | Phase 12 P01 | 1 | 2 tasks | 2 files |
+| Phase 12 P02 | 2 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -89,6 +90,9 @@ Recent decisions affecting current work:
 - [Phase 12]: FALLBACK_NAV_ITEMS const not exported; NavItem + getNavMenu are the only public nav API exports
 - [Phase 12]: Fallback nav order locked: Tie-Dye, Jewelry, Crystals, Leather, Ceramics, Artwork
 - [Phase 12]: items.length < 6 guard triggers full fallback — prevents partial nav with missing Crystals or Ceramics
+- [12-02]: header.tsx stays 'use client' — receives navItems as prop from async RSC layout, not fetching itself
+- [12-02]: MobileDrawer left without navItems prop — Plan 03 adds it to avoid premature TypeScript error
+- [12-02]: Dropdown uses both hover (onMouseEnter/Leave) and click (onClick toggle) triggers
 
 ### Pending Todos
 
@@ -102,5 +106,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 12-01-PLAN.md — Shopify nav data layer: GET_MENU_QUERY in shopify-queries.ts; NavItem interface + getNavMenu() + FALLBACK_NAV_ITEMS in shopify-helpers.ts. NAV-04, NAV-05 satisfied.
+Stopped at: Completed 12-02-PLAN.md — Async RSC layout with navItems fetch; header.tsx refactored with Home | Shop (dropdown) | About desktop nav. TypeScript clean.
 Resume file: None
