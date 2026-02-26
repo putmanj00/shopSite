@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "name": "Covington Farmers Market",
+    "date": "2026-05-02",
+    "venue": "Pike Street, Covington, KY",
+    "url": "https://www.covingtonkyfarmersmarket.com"
+  },
+  {
+    "id": "2",
+    "name": "Cincinnati Flea",
+    "date": "2026-06-13",
+    "venue": "Oakley Square, Cincinnati, OH",
+    "url": null
+  },
+  {
+    "id": "3",
+    "name": "Covington Farmers Market",
+    "date": "2026-07-04",
+    "venue": "Pike Street, Covington, KY",
+    "url": "https://www.covingtonkyfarmersmarket.com"
+  }
+]

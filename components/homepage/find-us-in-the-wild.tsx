@@ -1,0 +1,64 @@
+import eventsData from '@/data/events.json';
+
+interface WildenflowerEvent {
+  id: string;
+  name: string;
+  date: string; // ISO "YYYY-MM-DD"
+  venue: string;
+  url: string | null;
+}
+
+const events = eventsData as WildenflowerEvent[];
+
+function formatEventDate(isoDate: string): string {
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(new Date(isoDate + 'T00:00:00'));
+}
+
+export default function FindUsInTheWild() {
+  return (
+    <section className="bg-parchment py-16 lg:py-24">
+      <div className="container mx-auto px-4">
+        <h2 className="text-ink-brown font-heading font-bold text-3xl sm:text-4xl">
+          Find Us in the Wild
+        </h2>
+        <p className="text-earth mt-3 mb-10">
+          We take Wildenflower to the markets — come say hello.
+        </p>
+
+        {events.length === 0 ? (
+          <p className="text-earth text-center py-8">
+            No upcoming events right now — check back soon. In the meantime, browse the shop or follow us on Instagram.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {events.map((event) => (
+              <div key={event.id} className="bg-white rounded-lg shadow-sm p-6">
+                <p className="font-heading font-bold text-ink-brown text-lg mb-1">
+                  {event.name}
+                </p>
+                <p className="text-terracotta text-sm font-medium mb-1">
+                  {formatEventDate(event.date)}
+                </p>
+                <p className="text-earth text-sm mb-3">{event.venue}</p>
+                {event.url !== null && (
+                  <a
+                    href={event.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-terracotta hover:underline text-sm"
+                  >
+                    More info
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
