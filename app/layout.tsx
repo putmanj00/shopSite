@@ -10,8 +10,7 @@ import MobileBottomNav from "@/components/mobile-bottom-nav";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ServiceWorkerRegister from "@/components/service-worker-register";
-import SocialProofToast from "@/components/social-proof-toast";
-import { ExitIntentPopup, WelcomePopup, RecentPurchasePopup } from "@/components/cro";
+import { ExitIntentPopup, WelcomePopup } from "@/components/cro";
 import Analytics from "@/components/analytics";
 import { CurrencyProvider } from "@/lib/currency-context";
 import GeolocationHandler from "@/components/geolocation-handler";
@@ -126,10 +125,8 @@ export default function RootLayout({
           <Footer />
           <MobileBottomNav />
           <ServiceWorkerRegister />
-          <SocialProofToast />
           <WelcomePopup />
           <ExitIntentPopup />
-          <RecentPurchasePopup />
           <Analytics />
           <VercelAnalytics />
           <SpeedInsights />
