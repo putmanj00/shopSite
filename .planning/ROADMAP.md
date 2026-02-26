@@ -206,7 +206,10 @@ Plans:
   2. A subtitle below the heading reads "Every handmade treasure in one place"
   3. A botanical header image (botanical-header-small-web.png) is visible in the title area above or alongside the heading
   4. The breadcrumb trail reads "Home > Shop > All Treasures" with correct link targets
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [x] 14-01-PLAN.md — Update collections page for "all" to map to All Treasures, inject subtitle, replace layout with BotanicalHeader and custom breadcrumbs (COLL-01, COLL-02, COLL-03, COLL-04)
 
 ### Phase 15: Footer Cleanup
 **Goal**: The footer SHOP column is a complete and accurate directory of the store — all six categories present, all links functional, no links pointing to pages that return 404
@@ -228,5 +231,5 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 | 11. Navigation Routing | v1.1 | Complete    | 2026-02-26 | 2026-02-26 |
 | 12. Navigation Labels | 3/3 | Complete    | 2026-02-26 | - |
 | 13. Product Data Quality | 3/3 | Complete    | 2026-02-26 | - |
-| 14. Collections Polish | v1.1 | 0/TBD | Not started | - |
+| 14. Collections Polish | 1/1 | Complete | 2026-02-26 |
 | 15. Footer Cleanup | v1.1 | 0/TBD | Not started | - |

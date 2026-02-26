@@ -22,10 +22,10 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 
 ## Current Position
 
-Phase: 13 of 15 (product-data-quality) — COMPLETE
-Plan: 3/3 in current phase — COMPLETE
-Status: Inactive — Phase 13 fully complete. Data quality and visual refinements finished.
-Last activity: 2026-02-26 — Phase 13 Plan 03: Visual verification complete, user feedback addressed (Artisan Collective normalized, corner overlays removed, link states updated). Milestone v1.1 is now entering its final stretch.
+Phase: 14 of 15 (collections-polish) — COMPLETE
+Plan: 1/1 in current phase — COMPLETE
+Status: Inactive — Phase 14 fully complete. All Treasures visual override and layout done.
+Last activity: 2026-02-26 — Phase 14 Plan 01 executed: All Treasures heading overridden, botanical header injected, and breadcrumb layout replaced. Checkout is practically ready, only footer left.
 
 Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 
@@ -115,5 +115,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 13-03-SUMMARY.md — Visual verification checkpoint passed and feedback implemented. Phase 13 is complete. Ready to begin Phase 14 (search-refinement).
+Stopped at: Completed 14-01-SUMMARY.md — the collections phase was simple overriding logic for All Treasures. Ready to kick off Footer Cleanup (Phase 15).
 Resume file: .planning/ROADMAP.md
