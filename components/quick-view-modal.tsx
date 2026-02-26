@@ -31,32 +31,25 @@ function QuickViewContent({
     [product]
   );
 
-  // State starts fresh for each product due to key prop on parent
   const [selectedVariant, setSelectedVariant] = useState<ShopifyProductVariant>(
     variants[0]
   );
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  // Handle escape key
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose();
-      }
+      if (event.key === 'Escape') onClose();
     },
     [onClose]
   );
 
-  // Focus trap
   const handleTabKey = useCallback((event: KeyboardEvent) => {
     if (event.key !== 'Tab' || !modalRef.current) return;
-
     const focusableElements = modalRef.current.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
     const firstElement = focusableElements[0] as HTMLElement;
     const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-
     if (event.shiftKey) {
       if (document.activeElement === firstElement) {
         lastElement?.focus();
@@ -75,13 +68,10 @@ function QuickViewContent({
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keydown', handleTabKey);
-
-    // Focus the close button
     const timer = setTimeout(() => {
       const closeButton = modalRef.current?.querySelector('button');
       closeButton?.focus();
     }, 0);
-
     return () => {
       clearTimeout(timer);
       document.body.style.overflow = 'unset';
@@ -113,34 +103,24 @@ function QuickViewContent({
       {/* Modal Content */}
       <div
         ref={modalRef}
-        className="relative w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[90vh]"
+        className="relative w-full max-w-4xl bg-parchment rounded-2xl shadow-2xl overflow-hidden max-h-[90vh]"
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white shadow-md transition-colors"
+          className="absolute right-4 top-4 z-10 p-2 rounded-full bg-parchment/90 hover:bg-parchment shadow-md transition-colors"
           aria-label="Close quick view"
         >
-          <svg
-            className="w-5 h-5 text-gray-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
+          <svg className="w-5 h-5 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
         <div className="grid md:grid-cols-2 max-h-[90vh] overflow-y-auto">
-          {/* Image Section */}
-          <div className="p-6 bg-zinc-50">
+          {/* Image Section — forest background */}
+          <div className="p-6 bg-forest flex flex-col">
             {/* Main Image */}
-            <div className="relative aspect-square bg-white rounded-lg overflow-hidden mb-4">
+            <div className="relative aspect-square bg-white/10 rounded-xl overflow-hidden mb-4 flex-1">
               {images[selectedImageIndex] ? (
                 <Image
                   src={images[selectedImageIndex].url}
@@ -150,12 +130,12 @@ function QuickViewContent({
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               ) : (
-                <div className="flex items-center justify-center h-full text-zinc-400">
+                <div className="flex items-center justify-center h-full text-parchment/40">
                   No image available
                 </div>
               )}
               {onSale && (
-                <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                <span className="absolute top-3 left-3 bg-terracotta text-white text-xs font-semibold px-3 py-1 rounded-full">
                   Sale
                 </span>
               )}
@@ -163,15 +143,16 @@ function QuickViewContent({
 
             {/* Thumbnail Grid */}
             {images.length > 1 && (
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-4 gap-2 mt-auto">
                 {images.slice(0, 4).map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
-                    className={`relative aspect-square rounded-md overflow-hidden transition-all ${index === selectedImageIndex
-                      ? 'ring-2 ring-blue-500'
-                      : 'ring-1 ring-gray-200 hover:ring-gray-300'
-                      }`}
+                    className={`relative aspect-square rounded-lg overflow-hidden transition-all ${
+                      index === selectedImageIndex
+                        ? 'ring-2 ring-gold ring-offset-1 ring-offset-forest'
+                        : 'ring-1 ring-white/20 hover:ring-white/50'
+                    }`}
                   >
                     <Image
                       src={image.url}
@@ -186,35 +167,42 @@ function QuickViewContent({
             )}
           </div>
 
-          {/* Product Info Section */}
-          <div className="p-6 flex flex-col">
+          {/* Product Info Section — parchment */}
+          <div className="p-6 flex flex-col bg-parchment">
             {/* Vendor */}
             {product.vendor && (
-              <p className="text-sm text-zinc-500 mb-1">{product.vendor}</p>
+              <p className="text-gold font-medium text-xs uppercase tracking-widest mb-2">
+                {product.vendor}
+              </p>
             )}
 
             {/* Title */}
             <h2
               id="quick-view-title"
-              className="text-2xl font-bold text-zinc-900 mb-4"
+              className="text-2xl font-bold text-forest font-heading mb-4 leading-snug"
             >
               {product.title}
             </h2>
 
             {/* Price */}
-            <div className="flex items-baseline gap-3 mb-6">
-              <span className="text-2xl font-bold text-zinc-900">
-                {selectedVariant && <Price amount={selectedVariant.price.amount} currencyCode={selectedVariant.price.currencyCode} />}
+            <div className="flex items-baseline gap-3 mb-5">
+              <span className="text-2xl font-bold text-terracotta font-heading">
+                {selectedVariant && (
+                  <Price
+                    amount={selectedVariant.price.amount}
+                    currencyCode={selectedVariant.price.currencyCode}
+                  />
+                )}
               </span>
               {onSale && compareAtPrice && parseFloat(compareAtPrice.amount) > 0 && (
-                <span className="text-lg text-zinc-400 line-through">
+                <span className="text-lg text-earth/50 line-through">
                   <Price amount={compareAtPrice.amount} currencyCode={compareAtPrice.currencyCode} />
                 </span>
               )}
             </div>
 
-            {/* Description - Truncated */}
-            <p className="text-zinc-600 mb-6 line-clamp-3">
+            {/* Description */}
+            <p className="text-earth leading-relaxed mb-6 line-clamp-3">
               {product.description}
             </p>
 
@@ -230,20 +218,21 @@ function QuickViewContent({
             )}
 
             {/* Actions */}
-            <div className="mt-auto space-y-4">
+            <div className="mt-auto space-y-3">
               {/* Add to Cart */}
               {selectedVariant && <AddToCartButton variant={selectedVariant} />}
 
               {/* Wishlist and View Details */}
-              <div className="flex gap-3">
+              <div className="flex gap-3 items-center">
+                {/* Small circular wishlist icon button — no flex-1 so it stays its natural size */}
                 <WishlistButton
                   product={product}
-                  className="flex-1 justify-center border border-zinc-300 hover:border-zinc-400 bg-white"
+                  className="border border-gold/40 hover:border-gold bg-white/60 flex-none"
                 />
                 <Link
                   href={`/products/${product.handle}`}
                   onClick={onClose}
-                  className="flex-1 py-3 px-4 text-center text-terracotta font-semibold border border-terracotta rounded-lg hover:bg-terracotta/10 transition-colors"
+                  className="flex-1 py-3 px-4 text-center text-terracotta font-semibold border border-terracotta rounded-lg hover:bg-terracotta hover:text-white transition-colors"
                 >
                   View Full Details
                 </Link>
@@ -262,7 +251,6 @@ export default function QuickViewModal() {
 
   if (!isOpen || !product) return null;
 
-  // Key ensures the inner component resets state when product changes
   return (
     <QuickViewContent
       key={product.id}
