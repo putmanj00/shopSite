@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-26T20:02:38.470Z"
+last_updated: "2026-02-26T20:09:43.763Z"
 progress:
   total_phases: 8
-  completed_phases: 7
+  completed_phases: 8
   total_plans: 24
-  completed_plans: 22
+  completed_plans: 24
 ---
 
 # Project State
@@ -61,6 +61,7 @@ Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 | Phase 05-supporting-pages P03 | 1 | 1 task (pre-implemented, verify only) | 0 files |
 | Phase 12 P01 | 1 | 2 tasks | 2 files |
 | Phase 12 P02 | 2 | 2 tasks | 2 files |
+| Phase 12 P03 | 1 | 1 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -93,6 +94,7 @@ Recent decisions affecting current work:
 - [12-02]: header.tsx stays 'use client' — receives navItems as prop from async RSC layout, not fetching itself
 - [12-02]: MobileDrawer left without navItems prop — Plan 03 adds it to avoid premature TypeScript error
 - [12-02]: Dropdown uses both hover (onMouseEnter/Leave) and click (onClick toggle) triggers
+- [Phase 12]: MobileDrawer receives navItems via header.tsx prop forwarding — MobileDrawer is rendered inside Header not layout.tsx directly
 
 ### Pending Todos
 
