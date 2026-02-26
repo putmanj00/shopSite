@@ -18,17 +18,33 @@ export default function WelcomePopup({
     const [isSubmitted, setIsSubmitted] = useState(false);
 
     useEffect(() => {
-        // Check if already shown
         const alreadyShown = localStorage.getItem('welcomePopupShown');
         if (alreadyShown) return;
 
-        // Show after a short delay
-        const timer = setTimeout(() => {
+        let shown = false;
+
+        const showPopup = () => {
+            if (shown) return;
+            shown = true;
             setIsVisible(true);
             localStorage.setItem('welcomePopupShown', 'true');
-        }, 3000);
+            window.removeEventListener('scroll', handleScroll);
+            clearTimeout(timer);
+        };
 
-        return () => clearTimeout(timer);
+        const timer = setTimeout(showPopup, 15000); // 15s — midpoint of 10-20s range
+
+        const handleScroll = () => {
+            const depth = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            if (depth >= 0.5) showPopup();
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
 
     const handleClose = useCallback(() => {
@@ -97,7 +113,7 @@ export default function WelcomePopup({
                     {/* Image Side */}
                     <div
                         className="hidden md:block bg-cover bg-center min-h-[300px]"
-                        style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=600&fit=crop)' }}
+                        style={{ backgroundImage: 'url(/assets/images/headers/botanical-header-small.png)' }}
                     />
 
                     {/* Content Side */}
@@ -125,16 +141,17 @@ export default function WelcomePopup({
                             <>
                                 <div className="text-center mb-6">
                                     <h2 id="welcome-title" className="text-2xl font-bold text-ink-brown mb-2 font-heading">
-                                        Join the Wildenflower Circle
+                                        Join the Wildenflower Inner Circle
                                     </h2>
-                                    <p className="text-earth">
-                                        New arrivals, maker stories, and
+                                    <p className="text-earth text-sm mb-3">
+                                        Get first dibs on new hand-dyed drops, one-of-a-kind leatherwork, and rare mineral finds.
+                                        Plus, we&apos;ll let you know which Covington or Cincy markets we&apos;re hitting next.
                                     </p>
                                     <p className="text-4xl font-bold text-terracotta my-2">
                                         {discountPercent}% OFF
                                     </p>
                                     <p className="text-earth text-sm">
-                                        your first order
+                                        Welcome gift for your first online order
                                     </p>
                                 </div>
 
@@ -158,7 +175,7 @@ export default function WelcomePopup({
                                         disabled={isSubmitting}
                                         className="w-full py-3 bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white font-semibold rounded-lg transition-colors"
                                     >
-                                        {isSubmitting ? 'Joining...' : 'Unlock My Discount'}
+                                        {isSubmitting ? 'Joining...' : 'Claim My Welcome Discount'}
                                     </button>
                                 </form>
 
@@ -170,7 +187,7 @@ export default function WelcomePopup({
                                     onClick={handleClose}
                                     className="w-full mt-3 py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
                                 >
-                                    No thanks
+                                    Maybe later
                                 </button>
                             </>
                         )}
