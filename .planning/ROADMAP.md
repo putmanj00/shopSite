@@ -147,10 +147,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 **Plans**: 4 plans
 
 Plans:
-- [ ] 10-01-PLAN.md — Remove fake purchase popups from layout.tsx, stub Instagram gallery, remove sustainability fabricated stats
-- [ ] 10-02-PLAN.md — Create FindUsInTheWild events section and data/events.json, stub TestimonialCarousel, update homepage page.tsx
-- [ ] 10-03-PLAN.md — Update welcome popup copy, botanical image, and delayed trigger timing
-- [ ] 10-04-PLAN.md — Visual verification checkpoint (human approve all four TRST requirements)
+- [x] 10-01-PLAN.md — Remove fake purchase popups from layout.tsx, stub Instagram gallery, remove sustainability fabricated stats
+- [x] 10-02-PLAN.md — Create FindUsInTheWild events section and data/events.json, stub TestimonialCarousel, update homepage page.tsx
+- [x] 10-03-PLAN.md — Update welcome popup copy, botanical image, and delayed trigger timing
+- [x] 10-04-PLAN.md — Visual verification checkpoint (human approve all four TRST requirements)
 
 ### Phase 11: Navigation Routing
 **Goal**: Every internal link that previously pointed at /collections now resolves correctly — shoppers are never dropped on a broken or duplicate page
@@ -163,9 +163,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 11-01-PLAN.md — Create proxy.ts: 301 redirect from /collections to /collections/all with query string preservation (NAV-01)
-- [ ] 11-02-PLAN.md — Link audit sweep: fix all 8 stale href=/collections instances, delete dead route, clean sitemap (NAV-02, NAV-03)
-- [ ] 11-03-PLAN.md — Visual verification checkpoint (human approve all three NAV requirements)
+- [x] 11-01-PLAN.md — Create proxy.ts: 301 redirect from /collections to /collections/all with query string preservation (NAV-01)
+- [x] 11-02-PLAN.md — Link audit sweep: fix all 8 stale href=/collections instances, delete dead route, clean sitemap (NAV-02, NAV-03)
+- [x] 11-03-PLAN.md — Visual verification checkpoint (human approve all three NAV requirements)
 
 ### Phase 12: Navigation Labels
 **Goal**: The top navigation accurately presents all six product categories with correct names and working links — shoppers can reach any category directly from the header
@@ -215,8 +215,8 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 10. Trust Cleanup | 3/4 | Complete    | 2026-02-26 | - |
-| 11. Navigation Routing | 3/3 | Complete   | 2026-02-26 | - |
+| 10. Trust Cleanup | v1.1 | 4/4 | Complete | 2026-02-26 |
+| 11. Navigation Routing | v1.1 | 3/3 | Complete | 2026-02-26 |
 | 12. Navigation Labels | v1.1 | 0/TBD | Not started | - |
 | 13. Product Data Quality | v1.1 | 0/TBD | Not started | - |
 | 14. Collections Polish | v1.1 | 0/TBD | Not started | - |
