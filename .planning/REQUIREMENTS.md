@@ -19,10 +19,10 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 
 ### Trust
 
-- [ ] **TRST-01**: Shopper sees no fake purchase notification popup anywhere on the site
-- [ ] **TRST-02**: Shopper sees no fake testimonials with stock headshots (Sarah M., Michael R., Emily L., etc.)
-- [ ] **TRST-03**: Shopper sees no fabricated stats ("2,500+ Happy Seekers", "4.9 Average Rating", "98% Would Recommend", "50+ Artisan Partners")
-- [ ] **TRST-04**: Shopper sees no fake Instagram engagement counts (234, 189, 312, etc.) — overlays removed; if photos are Unsplash stock, entire section removed
+- [x] **TRST-01**: Shopper sees no fake purchase notification popup anywhere on the site
+- [x] **TRST-02**: Shopper sees no fake testimonials with stock headshots (Sarah M., Michael R., Emily L., etc.)
+- [x] **TRST-03**: Shopper sees no fabricated stats ("2,500+ Happy Seekers", "4.9 Average Rating", "98% Would Recommend", "50+ Artisan Partners")
+- [x] **TRST-04**: Shopper sees no fake Instagram engagement counts (234, 189, 312, etc.) — overlays removed; if photos are Unsplash stock, entire section removed
 
 ### Navigation
 
@@ -85,10 +85,10 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TRST-01 | Phase 10 | Pending |
-| TRST-02 | Phase 10 | Pending |
-| TRST-03 | Phase 10 | Pending |
-| TRST-04 | Phase 10 | Pending |
+| TRST-01 | Phase 10 | Complete |
+| TRST-02 | Phase 10 | Complete |
+| TRST-03 | Phase 10 | Complete |
+| TRST-04 | Phase 10 | Complete |
 | NAV-01 | Phase 11 | Pending |
 | NAV-02 | Phase 11 | Pending |
 | NAV-03 | Phase 11 | Pending |

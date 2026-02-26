@@ -23,9 +23,9 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 ## Current Position
 
 Phase: 10 of 15 (Trust Cleanup)
-Plan: 1/TBD in current phase
+Plan: 3/4 in current phase
 Status: In progress
-Last activity: 2026-02-26 — Phase 10 Plan 01 complete; fake social proof removed
+Last activity: 2026-02-26 — Phase 10 Plan 03 complete; welcome popup copy, image, and trigger timing updated
 
 Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 
@@ -52,6 +52,7 @@ Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 *Updated after each plan completion*
 | Phase 10 Plan 01 (trust-cleanup) | 2 min | 2 tasks | 3 files |
 | Phase 10-trust-cleanup P02 | 3 | 2 tasks | 4 files |
+| Phase 10-trust-cleanup P03 | 1 | 1 task | 1 file |
 
 ## Accumulated Context
 
@@ -83,5 +84,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 10-01-PLAN.md — fake social proof removed (SocialProofToast, RecentPurchasePopup, Instagram fake gallery, sustainability fabricated stats)
+Stopped at: Completed 10-02-PLAN.md — FindUsInTheWild events section, TestimonialCarousel stubbed (TRST-02, TRST-03)
 Resume file: None
