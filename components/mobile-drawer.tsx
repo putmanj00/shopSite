@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { NavItem } from '@/lib/shopify-helpers';
 
-export default function MobileDrawer() {
+export default function MobileDrawer({ navItems }: { navItems: NavItem[] }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [shopExpanded, setShopExpanded] = useState(false);
     const pathname = usePathname();
 
     // Close the drawer when the route changes
@@ -28,14 +30,6 @@ export default function MobileDrawer() {
 
     const toggleDrawer = () => setIsOpen((prev) => !prev);
     const closeDrawer = () => setIsOpen(false);
-
-    const categories = [
-        { name: 'Shop All', href: '/collections/all' },
-        { name: 'Leather Goods', href: '/collections/leather' },
-        { name: 'Jewelry', href: '/collections/jewelry' },
-        { name: 'Tie-Dye', href: '/collections/tie-dye' },
-        { name: 'Art', href: '/collections/art' },
-    ];
 
     const supportLinks = [
         { name: 'Contact Us', href: '/contact' },
@@ -119,23 +113,68 @@ export default function MobileDrawer() {
 
                             <div className="flex flex-col flex-1 px-6 py-2">
                                 <nav aria-label="Primary mobile navigation" className="flex flex-col gap-6">
-                                    <div className="flex flex-col gap-4">
-                                        {categories.map((category) => (
-                                            <Link
-                                                key={category.name}
-                                                href={category.href}
-                                                className="text-lg font-playfair font-semibold text-parchment hover:text-gold transition-colors block"
-                                                onClick={closeDrawer}
-                                            >
-                                                {category.name}
-                                            </Link>
-                                        ))}
+                                    <div className="flex flex-col gap-1">
+                                        {/* Home */}
                                         <Link
-                                            href="/about"
-                                            className="text-lg font-playfair font-semibold text-parchment hover:text-gold transition-colors block"
+                                            href="/"
+                                            className="text-lg font-playfair font-semibold text-parchment hover:text-gold transition-colors block py-1"
                                             onClick={closeDrawer}
                                         >
-                                            Our Story
+                                            Home
+                                        </Link>
+
+                                        {/* Shop accordion */}
+                                        <div>
+                                            <button
+                                                onClick={() => setShopExpanded((prev) => !prev)}
+                                                aria-expanded={shopExpanded}
+                                                className="text-lg font-playfair font-semibold text-parchment hover:text-gold transition-colors flex items-center justify-between w-full py-1"
+                                            >
+                                                Shop
+                                                <svg
+                                                    className={`w-4 h-4 transition-transform duration-200 ${shopExpanded ? 'rotate-180' : ''}`}
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </button>
+
+                                            <AnimatePresence>
+                                                {shopExpanded && (
+                                                    <motion.div
+                                                        initial={{ height: 0, opacity: 0 }}
+                                                        animate={{ height: 'auto', opacity: 1 }}
+                                                        exit={{ height: 0, opacity: 0 }}
+                                                        transition={{ duration: 0.2 }}
+                                                        className="overflow-hidden"
+                                                    >
+                                                        <div className="flex flex-col pl-4 gap-3 py-2">
+                                                            {navItems.map((item) => (
+                                                                <Link
+                                                                    key={item.href}
+                                                                    href={item.href}
+                                                                    className="text-base text-parchment/90 hover:text-gold transition-colors block"
+                                                                    onClick={closeDrawer}
+                                                                >
+                                                                    {item.label}
+                                                                </Link>
+                                                            ))}
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        </div>
+
+                                        {/* About */}
+                                        <Link
+                                            href="/about"
+                                            className="text-lg font-playfair font-semibold text-parchment hover:text-gold transition-colors block py-1"
+                                            onClick={closeDrawer}
+                                        >
+                                            About
                                         </Link>
                                     </div>
                                 </nav>
