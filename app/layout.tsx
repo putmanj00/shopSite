@@ -14,6 +14,7 @@ import { ExitIntentPopup, WelcomePopup } from "@/components/cro";
 import Analytics from "@/components/analytics";
 import { CurrencyProvider } from "@/lib/currency-context";
 import GeolocationHandler from "@/components/geolocation-handler";
+import { getNavMenu } from "@/lib/shopify-helpers";
 
 // Heading font: Playfair Display — classic serif for botanical warmth
 const playfairDisplay = Playfair_Display({
@@ -105,18 +106,19 @@ export const viewport: Viewport = {
   themeColor: '#1E3B30', // forest green — Wildenflower brand
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const navItems = await getNavMenu('main-menu');
   return (
     <html lang="en" className={`${playfairDisplay.variable} ${lora.variable} antialiased`}>
       <body>
         <CurrencyProvider>
           <GeolocationHandler />
           <SkipLink />
-          <Header />
+          <Header navItems={navItems} />
           <CartDrawer />
           <QuickViewModal />
           <main id="main-content" tabIndex={-1} className="pb-16 md:pb-0">
