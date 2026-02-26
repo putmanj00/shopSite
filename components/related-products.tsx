@@ -1,4 +1,5 @@
 import { getProducts } from '@/lib/shopify-helpers';
+import { isShowableProduct } from '@/lib/product-filters';
 import ProductCard from '@/components/product-card';
 import type { ShopifyProduct } from '@/types/shopify';
 
@@ -31,6 +32,7 @@ export default async function RelatedProducts({
 
     products = response.products.edges
       .map((edge) => edge.node)
+      .filter(isShowableProduct)
       // Filter out the current product
       .filter((p) => p.id !== currentProductId)
       // Limit to 4 products
@@ -50,6 +52,7 @@ export default async function RelatedProducts({
 
       products = response.products.edges
         .map((edge) => edge.node)
+        .filter(isShowableProduct)
         .filter((p) => p.id !== currentProductId)
         .slice(0, 4);
     } catch (error) {

@@ -10,6 +10,7 @@ import SortDropdown from '@/components/sort-dropdown';
 import MobileFilterDrawer from '@/components/mobile-filter-drawer';
 import CollectionBreadcrumbs from '@/components/collection-breadcrumbs';
 import { getCategoryFilters, hasCategoryFilters } from '@/lib/category-filters';
+import { isShowableProduct } from '@/lib/product-filters';
 import type { ShopifyCollection } from '@/types/shopify';
 
 interface CollectionContentProps {
@@ -76,7 +77,9 @@ export default function CollectionContent({
 
   // Filter and sort products
   const filteredProducts = useMemo(() => {
-    let products = collection.products.edges.map(({ node }) => node);
+    let products = collection.products.edges
+      .map(({ node }) => node)
+      .filter(isShowableProduct);
 
     // Apply search filter
     if (searchQuery.trim()) {

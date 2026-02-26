@@ -1,4 +1,5 @@
 import { getProducts } from '@/lib/shopify-helpers';
+import { isShowableProduct } from '@/lib/product-filters';
 import ProductCard from './product-card';
 import Link from 'next/link';
 
@@ -45,7 +46,9 @@ export default async function FeaturedProducts() {
     return <ErrorProducts />;
   }
 
-  const products = data.products.edges.map((edge) => edge.node);
+  const products = data.products.edges
+    .map((edge) => edge.node)
+    .filter(isShowableProduct);
 
   if (products.length === 0) {
     return <EmptyProducts />;
