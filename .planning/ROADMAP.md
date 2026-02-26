@@ -160,7 +160,12 @@ Plans:
   1. Visiting /collections in a browser (any method) results in a 301 redirect to /collections/all — the /collections route itself returns no content
   2. The "Wander the Shop" CTA button on the hero navigates to /collections/all, not /collections
   3. A codebase search for href="/collections" (exact, no handle suffix) returns zero results
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 11-01-PLAN.md — Create proxy.ts: 301 redirect from /collections to /collections/all with query string preservation (NAV-01)
+- [ ] 11-02-PLAN.md — Link audit sweep: fix all 8 stale href=/collections instances, delete dead route, clean sitemap (NAV-02, NAV-03)
+- [ ] 11-03-PLAN.md — Visual verification checkpoint (human approve all three NAV requirements)
 
 ### Phase 12: Navigation Labels
 **Goal**: The top navigation accurately presents all six product categories with correct names and working links — shoppers can reach any category directly from the header
@@ -211,7 +216,7 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 10. Trust Cleanup | 3/4 | Complete    | 2026-02-26 | - |
-| 11. Navigation Routing | v1.1 | 0/TBD | Not started | - |
+| 11. Navigation Routing | v1.1 | 0/3 | Not started | - |
 | 12. Navigation Labels | v1.1 | 0/TBD | Not started | - |
 | 13. Product Data Quality | v1.1 | 0/TBD | Not started | - |
 | 14. Collections Polish | v1.1 | 0/TBD | Not started | - |
