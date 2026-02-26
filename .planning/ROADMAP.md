@@ -115,7 +115,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 2. Header | 1/1 | Complete   | 2026-02-24 |
 | 3. Homepage | 4/4 | Complete   | 2026-02-24 |
 | 4. Product Detail | 3/3 | Complete   | 2026-02-24 |
-| 5. Supporting Pages | 3/3 | Complete | 2026-02-24 |
+| 5. Supporting Pages | 2/3 | In Progress|  |
 | 6. Copy & Brand Cleanup | — | Complete | 2026-02-24 |
 | 7. Cart & Conversion UX | — | Complete | 2026-02-24 |
 | 8. SEO Enhancement | — | Complete | 2026-02-24 |

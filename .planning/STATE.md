@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-26T04:49:55.731Z"
+last_updated: "2026-02-26T04:57:00.000Z"
 progress:
   total_phases: 7
   completed_phases: 6
   total_plans: 21
-  completed_plans: 18
+  completed_plans: 21
 ---
 
 # Project State
@@ -18,14 +18,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-25)
 
 **Core value:** A shopper lands on a beautiful, nature-inspired handmade goods storefront and immediately feels the warmth and authenticity of the Wildenflower brand — while the Shopify integration underneath works reliably.
-**Current focus:** Milestone v1.1 — Phase 11: Navigation Routing (in progress)
+**Current focus:** Milestone v1.1 — Phase 05: Supporting Pages (complete)
 
 ## Current Position
 
-Phase: 11 of 15 (Navigation Routing) — COMPLETE
+Phase: 05 of 15 (Supporting Pages) — COMPLETE
 Plan: 3/3 in current phase — COMPLETE
-Status: Active — Phase 12 (Navigation Labels) ready to begin
-Last activity: 2026-02-26 — Phase 11 Plan 03: human verification approved. NAV-01 (301 redirect), NAV-02 (Wander the Shop CTA), NAV-03 (zero stale links) all confirmed. Phase 11 complete.
+Status: Active — Phase 05 complete; SUPP-01, SUPP-02, SUPP-03 all satisfied
+Last activity: 2026-02-26 — Phase 05 Plan 03: Blog page BotanicalHeader verified. SUPP-03 confirmed (pre-implemented in prior commit). Phase 05 complete.
 
 Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 
@@ -56,6 +56,8 @@ Progress: [█░░░░░░░░░] 10% (milestone v1.1)
 | Phase 11 P01 | 1 | 1 tasks | 1 files |
 | Phase 11 P02 | 1 | 3 tasks | 9 files (8 modified + 1 deleted) |
 | Phase 11 P03 | 2 | 2 tasks (1 automated + 1 human-verify approved) | 0 files |
+| Phase 05-supporting-pages P01 | 1 | 2 tasks | 1 files |
+| Phase 05-supporting-pages P03 | 1 | 1 task (pre-implemented, verify only) | 0 files |
 
 ## Accumulated Context
 
@@ -79,6 +81,8 @@ Recent decisions affecting current work:
 - [11-02]: app/collections/page.tsx deleted — proxy.ts intercepts /collections before file router; file was dead code
 - [11-02]: Bare /collections removed from sitemap — redirect URLs not canonical; /collections/all is the correct canonical entry
 - [11-03]: Phase 11 human-approved 2026-02-25 — NAV-01 (301 redirect), NAV-02 (CTA), NAV-03 (zero stale links) all confirmed in live dev server
+- [Phase 05-supporting-pages]: BotanicalHeader about variant pre-complete; only About page import + JSX insertion required for SUPP-01
+- [05-03]: Blog page BotanicalHeader variant=blog was pre-implemented in f70a1f0; page evolved from ComingSoon placeholder to full blog grid — SUPP-03 satisfied
 
 ### Pending Todos
 
@@ -92,5 +96,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 11-03-PLAN.md — Phase 11 Navigation Routing complete. All NAV requirements human-approved.
+Stopped at: Completed 05-01-PLAN.md — About page BotanicalHeader (about variant) + fallen-log divider. SUPP-01 complete.
 Resume file: None
