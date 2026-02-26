@@ -128,7 +128,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 **Milestone Goal:** Remove deceptive content and navigation confusion so every shopper path leads cleanly to real products. CRITICAL trust issues (fake social proof) are resolved first, then routing integrity, then label accuracy, product data quality, collections polish, and footer cleanup.
 
 **Phase summary:**
-- [ ] **Phase 10: Trust Cleanup** - Remove all fake social proof (purchase popups, testimonials, fabricated stats, fake engagement)
+- [x] **Phase 10: Trust Cleanup** - Remove all fake social proof (purchase popups, testimonials, fabricated stats, fake engagement) (completed 2026-02-26)
 - [ ] **Phase 11: Navigation Routing** - Fix /collections redirect, hero CTA link, and all stale /collections hrefs
 - [ ] **Phase 12: Navigation Labels** - Correct all 6 category labels and hrefs in top nav
 - [ ] **Phase 13: Product Data Quality** - Fix vendor names, hide test products, filter imageless products, add card corner overlays
@@ -210,7 +210,7 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 10. Trust Cleanup | 3/4 | In Progress|  | - |
+| 10. Trust Cleanup | 3/4 | Complete    | 2026-02-26 | - |
 | 11. Navigation Routing | v1.1 | 0/TBD | Not started | - |
 | 12. Navigation Labels | v1.1 | 0/TBD | Not started | - |
 | 13. Product Data Quality | v1.1 | 0/TBD | Not started | - |
