@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function BrandStory() {
   return (
-    <section className="bg-white py-16 lg:py-24">
+    <section className="bg-forest py-16 lg:py-24">
       <div className="container mx-auto px-4">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           {/* Image Section */}
@@ -11,7 +11,7 @@ export default function BrandStory() {
             <div className="aspect-[4/3] relative overflow-hidden rounded-2xl bg-neutral-200">
               {/* Placeholder image - replace with actual artisan workshop image */}
               <Image
-                src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=800&h=600&fit=crop"
+                src="/assets/images/about/love.jpeg"
                 alt="Artisan crafting handmade products in workshop"
                 fill
                 className="object-cover"
@@ -24,19 +24,18 @@ export default function BrandStory() {
 
           {/* Content Section */}
           <div className="lg:pl-8">
-            <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
+            <span className="text-gold font-medium text-sm uppercase tracking-wider">
               Made by Hand
             </span>
-            <h2 className="mt-3 text-3xl font-bold text-ink-brown sm:text-4xl lg:text-5xl font-heading">
+            <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl lg:text-5xl font-heading">
               Found by the heart{' '}
-              <span className="text-terracotta">that needs it</span>
+              <span className="text-gold">that needs it</span>
             </h2>
-            <div className="mt-6 space-y-4 text-earth text-lg leading-relaxed">
+            <div className="mt-6 space-y-4 text-parchment/80 text-lg leading-relaxed">
               <p>
-                Every piece in our shop starts in someone&apos;s hands — dyed in
-                a backyard, tooled at a workbench, thrown on a wheel, set stone
-                by stone. We find makers who pour genuine care into what they
-                make, and we bring their work to you.
+                Every piece starts in our hands — dyed in the backyard, tooled
+                at the workbench, set stone by stone. We are the makers, and we
+                pour genuine care into everything we create.
               </p>
               <p>
                 When you choose Wildenflower, you&apos;re not just buying
@@ -49,18 +48,18 @@ export default function BrandStory() {
             {/* Features */}
             <div className="mt-8 grid grid-cols-2 gap-6">
               <div>
-                <div className="text-3xl font-bold text-ink-brown font-heading">100%</div>
-                <div className="text-sm text-earth">Handpicked Treasures</div>
+                <div className="text-3xl font-bold text-parchment font-heading">100%</div>
+                <div className="text-sm text-parchment/60">Handmade by Us</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-ink-brown font-heading">30-day</div>
-                <div className="text-sm text-earth">Return Policy</div>
+                <div className="text-3xl font-bold text-parchment font-heading">30-day</div>
+                <div className="text-sm text-parchment/60">Return Policy</div>
               </div>
             </div>
 
             <Link
               href="/collections/all"
-              className="mt-8 inline-flex items-center gap-2 text-terracotta font-semibold hover:text-terracotta/80 transition-colors group"
+              className="mt-8 inline-flex items-center gap-2 text-gold font-semibold hover:text-gold/80 transition-colors group"
             >
               Explore the Collection
               <svg

@@ -15,11 +15,9 @@ const footerLinks = {
     { name: 'Size Guide', href: '/size-guide' },
   ],
   company: [
-    { name: 'About Us', href: '/about' },
-    { name: 'Our Story', href: '/our-story' },
+    { name: 'Our Story', href: '/about' },
     { name: 'Blog', href: '/blog' },
     { name: 'Sustainability', href: '/sustainability' },
-    { name: 'Press', href: '/press' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy' },

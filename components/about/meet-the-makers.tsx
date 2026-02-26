@@ -11,40 +11,31 @@ interface Maker {
 
 const makers: Maker[] = [
     {
-        name: 'Maria Santos',
-        role: 'Founder & Lead Artisan',
-        specialty: 'Tie-Dye Textiles',
-        bio: 'With 20+ years of experience, Maria pioneered our signature spiral patterns and mentors emerging artists.',
+        name: 'Karen Sifford',
+        role: 'Co-Founder & Lead Artisan',
+        specialty: 'Tie-Dye, Jewelry, and more',
+        bio: 'With 20+ years of experience, Karen is a badass artisan who pours her heart and soul into every piece she creates.',
         image:
             'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop',
         collectionHandle: 'tie-dye',
     },
     {
-        name: 'James Chen',
-        role: 'Master Leather Craftsman',
-        specialty: 'Leather Goods',
-        bio: 'A third-generation leatherworker, James brings traditional techniques to modern designs.',
+        name: 'James Putman',
+        role: 'Co-Founder & Lead Artisan',
+        specialty: 'Tie-Dye, Leather Goods, and more',
+        bio: 'A maker of all things cool.',
         image:
             'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
         collectionHandle: 'leather',
     },
     {
-        name: 'Amara Okonkwo',
-        role: 'Jewelry Designer',
+        name: 'Terry Sifford',
+        role: 'Jewelry Maker',
         specialty: 'Artisan Jewelry',
-        bio: 'Amara combines African heritage with contemporary aesthetics in every handcrafted piece.',
+        bio: 'Terry is a badass artisan who pours his heart and soul into every piece he creates.',
         image:
             'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop',
         collectionHandle: 'jewelry',
-    },
-    {
-        name: 'David Rivera',
-        role: 'Crystal Curator',
-        specialty: 'Crystals & Stones',
-        bio: 'David sources ethically-mined crystals and stones, bringing earth\'s natural beauty to every collection.',
-        image:
-            'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop',
-        collectionHandle: 'crystals',
     },
 ];
 
@@ -60,12 +51,12 @@ export default function MeetTheMakers() {
                         Meet the Makers
                     </h2>
                     <p className="mt-4 text-lg text-earth max-w-2xl mx-auto">
-                        Every product in our collection is crafted by skilled artisans who
-                        pour their passion and expertise into each piece.
+                        We are Wildenflower. Everything you find in our shop is made by our
+                        own hands — poured with skill, intention, and a love for the craft.
                     </p>
                 </div>
 
-                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {makers.map((maker) => (
                         <article
                             key={maker.name}

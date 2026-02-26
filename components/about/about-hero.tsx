@@ -27,16 +27,14 @@ export default function AboutHero() {
                         <span className="text-gold">Crafted with Intention</span>
                     </h1>
                     <p className="mt-6 text-xl text-parchment/80 leading-relaxed">
-                        Wildenflower was born from a belief that the most beautiful things
-                        in life bloom freely. We curate handpicked treasures from talented
-                        artisans who pour their spirit into every creation — crystals,
-                        jewelry, tie-dye, and leather goods that connect you to something
-                        deeper.
+                        Wildenflower is a handmade shop — every piece of tie-dye, leather
+                        goods, and jewelry is created by us. We pour our own hands and
+                        hearts into each piece, and we wouldn&apos;t have it any other way.
                     </p>
                     <p className="mt-4 text-lg text-parchment/60 leading-relaxed">
-                        Every piece tells a story. Every treasure is chosen with intention.
-                        Like the wildflower that blooms where it chooses, we celebrate the
-                        untamed spirit in all of us.
+                        Every piece we make carries intention. Like the wildflower that
+                        blooms where it chooses, we celebrate the untamed beauty of things
+                        made by hand — slowly, carefully, and with love.
                     </p>
                 </div>
             </div>

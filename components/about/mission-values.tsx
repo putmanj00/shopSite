@@ -66,7 +66,7 @@ const values: Value[] = [
         ),
         title: 'Supporting Artists',
         description:
-            'Your purchase directly supports independent artisans and their families worldwide.',
+            'Your purchase directly supports independent artisans.',
     },
     {
         icon: (
@@ -85,9 +85,9 @@ const values: Value[] = [
                 />
             </svg>
         ),
-        title: 'Globally Sourced',
+        title: 'Made by Us',
         description:
-            'We partner with artisans across the globe to bring you unique, culturally-rich creations.',
+            'Every item in our shop is made by our own hands in our studio — never outsourced, never mass-produced.',
     },
 ];
 

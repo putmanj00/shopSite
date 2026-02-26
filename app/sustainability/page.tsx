@@ -1,91 +1,74 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
-import { BotanicalHeader } from '@/components/ui/botanical-header';
+import { PageHero } from '@/components/ui/page-hero';
 
 export const metadata: Metadata = {
-    title: 'Sustainability | Wildenflower',
-    description: 'Our commitment to ethical sourcing, eco-friendly materials, and supporting artisan communities worldwide.',
+    title: 'Our Approach | Wildenflower',
+    description: 'How we work — small batch, handmade, and growing toward better every day.',
 };
 
 const practices = [
     {
-        icon: '🌿',
-        title: 'Natural Dyes',
-        description: 'Plant-based dyes for our tie-dye collection, avoiding harmful chemicals and reducing water pollution.',
+        icon: '🤲',
+        title: 'Handmade & Small Batch',
+        description: 'We make in small runs, which naturally reduces overproduction and waste. Every piece is made to order or in limited quantities — we don\'t manufacture excess.',
     },
     {
-        icon: '🐄',
-        title: 'Ethical Leather',
-        description: 'Vegetable-tanned leather from certified sustainable sources with full supply chain transparency.',
+        icon: '🛡️',
+        title: 'Built to Last',
+        description: 'We focus on quality so pieces are kept and loved for years, not thrown away. A well-made piece that lasts a decade is more sustainable than any certification.',
     },
     {
-        icon: '♻️',
-        title: 'Recycled Metals',
-        description: 'Jewelry crafted with recycled gold and silver to reduce the environmental impact of mining.',
+        icon: '🧵',
+        title: 'Thoughtful Materials',
+        description: 'We source quality materials for our leather and metalwork from trusted suppliers. We care about what goes into our work, and we\'re always looking for better options.',
     },
     {
         icon: '📦',
         title: 'Eco Packaging',
-        description: 'Recyclable and biodegradable packaging materials for all shipments — zero single-use plastics.',
-    },
-    {
-        icon: '🌍',
-        title: 'Carbon Neutral',
-        description: 'Offsetting 100% of shipping emissions through verified reforestation and clean energy programs.',
+        description: 'We use recyclable packaging where possible and avoid unnecessary materials. No excess tissue paper, no plastic wrap — just what the piece needs to arrive safely.',
     },
     {
         icon: '💛',
-        title: 'Fair Wages',
-        description: 'All artisans receive above-market compensation, ensuring dignified livelihoods for their families.',
+        title: 'Honest Craft',
+        description: 'We use professional-grade dyes for our tie-dye work. We\'re not greenwashing — we\'re a small studio doing our best and being honest about where we are.',
     },
-];
-
-const milestones = [
-    { year: '2021', text: 'Switched to 100% recycled packaging materials' },
-    { year: '2022', text: 'Achieved carbon neutral shipping across all orders' },
-    { year: '2023', text: 'Launched artisan cooperative partnership program' },
-    { year: '2024', text: 'Certified B Corp — meeting highest social & environmental standards' },
-    { year: '2025', text: 'Introduced plant-based dye collection, eliminating synthetic chemicals' },
+    {
+        icon: '🌱',
+        title: 'Growing Toward Better',
+        description: 'We\'re a small business actively exploring how we can reduce our footprint as we grow. This page will evolve as we do. We\'d rather be honest than claim more than we\'ve earned.',
+    },
 ];
 
 export default function SustainabilityPage() {
     return (
         <>
-            <BotanicalHeader />
-
-            {/* Hero */}
-            <section className="bg-forest text-parchment py-20 lg:py-28">
-                <div className="container mx-auto px-4 max-w-4xl text-center">
-                    <span className="text-gold font-medium text-sm uppercase tracking-wider">
-                        Our Commitment
-                    </span>
-                    <h1 className="mt-3 text-4xl font-bold font-heading sm:text-5xl lg:text-6xl">
-                        Sustainability & Ethical Sourcing
-                    </h1>
-                    <p className="mt-6 text-xl text-parchment/80 leading-relaxed max-w-2xl mx-auto">
-                        We believe beautiful products shouldn&apos;t come at the cost of our
-                        planet or people. Every material we use is carefully selected for
-                        its environmental and social impact.
-                    </p>
-                </div>
-            </section>
+            <PageHero
+                backgroundImage="/assets/images/headers/botanical-header-large-about.png"
+                label="How We Work"
+                title="Our Approach"
+                subtitle="We're a small handmade studio. We make honest choices about how we work — and we're upfront about where we are and where we're headed."
+            />
 
             {/* Practices Grid */}
             <section className="bg-parchment py-16 lg:py-24">
                 <div className="container mx-auto px-4">
-                    <div className="text-center mb-14">
+                    <div className="text-center mb-14 max-w-2xl mx-auto">
                         <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
-                            How We Work
+                            What We Actually Do
                         </span>
                         <h2 className="mt-3 text-3xl font-bold font-heading text-ink-brown sm:text-4xl">
-                            Our Sustainable Practices
+                            Six Things We Can Stand Behind
                         </h2>
+                        <p className="mt-4 text-earth leading-relaxed">
+                            No certifications. No greenwashing. Just honest practices from a
+                            small studio that cares about making things well.
+                        </p>
                     </div>
                     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
                         {practices.map((practice) => (
                             <div
                                 key={practice.title}
-                                className="bg-white p-6 rounded-2xl shadow-sm text-center"
+                                className="bg-white p-6 rounded-2xl shadow-sm"
                             >
                                 <span className="text-3xl mb-4 block">{practice.icon}</span>
                                 <h3 className="text-lg font-semibold text-ink-brown mb-2">{practice.title}</h3>
@@ -96,54 +79,22 @@ export default function SustainabilityPage() {
                 </div>
             </section>
 
-            {/* Timeline */}
-            <section className="bg-parchment py-16 lg:py-24">
-                <div className="container mx-auto px-4 max-w-3xl">
-                    <div className="text-center mb-14">
-                        <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
-                            Our Journey
-                        </span>
-                        <h2 className="mt-3 text-3xl font-bold font-heading text-ink-brown sm:text-4xl">
-                            Sustainability Milestones
-                        </h2>
-                    </div>
-                    <div className="space-y-8">
-                        {milestones.map((milestone, i) => (
-                            <div key={i} className="flex gap-6 items-start">
-                                <div className="flex-shrink-0 w-16 text-right">
-                                    <span className="text-lg font-bold text-terracotta">{milestone.year}</span>
-                                </div>
-                                <div className="flex-shrink-0 w-3 h-3 rounded-full bg-sage mt-2" />
-                                <p className="text-earth leading-relaxed">{milestone.text}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Certifications */}
+            {/* Honest Note */}
             <section className="bg-forest text-parchment py-16 lg:py-20">
-                <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-3xl font-bold font-heading sm:text-4xl mb-8">
-                        Our Certifications
+                <div className="container mx-auto px-4 max-w-2xl text-center">
+                    <h2 className="text-3xl font-bold font-heading sm:text-4xl mb-6">
+                        A Note From Us
                     </h2>
-                    <div className="flex flex-wrap justify-center gap-4 max-w-2xl mx-auto">
-                        <span className="inline-flex items-center px-5 py-3 rounded-full bg-forest/80 border border-gold/30 text-parchment/90 text-sm font-medium">
-                            🌱 Certified B Corp
-                        </span>
-                        <span className="inline-flex items-center px-5 py-3 rounded-full bg-forest/80 border border-gold/30 text-parchment/90 text-sm font-medium">
-                            ♻️ 1% for the Planet
-                        </span>
-                        <span className="inline-flex items-center px-5 py-3 rounded-full bg-forest/80 border border-gold/30 text-parchment/90 text-sm font-medium">
-                            🤝 Fair Trade Certified
-                        </span>
-                        <span className="inline-flex items-center px-5 py-3 rounded-full bg-forest/80 border border-gold/30 text-parchment/90 text-sm font-medium">
-                            🌊 Ocean Positive
-                        </span>
-                    </div>
-                    <p className="mt-8 text-parchment/60 text-sm max-w-xl mx-auto">
-                        We hold ourselves to the highest standards of social and environmental performance,
-                        accountability, and transparency.
+                    <p className="text-parchment/80 leading-relaxed mb-6">
+                        We&apos;re Karen, James, and Terry — three people making things by hand
+                        in a studio in Northern Kentucky. We don&apos;t have a sustainability
+                        department. We have a backyard and a workbench and a real commitment
+                        to making things that last.
+                    </p>
+                    <p className="text-parchment/70 leading-relaxed">
+                        We think honesty is its own kind of sustainability. We&apos;d rather
+                        tell you exactly where we are than dress it up with credentials we
+                        haven&apos;t earned. We&apos;re growing, and this page will grow with us.
                     </p>
                 </div>
             </section>

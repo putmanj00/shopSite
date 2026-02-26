@@ -18,12 +18,32 @@ const practices: Practice[] = [
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={1.5}
-                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                    d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"
                 />
             </svg>
         ),
-        title: 'Natural Dyes',
-        description: 'Plant-based dyes for our tie-dye collection, avoiding harmful chemicals.',
+        title: 'Handmade & Small Batch',
+        description: 'We make in small runs, which naturally reduces overproduction and waste.',
+    },
+    {
+        icon: (
+            <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
+            </svg>
+        ),
+        title: 'Built to Last',
+        description: 'We focus on quality so pieces are kept and loved for years, not thrown away.',
     },
     {
         icon: (
@@ -42,28 +62,8 @@ const practices: Practice[] = [
                 />
             </svg>
         ),
-        title: 'Ethical Leather',
-        description: 'Vegetable-tanned leather from certified sustainable sources.',
-    },
-    {
-        icon: (
-            <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-            >
-                <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"
-                />
-            </svg>
-        ),
-        title: 'Recycled Metals',
-        description: 'Jewelry crafted with recycled gold and silver to reduce mining impact.',
+        title: 'Thoughtful Materials',
+        description: 'We source quality materials for our leather and metalwork from trusted suppliers.',
     },
     {
         icon: (
@@ -83,27 +83,7 @@ const practices: Practice[] = [
             </svg>
         ),
         title: 'Eco Packaging',
-        description: 'Recyclable and biodegradable packaging for all shipments.',
-    },
-    {
-        icon: (
-            <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-            >
-                <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-            </svg>
-        ),
-        title: 'Carbon Neutral',
-        description: 'Offsetting 100% of shipping emissions through verified programs.',
+        description: 'We use recyclable packaging where possible and avoid unnecessary materials.',
     },
     {
         icon: (
@@ -122,8 +102,28 @@ const practices: Practice[] = [
                 />
             </svg>
         ),
-        title: 'Fair Wages',
-        description: 'All artisans receive above-market compensation for their work.',
+        title: 'Honest Craft',
+        description: "We use professional-grade dyes for our tie-dye work. We're not greenwashing — we're a small studio doing our best.",
+    },
+    {
+        icon: (
+            <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                />
+            </svg>
+        ),
+        title: 'Growing Toward Better',
+        description: "We're a small business exploring how we can reduce our footprint as we grow.",
     },
 ];
 
@@ -135,33 +135,21 @@ export default function Sustainability() {
                     {/* Content */}
                     <div>
                         <span className="text-gold font-medium text-sm uppercase tracking-wider">
-                            Our Commitment
+                            How We Work
                         </span>
                         <h2 className="mt-3 text-3xl font-bold font-heading sm:text-4xl">
-                            Sustainability &amp; Ethical Sourcing
+                            Our Approach
                         </h2>
                         <p className="mt-6 text-lg text-parchment/80 leading-relaxed">
-                            We believe beautiful products shouldn&apos;t come at the cost of our
-                            planet or people. Every material we use is carefully selected for
-                            its environmental and social impact.
+                            We believe beautiful products should be made with care — for the
+                            people who make them and the world we all share. As a small
+                            handmade studio, we make intentional choices about how we work.
                         </p>
                         <p className="mt-4 text-parchment/70 leading-relaxed">
-                            From natural dyes to recycled metals, we&apos;re committed to making
-                            sustainable choices at every step of our supply chain.
+                            We&apos;re not perfect, and we&apos;re not making grand claims.
+                            We&apos;re a small shop doing our best to make things well and
+                            leave things better than we found them.
                         </p>
-
-                        {/* Certifications */}
-                        <div className="mt-8 flex flex-wrap gap-4">
-                            <span className="inline-flex items-center px-4 py-2 rounded-full bg-forest/80 border border-gold/30 text-parchment/90 text-sm font-medium">
-                                🌱 Certified B Corp
-                            </span>
-                            <span className="inline-flex items-center px-4 py-2 rounded-full bg-forest/80 border border-gold/30 text-parchment/90 text-sm font-medium">
-                                ♻️ 1% for the Planet
-                            </span>
-                            <span className="inline-flex items-center px-4 py-2 rounded-full bg-forest/80 border border-gold/30 text-parchment/90 text-sm font-medium">
-                                🤝 Fair Trade
-                            </span>
-                        </div>
                     </div>
 
                     {/* Practices Grid */}

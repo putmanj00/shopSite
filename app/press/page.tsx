@@ -1,7 +1,8 @@
+import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BotanicalHeader } from '@/components/ui/botanical-header';
+import { PageHero } from '@/components/ui/page-hero';
 
 export const metadata: Metadata = {
     title: 'Press | Wildenflower',
@@ -32,28 +33,18 @@ const mediaLogos = [
 ];
 
 export default function PressPage() {
+    redirect('/about');
     return (
         <>
-            <BotanicalHeader />
-
-            {/* Hero */}
-            <section className="bg-parchment py-20 lg:py-28">
-                <div className="container mx-auto px-4 max-w-4xl text-center">
-                    <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
-                        In the Press
-                    </span>
-                    <h1 className="mt-3 text-4xl font-bold font-heading text-ink-brown sm:text-5xl lg:text-6xl">
-                        As Seen In
-                    </h1>
-                    <p className="mt-6 text-xl text-earth leading-relaxed max-w-2xl mx-auto">
-                        We&apos;re honored to be featured by some of the world&apos;s leading publications
-                        for our commitment to artisan craftsmanship and sustainable design.
-                    </p>
-                </div>
-            </section>
+            <PageHero
+                backgroundImage="/assets/images/headers/botanical-hero.png"
+                label="In the Press"
+                title="As Seen In"
+                subtitle="We're honored to be featured by some of the world's leading publications for our commitment to artisan craftsmanship and sustainable design."
+            />
 
             {/* Logo Grid */}
-            <section className="bg-white py-16 lg:py-20">
+            <section className="bg-parchment py-16 lg:py-20">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center max-w-4xl mx-auto">
                         {mediaLogos.map((name) => (

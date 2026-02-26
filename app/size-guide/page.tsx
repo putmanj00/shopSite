@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BotanicalHeader } from '@/components/ui/botanical-header';
+import { PageHero } from '@/components/ui/page-hero';
 
 export const metadata: Metadata = {
     title: 'Size Guide | Wildenflower',
@@ -27,25 +27,15 @@ const ringSizes = [
 export default function SizeGuidePage() {
     return (
         <>
-            <BotanicalHeader />
-
-            {/* Hero */}
-            <section className="bg-parchment py-16 lg:py-20">
-                <div className="container mx-auto px-4 max-w-4xl text-center">
-                    <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
-                        Find Your Fit
-                    </span>
-                    <h1 className="mt-3 text-4xl font-bold font-heading text-ink-brown sm:text-5xl">
-                        Size Guide
-                    </h1>
-                    <p className="mt-4 text-lg text-earth max-w-2xl mx-auto">
-                        Every artisan piece is unique. Use these measurements to find your perfect fit.
-                    </p>
-                </div>
-            </section>
+            <PageHero
+                backgroundImage="/assets/images/headers/botanical-header-small.png"
+                label="Find Your Fit"
+                title="Size Guide"
+                subtitle="Every artisan piece is unique. Use these measurements to find your perfect fit."
+            />
 
             {/* Apparel Sizes */}
-            <section className="bg-white py-12 lg:py-16">
+            <section className="bg-parchment py-16 lg:py-24">
                 <div className="container mx-auto px-4 max-w-3xl">
                     <h2 className="text-2xl font-bold font-heading text-ink-brown mb-6">
                         Apparel
@@ -62,7 +52,7 @@ export default function SizeGuidePage() {
                             </thead>
                             <tbody className="divide-y divide-gold/10">
                                 {apparelSizes.map((row) => (
-                                    <tr key={row.size} className="hover:bg-parchment/50 transition-colors">
+                                    <tr key={row.size} className="bg-white hover:bg-parchment/50 transition-colors">
                                         <td className="px-5 py-3 font-medium text-terracotta">{row.size}</td>
                                         <td className="px-5 py-3 text-earth">{row.chest}</td>
                                         <td className="px-5 py-3 text-earth">{row.waist}</td>
@@ -83,6 +73,54 @@ export default function SizeGuidePage() {
                             <li>Our tie-dye pieces are intentionally oversized for a bohemian drape</li>
                         </ul>
                     </div>
+                </div>
+            </section>
+
+            {/* Belt Sizes */}
+            <section className="bg-parchment py-12 lg:py-16">
+                <div className="container mx-auto px-4 max-w-3xl">
+                    <h2 className="text-2xl font-bold font-heading text-ink-brown mb-6">
+                        Leather Belt Size
+                    </h2>
+                    <div className="bg-sage/10 p-6 rounded-xl mb-6">
+                        <h3 className="font-semibold text-ink-brown mb-3">How to Measure</h3>
+                        <ol className="text-earth text-sm leading-relaxed space-y-2 list-decimal list-inside">
+                            <li>Measure your natural waist or where you wear your belt (in inches)</li>
+                            <li>Add 2 inches to your measurement — that&apos;s your belt size</li>
+                            <li>Example: 34&quot; waist → order size 36</li>
+                        </ol>
+                    </div>
+                    <div className="overflow-hidden rounded-xl border border-gold/20 bg-white mb-6">
+                        <table className="w-full text-sm">
+                            <thead className="bg-sage/10">
+                                <tr>
+                                    <th className="px-5 py-3 text-left font-semibold text-ink-brown">Waist</th>
+                                    <th className="px-5 py-3 text-left font-semibold text-ink-brown">Belt Size</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gold/10">
+                                {[
+                                    { waist: '28"', belt: '30' },
+                                    { waist: '30"', belt: '32' },
+                                    { waist: '32"', belt: '34' },
+                                    { waist: '34"', belt: '36' },
+                                    { waist: '36"', belt: '38' },
+                                    { waist: '38"', belt: '40' },
+                                    { waist: '40"', belt: '42' },
+                                    { waist: '42"', belt: '44' },
+                                    { waist: '44"', belt: '46' },
+                                ].map((row) => (
+                                    <tr key={row.waist} className="hover:bg-parchment/50 transition-colors">
+                                        <td className="px-5 py-3 font-medium text-terracotta">{row.waist}</td>
+                                        <td className="px-5 py-3 text-earth">{row.belt}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <p className="text-earth text-sm italic">
+                        Our leather belts are cut and finished by hand. If you&apos;re between sizes, we recommend sizing up.
+                    </p>
                 </div>
             </section>
 

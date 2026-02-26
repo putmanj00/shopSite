@@ -15,7 +15,7 @@ const events: TimelineEvent[] = [
         year: '2019',
         title: 'Roots Take Hold',
         description:
-            'Expanded to include leather goods and bohemian jewelry, partnering with our first artisan craftspeople.',
+            'Expanded our handmade collection to include leather goods and bohemian jewelry, finding our full range.',
     },
     {
         year: '2020',
@@ -33,7 +33,7 @@ const events: TimelineEvent[] = [
         year: '2024',
         title: 'A Growing Garden',
         description:
-            'Our community flourished to over 50 artisan partners, each bringing unique magic to our collection.',
+            'Our collection and community grew, with new designs and deeper craft in every category.',
     },
     {
         year: '2026',
