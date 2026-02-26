@@ -5,6 +5,7 @@ import CollectionContent from '@/components/collection-content';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
 import type { Metadata } from 'next';
 import type { ShopifyCollection } from '@/types/shopify';
+import { BotanicalHeader } from '@/components/ui/botanical-header';
 import { buildBreadcrumbList, SITE_URL } from '@/lib/structured-data';
 
 interface CollectionPageProps {
@@ -43,11 +44,11 @@ export async function generateMetadata({
   // Handle virtual "all" collection
   if (handle === 'all') {
     return {
-      title: 'All Products | shopSite',
-      description: 'Browse our complete collection of products',
+      title: 'All Treasures | shopSite',
+      description: 'Every handmade treasure in one place',
       openGraph: {
-        title: 'All Products',
-        description: 'Browse our complete collection of products',
+        title: 'All Treasures',
+        description: 'Every handmade treasure in one place',
       },
     };
   }
@@ -94,10 +95,10 @@ export default async function CollectionPage({
       // Create a virtual collection with all products
       collection = {
         id: 'all-products',
-        title: 'All Products',
+        title: 'All Treasures',
         handle: 'all',
-        description: 'Browse our complete collection of products',
-        descriptionHtml: '<p>Browse our complete collection of products</p>',
+        description: 'Every handmade treasure in one place',
+        descriptionHtml: '<p>Every handmade treasure in one place</p>',
         image: null,
         products: productsData.products,
       };
@@ -120,7 +121,7 @@ export default async function CollectionPage({
 
   const breadcrumbData = buildBreadcrumbList([
     { name: 'Home', url: SITE_URL },
-    { name: 'Collections', url: `${SITE_URL}/collections` },
+    { name: 'Shop', url: `${SITE_URL}/collections/all` },
     { name: collection.title, url: `${SITE_URL}/collections/${handle}` },
   ]);
 
@@ -131,16 +132,30 @@ export default async function CollectionPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
       {/* Collection Header */}
-      <section className="bg-parchment py-16 lg:py-20">
+      <section className="bg-parchment pt-12 pb-8 lg:pt-16 lg:pb-12 text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
-            Collection
+          {/* Breadcrumb Navigation */}
+          <nav className="flex items-center justify-center gap-2 text-sm mb-8" aria-label="Breadcrumb">
+            <a href="/" className="text-sage hover:text-ink-brown transition-colors">Home</a>
+            <span className="text-sage">/</span>
+            <a href="/collections/all" className="text-sage hover:text-ink-brown transition-colors">Shop</a>
+            <span className="text-sage">/</span>
+            <span className="text-ink-brown font-medium line-clamp-1">{collection.title}</span>
+          </nav>
+
+          {handle === 'all' && (
+            <div className="flex justify-center mb-6">
+              <BotanicalHeader variant="small" />
+            </div>
+          )}
+          <span className="text-terracotta font-medium text-sm uppercase tracking-wider block mb-2">
+            {handle === 'all' ? 'Shop' : 'Collection'}
           </span>
-          <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-ink-brown">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-ink-brown">
             {collection.title}
           </h1>
           {collection.description && (
-            <p className="mt-4 text-lg text-earth max-w-3xl">
+            <p className="mt-4 text-lg text-earth/80 max-w-2xl mx-auto font-body">
               {collection.description}
             </p>
           )}
