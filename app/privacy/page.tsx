@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BotanicalHeader } from '@/components/ui/botanical-header';
+import { PageHero } from '@/components/ui/page-hero';
 
 export const metadata: Metadata = {
     title: 'Privacy Policy | Wildenflower',
@@ -9,21 +9,15 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
     return (
         <>
-            <BotanicalHeader />
+            <PageHero
+                backgroundImage="/assets/images/headers/botanical-header-small.png"
+                label="Legal"
+                title="Privacy Policy"
+                subtitle="How Wildenflower collects, uses, and protects your personal information."
+                secondarySubtitle="Last updated: January 17, 2026"
+            />
 
-            <section className="bg-parchment py-16 lg:py-20">
-                <div className="container mx-auto px-4 max-w-3xl">
-                    <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
-                        Legal
-                    </span>
-                    <h1 className="mt-3 text-4xl font-bold font-heading text-ink-brown sm:text-5xl mb-4">
-                        Privacy Policy
-                    </h1>
-                    <p className="text-earth/60 text-sm">Last updated: January 17, 2026</p>
-                </div>
-            </section>
-
-            <section className="bg-white py-12 lg:py-16">
+            <section className="bg-parchment py-16 lg:py-24">
                 <div className="container mx-auto px-4 max-w-3xl prose prose-lg prose-slate prose-headings:font-heading prose-headings:text-ink-brown prose-a:text-terracotta hover:prose-a:text-terracotta/80">
                     <h2>Information We Collect</h2>
                     <p>

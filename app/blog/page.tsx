@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BotanicalHeader } from '@/components/ui/botanical-header';
 import { blogPosts } from '@/data/blog-posts';
 
 export const metadata: Metadata = {
@@ -12,32 +11,48 @@ export const metadata: Metadata = {
 export default function BlogPage() {
     return (
         <>
-            <BotanicalHeader variant="blog" />
-
-            {/* Header */}
-            <section className="bg-parchment py-16 lg:py-20">
-                <div className="container mx-auto px-4 max-w-4xl text-center">
-                    <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
-                        The Journal
-                    </span>
-                    <h1 className="mt-3 text-4xl font-bold font-heading text-ink-brown sm:text-5xl">
-                        Stories & Inspiration
-                    </h1>
-                    <p className="mt-4 text-lg text-earth max-w-2xl mx-auto">
-                        Behind every piece is a story — of the maker, the material, and the tradition.
-                    </p>
+            {/* Hero */}
+            <section className="relative bg-forest text-white overflow-hidden">
+                <div className="absolute inset-0">
+                    <Image
+                        src="/assets/images/headers/botanical-header-blog.png"
+                        alt="Botanical illustration"
+                        fill
+                        className="object-cover opacity-40"
+                        priority
+                        sizes="100vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-forest/60 to-forest/90" />
+                </div>
+                <div className="relative container mx-auto px-4 py-24 lg:py-32">
+                    <div className="max-w-3xl">
+                        <span className="text-gold font-medium text-sm uppercase tracking-wider">
+                            The Journal
+                        </span>
+                        <h1 className="mt-4 text-4xl font-bold font-heading sm:text-5xl lg:text-6xl leading-tight">
+                            Stories & Inspiration
+                        </h1>
+                        <p className="mt-6 text-xl text-parchment/80 leading-relaxed">
+                            Behind every piece is a story — of the maker, the material, and the tradition.
+                        </p>
+                    </div>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0">
+                    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto" aria-hidden="true">
+                        <path d="M0 60V30C360 0 720 0 1080 30C1260 45 1380 52.5 1440 60V60H0Z" fill="currentColor" className="text-parchment" />
+                    </svg>
                 </div>
             </section>
 
             {/* Blog Grid */}
-            <section className="bg-white py-12 lg:py-16">
+            <section className="bg-parchment py-12 lg:py-16 -mt-px">
                 <div className="container mx-auto px-4">
                     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
                         {blogPosts.map((post) => (
                             <Link
                                 key={post.slug}
                                 href={`/blog/${post.slug}`}
-                                className="group bg-parchment rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                                className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                             >
                                 <div className="relative aspect-[3/2] overflow-hidden">
                                     <Image

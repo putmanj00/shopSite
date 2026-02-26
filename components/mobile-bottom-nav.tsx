@@ -110,7 +110,7 @@ export default function MobileBottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-neutral-200 safe-area-bottom md:hidden"
+      className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-neutral-200 safe-area-bottom lg:hidden"
       aria-label="Mobile navigation"
     >
       <div className="flex items-center justify-around h-16">
@@ -137,8 +137,8 @@ export default function MobileBottomNav() {
               key={item.label}
               href={item.href}
               className={`flex flex-col items-center justify-center min-w-16 min-h-12 px-2 py-1 transition-colors ${item.isActive
-                  ? 'text-primary-600'
-                  : 'text-neutral-600 hover:text-primary-600'
+                ? 'text-primary-600'
+                : 'text-neutral-600 hover:text-primary-600'
                 }`}
               aria-current={item.isActive ? 'page' : undefined}
             >

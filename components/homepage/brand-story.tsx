@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function BrandStory() {
   return (
-    <section className="bg-forest py-16 lg:py-24">
+    <section className="bg-forest text-parchment py-16 lg:py-24">
       <div className="container mx-auto px-4">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           {/* Image Section */}
@@ -48,12 +48,12 @@ export default function BrandStory() {
             {/* Features */}
             <div className="mt-8 grid grid-cols-2 gap-6">
               <div>
-                <div className="text-3xl font-bold text-parchment font-heading">100%</div>
-                <div className="text-sm text-parchment/60">Handmade by Us</div>
+                <div className="text-3xl font-bold text-gold font-heading">100%</div>
+                <div className="text-sm text-parchment/70">Handmade by Us</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-parchment font-heading">30-day</div>
-                <div className="text-sm text-parchment/60">Return Policy</div>
+                <div className="text-3xl font-bold text-gold font-heading">30-day</div>
+                <div className="text-sm text-parchment/70">Return Policy</div>
               </div>
             </div>
 

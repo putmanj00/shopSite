@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BotanicalHeader } from '@/components/ui/botanical-header';
+import { PageHero } from '@/components/ui/page-hero';
 
 export const metadata: Metadata = {
     title: 'Shipping & Returns | Wildenflower',
@@ -16,26 +16,15 @@ const shippingRates = [
 export default function ShippingReturnsPage() {
     return (
         <>
-            <BotanicalHeader />
-
-            {/* Hero */}
-            <section className="bg-parchment py-16 lg:py-20">
-                <div className="container mx-auto px-4 max-w-4xl text-center">
-                    <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
-                        Policies
-                    </span>
-                    <h1 className="mt-3 text-4xl font-bold font-heading text-ink-brown sm:text-5xl">
-                        Shipping & Returns
-                    </h1>
-                    <p className="mt-4 text-lg text-earth max-w-2xl mx-auto">
-                        We want you to love every piece. Here&apos;s everything you need to know about getting
-                        your order and our hassle-free return policy.
-                    </p>
-                </div>
-            </section>
+            <PageHero
+                backgroundImage="/assets/images/headers/botanical-header-blog.png"
+                label="Policies"
+                title="Shipping & Returns"
+                subtitle="We want you to love every piece. Here's everything you need to know about getting your order and our hassle-free return policy."
+            />
 
             {/* Shipping Rates */}
-            <section className="bg-white py-12 lg:py-16">
+            <section className="bg-parchment py-16 lg:py-24">
                 <div className="container mx-auto px-4 max-w-3xl">
                     <h2 className="text-2xl font-bold font-heading text-ink-brown mb-6">
                         Shipping Options
@@ -51,7 +40,7 @@ export default function ShippingReturnsPage() {
                             </thead>
                             <tbody className="divide-y divide-gold/10">
                                 {shippingRates.map((rate) => (
-                                    <tr key={rate.method} className="hover:bg-parchment/50 transition-colors">
+                                    <tr key={rate.method} className="bg-white hover:bg-parchment/50 transition-colors">
                                         <td className="px-5 py-4 font-medium text-ink-brown">{rate.method}</td>
                                         <td className="px-5 py-4 text-earth">{rate.time}</td>
                                         <td className="px-5 py-4 text-right text-terracotta font-medium">{rate.cost}</td>
@@ -83,7 +72,7 @@ export default function ShippingReturnsPage() {
                         <div>
                             <h3 className="font-semibold text-ink-brown mb-2">How to Return</h3>
                             <ol className="text-earth text-sm leading-relaxed list-decimal list-inside space-y-2">
-                                <li>Contact us at <span className="text-terracotta">hello@wildenflower.com</span> with your order number</li>
+                                <li>Contact us at <span className="text-terracotta">wildenflowercreations@gmail.com</span> with your order number</li>
                                 <li>Receive a prepaid return shipping label within 24 hours</li>
                                 <li>Pack items securely and drop off at any carrier location</li>
                                 <li>Refund processed within 5–7 business days of receipt</li>

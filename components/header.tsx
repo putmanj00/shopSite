@@ -50,7 +50,7 @@ export default function Header() {
           </div>
 
           {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
+          <div className="hidden lg:flex items-center gap-6 lg:gap-8">
             <Link
               href="/collections/all"
               className="text-parchment hover:text-terracotta font-medium transition-colors duration-200"
@@ -90,7 +90,7 @@ export default function Header() {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="hidden sm:block">
+            <div className="hidden lg:block">
               <CurrencySelector />
             </div>
 

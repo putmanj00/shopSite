@@ -63,7 +63,7 @@ export default function VideoShowcase() {
                                 <div className="relative w-full h-full">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img
-                                        src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=1280&h=720&fit=crop"
+                                        src="/assets/images/headers/botanical-header-large-about.png"
                                         alt="Artisan crafting handmade goods in workshop"
                                         className="w-full h-full object-cover"
                                     />

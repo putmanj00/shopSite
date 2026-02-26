@@ -66,7 +66,7 @@ export default function Home() {
         overlayOpacity={15}
         ctas={[
           { label: 'Wander the Shop', href: '/collections/all', variant: 'primary' },
-          { label: 'Our Story', href: '#brand-story', variant: 'secondary' },
+          { label: 'Our Story', href: '/about', variant: 'secondary' },
         ]}
       />
 

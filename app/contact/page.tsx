@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { BotanicalHeader } from '@/components/ui/botanical-header';
+import { PageHero } from '@/components/ui/page-hero';
 
 export const metadata: Metadata = {
     title: 'Contact Us | Wildenflower',
@@ -10,26 +10,15 @@ export const metadata: Metadata = {
 export default function ContactPage() {
     return (
         <>
-            <BotanicalHeader />
-
-            {/* Hero */}
-            <section className="bg-parchment py-16 lg:py-20">
-                <div className="container mx-auto px-4 max-w-4xl text-center">
-                    <span className="text-terracotta font-medium text-sm uppercase tracking-wider">
-                        Get in Touch
-                    </span>
-                    <h1 className="mt-3 text-4xl font-bold font-heading text-ink-brown sm:text-5xl">
-                        We&apos;d Love to Hear From You
-                    </h1>
-                    <p className="mt-4 text-lg text-earth max-w-2xl mx-auto">
-                        Whether you have a question about an order, need help finding the perfect piece,
-                        or just want to say hello — we&apos;re here for you.
-                    </p>
-                </div>
-            </section>
+            <PageHero
+                backgroundImage="/assets/images/headers/botanical-header-faq.png"
+                label="Get in Touch"
+                title="We'd Love to Hear From You"
+                subtitle="Whether you have a question about an order, need help finding the perfect piece, or just want to say hello — we're here for you."
+            />
 
             {/* Contact Info + Form */}
-            <section className="bg-white py-12 lg:py-16">
+            <section className="bg-parchment py-16 lg:py-24">
                 <div className="container mx-auto px-4 max-w-5xl">
                     <div className="grid gap-12 lg:grid-cols-2">
                         {/* Contact Info */}
@@ -44,19 +33,8 @@ export default function ContactPage() {
                                     </span>
                                     <div>
                                         <p className="font-semibold text-ink-brown">Email</p>
-                                        <a href="mailto:hello@wildenflower.com" className="text-terracotta hover:underline">
-                                            hello@wildenflower.com
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="flex gap-4">
-                                    <span className="flex-shrink-0 w-10 h-10 bg-sage/20 text-terracotta rounded-lg flex items-center justify-center">
-                                        📞
-                                    </span>
-                                    <div>
-                                        <p className="font-semibold text-ink-brown">Phone</p>
-                                        <a href="tel:1-800-123-4567" className="text-terracotta hover:underline">
-                                            1-800-123-4567
+                                        <a href="mailto:wildenflowercreations@gmail.com" className="text-terracotta hover:underline">
+                                            wildenflowercreations@gmail.com
                                         </a>
                                     </div>
                                 </div>
@@ -76,7 +54,7 @@ export default function ContactPage() {
                                     </span>
                                     <div>
                                         <p className="font-semibold text-ink-brown">Location</p>
-                                        <p className="text-earth text-sm">Austin, TX</p>
+                                        <p className="text-earth text-sm">Alexandria, KY</p>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +74,7 @@ export default function ContactPage() {
                         </div>
 
                         {/* Contact Form */}
-                        <div className="bg-parchment p-8 rounded-2xl">
+                        <div className="bg-white p-8 rounded-2xl shadow-sm">
                             <h2 className="text-2xl font-bold font-heading text-ink-brown mb-6">
                                 Send a Message
                             </h2>

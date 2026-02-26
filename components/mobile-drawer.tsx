@@ -47,7 +47,7 @@ export default function MobileDrawer() {
         <>
             <button
                 onClick={toggleDrawer}
-                className="md:hidden p-2 text-parchment hover:text-gold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-md"
+                className="lg:hidden p-2 text-parchment hover:text-gold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-md"
                 aria-label="Toggle menu"
                 aria-expanded={isOpen}
             >
@@ -75,7 +75,7 @@ export default function MobileDrawer() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
-                            className="fixed inset-0 z-40 bg-black/50 md:hidden"
+                            className="fixed inset-0 z-40 bg-black/50 lg:hidden"
                             onClick={closeDrawer}
                             aria-hidden="true"
                         />
@@ -90,7 +90,7 @@ export default function MobileDrawer() {
                                 stiffness: 300,
                                 damping: 30,
                             }}
-                            className="fixed top-0 left-0 h-full w-[80vw] max-w-sm bg-forest shadow-2xl z-50 overflow-y-auto flex flex-col md:hidden"
+                            className="fixed top-0 left-0 h-full w-[80vw] max-w-sm bg-forest shadow-2xl z-50 overflow-y-auto flex flex-col lg:hidden"
                             role="dialog"
                             aria-modal="true"
                             aria-label="Mobile navigation menu"
