@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { BotanicalHeader } from '@/components/ui/botanical-header';
 import AboutHero from '@/components/about/about-hero';
 import BrandTimeline from '@/components/about/brand-timeline';
 import MeetTheMakers from '@/components/about/meet-the-makers';
@@ -38,6 +39,9 @@ export const metadata: Metadata = {
 export default function AboutPage() {
     return (
         <>
+            {/* Botanical Header */}
+            <BotanicalHeader variant="about" />
+
             {/* Hero Section with Founder Story */}
             <AboutHero />
 
