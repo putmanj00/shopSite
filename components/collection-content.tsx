@@ -430,7 +430,7 @@ export default function CollectionContent({
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-parchment disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 text-ink-brown"
+                    className="px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-terracotta/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 text-ink-brown"
                     aria-label="Go to previous page"
                   >
                     Previous
@@ -462,7 +462,7 @@ export default function CollectionContent({
                               onClick={() => handlePageChange(page)}
                               className={`min-w-11 min-h-11 px-3 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 ${page === currentPage
                                   ? 'bg-terracotta text-white'
-                                  : 'border border-gold/30 hover:bg-parchment text-ink-brown'
+                                  : 'border border-gold/30 hover:bg-terracotta/90 text-ink-brown'
                                 }`}
                               aria-label={`Go to page ${page}`}
                               aria-current={page === currentPage ? 'page' : undefined}
@@ -477,7 +477,7 @@ export default function CollectionContent({
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-parchment disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 text-ink-brown"
+                    className="px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-terracotta/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 text-ink-brown"
                     aria-label="Go to next page"
                   >
                     Next

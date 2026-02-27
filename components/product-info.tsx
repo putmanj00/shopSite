@@ -124,7 +124,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         <AddToCartButton variant={selectedVariant} id="main-add-to-cart" />
         <WishlistButton
           product={product}
-          className="!p-3 border border-gold/30 !bg-white hover:!bg-parchment !text-sage hover:!text-red-500 rounded-lg h-12 w-12 flex items-center justify-center"
+          className="flex-none h-12 w-12 flex items-center justify-center"
         />
       </div>
 

@@ -21,17 +21,20 @@ export default function WishlistButton({ product, className = '' }: WishlistButt
 
     if (!isMounted) {
         return (
-            <button className={`p-2 rounded-full bg-white/80 hover:bg-white text-gray-400 transition-colors ${className}`} aria-label="Add to wishlist">
+            <button
+                className={`p-2 rounded-sm border border-transparent bg-transparent text-[#2D2C24] hover:bg-[#FAF9F6] hover:border-[#D4AF37] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2D2C24] z-10 ${className}`}
+                aria-label="Add to wishlist"
+            >
                 <svg
-                    className="w-5 h-5"
-                    fill="none"
+                    className="w-5 h-5 transition-all duration-200"
+                    style={{ fill: 'transparent' }}
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                 >
                     <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2}
+                        strokeWidth={1.5}
                         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                     />
                 </svg>
@@ -55,23 +58,23 @@ export default function WishlistButton({ product, className = '' }: WishlistButt
     return (
         <button
             onClick={toggleWishlist}
-            className={`p-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 z-10 ${inWishlist
-                    ? 'bg-red-50 text-red-500 hover:bg-red-100'
-                    : 'bg-white/80 hover:bg-white text-gray-400 hover:text-red-500'
+            className={`p-2 rounded-sm border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2D2C24] z-10 ${inWishlist
+                ? 'bg-transparent text-[#2D2C24] border-transparent hover:bg-[#FAF9F6] hover:border-[#D4AF37]'
+                : 'bg-transparent text-[#2D2C24] border-transparent hover:bg-[#FAF9F6] hover:border-[#D4AF37]'
                 } ${className}`}
             aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
             title={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
         >
             <svg
-                className="w-5 h-5"
-                fill={inWishlist ? "currentColor" : "none"}
+                className="w-5 h-5 transition-all duration-200"
+                style={{ fill: inWishlist ? '#E2725B' : 'transparent' }}
                 stroke="currentColor"
                 viewBox="0 0 24 24"
             >
                 <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
+                    strokeWidth={1.5}
                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                 />
             </svg>

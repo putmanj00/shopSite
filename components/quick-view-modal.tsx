@@ -149,11 +149,10 @@ function QuickViewContent({
                   <button
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
-                    className={`relative aspect-square rounded-lg overflow-hidden transition-all ${
-                      index === selectedImageIndex
+                    className={`relative aspect-square rounded-lg overflow-hidden transition-all ${index === selectedImageIndex
                         ? 'ring-2 ring-gold ring-offset-1 ring-offset-forest'
                         : 'ring-1 ring-white/20 hover:ring-white/50'
-                    }`}
+                      }`}
                   >
                     <Image
                       src={image.url}
@@ -228,7 +227,7 @@ function QuickViewContent({
                 {/* Small circular wishlist icon button — no flex-1 so it stays its natural size */}
                 <WishlistButton
                   product={product}
-                  className="border border-gold/40 hover:border-gold bg-white/60 flex-none"
+                  className="flex-none"
                 />
                 <Link
                   href={`/products/${product.handle}`}
