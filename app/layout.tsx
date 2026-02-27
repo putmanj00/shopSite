@@ -12,6 +12,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import ServiceWorkerRegister from "@/components/service-worker-register";
 import { ExitIntentPopup, WelcomePopup } from "@/components/cro";
 import Analytics from "@/components/analytics";
+import { CookieBanner } from "@/components/ui/cookie-banner";
 import { CurrencyProvider } from "@/lib/currency-context";
 import GeolocationHandler from "@/components/geolocation-handler";
 import { getNavMenu } from "@/lib/shopify-helpers";
@@ -138,6 +139,7 @@ export default async function RootLayout({
           <ServiceWorkerRegister />
           <WelcomePopup />
           <ExitIntentPopup />
+          <CookieBanner />
           <Analytics />
           <VercelAnalytics />
           <SpeedInsights />
