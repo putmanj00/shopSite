@@ -236,3 +236,128 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 | 13. Product Data Quality | 3/3 | Complete    | 2026-02-26 | - |
 | 14. Collections Polish | 1/1 | Complete | 2026-02-26 |
 | 15. Footer Cleanup | 1/1 | Complete | 2026-02-26 |
+
+---
+
+## Milestone v1.2: Production Readiness & Go-Live
+
+**Milestone Goal:** The store has a hardened CI/CD pipeline, secure and monitored deployments, legal compliance in place, and every Shopify prerequisite satisfied to begin accepting real orders.
+
+**Phase summary:**
+- [ ] **Phase 16: Legal Pages & SEO Metadata** - Publish Privacy Policy, Terms, Refund Policy; add Open Graph tags, sitemap, robots.txt
+- [ ] **Phase 17: Cookie Consent & Product Schema** - GDPR cookie consent banner; JSON-LD Product schema on product pages
+- [ ] **Phase 18: Security & Dev Tooling** - Security headers (CSP/HSTS/X-Frame), git history secrets scan, pre-commit hooks, Dependabot
+- [ ] **Phase 19: Playwright E2E Tests** - Write all 7 critical-path test suites (homepage, collections, PDP, cart, checkout redirect, search, category nav)
+- [ ] **Phase 20: CI/CD Pipeline** - GitHub Actions: lint + typecheck + build + E2E + secrets scan + audit; branch protection on main
+- [ ] **Phase 21: Vercel Environments & IaC** - Dev/prod Vercel project split; OpenTofu declares both projects and env var structure
+- [ ] **Phase 22: Error Monitoring** - Sentry integrated for Next.js 16 App Router; production-only; server + client capture
+- [ ] **Phase 23: Shopify Go-Live Verification** - Complete Shopify admin checklist: products, payments, shipping, taxes, test order, domain, API token
+
+## Phase Details — v1.2
+
+### Phase 16: Legal Pages & SEO Metadata
+**Goal**: Every shopper can find legal policies from the footer, and every public page is correctly described to search engines and social platforms
+**Depends on**: Phase 15 (v1.1 complete)
+**Requirements**: GDPR-03, GDPR-04, GDPR-05, SEO-02, SEO-03, SEO-04
+**Success Criteria** (what must be TRUE):
+  1. Footer contains working links to Privacy Policy, Terms of Service, and Refund Policy — each link resolves to a published page with appropriate content
+  2. Every public page (homepage, collections, product pages, about, FAQ) has Open Graph meta tags — sharing on social platforms shows a title, description, and image
+  3. `/sitemap.xml` is accessible and includes URLs for product and collection pages
+  4. `/robots.txt` is accessible, allows crawling of `/`, `/products/`, and `/collections/`, and blocks `/api/` and `/admin`
+**Plans**: TBD
+
+### Phase 17: Cookie Consent & Product Schema
+**Goal**: Every first-time visitor is informed of cookie usage before analytics cookies are set, and product pages provide structured data that search engines can read
+**Depends on**: Phase 16 (Privacy Policy URL must exist before banner can link to it)
+**Requirements**: GDPR-01, GDPR-02, SEO-01
+**Success Criteria** (what must be TRUE):
+  1. A cookie consent banner appears on first visit — it shows accept and reject options and includes a link to the Privacy Policy page
+  2. After a visitor makes a choice (accept or reject), the banner does not reappear on subsequent page loads or browser sessions
+  3. Product detail pages include a valid JSON-LD `Product` schema block — a structured data validator (e.g., Google Rich Results Test) confirms it parses correctly with name, price, and availability
+**Plans**: TBD
+
+### Phase 18: Security & Dev Tooling
+**Goal**: All responses include hardened security headers, no secrets exist in git history, and every commit is automatically linted and type-checked before it lands
+**Depends on**: Phase 15 (v1.1 complete — no hard dependency on 16/17)
+**Requirements**: SEC-01, SEC-02, SEC-03, DEVX-01, DEVX-02, CICD-06
+**Success Criteria** (what must be TRUE):
+  1. A browser security headers check (e.g., securityheaders.com) on the deployed site shows CSP, HSTS, X-Frame-Options, and X-Content-Type-Options all present
+  2. Running a git history secrets scan (gitleaks or equivalent) against the full repo returns zero findings
+  3. All `.env*` files are confirmed absent from git history and present in `.gitignore`
+  4. Attempting to commit a file with an ESLint error or TypeScript type error is blocked by the pre-commit hook — the commit does not complete
+  5. Dependabot is configured and visible in GitHub — the dependency graph shows npm ecosystem enabled
+**Plans**: TBD
+
+### Phase 19: Playwright E2E Tests
+**Goal**: The seven critical user flows that represent real business risk are covered by automated tests that can run in CI
+**Depends on**: Phase 15 (v1.1 complete — tests run against the finished storefront)
+**Requirements**: E2E-01, E2E-02, E2E-03, E2E-04, E2E-05, E2E-06, E2E-07
+**Success Criteria** (what must be TRUE):
+  1. Running `npx playwright test` locally completes all 7 test suites with zero failures against the dev server
+  2. The test suite covers: homepage render, /collections/all product grid, product detail page (image + price + add-to-cart button), add-to-cart (cart count update + drawer open), checkout redirect (URL starts with Shopify checkout domain), search results for a known query, and category nav link resolution
+  3. No test relies on hardcoded product titles or IDs that would break if Shopify catalog changes — tests use structural selectors or data-testid attributes
+**Plans**: TBD
+
+### Phase 20: CI/CD Pipeline
+**Goal**: Every pull request against main is automatically validated — no broken build, lint error, type error, E2E failure, or detected secret can merge without being caught
+**Depends on**: Phase 19 (Playwright tests must exist before the E2E CI job can run)
+**Requirements**: CICD-01, CICD-02, CICD-03, CICD-04, CICD-05, CICD-07, DEVX-03
+**Success Criteria** (what must be TRUE):
+  1. Opening a PR against main triggers a GitHub Actions workflow — the workflow runs lint, typecheck, and build as visible CI checks
+  2. The CI workflow runs Playwright E2E tests — a PR with a failing test shows a failed check and cannot be merged
+  3. A successful CI run uploads a downloadable Playwright HTML report as a GitHub Actions artifact
+  4. A PR that introduces a `.env` file with a secret pattern triggers the secrets scan job and fails the check
+  5. The main branch has a branch protection rule requiring at least one passing CI check before merge — direct push to main is blocked
+  6. Production deployment requires a manual approval step via a GitHub environment gate — it does not deploy automatically
+**Plans**: TBD
+
+### Phase 21: Vercel Environments & IaC
+**Goal**: Dev and prod run as independent Vercel projects with their own environment variables, and the project configuration is declared in version-controlled OpenTofu code
+**Depends on**: Phase 20 (CI pipeline is in place before environment split is formalized)
+**Requirements**: VERC-01, VERC-02, VERC-03, VERC-04, INFRA-01, INFRA-02, INFRA-03
+**Success Criteria** (what must be TRUE):
+  1. Two distinct Vercel projects exist — one auto-deploys on merge to main (dev); the other deploys only via manual promote (prod) and has the custom domain attached
+  2. PRs auto-generate a Vercel preview deployment URL — the URL is accessible and reflects the PR's changes
+  3. Dev and prod each have their own scoped environment variables — a variable set in dev does not appear in prod and vice versa
+  4. An `infra/` directory at the project root contains OpenTofu `.tf` files that declare both Vercel projects — running `tofu plan` produces no errors and shows the expected resources
+  5. `terraform.tfstate` is present in `.gitignore` and absent from git history
+**Plans**: TBD
+
+### Phase 22: Error Monitoring
+**Goal**: Unhandled errors in production are automatically captured in Sentry with full stack traces — no silent failures reach real users undetected
+**Depends on**: Phase 21 (production Vercel project must exist — Sentry is production-only)
+**Requirements**: MON-01, MON-02, MON-03
+**Success Criteria** (what must be TRUE):
+  1. The Sentry dashboard shows the Wildenflower project receiving events — triggering a test error in production results in a visible issue in Sentry within 60 seconds
+  2. Running the dev server locally (`NODE_ENV=development`) does not send any events to Sentry — the Sentry dashboard shows no development-origin errors
+  3. An unhandled server-side error (e.g., a thrown exception in a route handler) and an unhandled client-side error (e.g., an uncaught promise rejection) both appear in Sentry with readable TypeScript source in the stack trace
+**Plans**: TBD
+
+### Phase 23: Shopify Go-Live Verification
+**Goal**: Every Shopify prerequisite for accepting real orders is confirmed complete — products, payments, shipping, taxes, API access, and a successful test purchase are all verified
+**Depends on**: Phase 16 (legal pages must be published — Shopify requires them), Phase 22 (monitoring active before first real traffic)
+**Requirements**: SHOP-01, SHOP-02, SHOP-03, SHOP-04, SHOP-05, SHOP-06, SHOP-07, SHOP-08
+**Success Criteria** (what must be TRUE):
+  1. All products visible on the storefront have images, descriptions, prices, and inventory — no product shows a broken image or missing price
+  2. A test order placed via Shopify's bogus gateway completes successfully — the order appears in Shopify Admin and triggers the Resend order confirmation email
+  3. Shipping rates are configured for all intended delivery regions — a customer in each target region can reach the checkout and see a shipping option
+  4. The store password ("coming soon") page is disabled — an unauthenticated visitor reaching the store URL sees the storefront, not a password gate
+  5. The Storefront API token is confirmed valid on the production store and collection handles in Shopify match the `/collections/[handle]` routes in the storefront
+**Plans**: TBD
+
+## v1.2 Progress
+
+**Execution Order:**
+Phases execute in numeric order: 16 → 17 → 18 → 19 → 20 → 21 → 22 → 23
+(Phases 16, 18, and 19 have no interdependency — they can begin in parallel)
+
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 16. Legal Pages & SEO Metadata | v1.2 | 0/TBD | Not started | - |
+| 17. Cookie Consent & Product Schema | v1.2 | 0/TBD | Not started | - |
+| 18. Security & Dev Tooling | v1.2 | 0/TBD | Not started | - |
+| 19. Playwright E2E Tests | v1.2 | 0/TBD | Not started | - |
+| 20. CI/CD Pipeline | v1.2 | 0/TBD | Not started | - |
+| 21. Vercel Environments & IaC | v1.2 | 0/TBD | Not started | - |
+| 22. Error Monitoring | v1.2 | 0/TBD | Not started | - |
+| 23. Shopify Go-Live Verification | v1.2 | 0/TBD | Not started | - |

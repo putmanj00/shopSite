@@ -116,63 +116,61 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 
 ## Traceability
 
-*Populated during roadmap creation.*
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DEVX-01 | — | Pending |
-| DEVX-02 | — | Pending |
-| DEVX-03 | — | Pending |
-| CICD-01 | — | Pending |
-| CICD-02 | — | Pending |
-| CICD-03 | — | Pending |
-| CICD-04 | — | Pending |
-| CICD-05 | — | Pending |
-| CICD-06 | — | Pending |
-| CICD-07 | — | Pending |
-| E2E-01 | — | Pending |
-| E2E-02 | — | Pending |
-| E2E-03 | — | Pending |
-| E2E-04 | — | Pending |
-| E2E-05 | — | Pending |
-| E2E-06 | — | Pending |
-| E2E-07 | — | Pending |
-| VERC-01 | — | Pending |
-| VERC-02 | — | Pending |
-| VERC-03 | — | Pending |
-| VERC-04 | — | Pending |
-| INFRA-01 | — | Pending |
-| INFRA-02 | — | Pending |
-| INFRA-03 | — | Pending |
-| SEC-01 | — | Pending |
-| SEC-02 | — | Pending |
-| SEC-03 | — | Pending |
-| MON-01 | — | Pending |
-| MON-02 | — | Pending |
-| MON-03 | — | Pending |
-| SEO-01 | — | Pending |
-| SEO-02 | — | Pending |
-| SEO-03 | — | Pending |
-| SEO-04 | — | Pending |
-| GDPR-01 | — | Pending |
-| GDPR-02 | — | Pending |
-| GDPR-03 | — | Pending |
-| GDPR-04 | — | Pending |
-| GDPR-05 | — | Pending |
-| SHOP-01 | — | Pending |
-| SHOP-02 | — | Pending |
-| SHOP-03 | — | Pending |
-| SHOP-04 | — | Pending |
-| SHOP-05 | — | Pending |
-| SHOP-06 | — | Pending |
-| SHOP-07 | — | Pending |
-| SHOP-08 | — | Pending |
+| DEVX-01 | Phase 18 | Pending |
+| DEVX-02 | Phase 18 | Pending |
+| DEVX-03 | Phase 20 | Pending |
+| CICD-01 | Phase 20 | Pending |
+| CICD-02 | Phase 20 | Pending |
+| CICD-03 | Phase 20 | Pending |
+| CICD-04 | Phase 20 | Pending |
+| CICD-05 | Phase 20 | Pending |
+| CICD-06 | Phase 18 | Pending |
+| CICD-07 | Phase 20 | Pending |
+| E2E-01 | Phase 19 | Pending |
+| E2E-02 | Phase 19 | Pending |
+| E2E-03 | Phase 19 | Pending |
+| E2E-04 | Phase 19 | Pending |
+| E2E-05 | Phase 19 | Pending |
+| E2E-06 | Phase 19 | Pending |
+| E2E-07 | Phase 19 | Pending |
+| VERC-01 | Phase 21 | Pending |
+| VERC-02 | Phase 21 | Pending |
+| VERC-03 | Phase 21 | Pending |
+| VERC-04 | Phase 21 | Pending |
+| INFRA-01 | Phase 21 | Pending |
+| INFRA-02 | Phase 21 | Pending |
+| INFRA-03 | Phase 21 | Pending |
+| SEC-01 | Phase 18 | Pending |
+| SEC-02 | Phase 18 | Pending |
+| SEC-03 | Phase 18 | Pending |
+| MON-01 | Phase 22 | Pending |
+| MON-02 | Phase 22 | Pending |
+| MON-03 | Phase 22 | Pending |
+| SEO-01 | Phase 17 | Pending |
+| SEO-02 | Phase 16 | Pending |
+| SEO-03 | Phase 16 | Pending |
+| SEO-04 | Phase 16 | Pending |
+| GDPR-01 | Phase 17 | Pending |
+| GDPR-02 | Phase 17 | Pending |
+| GDPR-03 | Phase 16 | Pending |
+| GDPR-04 | Phase 16 | Pending |
+| GDPR-05 | Phase 16 | Pending |
+| SHOP-01 | Phase 23 | Pending |
+| SHOP-02 | Phase 23 | Pending |
+| SHOP-03 | Phase 23 | Pending |
+| SHOP-04 | Phase 23 | Pending |
+| SHOP-05 | Phase 23 | Pending |
+| SHOP-06 | Phase 23 | Pending |
+| SHOP-07 | Phase 23 | Pending |
+| SHOP-08 | Phase 23 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 47 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 47 ⚠
+- Mapped to phases: 47
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-27*
-*Last updated: 2026-02-27 after v1.2 milestone initialization*
+*Last updated: 2026-02-27 — traceability table populated after roadmap creation*
