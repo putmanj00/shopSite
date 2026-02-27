@@ -1,70 +1,102 @@
-# Requirements: Wildenflower — v1.1 UX Cleanup & Navigation
+# Requirements: Wildenflower — v1.2 Production Readiness & Go-Live
 
-**Defined:** 2026-02-25
+**Defined:** 2026-02-27
 **Core Value:** A shopper lands on a beautiful, nature-inspired handmade goods storefront and immediately feels the warmth and authenticity of the Wildenflower brand — while the Shopify integration underneath works reliably.
 
 ---
 
 ## Milestone v1.0 Requirements (Completed)
 
-See commit history and `.planning/phases/` for completed phase records.
-
-All DESIGN, HEAD, HOME, PROD requirements complete. SUPP-01–03 deferred to v1.2.
+All DESIGN, HEAD, HOME, PROD, SUPP requirements complete. Full records in `.planning/phases/01–05`.
 
 ---
 
-## v1.1 Requirements
+## Milestone v1.1 Requirements (Completed)
 
-Requirements for UX Cleanup & Navigation milestone. Phases continue numbering from Phase 9 (starting at Phase 10).
-
-### Trust
-
-- [x] **TRST-01**: Shopper sees no fake purchase notification popup anywhere on the site
-- [x] **TRST-02**: Shopper sees no fake testimonials with stock headshots (Sarah M., Michael R., Emily L., etc.)
-- [x] **TRST-03**: Shopper sees no fabricated stats ("2,500+ Happy Seekers", "4.9 Average Rating", "98% Would Recommend", "50+ Artisan Partners")
-- [x] **TRST-04**: Shopper sees no fake Instagram engagement counts (234, 189, 312, etc.) — overlays removed; if photos are Unsplash stock, entire section removed
-
-### Navigation
-
-- [x] **NAV-01**: Shopper visiting `/collections` is automatically redirected to `/collections/all` (301 permanent redirect)
-- [x] **NAV-02**: "Wander the Shop" hero CTA links to `/collections/all`, not `/collections`
-- [x] **NAV-03**: No stale `href="/collections"` links remain anywhere in the codebase
-- [x] **NAV-04**: Top nav shows all 6 categories: Tie-Dye, Leather, Jewelry, Crystals, Artwork, Ceramics — with correct `/collections/[handle]` hrefs
-- [x] **NAV-05**: Nav category labels are correct: "Leather" (not "Leather Goods"), "Artwork" (not "Art")
-
-### Products
-
-- [x] **PRDS-01**: Products from vendor "My Store" display vendor as "Wildenflower" on product cards and detail pages
-- [x] **PRDS-02**: Test/placeholder products ("ring", "Generic Tiedye") are hidden from storefront or removed
-- [x] **PRDS-03**: Products with no featured image are filtered out of all product grids (not shown as broken cards)
-- [x] **PRDS-04**: Botanical card corner overlays (`card-corner-topleft.png`, `card-corner-bottomright.png`) appear on product cards
-
-### Collections
-
-- [x] **COLL-01**: `/collections/all` page heading reads "All Treasures" (not "All Products")
-- [x] **COLL-02**: `/collections/all` subtitle reads "Every handmade treasure in one place"
-- [x] **COLL-03**: `/collections/all` has a botanical header image (`botanical-header-small-web.png`) in the title area
-- [x] **COLL-04**: Breadcrumb on `/collections/all` reads "Home > Shop > All Treasures"
-
-### Footer
-
-- [x] **FOOT-01**: Footer SHOP column lists all 7 entries: All Treasures, Tie-Dye, Leather, Jewelry, Crystals, Artwork, Ceramics
-- [x] **FOOT-02**: Footer contains no links to pages that don't exist (no 404s — Size Guide, Sustainability, Press removed if pages absent)
+All TRST, NAV, PRDS, COLL, FOOT, COLL-EXT requirements complete. Full records in `.planning/phases/10–15`.
 
 ---
 
-## v1.2 Requirements (Deferred)
+## v1.2 Requirements
 
-### Supporting Pages (from v1.0 Phase 5)
+Requirements for Production Readiness & Go-Live milestone. Phases continue numbering from Phase 16.
 
-- **SUPP-01**: About page updated — botanical-header-large.png placed at top, cartouche-frame.png and divider-fallen-log.png assets incorporated
-- **SUPP-02**: FAQ page updated — botanical-header-faq.png placed at top, fern-expand.png / fern-collapse.png for accordion toggles
-- **SUPP-03**: Blog/Field Notes page updated — botanical-header-blog.png placed at top
+### Development Infrastructure (DEVX)
 
-### Collections Polish (from v1.0 v2 backlog)
+- [ ] **DEVX-01**: Pre-commit hook runs ESLint on staged files before every commit
+- [ ] **DEVX-02**: Pre-commit hook runs TypeScript type-check before every commit
+- [ ] **DEVX-03**: Main branch requires PR with passing CI before merge (branch protection rule)
 
-- [x] **COLL-EXT-01**: `/collections/all` botanical divider above footer (`divider-fern-mushroom-web.png`)
-- [x] **COLL-EXT-02**: Filter labels consistently capitalized and clean
+### CI/CD Pipeline (CICD)
+
+- [ ] **CICD-01**: GitHub Actions CI runs lint + typecheck + build on every PR against main
+- [ ] **CICD-02**: GitHub Actions CI runs Playwright E2E tests on every PR (critical user flows)
+- [ ] **CICD-03**: CI uploads Playwright HTML report as a downloadable artifact on every run
+- [ ] **CICD-04**: CI runs secrets scan on every PR — blocks merge if secrets detected
+- [ ] **CICD-05**: CI runs `npm audit` and fails on high/critical severity vulnerabilities
+- [ ] **CICD-06**: Dependabot configured to open PRs for npm dependency updates weekly
+- [ ] **CICD-07**: Production deployment requires manual approval via GitHub environment gate
+
+### Playwright E2E Tests (E2E)
+
+- [ ] **E2E-01**: Test — homepage loads with hero image, navigation, and product section visible
+- [ ] **E2E-02**: Test — `/collections/all` page loads with product grid visible
+- [ ] **E2E-03**: Test — product detail page loads with image, price, and add-to-cart button
+- [ ] **E2E-04**: Test — adding a product to cart updates cart count and opens cart drawer
+- [ ] **E2E-05**: Test — checkout button initiates redirect to a Shopify checkout URL
+- [ ] **E2E-06**: Test — search returns results for a known product query
+- [ ] **E2E-07**: Test — category navigation links to correct collection page
+
+### Vercel Environments (VERC)
+
+- [ ] **VERC-01**: Dev Vercel project exists and auto-deploys on every merge to main
+- [ ] **VERC-02**: Prod Vercel project exists with custom domain — deploys via manual promote only
+- [ ] **VERC-03**: PR preview deployments auto-generate per PR
+- [ ] **VERC-04**: Dev and prod each have their own scoped environment variables
+
+### Infrastructure as Code (INFRA)
+
+- [ ] **INFRA-01**: OpenTofu configuration declares both Vercel projects (dev + prod) as code
+- [ ] **INFRA-02**: OpenTofu manages non-secret environment variable names and structure per project
+- [ ] **INFRA-03**: OpenTofu state file is gitignored; setup documented
+
+### Security (SEC)
+
+- [ ] **SEC-01**: Security headers on all responses — CSP (allows `*.shopify.com`, `checkout.shopify.com`), HSTS, X-Frame-Options, X-Content-Type-Options
+- [ ] **SEC-02**: Existing git history scanned for committed secrets — clean confirmed
+- [ ] **SEC-03**: All `.env*` files verified in `.gitignore`
+
+### Error Monitoring (MON)
+
+- [ ] **MON-01**: Sentry `@sentry/nextjs` installed and configured for Next.js 16 App Router (client + server)
+- [ ] **MON-02**: Sentry only active in `NODE_ENV === 'production'` — not in development
+- [ ] **MON-03**: Sentry captures unhandled errors via server instrumentation and `global-error.tsx`
+
+### SEO (SEO)
+
+- [ ] **SEO-01**: Product detail pages include JSON-LD Product schema structured data
+- [ ] **SEO-02**: All public pages have Open Graph meta tags (title, description, image)
+- [ ] **SEO-03**: `sitemap.xml` is generated and includes product and collection pages
+- [ ] **SEO-04**: `robots.txt` allows crawling of product/collection pages; blocks `/api/` and `/admin`
+
+### Privacy & Legal (GDPR)
+
+- [ ] **GDPR-01**: Cookie consent banner displayed on first visit — accept/reject, links to Privacy Policy
+- [ ] **GDPR-02**: Consent choice persisted in localStorage — banner not shown again after choice made
+- [ ] **GDPR-03**: Privacy Policy page published and accessible from footer
+- [ ] **GDPR-04**: Terms of Service page published and accessible from footer
+- [ ] **GDPR-05**: Refund Policy page published and accessible from footer
+
+### Shopify Go-Live (SHOP)
+
+- [ ] **SHOP-01**: All products published in Shopify with images, descriptions, prices, and inventory configured
+- [ ] **SHOP-02**: Shopify Payments configured; test order placed using bogus gateway and succeeded
+- [ ] **SHOP-03**: Shipping zones and rates configured for intended delivery regions
+- [ ] **SHOP-04**: Tax settings configured for applicable markets
+- [ ] **SHOP-05**: Store password ("coming soon") page disabled
+- [ ] **SHOP-06**: Storefront API token confirmed valid with correct permissions on production store
+- [ ] **SHOP-07**: Collection handles in Shopify match URL routes in storefront (`/collections/[handle]`)
+- [ ] **SHOP-08**: Order confirmation email (Resend) verified to send after a test purchase
 
 ---
 
@@ -72,47 +104,75 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 
 | Feature | Reason |
 |---------|---------|
-| Shopify integration changes | E-commerce plumbing works — visual/UX layer only |
-| OAuth/auth logic | Fragile, no tests — visual changes only |
-| Admin dashboard | Separate project |
-| Test coverage | Separate project |
-| Vendor fix via Shopify Admin | Documented as manual step option — code fix preferred |
-| New pages or features | Cleanup only — not adding new capabilities |
+| Jest unit tests | TypeScript + E2E covers this codebase — no business logic to unit test |
+| Playwright checkout completion test | Shopify checkout is cross-domain + anti-bot protected — untestable via Playwright |
+| Playwright OAuth login test | Auth flow is fragile, cross-domain — skip in v1.2 |
+| Paid GDPR consent services (OneTrust, Cookiebot) | Free custom banner is sufficient and compliant for small store |
+| Terraform Cloud remote state | Local state acceptable for solo dev two-project setup |
+| Admin dashboard real data | Separate project |
+| New storefront features | Go-live focus only — new capabilities in v2.0 |
 
 ---
 
 ## Traceability
 
+*Populated during roadmap creation.*
+
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TRST-01 | Phase 10 | Complete |
-| TRST-02 | Phase 10 | Complete |
-| TRST-03 | Phase 10 | Complete |
-| TRST-04 | Phase 10 | Complete |
-| NAV-01 | Phase 11 | Complete |
-| NAV-02 | Phase 11 | Complete |
-| NAV-03 | Phase 11 | Complete |
-| NAV-04 | Phase 12 | Complete |
-| NAV-05 | Phase 12 | Complete |
-| PRDS-01 | Phase 13 | Complete |
-| PRDS-02 | Phase 13 | Complete |
-| PRDS-03 | Phase 13 | Complete |
-| PRDS-04 | Phase 13 | Complete |
-| COLL-01 | Phase 14 | Complete |
-| COLL-02 | Phase 14 | Complete |
-| COLL-03 | Phase 14 | Complete |
-| COLL-04 | Phase 14 | Complete |
-| FOOT-01 | Phase 15 | Complete |
-| FOOT-02 | Phase 15 | Complete |
-| COLL-EXT-01 | Phase 16 | Complete |
-| COLL-EXT-02 | Phase 16 | Complete |
+| DEVX-01 | — | Pending |
+| DEVX-02 | — | Pending |
+| DEVX-03 | — | Pending |
+| CICD-01 | — | Pending |
+| CICD-02 | — | Pending |
+| CICD-03 | — | Pending |
+| CICD-04 | — | Pending |
+| CICD-05 | — | Pending |
+| CICD-06 | — | Pending |
+| CICD-07 | — | Pending |
+| E2E-01 | — | Pending |
+| E2E-02 | — | Pending |
+| E2E-03 | — | Pending |
+| E2E-04 | — | Pending |
+| E2E-05 | — | Pending |
+| E2E-06 | — | Pending |
+| E2E-07 | — | Pending |
+| VERC-01 | — | Pending |
+| VERC-02 | — | Pending |
+| VERC-03 | — | Pending |
+| VERC-04 | — | Pending |
+| INFRA-01 | — | Pending |
+| INFRA-02 | — | Pending |
+| INFRA-03 | — | Pending |
+| SEC-01 | — | Pending |
+| SEC-02 | — | Pending |
+| SEC-03 | — | Pending |
+| MON-01 | — | Pending |
+| MON-02 | — | Pending |
+| MON-03 | — | Pending |
+| SEO-01 | — | Pending |
+| SEO-02 | — | Pending |
+| SEO-03 | — | Pending |
+| SEO-04 | — | Pending |
+| GDPR-01 | — | Pending |
+| GDPR-02 | — | Pending |
+| GDPR-03 | — | Pending |
+| GDPR-04 | — | Pending |
+| GDPR-05 | — | Pending |
+| SHOP-01 | — | Pending |
+| SHOP-02 | — | Pending |
+| SHOP-03 | — | Pending |
+| SHOP-04 | — | Pending |
+| SHOP-05 | — | Pending |
+| SHOP-06 | — | Pending |
+| SHOP-07 | — | Pending |
+| SHOP-08 | — | Pending |
 
 **Coverage:**
-- v1.1 requirements: 19 total
-- v1.2 requirements: 2 total
-- Mapped to phases: 21
-- Unmapped: 0 ✓
+- v1.2 requirements: 47 total
+- Mapped to phases: 0 (pending roadmap)
+- Unmapped: 47 ⚠
 
 ---
-*Requirements defined: 2026-02-25*
-*Last updated: 2026-02-25 after roadmap creation — phases corrected to 10–15 (phases 6–9 occupied by v1.0 work)*
+*Requirements defined: 2026-02-27*
+*Last updated: 2026-02-27 after v1.2 milestone initialization*
