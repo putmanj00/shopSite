@@ -22,12 +22,10 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 
 ## Current Position
 
-Phase: 15 of 15 (footer-cleanup) — COMPLETE
-Plan: 1/1 in current phase — COMPLETE
-Status: Inactive — Phase 15 fully complete. Footer navigation standardized and dead pages removed.
-Last activity: 2026-02-26 — Phase 15 Plan 01 executed: Footer links populated accurately based on app navigation, unneeded physical `.tsx` files completely removed (`accessibility`, `size-guide`, `press`, `sustainability`).
-
-Progress: [██████████] 100% (milestone v1.1)
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements for milestone v1.2
+Last activity: 2026-02-27 — Milestone v1.2 started. v1.1 complete. Defining production readiness requirements.
 
 ## Performance Metrics
 
