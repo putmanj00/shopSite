@@ -20,8 +20,9 @@ const footerLinks = {
     { name: 'Blog', href: '/blog' },
   ],
   legal: [
-    { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
+    { name: 'Privacy Policy', href: '/legal/privacy-policy' },
+    { name: 'Terms of Service', href: '/legal/terms-of-service' },
+    { name: 'Refund Policy', href: '/legal/refund-policy' },
   ],
 };
 

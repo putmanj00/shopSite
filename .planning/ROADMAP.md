@@ -255,7 +255,7 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 
 ## Phase Details — v1.2
 
-### Phase 16: Legal Pages & SEO Metadata
+### Phase 16: Legal Pages & SEO Metadata [DONE]
 **Goal**: Every shopper can find legal policies from the footer, and every public page is correctly described to search engines and social platforms
 **Depends on**: Phase 15 (v1.1 complete)
 **Requirements**: GDPR-03, GDPR-04, GDPR-05, SEO-02, SEO-03, SEO-04
@@ -266,10 +266,18 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
   4. `/robots.txt` is accessible, allows crawling of `/`, `/products/`, and `/collections/`, and blocks `/api/` and `/admin`
 **Plans**: 3 plans
 
+- [x] Create Privacy, Terms, and Refund policies (branded MDX) (GDPR-03, GDPR-04, GDPR-05)
+- [x] Dynamic `/legal/[slug]` route with LegalLayout (GDPR-03, GDPR-04, GDPR-05)
+- [x] Redirect `/privacy` and `/terms` to `/legal/*` (GDPR-03)
+- [x] Root OG metadata (SEO-02)
+- [x] Correct brand name bug in metadata (SEO-02)
+- [x] Update sitemap.ts with updatedAt and revalidate (SEO-03)
+- [x] Update robots.ts for /admin/ disallow (SEO-04)
+
 Plans:
-- [ ] 16-01-PLAN.md — MDX infrastructure, @tailwindcss/typography, LegalLayout component (GDPR-03, GDPR-04, GDPR-05)
-- [ ] 16-02-PLAN.md — Legal MDX content, /legal/[slug] route, footer links, redirect old pages (GDPR-03, GDPR-04, GDPR-05)
-- [ ] 16-03-PLAN.md — OG image in layout.tsx, product brand name fix, robots.ts /admin/, sitemap updatedAt (SEO-02, SEO-03, SEO-04)
+- [x] 16-01-PLAN.md — MDX infrastructure, @tailwindcss/typography, LegalLayout component (GDPR-03, GDPR-04, GDPR-05)
+- [x] 16-02-PLAN.md — Legal MDX content, /legal/[slug] route, footer links, redirect old pages (GDPR-03, GDPR-04, GDPR-05)
+- [x] 16-03-PLAN.md — OG image in layout.tsx, product brand name fix, robots.ts /admin/, sitemap updatedAt (SEO-02, SEO-03, SEO-04)
 
 ### Phase 17: Cookie Consent & Product Schema
 **Goal**: Every first-time visitor is informed of cookie usage before analytics cookies are set, and product pages provide structured data that search engines can read

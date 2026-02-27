@@ -72,12 +72,21 @@ export const metadata: Metadata = {
     title: 'Wildenflower | Tie-Dye, Leather Goods, Jewelry & Art',
     description:
       'Made by hand. Found by heart. Tie-dye, leather goods, handcrafted jewelry, and original art crafted with care.',
+    images: [
+      {
+        url: '/assets/images/logo/logo-OG.png',
+        width: 1200,
+        height: 630,
+        alt: 'Wildenflower — Made by hand. Found by heart.',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Wildenflower | Tie-Dye, Leather Goods, Jewelry & Art',
     description:
       'Made by hand. Found by heart. Tie-dye, leather goods, jewelry, and original art from Wildenflower.',
+    images: ['/assets/images/logo/logo-OG.png'],
   },
   robots: {
     index: true,

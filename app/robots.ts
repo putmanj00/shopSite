@@ -1,13 +1,13 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://shopsite.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://wildenflower.com';
 
   return {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/account/', '/cart', '/checkout', '/api/'], // Disallow private/transactional pages
+      disallow: ['/account/', '/cart', '/checkout', '/api/', '/admin/'],
     },
     sitemap: `${baseUrl}/sitemap.xml`,
   };

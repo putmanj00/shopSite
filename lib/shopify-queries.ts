@@ -561,3 +561,16 @@ export const GET_MENU_QUERY = `
     }
   }
 `;
+
+export const GET_PRODUCTS_FOR_SITEMAP = `
+  query getProductsForSitemap($first: Int!) {
+    products(first: $first) {
+      edges {
+        node {
+          handle
+          updatedAt
+        }
+      }
+    }
+  }
+`;

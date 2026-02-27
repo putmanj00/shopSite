@@ -6,9 +6,9 @@ status: roadmap_created
 last_updated: "2026-02-27T00:00:00.000Z"
 progress:
   total_phases: 8
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  completed_phases: 1
+  total_plans: 3
+  completed_plans: 3
 ---
 
 # Project State
@@ -18,16 +18,15 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-27)
 
 **Core value:** A shopper lands on a beautiful, nature-inspired handmade goods storefront and immediately feels the warmth and authenticity of the Wildenflower brand — while the Shopify integration underneath works reliably.
-**Current focus:** Milestone v1.2 — Phase 16: Legal Pages & SEO Metadata (ready to plan)
-
+**Current focus:** Milestone v1.2 — Phase 17: Cookie Consent & Product Schema
 ## Current Position
 
-Phase: 16 of 23 (Legal Pages & SEO Metadata)
-Plan: — (not yet planned)
-Status: Ready to plan
-Last activity: 2026-02-27 — Milestone v1.2 roadmap created. 8 phases defined (16–23), 47 requirements mapped, 100% coverage.
+Phase: 16 of 23 (Legal Pages & SEO Metadata) [DONE]
+Plan: 16-03 complete
+Status: Phase 16 Complete; Ready for Phase 17
+Last activity: 2026-02-27 — Closed Phase 16. Implemented legal MDX, OG metadata, and sitemap upgrades.
 
-Progress: [░░░░░░░░░░] 0% (v1.2)
+Progress: [▓░░░░░░░░░] 12% (v1.2)
 
 ## Performance Metrics
 
