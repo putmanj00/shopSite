@@ -264,7 +264,12 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
   2. Every public page (homepage, collections, product pages, about, FAQ) has Open Graph meta tags — sharing on social platforms shows a title, description, and image
   3. `/sitemap.xml` is accessible and includes URLs for product and collection pages
   4. `/robots.txt` is accessible, allows crawling of `/`, `/products/`, and `/collections/`, and blocks `/api/` and `/admin`
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 16-01-PLAN.md — MDX infrastructure, @tailwindcss/typography, LegalLayout component (GDPR-03, GDPR-04, GDPR-05)
+- [ ] 16-02-PLAN.md — Legal MDX content, /legal/[slug] route, footer links, redirect old pages (GDPR-03, GDPR-04, GDPR-05)
+- [ ] 16-03-PLAN.md — OG image in layout.tsx, product brand name fix, robots.ts /admin/, sitemap updatedAt (SEO-02, SEO-03, SEO-04)
 
 ### Phase 17: Cookie Consent & Product Schema
 **Goal**: Every first-time visitor is informed of cookie usage before analytics cookies are set, and product pages provide structured data that search engines can read
