@@ -108,10 +108,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
       name: product.vendor,
     },
     offers: {
-      '@type': 'Offer',
+      '@type': 'AggregateOffer',
       url: `https://shopsite.com/products/${product.handle}`,
       priceCurrency: price.currencyCode,
-      price: price.amount,
+      highPrice: product.priceRange?.maxVariantPrice?.amount || price.amount,
+      lowPrice: price.amount,
       availability: product.availableForSale
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
