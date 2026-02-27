@@ -4,25 +4,24 @@ const footerLinks = {
   shop: [
     { name: 'All Treasures', href: '/collections/all' },
     { name: 'Tie-Dye', href: '/collections/tie-dye' },
-    { name: 'Leather Goods', href: '/collections/leather' },
+    { name: 'Leather', href: '/collections/leather' },
     { name: 'Jewelry', href: '/collections/jewelry' },
-    { name: 'Crystals & Stones', href: '/collections/crystals' },
+    { name: 'Crystals', href: '/collections/crystals' },
+    { name: 'Artwork', href: '/collections/artwork' },
+    { name: 'Ceramics', href: '/collections/ceramics' },
   ],
   support: [
     { name: 'Contact Us', href: '/contact' },
     { name: 'Shipping & Returns', href: '/shipping-returns' },
     { name: 'FAQ', href: '/faq' },
-    { name: 'Size Guide', href: '/size-guide' },
   ],
   company: [
     { name: 'Our Story', href: '/about' },
     { name: 'Blog', href: '/blog' },
-    { name: 'Sustainability', href: '/sustainability' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
-    { name: 'Accessibility', href: '/accessibility' },
   ],
 };
 

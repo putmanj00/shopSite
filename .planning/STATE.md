@@ -22,12 +22,12 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 
 ## Current Position
 
-Phase: 14 of 15 (collections-polish) — COMPLETE
+Phase: 15 of 15 (footer-cleanup) — COMPLETE
 Plan: 1/1 in current phase — COMPLETE
-Status: Inactive — Phase 14 fully complete. All Treasures visual override and layout done.
-Last activity: 2026-02-26 — Phase 14 Plan 01 executed: All Treasures heading overridden, botanical header injected, and breadcrumb layout replaced. Checkout is practically ready, only footer left.
+Status: Inactive — Phase 15 fully complete. Footer navigation standardized and dead pages removed.
+Last activity: 2026-02-26 — Phase 15 Plan 01 executed: Footer links populated accurately based on app navigation, unneeded physical `.tsx` files completely removed (`accessibility`, `size-guide`, `press`, `sustainability`).
 
-Progress: [█░░░░░░░░░] 10% (milestone v1.1)
+Progress: [██████████] 100% (milestone v1.1)
 
 ## Performance Metrics
 
@@ -115,5 +115,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 14-01-SUMMARY.md — the collections phase was simple overriding logic for All Treasures. Ready to kick off Footer Cleanup (Phase 15).
-Resume file: .planning/ROADMAP.md
+Stopped at: Milestone v1.1 completed exactly as planned.
+Resume file: None

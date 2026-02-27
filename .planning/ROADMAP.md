@@ -132,8 +132,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 - [x] **Phase 11: Navigation Routing** - Fix /collections redirect, hero CTA link, and all stale /collections hrefs (completed 2026-02-26)
 - [x] **Phase 12: Navigation Labels** - Correct all 6 category labels and hrefs in top nav (completed 2026-02-26)
 - [x] **Phase 13: Product Data Quality** - Fix vendor names, hide test products, filter imageless products (completed 2026-02-26)
-- [ ] **Phase 14: Collections Polish** - Update /collections/all heading, subtitle, botanical header, and breadcrumb
-- [ ] **Phase 15: Footer Cleanup** - Align SHOP column with 6-category system, remove dead links
+- [x] **Phase 14: Collections Polish** - Update /collections/all heading, subtitle, botanical header, and breadcrumb (completed 2026-02-26)
+- [x] **Phase 15: Footer Cleanup** - Align SHOP column with 6-category system, remove dead links (completed 2026-02-26)
 
 ### Phase 10: Trust Cleanup
 **Goal**: Every shopper encounters only real content — no fabricated purchase activity, fake reviews, invented statistics, or false engagement numbers anywhere on the site
@@ -218,7 +218,10 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. Footer SHOP column lists exactly 7 entries in order: All Treasures, Tie-Dye, Leather, Jewelry, Crystals, Artwork, Ceramics — each linking to its correct /collections/[handle] URL
   2. Every link in the footer resolves to a page that exists — no Size Guide, Sustainability, Press, or other dead links remain; clicking any footer link does not result in a 404
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [x] 15-01-PLAN.md — Clean up footer links block fixing accurate arrays, execute `git rm` over unused boilerplate pages (FOOT-01, FOOT-02)
 
 ## v1.1 Progress
 
@@ -232,4 +235,4 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 | 12. Navigation Labels | 3/3 | Complete    | 2026-02-26 | - |
 | 13. Product Data Quality | 3/3 | Complete    | 2026-02-26 | - |
 | 14. Collections Polish | 1/1 | Complete | 2026-02-26 |
-| 15. Footer Cleanup | v1.1 | 0/TBD | Not started | - |
+| 15. Footer Cleanup | 1/1 | Complete | 2026-02-26 |
