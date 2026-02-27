@@ -41,15 +41,15 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 
 ### Collections
 
-- [ ] **COLL-01**: `/collections/all` page heading reads "All Treasures" (not "All Products")
-- [ ] **COLL-02**: `/collections/all` subtitle reads "Every handmade treasure in one place"
-- [ ] **COLL-03**: `/collections/all` has a botanical header image (`botanical-header-small-web.png`) in the title area
-- [ ] **COLL-04**: Breadcrumb on `/collections/all` reads "Home > Shop > All Treasures"
+- [x] **COLL-01**: `/collections/all` page heading reads "All Treasures" (not "All Products")
+- [x] **COLL-02**: `/collections/all` subtitle reads "Every handmade treasure in one place"
+- [x] **COLL-03**: `/collections/all` has a botanical header image (`botanical-header-small-web.png`) in the title area
+- [x] **COLL-04**: Breadcrumb on `/collections/all` reads "Home > Shop > All Treasures"
 
 ### Footer
 
-- [ ] **FOOT-01**: Footer SHOP column lists all 7 entries: All Treasures, Tie-Dye, Leather, Jewelry, Crystals, Artwork, Ceramics
-- [ ] **FOOT-02**: Footer contains no links to pages that don't exist (no 404s — Size Guide, Sustainability, Press removed if pages absent)
+- [x] **FOOT-01**: Footer SHOP column lists all 7 entries: All Treasures, Tie-Dye, Leather, Jewelry, Crystals, Artwork, Ceramics
+- [x] **FOOT-02**: Footer contains no links to pages that don't exist (no 404s — Size Guide, Sustainability, Press removed if pages absent)
 
 ---
 
@@ -63,8 +63,8 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 
 ### Collections Polish (from v1.0 v2 backlog)
 
-- **COLL-EXT-01**: `/collections/all` botanical divider above footer (`divider-fern-mushroom-web.png`)
-- **COLL-EXT-02**: Filter labels consistently capitalized and clean
+- [x] **COLL-EXT-01**: `/collections/all` botanical divider above footer (`divider-fern-mushroom-web.png`)
+- [x] **COLL-EXT-02**: Filter labels consistently capitalized and clean
 
 ---
 
@@ -98,16 +98,19 @@ Requirements for UX Cleanup & Navigation milestone. Phases continue numbering fr
 | PRDS-02 | Phase 13 | Complete |
 | PRDS-03 | Phase 13 | Complete |
 | PRDS-04 | Phase 13 | Complete |
-| COLL-01 | Phase 14 | Pending |
-| COLL-02 | Phase 14 | Pending |
-| COLL-03 | Phase 14 | Pending |
-| COLL-04 | Phase 14 | Pending |
-| FOOT-01 | Phase 15 | Pending |
-| FOOT-02 | Phase 15 | Pending |
+| COLL-01 | Phase 14 | Complete |
+| COLL-02 | Phase 14 | Complete |
+| COLL-03 | Phase 14 | Complete |
+| COLL-04 | Phase 14 | Complete |
+| FOOT-01 | Phase 15 | Complete |
+| FOOT-02 | Phase 15 | Complete |
+| COLL-EXT-01 | Phase 16 | Complete |
+| COLL-EXT-02 | Phase 16 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 19 total
-- Mapped to phases: 19
+- v1.2 requirements: 2 total
+- Mapped to phases: 21
 - Unmapped: 0 ✓
 
 ---

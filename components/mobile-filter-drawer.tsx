@@ -221,7 +221,7 @@ export default function MobileFilterDrawer({
                         onChange={() => handleTypeSelect(type)}
                         className="w-4 h-4 text-terracotta border-gold/30 rounded focus:ring-2 focus:ring-terracotta"
                       />
-                      <span className="text-sm text-earth">{type}</span>
+                      <span className="text-sm text-earth capitalize">{type}</span>
                     </label>
                   ))}
                 </div>
@@ -265,7 +265,7 @@ export default function MobileFilterDrawer({
                         onChange={() => handleTagToggle(tag)}
                         className="w-4 h-4 text-terracotta border-gold/30 rounded focus:ring-2 focus:ring-terracotta"
                       />
-                      <span className="text-sm text-earth">{tag}</span>
+                      <span className="text-sm text-earth capitalize">{tag}</span>
                     </label>
                   ))}
                 </div>

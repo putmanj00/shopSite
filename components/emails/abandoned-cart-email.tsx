@@ -151,19 +151,6 @@ export function AbandonedCartEmail({
         </p>
       )}
 
-      {/* Social proof */}
-      <div style={{
-        backgroundColor: '#f8fafc',
-        borderRadius: '8px',
-        padding: '16px',
-        marginTop: '24px',
-      }}>
-        <p style={{ margin: 0, fontSize: '14px', color: '#64748b', textAlign: 'center', fontStyle: 'italic' }}>
-          &ldquo;These handcrafted pieces are absolutely stunning. The quality is exceptional!&rdquo;
-          <br />
-          <span style={{ fontWeight: 600 }}>— Sarah M., Verified Buyer</span>
-        </p>
-      </div>
     </EmailLayout>
   );
 }

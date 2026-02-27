@@ -45,7 +45,7 @@ const FALLBACK_DYNAMIC_ROUTES = [
   '/collections/tie-dye',
   '/collections/leather',
   '/collections/jewelry',
-  '/collections/art',
+  '/collections/artwork',
 ];
 
 class UITestRunner {

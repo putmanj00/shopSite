@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getCollectionByHandle, getAllCollectionsHandles, getProducts } from '@/lib/shopify-helpers';
 import CollectionContent from '@/components/collection-content';
@@ -179,6 +180,18 @@ export default async function CollectionPage({
           searchParams={resolvedSearchParams}
         />
       </Suspense>
+
+      {handle === 'all' && (
+        <div className="w-full flex justify-center pb-16 pt-8 px-4">
+          <Image
+            src="/assets/images/dividers/divider-fern-mushroom.png"
+            alt=""
+            width={400}
+            height={40}
+            className="opacity-70 object-contain"
+          />
+        </div>
+      )}
     </div>
   );
 }

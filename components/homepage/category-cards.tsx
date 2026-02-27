@@ -50,7 +50,7 @@ const categories: Category[] = [
     cardClassName: 'bg-[#EFE8D6]',
   },
   {
-    handle: 'artwork',
+    handle: 'art',
     title: 'Artwork',
     description: 'Original pieces — no prints, no copies.',
     image: '/assets/images/icons/categories/icon-artwork.png',
