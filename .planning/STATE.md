@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-28T02:44:52.791Z"
+last_updated: "2026-02-28T02:53:00Z"
 progress:
   total_phases: 14
   completed_phases: 12
   total_plans: 37
-  completed_plans: 35
+  completed_plans: 36
 ---
 
 # Project State
@@ -22,9 +22,9 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 18 of 23 (Security & Dev Tooling) [IN PROGRESS]
-Plan: 18-01 complete (1 of 3)
-Status: Phase 18 In Progress; Plan 18-01 (Security Headers) complete
-Last activity: 2026-02-28 — Executed Phase 18 Plan 01. Added HTTP security headers (CSP-Report-Only, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy) to next.config.ts.
+Plan: 18-02 complete (2 of 3)
+Status: Phase 18 In Progress; Plans 18-01 and 18-02 complete
+Last activity: 2026-02-28 — Executed Phase 18 Plan 02. gitleaks audit: 198 commits scanned, zero secret findings. .env* confirmed in .gitignore and absent from git history. SEC-02 and SEC-03 satisfied.
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -50,6 +50,7 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 
 *Updated after each plan completion*
 | Phase 18 P01 | 2 | 2 tasks | 1 files |
+| Phase 18 P02 | 12 | 3 tasks | 0 files |
 
 ## Accumulated Context
 
@@ -67,6 +68,8 @@ Recent decisions affecting current work:
 - [18-01]: CSP deployed in Report-Only mode — flip CSP_ENFORCE=true in next.config.ts after confirming zero violations in production
 - [18-01]: X-Frame-Options DENY (not SAMEORIGIN) — no framing use case for this storefront
 - [18-01]: HSTS 2yr with preload directive — ready for HSTS preload list submission
+- [18-02]: gitleaks installed via GitHub release binary (not brew) — brew was compiling Go from source on macOS 13
+- [18-02]: Git history confirmed clean — no credential rotation required; history rewrite policy moot
 
 ### Pending Todos
 
@@ -82,5 +85,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 18-01-PLAN.md (Security Headers). Phase 18 Plan 01 of 3 done.
+Stopped at: Completed 18-02-PLAN.md (Gitleaks Audit). Phase 18 Plan 02 of 3 done.
 Resume file: None
