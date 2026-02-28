@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-28T19:42:04.280Z"
+last_updated: "2026-02-28T19:53:46.976Z"
 progress:
   total_phases: 16
-  completed_phases: 14
+  completed_phases: 15
   total_plans: 44
-  completed_plans: 43
+  completed_plans: 44
 ---
 
 # Project State
@@ -21,10 +21,10 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 **Current focus:** Milestone v1.2 — Phase 18: Security & Dev Tooling
 ## Current Position
 
-Phase: 20 of 23 (CI/CD Pipeline) [IN PROGRESS]
-Plan: 20-02 complete (2 of 3)
-Status: Phase 20 In Progress; Plans 20-01 and 20-02 complete
-Last activity: 2026-02-28 — Executed Phase 20 Plan 02. Created .github/workflows/ci.yml with five named jobs: quality (lint/typecheck/build), E2E 3-browser matrix, gitleaks secrets scan, npm audit, and deploy-prod stub with environment:production gate.
+Phase: 20 of 23 (CI/CD Pipeline) [COMPLETE]
+Plan: 20-03 complete (3 of 3) — Phase 20 done
+Status: Phase 20 Complete; Plans 20-01, 20-02, 20-03 all complete
+Last activity: 2026-02-28 — Executed Phase 20 Plan 03. Configured GitHub branch protection on main (6 required CI checks) and production GitHub Environment with required reviewers. CI/CD pipeline fully enforceable.
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -54,6 +54,7 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 | Phase 19 P01 | 4 | 3 tasks | 7 files |
 | Phase 20 P01 | 2 | 2 tasks | 3 files |
 | Phase 20 P02 | 1 | 2 tasks | 1 files |
+| Phase 20 P03 | 5 | 2 tasks | 0 files |
 
 ## Accumulated Context
 
@@ -82,6 +83,8 @@ Recent decisions affecting current work:
 - [Phase 20]: All five CI jobs in single workflow file — simpler to maintain, produces distinct named status checks in GitHub PR UI
 - [Phase 20]: No Playwright browser caching in CI — restore time equals download time per Playwright docs
 - [Phase 20]: deploy-prod uses environment: production field — creates manual approval gate; Plan 03 configures required reviewers in GitHub Settings
+- [Phase 20]: [20-03]: Branch protection strict:false — PRs need passing checks but branch does not need to be up-to-date with main
+- [Phase 20]: [20-03]: enforce_admins:false — admin bypass allowed for emergency hotfixes on single-maintainer repo
 
 ### Pending Todos
 
@@ -97,5 +100,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 20-02-PLAN.md (GitHub Actions CI workflow — five named jobs). Phase 20 Plan 02 of 3 done.
+Stopped at: Completed 20-03-PLAN.md (GitHub branch protection + production environment). Phase 20 complete.
 Resume file: None

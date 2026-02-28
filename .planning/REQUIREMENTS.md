@@ -25,7 +25,7 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 
 - [x] **DEVX-01**: Pre-commit hook runs ESLint on staged files before every commit
 - [x] **DEVX-02**: Pre-commit hook runs TypeScript type-check before every commit
-- [ ] **DEVX-03**: Main branch requires PR with passing CI before merge (branch protection rule)
+- [x] **DEVX-03**: Main branch requires PR with passing CI before merge (branch protection rule)
 
 ### CI/CD Pipeline (CICD)
 
@@ -120,7 +120,7 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 |-------------|-------|--------|
 | DEVX-01 | Phase 18 | Complete |
 | DEVX-02 | Phase 18 | Complete |
-| DEVX-03 | Phase 20 | Pending |
+| DEVX-03 | Phase 20 | Complete |
 | CICD-01 | Phase 20 | Complete |
 | CICD-02 | Phase 20 | Complete |
 | CICD-03 | Phase 20 | Complete |
