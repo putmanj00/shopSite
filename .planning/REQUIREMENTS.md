@@ -29,13 +29,13 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 
 ### CI/CD Pipeline (CICD)
 
-- [ ] **CICD-01**: GitHub Actions CI runs lint + typecheck + build on every PR against main
+- [x] **CICD-01**: GitHub Actions CI runs lint + typecheck + build on every PR against main
 - [x] **CICD-02**: GitHub Actions CI runs Playwright E2E tests on every PR (critical user flows)
-- [ ] **CICD-03**: CI uploads Playwright HTML report as a downloadable artifact on every run
-- [ ] **CICD-04**: CI runs secrets scan on every PR — blocks merge if secrets detected
+- [x] **CICD-03**: CI uploads Playwright HTML report as a downloadable artifact on every run
+- [x] **CICD-04**: CI runs secrets scan on every PR — blocks merge if secrets detected
 - [x] **CICD-05**: CI runs `npm audit` and fails on high/critical severity vulnerabilities
 - [x] **CICD-06**: Dependabot configured to open PRs for npm dependency updates weekly
-- [ ] **CICD-07**: Production deployment requires manual approval via GitHub environment gate
+- [x] **CICD-07**: Production deployment requires manual approval via GitHub environment gate
 
 ### Playwright E2E Tests (E2E)
 
@@ -121,13 +121,13 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 | DEVX-01 | Phase 18 | Complete |
 | DEVX-02 | Phase 18 | Complete |
 | DEVX-03 | Phase 20 | Pending |
-| CICD-01 | Phase 20 | Pending |
+| CICD-01 | Phase 20 | Complete |
 | CICD-02 | Phase 20 | Complete |
-| CICD-03 | Phase 20 | Pending |
-| CICD-04 | Phase 20 | Pending |
+| CICD-03 | Phase 20 | Complete |
+| CICD-04 | Phase 20 | Complete |
 | CICD-05 | Phase 20 | Complete |
 | CICD-06 | Phase 18 | Complete |
-| CICD-07 | Phase 20 | Pending |
+| CICD-07 | Phase 20 | Complete |
 | E2E-01 | Phase 19 | Complete |
 | E2E-02 | Phase 19 | Complete |
 | E2E-03 | Phase 19 | Pending |

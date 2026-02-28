@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-28T14:39:43.441Z"
+last_updated: "2026-02-28T18:25:27.495Z"
 progress:
-  total_phases: 15
+  total_phases: 16
   completed_phases: 13
-  total_plans: 41
-  completed_plans: 38
+  total_plans: 44
+  completed_plans: 40
 ---
 
 # Project State
@@ -22,9 +22,9 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 20 of 23 (CI/CD Pipeline) [IN PROGRESS]
-Plan: 20-01 complete (1 of 2)
-Status: Phase 20 In Progress; Plan 20-01 complete
-Last activity: 2026-02-28 — Executed Phase 20 Plan 01. Upgraded next@16.1.1→16.1.6 to fix 3 high-severity DoS CVEs; npm audit --audit-level=high --omit=dev exits 0. Extended playwright.config.ts with firefox and webkit projects; conditional reporter (list+html in CI); reuseExistingServer: !process.env.CI.
+Plan: 20-02 complete (2 of 3)
+Status: Phase 20 In Progress; Plans 20-01 and 20-02 complete
+Last activity: 2026-02-28 — Executed Phase 20 Plan 02. Created .github/workflows/ci.yml with five named jobs: quality (lint/typecheck/build), E2E 3-browser matrix, gitleaks secrets scan, npm audit, and deploy-prod stub with environment:production gate.
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -53,6 +53,7 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 | Phase 18 P02 | 12 | 3 tasks | 0 files |
 | Phase 19 P01 | 4 | 3 tasks | 7 files |
 | Phase 20 P01 | 2 | 2 tasks | 3 files |
+| Phase 20 P02 | 1 | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,9 @@ Recent decisions affecting current work:
 - [20-01]: npm audit --audit-level=high --omit=dev is the correct CI flag set — excludes devDep vulns (minimatch via @typescript-eslint), catches prod vulns (next.js)
 - [20-01]: Upgraded next@16.1.1 to next@16.1.6 — fixes 3 high-severity DoS CVEs (GHSA-9g9p-9gw9-jx7f, GHSA-h25m-26qc-wcjf, GHSA-5f7q-jpqc-wp7h)
 - [20-01]: reuseExistingServer: !process.env.CI — ensures fresh dev server in CI (not reusing stale); idiomatic Playwright CI pattern
+- [Phase 20]: All five CI jobs in single workflow file — simpler to maintain, produces distinct named status checks in GitHub PR UI
+- [Phase 20]: No Playwright browser caching in CI — restore time equals download time per Playwright docs
+- [Phase 20]: deploy-prod uses environment: production field — creates manual approval gate; Plan 03 configures required reviewers in GitHub Settings
 
 ### Pending Todos
 
@@ -93,5 +97,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 20-01-PLAN.md (CI Prerequisites — npm audit clean + multi-browser Playwright). Phase 20 Plan 01 of 2 done.
+Stopped at: Completed 20-02-PLAN.md (GitHub Actions CI workflow — five named jobs). Phase 20 Plan 02 of 3 done.
 Resume file: None
