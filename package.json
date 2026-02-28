@@ -16,6 +16,8 @@
     "a11y:all": "npm run contrast:check && npm run a11y:test",
     "test:ui": "npx tsx scripts/ui-tests.ts",
     "test:routes": "npx tsx scripts/validate-routes.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "test:all": "npm run typecheck && npm run lint && npm run test:ui",
     "tunnel": "npx localtunnel --port 3000"
   },
