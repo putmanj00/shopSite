@@ -1,0 +1,37 @@
+# lefthook.yml
+# Git hooks manager. Installed automatically via: npm install (postinstall) or npm run prepare.
+# Docs: https://lefthook.dev/
+#
+# GITLEAKS DEPENDENCY: The gitleaks pre-commit hook requires gitleaks to be installed:
+#   brew install gitleaks
+# If gitleaks is not installed, the pre-commit hook will fail with "command not found".
+# Install gitleaks before making your first commit after cloning this repo.
+
+pre-commit:
+  parallel: true
+  commands:
+    eslint:
+      glob: "*.{ts,tsx}"
+      run: npx eslint --fix {staged_files}
+      stage_fixed: true
+    typecheck:
+      glob: "*.{ts,tsx}"
+      run: npx tsc --noEmit
+    gitleaks:
+      run: gitleaks protect --staged --source .
+
+commit-msg:
+  commands:
+    conventional-commits:
+      run: |
+        MSG=$(cat {1})
+        PATTERN='^(feat|fix|docs|style|refactor|test|chore|build|ci|perf|revert)(\([a-zA-Z0-9_.-]+\))?(!)?:\s.+'
+        if ! echo "$MSG" | grep -qE "$PATTERN"; then
+          echo ""
+          echo "ERROR: Commit message does not follow Conventional Commits format."
+          echo "  Required: type(scope): description"
+          echo "  Example:  feat(header): add mobile navigation"
+          echo "  Types:    feat|fix|docs|style|refactor|test|chore|build|ci|perf|revert"
+          echo ""
+          exit 1
+        fi
