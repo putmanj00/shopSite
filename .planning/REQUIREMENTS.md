@@ -23,8 +23,8 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 
 ### Development Infrastructure (DEVX)
 
-- [ ] **DEVX-01**: Pre-commit hook runs ESLint on staged files before every commit
-- [ ] **DEVX-02**: Pre-commit hook runs TypeScript type-check before every commit
+- [x] **DEVX-01**: Pre-commit hook runs ESLint on staged files before every commit
+- [x] **DEVX-02**: Pre-commit hook runs TypeScript type-check before every commit
 - [ ] **DEVX-03**: Main branch requires PR with passing CI before merge (branch protection rule)
 
 ### CI/CD Pipeline (CICD)
@@ -34,7 +34,7 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 - [ ] **CICD-03**: CI uploads Playwright HTML report as a downloadable artifact on every run
 - [ ] **CICD-04**: CI runs secrets scan on every PR — blocks merge if secrets detected
 - [ ] **CICD-05**: CI runs `npm audit` and fails on high/critical severity vulnerabilities
-- [ ] **CICD-06**: Dependabot configured to open PRs for npm dependency updates weekly
+- [x] **CICD-06**: Dependabot configured to open PRs for npm dependency updates weekly
 - [ ] **CICD-07**: Production deployment requires manual approval via GitHub environment gate
 
 ### Playwright E2E Tests (E2E)
@@ -118,15 +118,15 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DEVX-01 | Phase 18 | Pending |
-| DEVX-02 | Phase 18 | Pending |
+| DEVX-01 | Phase 18 | Complete |
+| DEVX-02 | Phase 18 | Complete |
 | DEVX-03 | Phase 20 | Pending |
 | CICD-01 | Phase 20 | Pending |
 | CICD-02 | Phase 20 | Pending |
 | CICD-03 | Phase 20 | Pending |
 | CICD-04 | Phase 20 | Pending |
 | CICD-05 | Phase 20 | Pending |
-| CICD-06 | Phase 18 | Pending |
+| CICD-06 | Phase 18 | Complete |
 | CICD-07 | Phase 20 | Pending |
 | E2E-01 | Phase 19 | Pending |
 | E2E-02 | Phase 19 | Pending |
