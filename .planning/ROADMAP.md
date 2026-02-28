@@ -345,7 +345,12 @@ Plans:
   3. Dev and prod each have their own scoped environment variables — a variable set in dev does not appear in prod and vice versa
   4. An `infra/` directory at the project root contains OpenTofu `.tf` files that declare both Vercel projects — running `tofu plan` produces no errors and shows the expected resources
   5. `terraform.tfstate` is present in `.gitignore` and absent from git history
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 21-01-PLAN.md — OpenTofu IaC foundation: infra/ directory, two vercel_project resources, gitignore state (INFRA-01, INFRA-03, VERC-01, VERC-02, VERC-03)
+- [ ] 21-02-PLAN.md — tofu apply: create both Vercel projects, scoped env vars per project (VERC-04, INFRA-02)
+- [ ] 21-03-PLAN.md — Wire CI deploy-prod job to Vercel CLI, verify preview deployments and prod gate (VERC-01, VERC-02, VERC-03)
 
 ### Phase 22: Error Monitoring
 **Goal**: Unhandled errors in production are automatically captured in Sentry with full stack traces — no silent failures reach real users undetected
