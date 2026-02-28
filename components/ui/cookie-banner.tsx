@@ -7,6 +7,7 @@ export function CookieBanner() {
 
   useEffect(() => {
     const consent = localStorage.getItem('wildenflower_cookie_consent');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!consent) setShow(true);
   }, []);
 
