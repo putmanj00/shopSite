@@ -392,7 +392,7 @@ export default withMDX(nextConfig);
 ## Common Pitfalls
 
 ### Pitfall 1: Old Legal Page Routes Create Duplicate Content
-**What goes wrong:** `/app/privacy/page.tsx` and `/app/terms/page.tsx` already exist. If new `/legal/privacy-policy` and `/legal/terms-of-service` are created without removing or redirecting the old ones, Google indexes both. The old pages also contain incorrect email (`privacy@wildenflower.com`, `legal@wildenflower.com` instead of `wildenflowercreations@gmail.com`).
+**What goes wrong:** `/app/privacy/page.tsx` and `/app/terms/page.tsx` already exist. If new `/legal/privacy-policy` and `/legal/terms-of-service` are created without removing or redirecting the old ones, Google indexes both. The old pages also contain incorrect email (`wildenflowercreations@gmail.com`, `wildenflowercreations@gmail.com` instead of `wildenflowercreations@gmail.com`).
 **Why it happens:** The existing pages were created in a prior phase without awareness of this phase's plan.
 **How to avoid:** In the plan, explicitly delete or redirect old legal page routes. Either remove the `app/privacy/` and `app/terms/` directories, or convert them to Next.js `redirect()` responses pointing to `/legal/privacy-policy` and `/legal/terms-of-service`.
 **Warning signs:** Two pages with similar title metadata appearing in Google Search Console.
