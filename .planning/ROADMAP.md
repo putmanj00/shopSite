@@ -309,7 +309,13 @@ Plans:
   1. Running `npx playwright test` locally completes all 7 test suites with zero failures against the dev server
   2. The test suite covers: homepage render, /collections/all product grid, product detail page (image + price + add-to-cart button), add-to-cart (cart count update + drawer open), checkout redirect (URL starts with Shopify checkout domain), search results for a known query, and category nav link resolution
   3. No test relies on hardcoded product titles or IDs that would break if Shopify catalog changes — tests use structural selectors or data-testid attributes
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 19-01-PLAN.md — Playwright config, browser binaries, data-testid additions, structural tests: homepage (E2E-01), collections (E2E-02), category-nav (E2E-07)
+- [ ] 19-02-PLAN.md — Human checkpoint: create Test Product in Shopify admin, record handle + title in test-product.md
+- [ ] 19-03-PLAN.md — Product-dependent read-only tests: PDP (E2E-03), search (E2E-06)
+- [ ] 19-04-PLAN.md — Cart-mutating tests: add-to-cart (E2E-04), checkout redirect (E2E-05)
 
 ### Phase 20: CI/CD Pipeline
 **Goal**: Every pull request against main is automatically validated — no broken build, lint error, type error, E2E failure, or detected secret can merge without being caught
@@ -369,7 +375,7 @@ Phases execute in numeric order: 16 → 17 → 18 → 19 → 20 → 21 → 22 �
 | 16. Legal Pages & SEO Metadata | v1.2 | 0/TBD | Not started | - |
 | 17. Cookie Consent & Product Schema | v1.2 | Complete    | 2026-02-27 | - |
 | 18. Security & Dev Tooling | 3/3 | Complete    | 2026-02-28 | - |
-| 19. Playwright E2E Tests | v1.2 | 0/TBD | Not started | - |
+| 19. Playwright E2E Tests | v1.2 | 0/4 | Not started | - |
 | 20. CI/CD Pipeline | v1.2 | 0/TBD | Not started | - |
 | 21. Vercel Environments & IaC | v1.2 | 0/TBD | Not started | - |
 | 22. Error Monitoring | v1.2 | 0/TBD | Not started | - |
