@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-28T19:59:48.717Z"
+last_updated: "2026-02-28T20:21:25.781Z"
 progress:
-  total_phases: 16
+  total_phases: 17
   completed_phases: 15
-  total_plans: 44
-  completed_plans: 44
+  total_plans: 47
+  completed_plans: 45
 ---
 
 # Project State
@@ -21,10 +21,10 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 **Current focus:** Milestone v1.2 — Phase 18: Security & Dev Tooling
 ## Current Position
 
-Phase: 20 of 23 (CI/CD Pipeline) [COMPLETE]
-Plan: 20-03 complete (3 of 3) — Phase 20 done
-Status: Phase 20 Complete; Plans 20-01, 20-02, 20-03 all complete
-Last activity: 2026-02-28 — Executed Phase 20 Plan 03. Configured GitHub branch protection on main (6 required CI checks) and production GitHub Environment with required reviewers. CI/CD pipeline fully enforceable.
+Phase: 21 of 23 (Vercel Environments & IaC) [IN PROGRESS]
+Plan: 21-01 complete (1 of 3) — awaiting checkpoint:human-verify before Plan 02
+Status: Phase 21 Plan 01 auto-tasks complete; human verification checkpoint pending
+Last activity: 2026-02-28 — Executed Phase 21 Plan 01. Created infra/ OpenTofu HCL with two Vercel project resources + domain resource. tofu init and tofu validate pass. Awaiting human checkpoint verification.
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -55,6 +55,7 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 | Phase 20 P01 | 2 | 2 tasks | 3 files |
 | Phase 20 P02 | 1 | 2 tasks | 1 files |
 | Phase 20 P03 | 5 | 2 tasks | 0 files |
+| Phase 21-vercel-environments-iac P01 | 5 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -85,6 +86,8 @@ Recent decisions affecting current work:
 - [Phase 20]: deploy-prod uses environment: production field — creates manual approval gate; Plan 03 configures required reviewers in GitHub Settings
 - [Phase 20]: [20-03]: Branch protection strict:false — PRs need passing checks but branch does not need to be up-to-date with main
 - [Phase 20]: [20-03]: enforce_admins:false — admin bypass allowed for emergency hotfixes on single-maintainer repo
+- [Phase 21-01]: Removed production_deployment_enabled from vercel_project.prod — attribute dropped in vercel provider v1.10+; manual promote via Vercel dashboard
+- [Phase 21-01]: Committed .terraform.lock.hcl to pin provider version (vercel/vercel v1.14.1) per OpenTofu best practices
 
 ### Pending Todos
 
@@ -100,5 +103,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 20-03-PLAN.md (GitHub branch protection + production environment). Phase 20 complete.
+Stopped at: 21-01-PLAN.md checkpoint:human-verify — tasks 1+2 complete, awaiting visual verification before Plan 02.
 Resume file: None
