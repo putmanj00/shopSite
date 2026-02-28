@@ -328,7 +328,12 @@ Plans:
   4. A PR that introduces a `.env` file with a secret pattern triggers the secrets scan job and fails the check
   5. The main branch has a branch protection rule requiring at least one passing CI check before merge — direct push to main is blocked
   6. Production deployment requires a manual approval step via a GitHub environment gate — it does not deploy automatically
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 20-01-PLAN.md — npm audit pre-flight + playwright.config.ts multi-browser update (CICD-02, CICD-05)
+- [ ] 20-02-PLAN.md — GitHub Actions CI workflow: quality, E2E matrix, secrets scan, audit, deploy-prod (CICD-01, CICD-02, CICD-03, CICD-04, CICD-05, CICD-07)
+- [ ] 20-03-PLAN.md — Push to trigger first CI run, configure production environment and branch protection (CICD-07, DEVX-03)
 
 ### Phase 21: Vercel Environments & IaC
 **Goal**: Dev and prod run as independent Vercel projects with their own environment variables, and the project configuration is declared in version-controlled OpenTofu code
