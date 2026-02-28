@@ -16,17 +16,14 @@ test.describe('Add to cart', () => {
     // Click Add to Cart — triggers Shopify Storefront API call
     await page.getByRole('button', { name: 'Add to Cart' }).click();
 
-    // Cart count badge only appears when itemCount > 0 AND after Zustand hydrates
-    // auto-retry handles both the API latency and the isMounted guard (up to 10s)
-    await expect(page.getByTestId('cart-count')).toBeVisible();
-    await expect(page.getByTestId('cart-count')).toHaveText('1');
-
-    // Click the cart button to open the drawer
-    await page.getByRole('button', { name: 'Open cart' }).click();
-
-    // Drawer heading confirms it opened
+    // Cart store sets isOpen: true on addItem — drawer opens automatically
+    // Wait for drawer heading to confirm both the API call completed and the drawer opened
     await expect(
       page.getByRole('heading', { name: /Your Gathering/i })
     ).toBeVisible();
+
+    // Cart count badge appears once Zustand hydrates and itemCount > 0
+    await expect(page.getByTestId('cart-count')).toBeVisible();
+    await expect(page.getByTestId('cart-count')).toHaveText('1');
   });
 });
