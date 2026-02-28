@@ -246,7 +246,7 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 **Phase summary:**
 - [ ] **Phase 16: Legal Pages & SEO Metadata** - Publish Privacy Policy, Terms, Refund Policy; add Open Graph tags, sitemap, robots.txt
 - [x] **Phase 17: Cookie Consent & Product Schema** - GDPR cookie consent banner; JSON-LD Product schema on product pages (completed 2026-02-27)
-- [ ] **Phase 18: Security & Dev Tooling** - Security headers (CSP/HSTS/X-Frame), git history secrets scan, pre-commit hooks, Dependabot
+- [x] **Phase 18: Security & Dev Tooling** - Security headers (CSP/HSTS/X-Frame), git history secrets scan, pre-commit hooks, Dependabot (completed 2026-02-28)
 - [ ] **Phase 19: Playwright E2E Tests** - Write all 7 critical-path test suites (homepage, collections, PDP, cart, checkout redirect, search, category nav)
 - [ ] **Phase 20: CI/CD Pipeline** - GitHub Actions: lint + typecheck + build + E2E + secrets scan + audit; branch protection on main
 - [ ] **Phase 21: Vercel Environments & IaC** - Dev/prod Vercel project split; OpenTofu declares both projects and env var structure
@@ -368,7 +368,7 @@ Phases execute in numeric order: 16 → 17 → 18 → 19 → 20 → 21 → 22 �
 |-------|-----------|----------------|--------|-----------|
 | 16. Legal Pages & SEO Metadata | v1.2 | 0/TBD | Not started | - |
 | 17. Cookie Consent & Product Schema | v1.2 | Complete    | 2026-02-27 | - |
-| 18. Security & Dev Tooling | 2/3 | In Progress|  | - |
+| 18. Security & Dev Tooling | 3/3 | Complete   | 2026-02-28 | - |
 | 19. Playwright E2E Tests | v1.2 | 0/TBD | Not started | - |
 | 20. CI/CD Pipeline | v1.2 | 0/TBD | Not started | - |
 | 21. Vercel Environments & IaC | v1.2 | 0/TBD | Not started | - |
