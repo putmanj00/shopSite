@@ -21,10 +21,10 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 **Current focus:** Milestone v1.2 — Phase 18: Security & Dev Tooling
 ## Current Position
 
-Phase: 19 of 23 (Playwright E2E Tests) [IN PROGRESS]
-Plan: 19-01 complete (1 of 4)
-Status: Phase 19 In Progress; Plan 19-01 complete
-Last activity: 2026-02-28 — Executed Phase 19 Plan 01. Playwright infrastructure installed (Chromium, playwright.config.ts, test:e2e script). 5 structural E2E tests passing across 3 spec files (E2E-01, E2E-02, E2E-07). Deviation: webServer uses 'next dev --webpack' to avoid Turbopack panic on multi-lockfile workspace.
+Phase: 20 of 23 (CI/CD Pipeline) [IN PROGRESS]
+Plan: 20-01 complete (1 of 2)
+Status: Phase 20 In Progress; Plan 20-01 complete
+Last activity: 2026-02-28 — Executed Phase 20 Plan 01. Upgraded next@16.1.1→16.1.6 to fix 3 high-severity DoS CVEs; npm audit --audit-level=high --omit=dev exits 0. Extended playwright.config.ts with firefox and webkit projects; conditional reporter (list+html in CI); reuseExistingServer: !process.env.CI.
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -52,6 +52,7 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 | Phase 18 P01 | 2 | 2 tasks | 1 files |
 | Phase 18 P02 | 12 | 3 tasks | 0 files |
 | Phase 19 P01 | 4 | 3 tasks | 7 files |
+| Phase 20 P01 | 2 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -74,6 +75,9 @@ Recent decisions affecting current work:
 - [19-01]: webServer command uses 'next dev --webpack' not 'npm run dev' — avoids Turbopack panic caused by multiple lockfiles in workspace root (pnpm-lock.yaml at parent dir + package-lock.json in project)
 - [19-01]: All E2E spec imports use 'playwright/test' (not '@playwright/test') — package installed is 'playwright', not '@playwright/test'
 - [19-01]: Category nav test uses .hover() to trigger onMouseEnter dropdown — more reliable than .click() in headless Chromium
+- [20-01]: npm audit --audit-level=high --omit=dev is the correct CI flag set — excludes devDep vulns (minimatch via @typescript-eslint), catches prod vulns (next.js)
+- [20-01]: Upgraded next@16.1.1 to next@16.1.6 — fixes 3 high-severity DoS CVEs (GHSA-9g9p-9gw9-jx7f, GHSA-h25m-26qc-wcjf, GHSA-5f7q-jpqc-wp7h)
+- [20-01]: reuseExistingServer: !process.env.CI — ensures fresh dev server in CI (not reusing stale); idiomatic Playwright CI pattern
 
 ### Pending Todos
 
@@ -89,5 +93,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 19-01-PLAN.md (Playwright Infrastructure + Structural Tests). Phase 19 Plan 01 of 4 done.
+Stopped at: Completed 20-01-PLAN.md (CI Prerequisites — npm audit clean + multi-browser Playwright). Phase 20 Plan 01 of 2 done.
 Resume file: None
