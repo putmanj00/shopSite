@@ -62,7 +62,7 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 
 ### Security (SEC)
 
-- [ ] **SEC-01**: Security headers on all responses — CSP (allows `*.shopify.com`, `checkout.shopify.com`), HSTS, X-Frame-Options, X-Content-Type-Options
+- [x] **SEC-01**: Security headers on all responses — CSP (allows `*.shopify.com`, `checkout.shopify.com`), HSTS, X-Frame-Options, X-Content-Type-Options
 - [ ] **SEC-02**: Existing git history scanned for committed secrets — clean confirmed
 - [ ] **SEC-03**: All `.env*` files verified in `.gitignore`
 
@@ -142,7 +142,7 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 | INFRA-01 | Phase 21 | Pending |
 | INFRA-02 | Phase 21 | Pending |
 | INFRA-03 | Phase 21 | Pending |
-| SEC-01 | Phase 18 | Pending |
+| SEC-01 | Phase 18 | Complete |
 | SEC-02 | Phase 18 | Pending |
 | SEC-03 | Phase 18 | Pending |
 | MON-01 | Phase 22 | Pending |
