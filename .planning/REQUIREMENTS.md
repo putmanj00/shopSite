@@ -39,13 +39,13 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 
 ### Playwright E2E Tests (E2E)
 
-- [ ] **E2E-01**: Test — homepage loads with hero image, navigation, and product section visible
-- [ ] **E2E-02**: Test — `/collections/all` page loads with product grid visible
+- [x] **E2E-01**: Test — homepage loads with hero image, navigation, and product section visible
+- [x] **E2E-02**: Test — `/collections/all` page loads with product grid visible
 - [ ] **E2E-03**: Test — product detail page loads with image, price, and add-to-cart button
 - [ ] **E2E-04**: Test — adding a product to cart updates cart count and opens cart drawer
 - [ ] **E2E-05**: Test — checkout button initiates redirect to a Shopify checkout URL
 - [ ] **E2E-06**: Test — search returns results for a known product query
-- [ ] **E2E-07**: Test — category navigation links to correct collection page
+- [x] **E2E-07**: Test — category navigation links to correct collection page
 
 ### Vercel Environments (VERC)
 
@@ -128,13 +128,13 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 | CICD-05 | Phase 20 | Pending |
 | CICD-06 | Phase 18 | Complete |
 | CICD-07 | Phase 20 | Pending |
-| E2E-01 | Phase 19 | Pending |
-| E2E-02 | Phase 19 | Pending |
+| E2E-01 | Phase 19 | Complete |
+| E2E-02 | Phase 19 | Complete |
 | E2E-03 | Phase 19 | Pending |
 | E2E-04 | Phase 19 | Pending |
 | E2E-05 | Phase 19 | Pending |
 | E2E-06 | Phase 19 | Pending |
-| E2E-07 | Phase 19 | Pending |
+| E2E-07 | Phase 19 | Complete |
 | VERC-01 | Phase 21 | Pending |
 | VERC-02 | Phase 21 | Pending |
 | VERC-03 | Phase 21 | Pending |

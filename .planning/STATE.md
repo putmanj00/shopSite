@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-28T02:58:10.742Z"
+last_updated: "2026-02-28T14:39:43.441Z"
 progress:
-  total_phases: 14
+  total_phases: 15
   completed_phases: 13
-  total_plans: 37
-  completed_plans: 37
+  total_plans: 41
+  completed_plans: 38
 ---
 
 # Project State
@@ -21,10 +21,10 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 **Current focus:** Milestone v1.2 — Phase 18: Security & Dev Tooling
 ## Current Position
 
-Phase: 18 of 23 (Security & Dev Tooling) [IN PROGRESS]
-Plan: 18-02 complete (2 of 3)
-Status: Phase 18 In Progress; Plans 18-01 and 18-02 complete
-Last activity: 2026-02-28 — Executed Phase 18 Plan 02. gitleaks audit: 198 commits scanned, zero secret findings. .env* confirmed in .gitignore and absent from git history. SEC-02 and SEC-03 satisfied.
+Phase: 19 of 23 (Playwright E2E Tests) [IN PROGRESS]
+Plan: 19-01 complete (1 of 4)
+Status: Phase 19 In Progress; Plan 19-01 complete
+Last activity: 2026-02-28 — Executed Phase 19 Plan 01. Playwright infrastructure installed (Chromium, playwright.config.ts, test:e2e script). 5 structural E2E tests passing across 3 spec files (E2E-01, E2E-02, E2E-07). Deviation: webServer uses 'next dev --webpack' to avoid Turbopack panic on multi-lockfile workspace.
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -51,6 +51,7 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 *Updated after each plan completion*
 | Phase 18 P01 | 2 | 2 tasks | 1 files |
 | Phase 18 P02 | 12 | 3 tasks | 0 files |
+| Phase 19 P01 | 4 | 3 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -70,6 +71,9 @@ Recent decisions affecting current work:
 - [18-01]: HSTS 2yr with preload directive — ready for HSTS preload list submission
 - [18-02]: gitleaks installed via GitHub release binary (not brew) — brew was compiling Go from source on macOS 13
 - [18-02]: Git history confirmed clean — no credential rotation required; history rewrite policy moot
+- [19-01]: webServer command uses 'next dev --webpack' not 'npm run dev' — avoids Turbopack panic caused by multiple lockfiles in workspace root (pnpm-lock.yaml at parent dir + package-lock.json in project)
+- [19-01]: All E2E spec imports use 'playwright/test' (not '@playwright/test') — package installed is 'playwright', not '@playwright/test'
+- [19-01]: Category nav test uses .hover() to trigger onMouseEnter dropdown — more reliable than .click() in headless Chromium
 
 ### Pending Todos
 
@@ -85,5 +89,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 18-02-PLAN.md (Gitleaks Audit). Phase 18 Plan 02 of 3 done.
+Stopped at: Completed 19-01-PLAN.md (Playwright Infrastructure + Structural Tests). Phase 19 Plan 01 of 4 done.
 Resume file: None
