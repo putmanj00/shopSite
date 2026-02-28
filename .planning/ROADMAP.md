@@ -309,7 +309,13 @@ Plans:
   1. Running `npx playwright test` locally completes all 7 test suites with zero failures against the dev server
   2. The test suite covers: homepage render, /collections/all product grid, product detail page (image + price + add-to-cart button), add-to-cart (cart count update + drawer open), checkout redirect (URL starts with Shopify checkout domain), search results for a known query, and category nav link resolution
   3. No test relies on hardcoded product titles or IDs that would break if Shopify catalog changes — tests use structural selectors or data-testid attributes
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 19-01-PLAN.md — Playwright config, browser binaries, data-testid additions, structural tests: homepage (E2E-01), collections (E2E-02), category-nav (E2E-07)
+- [ ] 19-02-PLAN.md — Human checkpoint: create Test Product in Shopify admin, record handle + title in test-product.md
+- [ ] 19-03-PLAN.md — Product-dependent read-only tests: PDP (E2E-03), search (E2E-06)
+- [ ] 19-04-PLAN.md — Cart-mutating tests: add-to-cart (E2E-04), checkout redirect (E2E-05)
 
 ### Phase 20: CI/CD Pipeline
 **Goal**: Every pull request against main is automatically validated — no broken build, lint error, type error, E2E failure, or detected secret can merge without being caught
@@ -322,7 +328,12 @@ Plans:
   4. A PR that introduces a `.env` file with a secret pattern triggers the secrets scan job and fails the check
   5. The main branch has a branch protection rule requiring at least one passing CI check before merge — direct push to main is blocked
   6. Production deployment requires a manual approval step via a GitHub environment gate — it does not deploy automatically
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 20-01-PLAN.md — npm audit pre-flight + playwright.config.ts multi-browser update (CICD-02, CICD-05)
+- [ ] 20-02-PLAN.md — GitHub Actions CI workflow: quality, E2E matrix, secrets scan, audit, deploy-prod (CICD-01, CICD-02, CICD-03, CICD-04, CICD-05, CICD-07)
+- [ ] 20-03-PLAN.md — Push to trigger first CI run, configure production environment and branch protection (CICD-07, DEVX-03)
 
 ### Phase 21: Vercel Environments & IaC
 **Goal**: Dev and prod run as independent Vercel projects with their own environment variables, and the project configuration is declared in version-controlled OpenTofu code
@@ -369,8 +380,8 @@ Phases execute in numeric order: 16 → 17 → 18 → 19 → 20 → 21 → 22 �
 | 16. Legal Pages & SEO Metadata | v1.2 | 0/TBD | Not started | - |
 | 17. Cookie Consent & Product Schema | v1.2 | Complete    | 2026-02-27 | - |
 | 18. Security & Dev Tooling | 3/3 | Complete    | 2026-02-28 | - |
-| 19. Playwright E2E Tests | v1.2 | 0/TBD | Not started | - |
-| 20. CI/CD Pipeline | v1.2 | 0/TBD | Not started | - |
+| 19. Playwright E2E Tests | 1/4 | In Progress|  | - |
+| 20. CI/CD Pipeline | 2/3 | In Progress|  | - |
 | 21. Vercel Environments & IaC | v1.2 | 0/TBD | Not started | - |
 | 22. Error Monitoring | v1.2 | 0/TBD | Not started | - |
 | 23. Shopify Go-Live Verification | v1.2 | 0/TBD | Not started | - |

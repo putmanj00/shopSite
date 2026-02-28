@@ -8,6 +8,7 @@ import type { Metadata } from 'next';
 import type { ShopifyCollection } from '@/types/shopify';
 import { BotanicalHeader } from '@/components/ui/botanical-header';
 import { buildBreadcrumbList, SITE_URL } from '@/lib/structured-data';
+import Link from 'next/link';
 
 interface CollectionPageProps {
   params: Promise<{
@@ -137,9 +138,9 @@ export default async function CollectionPage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb Navigation */}
           <nav className="flex items-center justify-center gap-2 text-sm mb-8" aria-label="Breadcrumb">
-            <a href="/" className="text-sage hover:text-ink-brown transition-colors">Home</a>
+            <Link href="/" className="text-sage hover:text-ink-brown transition-colors">Home</Link>
             <span className="text-sage">/</span>
-            <a href="/collections/all" className="text-sage hover:text-ink-brown transition-colors">Shop</a>
+            <Link href="/collections/all" className="text-sage hover:text-ink-brown transition-colors">Shop</Link>
             <span className="text-sage">/</span>
             <span className="text-ink-brown font-medium line-clamp-1">{collection.title}</span>
           </nav>

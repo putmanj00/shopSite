@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-28T02:58:10.742Z"
+last_updated: "2026-02-28T18:25:27.495Z"
 progress:
-  total_phases: 14
+  total_phases: 16
   completed_phases: 13
-  total_plans: 37
-  completed_plans: 37
+  total_plans: 44
+  completed_plans: 40
 ---
 
 # Project State
@@ -21,10 +21,10 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 **Current focus:** Milestone v1.2 — Phase 18: Security & Dev Tooling
 ## Current Position
 
-Phase: 18 of 23 (Security & Dev Tooling) [IN PROGRESS]
-Plan: 18-02 complete (2 of 3)
-Status: Phase 18 In Progress; Plans 18-01 and 18-02 complete
-Last activity: 2026-02-28 — Executed Phase 18 Plan 02. gitleaks audit: 198 commits scanned, zero secret findings. .env* confirmed in .gitignore and absent from git history. SEC-02 and SEC-03 satisfied.
+Phase: 20 of 23 (CI/CD Pipeline) [IN PROGRESS]
+Plan: 20-02 complete (2 of 3)
+Status: Phase 20 In Progress; Plans 20-01 and 20-02 complete
+Last activity: 2026-02-28 — Executed Phase 20 Plan 02. Created .github/workflows/ci.yml with five named jobs: quality (lint/typecheck/build), E2E 3-browser matrix, gitleaks secrets scan, npm audit, and deploy-prod stub with environment:production gate.
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -51,6 +51,9 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 *Updated after each plan completion*
 | Phase 18 P01 | 2 | 2 tasks | 1 files |
 | Phase 18 P02 | 12 | 3 tasks | 0 files |
+| Phase 19 P01 | 4 | 3 tasks | 7 files |
+| Phase 20 P01 | 2 | 2 tasks | 3 files |
+| Phase 20 P02 | 1 | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -70,6 +73,15 @@ Recent decisions affecting current work:
 - [18-01]: HSTS 2yr with preload directive — ready for HSTS preload list submission
 - [18-02]: gitleaks installed via GitHub release binary (not brew) — brew was compiling Go from source on macOS 13
 - [18-02]: Git history confirmed clean — no credential rotation required; history rewrite policy moot
+- [19-01]: webServer command uses 'next dev --webpack' not 'npm run dev' — avoids Turbopack panic caused by multiple lockfiles in workspace root (pnpm-lock.yaml at parent dir + package-lock.json in project)
+- [19-01]: All E2E spec imports use 'playwright/test' (not '@playwright/test') — package installed is 'playwright', not '@playwright/test'
+- [19-01]: Category nav test uses .hover() to trigger onMouseEnter dropdown — more reliable than .click() in headless Chromium
+- [20-01]: npm audit --audit-level=high --omit=dev is the correct CI flag set — excludes devDep vulns (minimatch via @typescript-eslint), catches prod vulns (next.js)
+- [20-01]: Upgraded next@16.1.1 to next@16.1.6 — fixes 3 high-severity DoS CVEs (GHSA-9g9p-9gw9-jx7f, GHSA-h25m-26qc-wcjf, GHSA-5f7q-jpqc-wp7h)
+- [20-01]: reuseExistingServer: !process.env.CI — ensures fresh dev server in CI (not reusing stale); idiomatic Playwright CI pattern
+- [Phase 20]: All five CI jobs in single workflow file — simpler to maintain, produces distinct named status checks in GitHub PR UI
+- [Phase 20]: No Playwright browser caching in CI — restore time equals download time per Playwright docs
+- [Phase 20]: deploy-prod uses environment: production field — creates manual approval gate; Plan 03 configures required reviewers in GitHub Settings
 
 ### Pending Todos
 
@@ -85,5 +97,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 18-02-PLAN.md (Gitleaks Audit). Phase 18 Plan 02 of 3 done.
+Stopped at: Completed 20-02-PLAN.md (GitHub Actions CI workflow — five named jobs). Phase 20 Plan 02 of 3 done.
 Resume file: None

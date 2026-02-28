@@ -13,6 +13,7 @@ export default function MobileDrawer({ navItems }: { navItems: NavItem[] }) {
 
     // Close the drawer when the route changes
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsOpen(false);
     }, [pathname]);
 

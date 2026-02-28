@@ -173,6 +173,7 @@ async function seedShopify() {
         }
       `;
       
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const result = await adminApiFetch<{ collectionCreate: { collection: { id: string }, userErrors: any[] } }>({
         query: createCollectionMutation,
         variables: {
@@ -250,8 +251,9 @@ async function seedShopify() {
             id: string, 
             variants: { edges: Array<{ node: { id: string, inventoryItem: { id: string } } }> } 
           }, 
-          userErrors: any[] 
-        } 
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          userErrors: any[]
+        }
       }>({
         query: createProductMutation,
         variables: {
@@ -325,6 +327,7 @@ async function seedShopify() {
         }
       `;
       
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const mediaResult = await adminApiFetch<{ productCreateMedia: { mediaUserErrors: any[] } }>({
         query: addMediaMutation,
         variables: {
