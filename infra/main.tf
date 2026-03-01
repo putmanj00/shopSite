@@ -38,10 +38,16 @@ resource "vercel_project" "prod" {
   }
 }
 
-resource "vercel_project_domain" "prod_domain" {
-  project_id = vercel_project.prod.id
-  domain     = "wildenflower.com"
-}
+# DEFERRED: vercel_project_domain.prod_domain removed — wildenflower.com is currently
+# attached to the pre-existing "shop-site" project (prj_R5N1uOl96Ze8e0ZS9l3Nv98vQ7cL).
+# Vercel API rejects adding the same domain to a second project while it is in use.
+# Manual step required: remove wildenflower.com from shop-site in Vercel dashboard,
+# then re-add this resource block and run tofu apply to attach it to shopsite-prod.
+#
+# resource "vercel_project_domain" "prod_domain" {
+#   project_id = vercel_project.prod.id
+#   domain     = "wildenflower.com"
+# }
 
 # --- Dev project environment variables ---
 
@@ -57,8 +63,10 @@ resource "vercel_project_environment_variable" "dev_shopify_token" {
   project_id = vercel_project.dev.id
   key        = "SHOPIFY_STOREFRONT_ACCESS_TOKEN"
   value      = var.shopify_token_dev
-  target     = ["preview", "development", "production"]
-  sensitive  = true
+  # Vercel API rejects sensitive = true when "development" is in the target list.
+  # Remove "development" — the token is still available in preview and production environments.
+  target    = ["preview", "production"]
+  sensitive = true
 }
 
 # --- Prod project environment variables ---
