@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-28T18:25:27.495Z"
+last_updated: "2026-03-01T01:07:27.634Z"
 progress:
-  total_phases: 16
-  completed_phases: 13
-  total_plans: 44
-  completed_plans: 40
+  total_phases: 17
+  completed_phases: 16
+  total_plans: 47
+  completed_plans: 47
 ---
 
 # Project State
@@ -21,10 +21,10 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 **Current focus:** Milestone v1.2 — Phase 18: Security & Dev Tooling
 ## Current Position
 
-Phase: 20 of 23 (CI/CD Pipeline) [IN PROGRESS]
-Plan: 20-02 complete (2 of 3)
-Status: Phase 20 In Progress; Plans 20-01 and 20-02 complete
-Last activity: 2026-02-28 — Executed Phase 20 Plan 02. Created .github/workflows/ci.yml with five named jobs: quality (lint/typecheck/build), E2E 3-browser matrix, gitleaks secrets scan, npm audit, and deploy-prod stub with environment:production gate.
+Phase: 21 of 23 (Vercel Environments & IaC) [COMPLETE — awaiting human-verify checkpoint]
+Plan: 21-03 complete (3 of 3) — CI deploy-prod wired to Vercel CLI; awaiting Task 3 human-verify
+Status: Phase 21 Plan 03 auto-task done. deploy-prod job now runs vercel pull + build + deploy --prebuilt. Human must open PR, verify preview URL, merge, and approve prod gate.
+Last activity: 2026-03-01 — Executed Phase 21 Plan 03. Replaced placeholder echo in deploy-prod with real vercel CLI three-step deploy. Commit 261e90c. Awaiting human-verify checkpoint (Task 3).
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -54,6 +54,10 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 | Phase 19 P01 | 4 | 3 tasks | 7 files |
 | Phase 20 P01 | 2 | 2 tasks | 3 files |
 | Phase 20 P02 | 1 | 2 tasks | 1 files |
+| Phase 20 P03 | 5 | 2 tasks | 0 files |
+| Phase 21-vercel-environments-iac P01 | 5 | 2 tasks | 6 files |
+| Phase 21-vercel-environments-iac P02 | 12 | 1 task | 2 files |
+| Phase 21-vercel-environments-iac P03 | 5 | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -82,6 +86,15 @@ Recent decisions affecting current work:
 - [Phase 20]: All five CI jobs in single workflow file — simpler to maintain, produces distinct named status checks in GitHub PR UI
 - [Phase 20]: No Playwright browser caching in CI — restore time equals download time per Playwright docs
 - [Phase 20]: deploy-prod uses environment: production field — creates manual approval gate; Plan 03 configures required reviewers in GitHub Settings
+- [Phase 20]: [20-03]: Branch protection strict:false — PRs need passing checks but branch does not need to be up-to-date with main
+- [Phase 20]: [20-03]: enforce_admins:false — admin bypass allowed for emergency hotfixes on single-maintainer repo
+- [Phase 21-01]: Removed production_deployment_enabled from vercel_project.prod — attribute dropped in vercel provider v1.10+; manual promote via Vercel dashboard
+- [Phase 21-01]: Committed .terraform.lock.hcl to pin provider version (vercel/vercel v1.14.1) per OpenTofu best practices
+- [Phase 21-02]: Vercel API rejects sensitive=true env vars targeting "development" — use target=["preview","production"] for sensitive vars
+- [Phase 21-02]: vercel_project_domain deferred — wildenflower.com is attached to pre-existing shop-site project; must be moved manually before tofu can manage it
+- [Phase 21-02]: Added tfplan/*.tfplan to .gitignore — plan files embed sensitive variable values in plaintext
+- [Phase 21-03]: Preserved 'secrets' job name in needs array (not 'secrets-scan') — plan template had wrong name; using wrong name would silently drop the secrets-scan dependency from the gate
+- [Phase 21-03]: Three-step vercel CLI pattern (pull + build + deploy --prebuilt) chosen for clearer failure isolation over single vercel --prod command
 
 ### Pending Todos
 
@@ -91,11 +104,12 @@ None.
 
 - OAuth auth routes (app/api/auth/customer/) are fragile — no logic changes in v1.2
 - CSP header whitelists `*.shopify.com` and `checkout.shopify.com` — implemented in 18-01 (connect-src and form-action)
-- Vercel dev project URL must be added to Shopify Customer Account API allowed redirect URIs when Phase 21 runs
+- Vercel dev project URL (https://shopsite-dev.vercel.app) must be added to Shopify Customer Account API allowed redirect URIs before OAuth flows work on dev deployment
+- wildenflower.com domain must be manually removed from shop-site Vercel project before IaC can attach it to shopsite-prod
 - Playwright cannot test Shopify checkout completion (cross-domain, anti-bot) — test order via bogus gateway in Phase 23 instead
 
 ## Session Continuity
 
-Last session: 2026-02-28
-Stopped at: Completed 20-02-PLAN.md (GitHub Actions CI workflow — five named jobs). Phase 20 Plan 02 of 3 done.
+Last session: 2026-03-01
+Stopped at: Completed 21-03 Task 2 — deploy-prod wired to vercel CLI (261e90c). Paused at Task 3 human-verify checkpoint. User must open PR, verify preview URL and prod gate, then resume.
 Resume file: None

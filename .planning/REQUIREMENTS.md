@@ -25,7 +25,7 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 
 - [x] **DEVX-01**: Pre-commit hook runs ESLint on staged files before every commit
 - [x] **DEVX-02**: Pre-commit hook runs TypeScript type-check before every commit
-- [ ] **DEVX-03**: Main branch requires PR with passing CI before merge (branch protection rule)
+- [x] **DEVX-03**: Main branch requires PR with passing CI before merge (branch protection rule)
 
 ### CI/CD Pipeline (CICD)
 
@@ -49,16 +49,16 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 
 ### Vercel Environments (VERC)
 
-- [ ] **VERC-01**: Dev Vercel project exists and auto-deploys on every merge to main
-- [ ] **VERC-02**: Prod Vercel project exists with custom domain — deploys via manual promote only
-- [ ] **VERC-03**: PR preview deployments auto-generate per PR
-- [ ] **VERC-04**: Dev and prod each have their own scoped environment variables
+- [x] **VERC-01**: Dev Vercel project exists and auto-deploys on every merge to main
+- [x] **VERC-02**: Prod Vercel project exists with custom domain — deploys via manual promote only
+- [x] **VERC-03**: PR preview deployments auto-generate per PR
+- [x] **VERC-04**: Dev and prod each have their own scoped environment variables
 
 ### Infrastructure as Code (INFRA)
 
-- [ ] **INFRA-01**: OpenTofu configuration declares both Vercel projects (dev + prod) as code
-- [ ] **INFRA-02**: OpenTofu manages non-secret environment variable names and structure per project
-- [ ] **INFRA-03**: OpenTofu state file is gitignored; setup documented
+- [x] **INFRA-01**: OpenTofu configuration declares both Vercel projects (dev + prod) as code
+- [x] **INFRA-02**: OpenTofu manages non-secret environment variable names and structure per project
+- [x] **INFRA-03**: OpenTofu state file is gitignored; setup documented
 
 ### Security (SEC)
 
@@ -120,7 +120,7 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 |-------------|-------|--------|
 | DEVX-01 | Phase 18 | Complete |
 | DEVX-02 | Phase 18 | Complete |
-| DEVX-03 | Phase 20 | Pending |
+| DEVX-03 | Phase 20 | Complete |
 | CICD-01 | Phase 20 | Complete |
 | CICD-02 | Phase 20 | Complete |
 | CICD-03 | Phase 20 | Complete |
@@ -135,13 +135,13 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 | E2E-05 | Phase 19 | Pending |
 | E2E-06 | Phase 19 | Pending |
 | E2E-07 | Phase 19 | Complete |
-| VERC-01 | Phase 21 | Pending |
-| VERC-02 | Phase 21 | Pending |
-| VERC-03 | Phase 21 | Pending |
-| VERC-04 | Phase 21 | Pending |
-| INFRA-01 | Phase 21 | Pending |
-| INFRA-02 | Phase 21 | Pending |
-| INFRA-03 | Phase 21 | Pending |
+| VERC-01 | Phase 21 | Complete |
+| VERC-02 | Phase 21 | Complete |
+| VERC-03 | Phase 21 | Complete |
+| VERC-04 | Phase 21 | Complete |
+| INFRA-01 | Phase 21 | Complete |
+| INFRA-02 | Phase 21 | Complete |
+| INFRA-03 | Phase 21 | Complete |
 | SEC-01 | Phase 18 | Complete |
 | SEC-02 | Phase 18 | Complete |
 | SEC-03 | Phase 18 | Complete |

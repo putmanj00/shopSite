@@ -1,0 +1,10 @@
+# Copy to terraform.tfvars and fill in real values.
+# terraform.tfvars is gitignored — never commit it.
+# Alternatively, export as env vars:
+#   export TF_VAR_vercel_api_token="..."
+#   export TF_VAR_shopify_token_dev="..."
+#   export TF_VAR_shopify_token_prod="..."
+
+vercel_api_token   = "your-vercel-api-token-here"
+shopify_token_dev  = "your-shopify-storefront-access-token-dev"
+shopify_token_prod = "your-shopify-storefront-access-token-prod"
