@@ -1,14 +1,14 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: UX Cleanup & Navigation
+milestone: v1.2
+milestone_name: Production Readiness & Go-Live
 status: unknown
-last_updated: "2026-03-01T05:50:37.323Z"
+last_updated: "2026-03-01T15:55:13.264Z"
 progress:
   total_phases: 18
-  completed_phases: 16
+  completed_phases: 17
   total_plans: 51
-  completed_plans: 50
+  completed_plans: 51
 ---
 
 # Project State
@@ -21,10 +21,10 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 **Current focus:** Milestone v1.2 — Phase 18: Security & Dev Tooling
 ## Current Position
 
-Phase: 22 of 23 (Error Monitoring) [In Progress]
-Plan: 22-03 complete (3 of 4) — Error boundaries wired with Sentry.captureException, sentry-test page created, CI SENTRY_AUTH_TOKEN patched
-Status: Phase 22 Plan 03 complete. Both error boundaries capture to Sentry. /sentry-test exists for dashboard verification. Plan 04 verifies dashboard events and deletes test page.
-Last activity: 2026-03-01 — Completed Phase 22 Plan 03. app/error.tsx and app/global-error.tsx call Sentry.captureException(error). Temporary /sentry-test page fires client+server test errors. CI Build step exposes SENTRY_AUTH_TOKEN. Commits: 4d36c9a, 6afa95d.
+Phase: 22 of 23 (Error Monitoring) [Complete]
+Plan: 22-04 complete (4 of 4) — Production Sentry events confirmed; test routes deleted
+Status: Phase 22 complete. MON-01/MON-02/MON-03 all verified. Sentry captures client + server events from wildenflower.com production. Test routes deleted. Ready for Phase 23.
+Last activity: 2026-03-01 — Completed Phase 22 Plan 04. Sentry dashboard confirmed events from production. Deleted app/sentry-test/page.tsx and app/api/sentry-example-api/route.ts. Commit: f2b1c94.
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -61,6 +61,7 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 | Phase 22-error-monitoring P01 | 5 | 1 tasks | 1 files |
 | Phase 22-error-monitoring P02 | 5 | 2 tasks | 8 files |
 | Phase 22-error-monitoring P03 | 2 | 2 tasks | 5 files |
+| Phase 22-error-monitoring P04 | 10 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -104,6 +105,7 @@ Recent decisions affecting current work:
 - [22-02]: tracesSampleRate: 0.1 on all runtimes — conservative 10% to protect free tier quota
 - [Phase 22-error-monitoring]: Error boundaries require explicit Sentry.captureException in useEffect — Next.js handles these errors before Sentry's global handler fires
 - [Phase 22-error-monitoring]: SENTRY_AUTH_TOKEN added to quality job Build step only; deploy-prod job uses vercel build --prod which pulls Vercel env vars automatically
+- [Phase 22-error-monitoring]: Test routes deleted immediately after dashboard confirmation — MON-01/MON-02/MON-03 all verified; Phase 22 complete
 
 ### Pending Todos
 
