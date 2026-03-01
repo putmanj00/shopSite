@@ -68,9 +68,9 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 
 ### Error Monitoring (MON)
 
-- [ ] **MON-01**: Sentry `@sentry/nextjs` installed and configured for Next.js 16 App Router (client + server)
-- [ ] **MON-02**: Sentry only active in `NODE_ENV === 'production'` — not in development
-- [ ] **MON-03**: Sentry captures unhandled errors via server instrumentation and `global-error.tsx`
+- [x] **MON-01**: Sentry `@sentry/nextjs` installed and configured for Next.js 16 App Router (client + server)
+- [x] **MON-02**: Sentry only active in `NODE_ENV === 'production'` — not in development
+- [x] **MON-03**: Sentry captures unhandled errors via server instrumentation and `global-error.tsx`
 
 ### SEO (SEO)
 
@@ -145,9 +145,9 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 | SEC-01 | Phase 18 | Complete |
 | SEC-02 | Phase 18 | Complete |
 | SEC-03 | Phase 18 | Complete |
-| MON-01 | Phase 22 | Pending |
-| MON-02 | Phase 22 | Pending |
-| MON-03 | Phase 22 | Pending |
+| MON-01 | Phase 22 | Complete |
+| MON-02 | Phase 22 | Complete |
+| MON-03 | Phase 22 | Complete |
 | SEO-01 | Phase 17 | Pending |
 | SEO-02 | Phase 16 | Pending |
 | SEO-03 | Phase 16 | Pending |

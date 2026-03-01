@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createMDX from '@next/mdx';
+import { withSentryConfig } from '@sentry/nextjs';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CSP ENFORCEMENT FLAG
@@ -82,4 +83,18 @@ const nextConfig: NextConfig = {
 };
 
 const withMDX = createMDX({});
-export default withMDX(nextConfig);
+export default withSentryConfig(
+  withMDX(nextConfig),
+  {
+    // Replace YOUR_ORG_SLUG with your actual Sentry org slug (visible in URL: sentry.io/organizations/YOUR-SLUG/)
+    org: 'wildenflower',
+    project: 'wildenflower',
+    authToken: process.env.SENTRY_AUTH_TOKEN,
+    tunnelRoute: '/monitoring',  // SDK creates Next.js rewrite internally — no manual route.ts needed
+    silent: !process.env.CI,    // quiet locally, verbose in CI
+    sourcemaps: {
+      deleteSourcemapsAfterUpload: true,
+    },
+    widenClientFileUpload: true,
+  }
+);

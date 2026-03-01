@@ -19,6 +19,8 @@ pre-commit:
       run: npx tsc --noEmit
     gitleaks:
       run: gitleaks protect --staged --source .
+    audit:
+      run: npm audit --audit-level=high --omit=dev
 
 commit-msg:
   commands:

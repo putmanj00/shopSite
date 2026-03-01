@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import * as Sentry from '@sentry/nextjs';
 
 export default function ErrorBoundary({
     error,
@@ -10,8 +11,7 @@ export default function ErrorBoundary({
     reset: () => void;
 }) {
     useEffect(() => {
-        // Log exception to analytics/Sentry
-        console.error('Page Error:', error);
+        Sentry.captureException(error);
     }, [error]);
 
     return (

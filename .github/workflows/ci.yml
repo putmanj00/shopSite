@@ -37,6 +37,7 @@ jobs:
           SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
           SHOPIFY_SHOP_ID: ${{ secrets.SHOPIFY_SHOP_ID }}
           NEXT_PUBLIC_BASE_URL: https://wildenflower.com
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
   e2e:
     name: E2E (${{ matrix.browser }})
