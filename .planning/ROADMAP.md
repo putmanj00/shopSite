@@ -360,7 +360,13 @@ Plans:
   1. The Sentry dashboard shows the Wildenflower project receiving events — triggering a test error in production results in a visible issue in Sentry within 60 seconds
   2. Running the dev server locally (`NODE_ENV=development`) does not send any events to Sentry — the Sentry dashboard shows no development-origin errors
   3. An unhandled server-side error (e.g., a thrown exception in a route handler) and an unhandled client-side error (e.g., an uncaught promise rejection) both appear in Sentry with readable TypeScript source in the stack trace
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 22-01-PLAN.md — Human action: create Sentry account + wildenflower project, set SENTRY_DSN + NEXT_PUBLIC_SENTRY_DSN + SENTRY_AUTH_TOKEN in Vercel prod env and GitHub Secrets (MON-01, MON-02)
+- [ ] 22-02-PLAN.md — Install @sentry/nextjs, create 4 config files (instrumentation.ts, instrumentation-client.ts, sentry.server.config.ts, sentry.edge.config.ts), wrap next.config.ts with withSentryConfig (MON-01, MON-02)
+- [ ] 22-03-PLAN.md — Wire captureException into error.tsx + global-error.tsx, create temporary /sentry-test page, add SENTRY_AUTH_TOKEN to CI build step (MON-02, MON-03)
+- [ ] 22-04-PLAN.md — Human verify: confirm events in Sentry dashboard (server + client), delete /sentry-test routes (MON-01, MON-02, MON-03)
 
 ### Phase 23: Shopify Go-Live Verification
 **Goal**: Every Shopify prerequisite for accepting real orders is confirmed complete — products, payments, shipping, taxes, API access, and a successful test purchase are all verified
@@ -388,5 +394,5 @@ Phases execute in numeric order: 16 → 17 → 18 → 19 → 20 → 21 → 22 �
 | 19. Playwright E2E Tests | 4/4 | Complete    | 2026-02-28 | - |
 | 20. CI/CD Pipeline | 3/3 | Complete    | 2026-02-28 | - |
 | 21. Vercel Environments & IaC | 3/3 | Complete    | 2026-03-01 | - |
-| 22. Error Monitoring | v1.2 | 0/TBD | Not started | - |
+| 22. Error Monitoring | v1.2 | 0/4 | Not started | - |
 | 23. Shopify Go-Live Verification | v1.2 | 0/TBD | Not started | - |
