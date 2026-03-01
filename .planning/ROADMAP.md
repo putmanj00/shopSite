@@ -187,7 +187,12 @@ Plans:
   3. Shipping rates are configured for all intended delivery regions — a customer in each target region can reach the checkout and see a shipping option
   4. The store password ("coming soon") page is disabled — an unauthenticated visitor reaching the store URL sees the storefront, not a password gate
   5. The Storefront API token is confirmed valid on the production store and collection handles in Shopify match the `/collections/[handle]` routes in the storefront
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 23-01-PLAN.md — Webhook endpoint (app/api/webhooks/order-created/route.ts), lib/email.ts from address update, pre-filled 23-VERIFICATION.md runbook (SHOP-08, SHOP-01, SHOP-02, SHOP-03, SHOP-04, SHOP-05, SHOP-06, SHOP-07)
+- [ ] 23-02-PLAN.md — Human action: verify wildenflower.com in Resend, register Shopify webhook, set SHOPIFY_WEBHOOK_SECRET in Vercel prod (SHOP-08)
+- [ ] 23-03-PLAN.md — Human execution of 23-VERIFICATION.md runbook for all SHOP-01 through SHOP-08, commit completed doc (SHOP-01, SHOP-02, SHOP-03, SHOP-04, SHOP-05, SHOP-06, SHOP-07, SHOP-08)
 
 ## v1.2 Progress
 
@@ -204,4 +209,4 @@ Phases execute in numeric order: 16 → 17 → 18 → 19 → 20 → 21 → 22 �
 | 20. CI/CD Pipeline | v1.2 | 3/3 | Complete | 2026-02-28 |
 | 21. Vercel Environments & IaC | v1.2 | 3/3 | Complete | 2026-03-01 |
 | 22. Error Monitoring | v1.2 | 4/4 | Complete | 2026-03-01 |
-| 23. Shopify Go-Live Verification | v1.2 | 0/TBD | Not started | - |
+| 23. Shopify Go-Live Verification | v1.2 | 0/3 | In progress | - |
