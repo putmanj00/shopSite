@@ -252,8 +252,8 @@ export async function getCustomers(limit = 20): Promise<Customer[]> {
               firstName
               lastName
               email
-              ordersCount
-              totalSpent {
+              numberOfOrders
+              amountSpent {
                 amount
               }
               createdAt
@@ -272,8 +272,8 @@ export async function getCustomers(limit = 20): Promise<Customer[]> {
                       firstName: string;
                       lastName: string;
                       email: string;
-                      ordersCount: string;
-                      totalSpent: {
+                      numberOfOrders: string;
+                      amountSpent: {
                           amount: string;
                       };
                       createdAt: string;
@@ -287,8 +287,8 @@ export async function getCustomers(limit = 20): Promise<Customer[]> {
           firstName: node.firstName || '',
           lastName: node.lastName || '',
           email: node.email || '',
-          ordersCount: parseInt(node.ordersCount),
-          totalSpent: parseFloat(node.totalSpent.amount),
+          ordersCount: parseInt(node.numberOfOrders),
+          totalSpent: parseFloat(node.amountSpent.amount),
           createdAt: node.createdAt,
       }));
   
