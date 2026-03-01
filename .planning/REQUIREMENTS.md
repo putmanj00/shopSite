@@ -52,12 +52,12 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 - [x] **VERC-01**: Dev Vercel project exists and auto-deploys on every merge to main
 - [x] **VERC-02**: Prod Vercel project exists with custom domain — deploys via manual promote only
 - [x] **VERC-03**: PR preview deployments auto-generate per PR
-- [ ] **VERC-04**: Dev and prod each have their own scoped environment variables
+- [x] **VERC-04**: Dev and prod each have their own scoped environment variables
 
 ### Infrastructure as Code (INFRA)
 
 - [x] **INFRA-01**: OpenTofu configuration declares both Vercel projects (dev + prod) as code
-- [ ] **INFRA-02**: OpenTofu manages non-secret environment variable names and structure per project
+- [x] **INFRA-02**: OpenTofu manages non-secret environment variable names and structure per project
 - [x] **INFRA-03**: OpenTofu state file is gitignored; setup documented
 
 ### Security (SEC)
@@ -138,9 +138,9 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 | VERC-01 | Phase 21 | Complete |
 | VERC-02 | Phase 21 | Complete |
 | VERC-03 | Phase 21 | Complete |
-| VERC-04 | Phase 21 | Pending |
+| VERC-04 | Phase 21 | Complete |
 | INFRA-01 | Phase 21 | Complete |
-| INFRA-02 | Phase 21 | Pending |
+| INFRA-02 | Phase 21 | Complete |
 | INFRA-03 | Phase 21 | Complete |
 | SEC-01 | Phase 18 | Complete |
 | SEC-02 | Phase 18 | Complete |

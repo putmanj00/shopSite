@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-28T20:21:25.781Z"
+last_updated: "2026-02-28T20:05:00.000Z"
 progress:
   total_phases: 17
   completed_phases: 15
@@ -22,9 +22,9 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 21 of 23 (Vercel Environments & IaC) [IN PROGRESS]
-Plan: 21-01 complete (1 of 3) — awaiting checkpoint:human-verify before Plan 02
-Status: Phase 21 Plan 01 auto-tasks complete; human verification checkpoint pending
-Last activity: 2026-02-28 — Executed Phase 21 Plan 01. Created infra/ OpenTofu HCL with two Vercel project resources + domain resource. tofu init and tofu validate pass. Awaiting human checkpoint verification.
+Plan: 21-02 complete (2 of 3) — awaiting Plan 03
+Status: Phase 21 Plan 02 complete; both Vercel projects live with scoped Shopify env vars
+Last activity: 2026-02-28 — Executed Phase 21 Plan 02. shopsite-dev (prj_0hEeS5coA98GGf7dxakblTTXNts5) and shopsite-prod (prj_JuSM2gXMpQ1b4xKEzJRKEKvFce21) created via tofu apply. Shopify env vars scoped per project. Dev URL: https://shopsite-dev.vercel.app
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -56,6 +56,7 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 | Phase 20 P02 | 1 | 2 tasks | 1 files |
 | Phase 20 P03 | 5 | 2 tasks | 0 files |
 | Phase 21-vercel-environments-iac P01 | 5 | 2 tasks | 6 files |
+| Phase 21-vercel-environments-iac P02 | 12 | 1 task | 2 files |
 
 ## Accumulated Context
 
@@ -88,6 +89,9 @@ Recent decisions affecting current work:
 - [Phase 20]: [20-03]: enforce_admins:false — admin bypass allowed for emergency hotfixes on single-maintainer repo
 - [Phase 21-01]: Removed production_deployment_enabled from vercel_project.prod — attribute dropped in vercel provider v1.10+; manual promote via Vercel dashboard
 - [Phase 21-01]: Committed .terraform.lock.hcl to pin provider version (vercel/vercel v1.14.1) per OpenTofu best practices
+- [Phase 21-02]: Vercel API rejects sensitive=true env vars targeting "development" — use target=["preview","production"] for sensitive vars
+- [Phase 21-02]: vercel_project_domain deferred — wildenflower.com is attached to pre-existing shop-site project; must be moved manually before tofu can manage it
+- [Phase 21-02]: Added tfplan/*.tfplan to .gitignore — plan files embed sensitive variable values in plaintext
 
 ### Pending Todos
 
@@ -97,11 +101,12 @@ None.
 
 - OAuth auth routes (app/api/auth/customer/) are fragile — no logic changes in v1.2
 - CSP header whitelists `*.shopify.com` and `checkout.shopify.com` — implemented in 18-01 (connect-src and form-action)
-- Vercel dev project URL must be added to Shopify Customer Account API allowed redirect URIs when Phase 21 runs
+- Vercel dev project URL (https://shopsite-dev.vercel.app) must be added to Shopify Customer Account API allowed redirect URIs before OAuth flows work on dev deployment
+- wildenflower.com domain must be manually removed from shop-site Vercel project before IaC can attach it to shopsite-prod
 - Playwright cannot test Shopify checkout completion (cross-domain, anti-bot) — test order via bogus gateway in Phase 23 instead
 
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: 21-01-PLAN.md checkpoint:human-verify — tasks 1+2 complete, awaiting visual verification before Plan 02.
+Stopped at: Completed 21-02-PLAN.md — both Vercel projects live, env vars scoped, tofu state gitignored. Ready for Plan 03.
 Resume file: None

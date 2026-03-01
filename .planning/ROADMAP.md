@@ -348,8 +348,8 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 21-01-PLAN.md — OpenTofu IaC foundation: infra/ directory, two vercel_project resources, gitignore state (INFRA-01, INFRA-03, VERC-01, VERC-02, VERC-03)
-- [ ] 21-02-PLAN.md — tofu apply: create both Vercel projects, scoped env vars per project (VERC-04, INFRA-02)
+- [x] 21-01-PLAN.md — OpenTofu IaC foundation: infra/ directory, two vercel_project resources, gitignore state (INFRA-01, INFRA-03, VERC-01, VERC-02, VERC-03)
+- [x] 21-02-PLAN.md — tofu apply: create both Vercel projects, scoped env vars per project (VERC-04, INFRA-02)
 - [ ] 21-03-PLAN.md — Wire CI deploy-prod job to Vercel CLI, verify preview deployments and prod gate (VERC-01, VERC-02, VERC-03)
 
 ### Phase 22: Error Monitoring
@@ -387,6 +387,6 @@ Phases execute in numeric order: 16 → 17 → 18 → 19 → 20 → 21 → 22 �
 | 18. Security & Dev Tooling | 3/3 | Complete    | 2026-02-28 | - |
 | 19. Playwright E2E Tests | 4/4 | Complete    | 2026-02-28 | - |
 | 20. CI/CD Pipeline | 3/3 | Complete    | 2026-02-28 | - |
-| 21. Vercel Environments & IaC | 1/3 | In Progress|  | - |
+| 21. Vercel Environments & IaC | 2/3 | In Progress |  | - |
 | 22. Error Monitoring | v1.2 | 0/TBD | Not started | - |
 | 23. Shopify Go-Live Verification | v1.2 | 0/TBD | Not started | - |
