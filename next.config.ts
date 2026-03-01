@@ -87,7 +87,7 @@ export default withSentryConfig(
   withMDX(nextConfig),
   {
     // Replace YOUR_ORG_SLUG with your actual Sentry org slug (visible in URL: sentry.io/organizations/YOUR-SLUG/)
-    org: 'YOUR_ORG_SLUG',
+    org: 'wildenflower',
     project: 'wildenflower',
     authToken: process.env.SENTRY_AUTH_TOKEN,
     tunnelRoute: '/monitoring',  // SDK creates Next.js rewrite internally — no manual route.ts needed
