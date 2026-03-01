@@ -89,14 +89,14 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 
 ### Shopify Go-Live (SHOP)
 
-- [ ] **SHOP-01**: All products published in Shopify with images, descriptions, prices, and inventory configured
-- [ ] **SHOP-02**: Shopify Payments configured; test order placed using bogus gateway and succeeded
-- [ ] **SHOP-03**: Shipping zones and rates configured for intended delivery regions
-- [ ] **SHOP-04**: Tax settings configured for applicable markets
-- [ ] **SHOP-05**: Store password ("coming soon") page disabled
-- [ ] **SHOP-06**: Storefront API token confirmed valid with correct permissions on production store
-- [ ] **SHOP-07**: Collection handles in Shopify match URL routes in storefront (`/collections/[handle]`)
-- [ ] **SHOP-08**: Order confirmation email (Resend) verified to send after a test purchase
+- [x] **SHOP-01**: All products published in Shopify with images, descriptions, prices, and inventory configured
+- [x] **SHOP-02**: Shopify Payments configured; test order placed using bogus gateway and succeeded
+- [x] **SHOP-03**: Shipping zones and rates configured for intended delivery regions
+- [x] **SHOP-04**: Tax settings configured for applicable markets
+- [x] **SHOP-05**: Store password ("coming soon") page disabled
+- [x] **SHOP-06**: Storefront API token confirmed valid with correct permissions on production store
+- [x] **SHOP-07**: Collection handles in Shopify match URL routes in storefront (`/collections/[handle]`)
+- [x] **SHOP-08**: Order confirmation email (Resend) verified to send after a test purchase
 
 ---
 
@@ -157,14 +157,14 @@ Requirements for Production Readiness & Go-Live milestone. Phases continue numbe
 | GDPR-03 | Phase 16 | Pending |
 | GDPR-04 | Phase 16 | Pending |
 | GDPR-05 | Phase 16 | Pending |
-| SHOP-01 | Phase 23 | Pending |
-| SHOP-02 | Phase 23 | Pending |
-| SHOP-03 | Phase 23 | Pending |
-| SHOP-04 | Phase 23 | Pending |
-| SHOP-05 | Phase 23 | Pending |
-| SHOP-06 | Phase 23 | Pending |
-| SHOP-07 | Phase 23 | Pending |
-| SHOP-08 | Phase 23 | Pending |
+| SHOP-01 | Phase 23 | Complete |
+| SHOP-02 | Phase 23 | Complete |
+| SHOP-03 | Phase 23 | Complete |
+| SHOP-04 | Phase 23 | Complete |
+| SHOP-05 | Phase 23 | Complete |
+| SHOP-06 | Phase 23 | Complete |
+| SHOP-07 | Phase 23 | Complete |
+| SHOP-08 | Phase 23 | Complete |
 
 **Coverage:**
 - v1.2 requirements: 47 total

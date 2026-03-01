@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Production Readiness & Go-Live
 status: unknown
-last_updated: "2026-03-01T15:55:13.264Z"
+last_updated: "2026-03-01T17:26:59.326Z"
 progress:
-  total_phases: 18
+  total_phases: 19
   completed_phases: 17
-  total_plans: 51
-  completed_plans: 51
+  total_plans: 54
+  completed_plans: 52
 ---
 
 # Project State
@@ -21,10 +21,10 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 **Current focus:** Milestone v1.2 — Phase 18: Security & Dev Tooling
 ## Current Position
 
-Phase: 22 of 23 (Error Monitoring) [Complete]
-Plan: 22-04 complete (4 of 4) — Production Sentry events confirmed; test routes deleted
-Status: Phase 22 complete. MON-01/MON-02/MON-03 all verified. Sentry captures client + server events from wildenflower.com production. Test routes deleted. Ready for Phase 23.
-Last activity: 2026-03-01 — Completed Phase 22 Plan 04. Sentry dashboard confirmed events from production. Deleted app/sentry-test/page.tsx and app/api/sentry-example-api/route.ts. Commit: f2b1c94.
+Phase: 23 of 23 (Shopify Go-Live Verification) [In Progress]
+Plan: 23-01 complete (1 of 3) — Webhook endpoint created, email from address updated, 23-VERIFICATION.md runbook pre-filled
+Status: Phase 23 Plan 01 complete. Webhook handler at app/api/webhooks/order-created/route.ts. lib/email.ts from address updated to hello@wildenflower.com. 23-VERIFICATION.md runbook pre-filled for all 8 SHOP-XX requirements. Ready for Plan 02 (human: Vercel env vars + Resend domain verification).
+Last activity: 2026-03-01 — Completed Phase 23 Plan 01. Commits: d797c60, 817609e.
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -62,6 +62,7 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 | Phase 22-error-monitoring P02 | 5 | 2 tasks | 8 files |
 | Phase 22-error-monitoring P03 | 2 | 2 tasks | 5 files |
 | Phase 22-error-monitoring P04 | 10 | 2 tasks | 2 files |
+| Phase 23-shopify-go-live-verification P01 | 3 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -106,6 +107,9 @@ Recent decisions affecting current work:
 - [Phase 22-error-monitoring]: Error boundaries require explicit Sentry.captureException in useEffect — Next.js handles these errors before Sentry's global handler fires
 - [Phase 22-error-monitoring]: SENTRY_AUTH_TOKEN added to quality job Build step only; deploy-prod job uses vercel build --prod which pulls Vercel env vars automatically
 - [Phase 22-error-monitoring]: Test routes deleted immediately after dashboard confirmation — MON-01/MON-02/MON-03 all verified; Phase 22 complete
+- [Phase 23-01]: Return 200 on Resend email failure to prevent Shopify duplicate-email retries
+- [Phase 23-01]: crypto.timingSafeEqual for HMAC comparison (not ===) prevents timing attacks on webhook
+- [Phase 23-01]: request.text() must be called before JSON.parse in webhook handler — body stream consumed once
 
 ### Pending Todos
 
@@ -122,5 +126,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-03-01
-Stopped at: Completed 22-03-PLAN.md — error boundaries wired with captureException, sentry-test page created, CI patched. Ready for Plan 04: dashboard verification.
+Stopped at: Completed 23-01-PLAN.md — webhook endpoint created, email from address updated to hello@wildenflower.com, 23-VERIFICATION.md runbook pre-filled for SHOP-01 through SHOP-08. Ready for Plan 02.
 Resume file: None
