@@ -38,11 +38,8 @@ resource "vercel_project" "prod" {
   }
 }
 
-# DEFERRED: vercel_project_domain.prod_domain removed — wildenflower.com is currently
-# attached to the pre-existing "shop-site" project (prj_R5N1uOl96Ze8e0ZS9l3Nv98vQ7cL).
-# Vercel API rejects adding the same domain to a second project while it is in use.
-# Manual step required: remove wildenflower.com from shop-site in Vercel dashboard,
-# then re-add this resource block and run tofu apply to attach it to shopsite-prod.
+# DEFERRED: wildenflower.com still in use by another Vercel project.
+# Once fully removed from the old project, uncomment and run `tofu apply`:
 #
 # resource "vercel_project_domain" "prod_domain" {
 #   project_id = vercel_project.prod.id
