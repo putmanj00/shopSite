@@ -48,7 +48,7 @@ resource "vercel_project_domain" "prod_domain" {
 resource "vercel_project_environment_variable" "dev_shopify_domain" {
   project_id = vercel_project.dev.id
   key        = "NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN"
-  value      = "wildenflower.myshopify.com"
+  value      = "bgh9hd-rq.myshopify.com"
   target     = ["preview", "development", "production"]
   sensitive  = false
 }
@@ -68,7 +68,7 @@ resource "vercel_project_environment_variable" "dev_shopify_token" {
 resource "vercel_project_environment_variable" "prod_shopify_domain" {
   project_id = vercel_project.prod.id
   key        = "NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN"
-  value      = "wildenflower.myshopify.com"
+  value      = "bgh9hd-rq.myshopify.com"
   target     = ["production"]
   sensitive  = false
 }
