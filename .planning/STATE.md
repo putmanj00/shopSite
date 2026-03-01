@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-02-28T20:05:00.000Z"
+last_updated: "2026-03-01T01:07:27.634Z"
 progress:
   total_phases: 17
-  completed_phases: 15
+  completed_phases: 16
   total_plans: 47
-  completed_plans: 45
+  completed_plans: 47
 ---
 
 # Project State
@@ -21,10 +21,10 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 **Current focus:** Milestone v1.2 — Phase 18: Security & Dev Tooling
 ## Current Position
 
-Phase: 21 of 23 (Vercel Environments & IaC) [IN PROGRESS]
-Plan: 21-02 complete (2 of 3) — awaiting Plan 03
-Status: Phase 21 Plan 02 complete; both Vercel projects live with scoped Shopify env vars
-Last activity: 2026-02-28 — Executed Phase 21 Plan 02. shopsite-dev (prj_0hEeS5coA98GGf7dxakblTTXNts5) and shopsite-prod (prj_JuSM2gXMpQ1b4xKEzJRKEKvFce21) created via tofu apply. Shopify env vars scoped per project. Dev URL: https://shopsite-dev.vercel.app
+Phase: 21 of 23 (Vercel Environments & IaC) [COMPLETE — awaiting human-verify checkpoint]
+Plan: 21-03 complete (3 of 3) — CI deploy-prod wired to Vercel CLI; awaiting Task 3 human-verify
+Status: Phase 21 Plan 03 auto-task done. deploy-prod job now runs vercel pull + build + deploy --prebuilt. Human must open PR, verify preview URL, merge, and approve prod gate.
+Last activity: 2026-03-01 — Executed Phase 21 Plan 03. Replaced placeholder echo in deploy-prod with real vercel CLI three-step deploy. Commit 261e90c. Awaiting human-verify checkpoint (Task 3).
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -57,6 +57,7 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 | Phase 20 P03 | 5 | 2 tasks | 0 files |
 | Phase 21-vercel-environments-iac P01 | 5 | 2 tasks | 6 files |
 | Phase 21-vercel-environments-iac P02 | 12 | 1 task | 2 files |
+| Phase 21-vercel-environments-iac P03 | 5 | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -92,6 +93,8 @@ Recent decisions affecting current work:
 - [Phase 21-02]: Vercel API rejects sensitive=true env vars targeting "development" — use target=["preview","production"] for sensitive vars
 - [Phase 21-02]: vercel_project_domain deferred — wildenflower.com is attached to pre-existing shop-site project; must be moved manually before tofu can manage it
 - [Phase 21-02]: Added tfplan/*.tfplan to .gitignore — plan files embed sensitive variable values in plaintext
+- [Phase 21-03]: Preserved 'secrets' job name in needs array (not 'secrets-scan') — plan template had wrong name; using wrong name would silently drop the secrets-scan dependency from the gate
+- [Phase 21-03]: Three-step vercel CLI pattern (pull + build + deploy --prebuilt) chosen for clearer failure isolation over single vercel --prod command
 
 ### Pending Todos
 
@@ -107,6 +110,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-28
-Stopped at: Completed 21-02-PLAN.md — both Vercel projects live, env vars scoped, tofu state gitignored. Ready for Plan 03.
+Last session: 2026-03-01
+Stopped at: Completed 21-03 Task 2 — deploy-prod wired to vercel CLI (261e90c). Paused at Task 3 human-verify checkpoint. User must open PR, verify preview URL and prod gate, then resume.
 Resume file: None

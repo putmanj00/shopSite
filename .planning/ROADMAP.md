@@ -249,7 +249,7 @@ Phases execute in numeric order: 10 → 11 → 12 → 13 → 14 → 15
 - [x] **Phase 18: Security & Dev Tooling** - Security headers (CSP/HSTS/X-Frame), git history secrets scan, pre-commit hooks, Dependabot (completed 2026-02-28)
 - [x] **Phase 19: Playwright E2E Tests** - Write all 7 critical-path test suites (homepage, collections, PDP, cart, checkout redirect, search, category nav) (completed 2026-02-28)
 - [x] **Phase 20: CI/CD Pipeline** - GitHub Actions: lint + typecheck + build + E2E + secrets scan + audit; branch protection on main (completed 2026-02-28)
-- [ ] **Phase 21: Vercel Environments & IaC** - Dev/prod Vercel project split; OpenTofu declares both projects and env var structure
+- [x] **Phase 21: Vercel Environments & IaC** - Dev/prod Vercel project split; OpenTofu declares both projects and env var structure (completed 2026-03-01)
 - [ ] **Phase 22: Error Monitoring** - Sentry integrated for Next.js 16 App Router; production-only; server + client capture
 - [ ] **Phase 23: Shopify Go-Live Verification** - Complete Shopify admin checklist: products, payments, shipping, taxes, test order, domain, API token
 
@@ -387,6 +387,6 @@ Phases execute in numeric order: 16 → 17 → 18 → 19 → 20 → 21 → 22 �
 | 18. Security & Dev Tooling | 3/3 | Complete    | 2026-02-28 | - |
 | 19. Playwright E2E Tests | 4/4 | Complete    | 2026-02-28 | - |
 | 20. CI/CD Pipeline | 3/3 | Complete    | 2026-02-28 | - |
-| 21. Vercel Environments & IaC | 2/3 | In Progress |  | - |
+| 21. Vercel Environments & IaC | 3/3 | Complete   | 2026-03-01 | - |
 | 22. Error Monitoring | v1.2 | 0/TBD | Not started | - |
 | 23. Shopify Go-Live Verification | v1.2 | 0/TBD | Not started | - |
