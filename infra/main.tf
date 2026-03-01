@@ -38,13 +38,10 @@ resource "vercel_project" "prod" {
   }
 }
 
-# DEFERRED: wildenflower.com still in use by another Vercel project.
-# Once fully removed from the old project, uncomment and run `tofu apply`:
-#
-# resource "vercel_project_domain" "prod_domain" {
-#   project_id = vercel_project.prod.id
-#   domain     = "wildenflower.com"
-# }
+resource "vercel_project_domain" "prod_domain" {
+  project_id = vercel_project.prod.id
+  domain     = "wildenflower.com"
+}
 
 # --- Dev project environment variables ---
 
