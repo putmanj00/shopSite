@@ -33,21 +33,21 @@ A shopper lands on a beautiful, nature-inspired handmade goods storefront and im
 - ✓ Navigation labels — 6 correct categories in header and footer everywhere — v1.1
 - ✓ Trust cleanup — fake social proof, fake testimonials, fabricated stats all removed — v1.1
 - ✓ Footer cleanup — dead links removed, SHOP column aligned with 6-category system — v1.1
+- ✓ Security headers — CSP (Report-Only), HSTS, X-Frame-Options, X-Content-Type-Options — v1.2
+- ✓ Pre-commit hooks — lefthook ESLint + tsc on every commit — v1.2
+- ✓ Playwright E2E tests — 7 critical-path suites (homepage, collections, PDP, cart, checkout, search, category nav) — v1.2
+- ✓ GitHub Actions CI/CD — lint + typecheck + build + E2E + secrets scan + audit on every PR — v1.2
+- ✓ Vercel dev/prod environments — two projects, PR previews, OpenTofu IaC — v1.2
+- ✓ Sentry error monitoring — production-only, server + client capture with TypeScript source maps — v1.2
+- ✓ Legal pages — Privacy Policy, Terms of Service, Refund Policy via MDX at /legal/[slug] — v1.2
+- ✓ Open Graph metadata + sitemap + robots.txt — v1.2
+- ✓ JSON-LD Product schema + cookie consent banner — v1.2
 
 ### Active
 
-<!-- v1.2 production readiness goals -->
+<!-- v1.2 remaining goals -->
 
-- [ ] CI/CD pipeline — GitHub Actions: lint, unit tests, Playwright E2E, security scan, test artifacts on every PR
-- [ ] Pre-commit hooks — Husky + lint-staged: lint and type-check before every commit
-- [ ] Vercel dev/prod environments — separate projects, PR previews → dev, manual promote to prod
-- [ ] Infrastructure as code — OpenTofu manages Vercel project config and environment variable definitions
-- [ ] Security hardening — security headers (CSP, HSTS, X-Frame-Options), secrets scan, Dependabot
-- [ ] Error monitoring — Sentry free tier integrated on server and client
-- [ ] SEO verification — JSON-LD product schema, Open Graph tags, sitemap, robots.txt
-- [ ] Cookie consent banner — GDPR-compliant, free implementation
-- [ ] Legal pages — Privacy Policy, Terms of Service, Refund Policy in footer
-- [ ] Shopify go-live — products published, Shopify Payments verified in test mode, shipping and tax configured, test purchase completed
+- [ ] Shopify go-live — products published, Shopify Payments configured, shipping/taxes set, test purchase completed (Phase 23)
 
 ### Out of Scope
 
@@ -84,9 +84,11 @@ A shopper lands on a beautiful, nature-inspired handmade goods storefront and im
 | Keep shopSite, not wildenflowerShop | shopSite has better Shopify integration (OAuth, cart, account) | ✓ Good |
 | Page-by-page migration with visual approval | Prevents "one shot" failures, user controls quality | ✓ Good |
 | Tailwind CSS for design tokens | Already in use, extend theme rather than replace | ✓ Good |
-| OpenTofu over Terraform | Free, open-source, fully compatible with Terraform providers; Terraform moved to BSL license | — Pending |
-| PR-based trunk deployment | All work via PRs to main; main → dev; manual → prod | — Pending |
-| Two Vercel projects for dev/prod | Clean environment isolation on free hobby tier | — Pending |
+| OpenTofu over Terraform | Free, open-source, fully compatible with Terraform providers; Terraform moved to BSL license | ✓ Good |
+| PR-based trunk deployment | All work via PRs to main; main → dev; manual → prod | ✓ Good |
+| Two Vercel projects for dev/prod | Clean environment isolation on free hobby tier | ✓ Good |
+| Sentry production-only gating | Avoids burning free tier quota in dev; NODE_ENV===production check | ✓ Good |
+| CSP Report-Only mode | Deploy permissive first, flip CSP_ENFORCE=true after confirming zero violations | — Pending |
 
 ## Current Milestone: v1.2 — Production Readiness & Go-Live
 
@@ -104,4 +106,4 @@ A shopper lands on a beautiful, nature-inspired handmade goods storefront and im
 - Shopify go-live checklist — products, payment, shipping, taxes, test purchase
 
 ---
-*Last updated: 2026-02-27 after milestone v1.2 initialized*
+*Last updated: 2026-03-01 after v1.0 and v1.1 milestones archived; v1.2 in progress*
