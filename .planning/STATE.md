@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-03-01T05:39:25.044Z"
+last_updated: "2026-03-01T05:46:20.454Z"
 progress:
   total_phases: 18
   completed_phases: 16
   total_plans: 51
-  completed_plans: 48
+  completed_plans: 49
 ---
 
 # Project State
@@ -22,9 +22,9 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 22 of 23 (Error Monitoring) [In Progress]
-Plan: 22-01 complete (1 of 4) — Sentry account + credentials checkpoint done; Plans 02-03 install @sentry/nextjs and wire captureException
-Status: Phase 22 Plan 01 human-action checkpoint complete. User has created Sentry account, wildenflower project, and set all three env vars. Ready for Plan 02 (@sentry/nextjs install and config files).
-Last activity: 2026-03-01 — Completed Phase 22 Plan 01. User confirmed Sentry setup with all 9 steps done. sentry-credentials.md committed (1a1b1a2).
+Plan: 22-02 complete (2 of 4) — @sentry/nextjs installed, four SDK config files created, next.config.ts wrapped with withSentryConfig
+Status: Phase 22 Plan 02 complete. Full SDK wiring in place. Plans 03-04 add CI source map upload and React error boundaries.
+Last activity: 2026-03-01 — Completed Phase 22 Plan 02. @sentry/nextjs installed, instrumentation.ts/sentry.server.config.ts/sentry.edge.config.ts/instrumentation-client.ts created. next.config.ts wraps withSentryConfig outermost with tunnelRoute: '/monitoring'. Commits: 3f1cb08, d7694c8.
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -59,6 +59,7 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 | Phase 21-vercel-environments-iac P02 | 12 | 1 task | 2 files |
 | Phase 21-vercel-environments-iac P03 | 5 | 2 tasks | 1 files |
 | Phase 22-error-monitoring P01 | 5 | 1 tasks | 1 files |
+| Phase 22-error-monitoring P02 | 5 | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -97,6 +98,9 @@ Recent decisions affecting current work:
 - [Phase 21-03]: Preserved 'secrets' job name in needs array (not 'secrets-scan') — plan template had wrong name; using wrong name would silently drop the secrets-scan dependency from the gate
 - [Phase 21-03]: Three-step vercel CLI pattern (pull + build + deploy --prebuilt) chosen for clearer failure isolation over single vercel --prod command
 - [Phase 22-error-monitoring]: Sentry gated to production-only env vars — SENTRY_DSN/NEXT_PUBLIC_SENTRY_DSN/SENTRY_AUTH_TOKEN set in Vercel prod and GitHub Secrets only, not dev/preview
+- [22-02]: tunnelRoute: '/monitoring' chosen — same-origin tunnel avoids ad-blocker interference; no CSP connect-src change needed
+- [22-02]: Org slug left as YOUR_ORG_SLUG placeholder — user must substitute actual slug in next.config.ts before first production deploy
+- [22-02]: tracesSampleRate: 0.1 on all runtimes — conservative 10% to protect free tier quota
 
 ### Pending Todos
 
@@ -113,5 +117,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-03-01
-Stopped at: Completed 22-01-PLAN.md — Sentry credentials checkpoint complete (1a1b1a2). Ready for Plan 02: install @sentry/nextjs and create 4 config files.
+Stopped at: Completed 22-02-PLAN.md — @sentry/nextjs install and four SDK config files. next.config.ts updated. Ready for Plan 03: CI source map upload step.
 Resume file: None
