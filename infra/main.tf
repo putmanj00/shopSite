@@ -42,3 +42,39 @@ resource "vercel_project_domain" "prod_domain" {
   project_id = vercel_project.prod.id
   domain     = "wildenflower.com"
 }
+
+# --- Dev project environment variables ---
+
+resource "vercel_project_environment_variable" "dev_shopify_domain" {
+  project_id = vercel_project.dev.id
+  key        = "NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN"
+  value      = "wildenflower.myshopify.com"
+  target     = ["preview", "development", "production"]
+  sensitive  = false
+}
+
+resource "vercel_project_environment_variable" "dev_shopify_token" {
+  project_id = vercel_project.dev.id
+  key        = "SHOPIFY_STOREFRONT_ACCESS_TOKEN"
+  value      = var.shopify_token_dev
+  target     = ["preview", "development", "production"]
+  sensitive  = true
+}
+
+# --- Prod project environment variables ---
+
+resource "vercel_project_environment_variable" "prod_shopify_domain" {
+  project_id = vercel_project.prod.id
+  key        = "NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN"
+  value      = "wildenflower.myshopify.com"
+  target     = ["production"]
+  sensitive  = false
+}
+
+resource "vercel_project_environment_variable" "prod_shopify_token" {
+  project_id = vercel_project.prod.id
+  key        = "SHOPIFY_STOREFRONT_ACCESS_TOKEN"
+  value      = var.shopify_token_prod
+  target     = ["production"]
+  sensitive  = true
+}
