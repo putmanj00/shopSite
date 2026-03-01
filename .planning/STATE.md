@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UX Cleanup & Navigation
 status: unknown
-last_updated: "2026-03-01T05:46:20.454Z"
+last_updated: "2026-03-01T05:50:37.323Z"
 progress:
   total_phases: 18
   completed_phases: 16
   total_plans: 51
-  completed_plans: 49
+  completed_plans: 50
 ---
 
 # Project State
@@ -22,9 +22,9 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 22 of 23 (Error Monitoring) [In Progress]
-Plan: 22-02 complete (2 of 4) — @sentry/nextjs installed, four SDK config files created, next.config.ts wrapped with withSentryConfig
-Status: Phase 22 Plan 02 complete. Full SDK wiring in place. Plans 03-04 add CI source map upload and React error boundaries.
-Last activity: 2026-03-01 — Completed Phase 22 Plan 02. @sentry/nextjs installed, instrumentation.ts/sentry.server.config.ts/sentry.edge.config.ts/instrumentation-client.ts created. next.config.ts wraps withSentryConfig outermost with tunnelRoute: '/monitoring'. Commits: 3f1cb08, d7694c8.
+Plan: 22-03 complete (3 of 4) — Error boundaries wired with Sentry.captureException, sentry-test page created, CI SENTRY_AUTH_TOKEN patched
+Status: Phase 22 Plan 03 complete. Both error boundaries capture to Sentry. /sentry-test exists for dashboard verification. Plan 04 verifies dashboard events and deletes test page.
+Last activity: 2026-03-01 — Completed Phase 22 Plan 03. app/error.tsx and app/global-error.tsx call Sentry.captureException(error). Temporary /sentry-test page fires client+server test errors. CI Build step exposes SENTRY_AUTH_TOKEN. Commits: 4d36c9a, 6afa95d.
 
 Progress: [▓░░░░░░░░░] 12% (v1.2)
 
@@ -60,6 +60,7 @@ Progress: [▓░░░░░░░░░] 12% (v1.2)
 | Phase 21-vercel-environments-iac P03 | 5 | 2 tasks | 1 files |
 | Phase 22-error-monitoring P01 | 5 | 1 tasks | 1 files |
 | Phase 22-error-monitoring P02 | 5 | 2 tasks | 8 files |
+| Phase 22-error-monitoring P03 | 2 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -101,6 +102,8 @@ Recent decisions affecting current work:
 - [22-02]: tunnelRoute: '/monitoring' chosen — same-origin tunnel avoids ad-blocker interference; no CSP connect-src change needed
 - [22-02]: Org slug left as YOUR_ORG_SLUG placeholder — user must substitute actual slug in next.config.ts before first production deploy
 - [22-02]: tracesSampleRate: 0.1 on all runtimes — conservative 10% to protect free tier quota
+- [Phase 22-error-monitoring]: Error boundaries require explicit Sentry.captureException in useEffect — Next.js handles these errors before Sentry's global handler fires
+- [Phase 22-error-monitoring]: SENTRY_AUTH_TOKEN added to quality job Build step only; deploy-prod job uses vercel build --prod which pulls Vercel env vars automatically
 
 ### Pending Todos
 
@@ -117,5 +120,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-03-01
-Stopped at: Completed 22-02-PLAN.md — @sentry/nextjs install and four SDK config files. next.config.ts updated. Ready for Plan 03: CI source map upload step.
+Stopped at: Completed 22-03-PLAN.md — error boundaries wired with captureException, sentry-test page created, CI patched. Ready for Plan 04: dashboard verification.
 Resume file: None
