@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { ShopifyCart } from '@/types/shopify';
@@ -116,7 +117,7 @@ export const useCartStore = create<CartStore>()(
         } catch (error) {
           console.error('Error adding to cart:', error);
           if (error instanceof Error && error.message.includes('cart does not exist')) {
-            // Stale cart — clear it and retry with a fresh one
+            Sentry.captureException(error, { tags: { stale_cart: true }, extra: { cartId: get().cart?.id } });
             set({ cart: null });
             return get().addToCart(variantId, quantity);
           }
@@ -172,6 +173,7 @@ export const useCartStore = create<CartStore>()(
         } catch (error) {
           console.error('Error updating cart:', error);
           if (error instanceof Error && error.message.includes('cart does not exist')) {
+            Sentry.captureException(error, { tags: { stale_cart: true }, extra: { cartId: currentCart.id } });
             set({ cart: null });
             return;
           }
@@ -222,6 +224,7 @@ export const useCartStore = create<CartStore>()(
         } catch (error) {
           console.error('Error removing from cart:', error);
           if (error instanceof Error && error.message.includes('cart does not exist')) {
+            Sentry.captureException(error, { tags: { stale_cart: true }, extra: { cartId: currentCart.id } });
             set({ cart: null });
             return;
           }

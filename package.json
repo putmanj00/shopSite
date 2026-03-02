@@ -18,7 +18,9 @@
     "test:routes": "npx tsx scripts/validate-routes.ts",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:all": "npm run typecheck && npm run lint && npm run test:ui",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:all": "npm run typecheck && npm run lint && npm run test:unit && npm run test:ui",
     "tunnel": "npx localtunnel --port 3000"
   },
   "dependencies": {
@@ -50,12 +52,15 @@
     "eslint-config-next": "16.1.6",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
+    "happy-dom": "^20.7.0",
+    "jsdom": "^27.0.1",
     "lefthook": "^2.1.1",
     "playwright": "^1.58.2",
     "prettier": "^3.8.1",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.0.18"
   },
   "overrides": {
     "serialize-javascript": "^7.0.3"
