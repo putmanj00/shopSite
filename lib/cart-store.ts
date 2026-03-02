@@ -115,6 +115,11 @@ export const useCartStore = create<CartStore>()(
           }
         } catch (error) {
           console.error('Error adding to cart:', error);
+          if (error instanceof Error && error.message.includes('cart does not exist')) {
+            // Stale cart — clear it and retry with a fresh one
+            set({ cart: null });
+            return get().addToCart(variantId, quantity);
+          }
           throw error;
         } finally {
           set({ isLoading: false });
@@ -166,6 +171,10 @@ export const useCartStore = create<CartStore>()(
           set({ cart: response.data?.cartLinesUpdate.cart });
         } catch (error) {
           console.error('Error updating cart:', error);
+          if (error instanceof Error && error.message.includes('cart does not exist')) {
+            set({ cart: null });
+            return;
+          }
           throw error;
         } finally {
           set({ isLoading: false });
@@ -212,6 +221,10 @@ export const useCartStore = create<CartStore>()(
           set({ cart: response.data?.cartLinesRemove.cart });
         } catch (error) {
           console.error('Error removing from cart:', error);
+          if (error instanceof Error && error.message.includes('cart does not exist')) {
+            set({ cart: null });
+            return;
+          }
           throw error;
         } finally {
           set({ isLoading: false });
