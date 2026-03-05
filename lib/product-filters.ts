@@ -33,10 +33,10 @@ export function hasProductImage(
   return product.images.edges.length > 0;
 }
 
-// Combined guard: apply this single filter to hide test and imageless products
-// from all product grids.
+// Combined guard: apply this single filter to hide test, imageless, and
+// unavailable products from all product grids.
 export function isShowableProduct(
-  product: Pick<ShopifyProduct, 'title' | 'images'>
+  product: Pick<ShopifyProduct, 'title' | 'images' | 'availableForSale'>
 ): boolean {
-  return !isTestProduct(product) && hasProductImage(product);
+  return !isTestProduct(product) && hasProductImage(product) && product.availableForSale;
 }

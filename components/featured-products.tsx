@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import { getProducts } from '@/lib/shopify-helpers';
 import { isShowableProduct } from '@/lib/product-filters';
 import ProductCard from './product-card';
