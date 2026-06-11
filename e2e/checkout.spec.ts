@@ -1,7 +1,5 @@
 import { test, expect } from 'playwright/test';
-
-// From .planning/phases/19-playwright-e2e-tests/test-product.md
-const TEST_PRODUCT_HANDLE = 'wildenflower-test-product';
+import { TEST_PRODUCT_HANDLE } from './support/shopify-test-product';
 
 test.describe('Checkout redirect', () => {
   // Clear storage state before test so cart starts empty
