@@ -15,7 +15,7 @@ export function HeroCard({
     className = ''
 }: HeroCardProps) {
     return (
-        <div className={`flex flex-col md:flex-row bg-lime-900 rounded-2xl border border-neutral-700 md:mx-4 mb-8 overflow-hidden min-h-[140px] shadow-lg ${className}`}>
+        <div className={`flex flex-col md:flex-row bg-forest rounded-2xl border border-neutral-700 md:mx-4 mb-8 overflow-hidden min-h-[140px] shadow-lg ${className}`}>
             <div className="flex-[0.55] p-6 flex flex-col justify-center">
                 <h2 className="font-accent text-3xl text-neutral-50 leading-[1.4]">
                     {tagline}

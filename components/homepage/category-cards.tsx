@@ -77,15 +77,15 @@ function CategoryCard({ category }: { category: Category }) {
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
       />
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity group-hover:opacity-90" />
+      {/* Gradient Overlay — Deep Woods register, never black */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1E3B30]/90 via-[#1E3B30]/25 to-transparent transition-opacity group-hover:opacity-90" />
 
-      {/* Content */}
+      {/* Content — catalog-label card title */}
       <div className="absolute inset-0 flex flex-col justify-end p-6">
-        <h3 className="text-2xl font-bold text-white mb-2 transform transition-transform duration-300 group-hover:translate-y-0 translate-y-2 font-heading">
+        <h3 className="self-start text-sm font-medium uppercase tracking-[0.18em] text-parchment border-b border-gold/70 pb-1.5 mb-2 transform transition-transform duration-300 group-hover:translate-y-0 translate-y-2">
           {category.title}
         </h3>
-        <p className="text-neutral-300 text-sm mb-3 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+        <p className="text-parchment/80 text-sm mb-3 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
           {category.description}
         </p>
         <div className="flex items-center justify-end">
@@ -120,7 +120,8 @@ export default function CategoryCards() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-forest sm:text-4xl font-heading">
+          <span className="catalog-label text-ink-brown/80">Collections</span>
+          <h2 className="mt-3 text-3xl font-bold text-forest sm:text-4xl font-heading">
             Find Your Wild
           </h2>
           <p className="mt-2 text-lg text-ink-brown max-w-2xl mx-auto">

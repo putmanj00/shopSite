@@ -34,7 +34,7 @@ export function CategoryChip({ category, href, isActive = false, className = '' 
         >
             <div className={`
         w-[72px] h-[72px] rounded-full flex items-center justify-center mb-2 border transition-colors
-        ${isActive ? 'border-secondary-500 bg-secondary-100' : 'bg-[#FDF8F3] border-neutral-200'}
+        ${isActive ? 'border-terracotta bg-primary-100' : 'bg-[#FDF8F3] border-neutral-200'}
       `}>
                 {iconSource ? (
                     <div className="relative w-[44px] h-[44px]">
@@ -48,7 +48,7 @@ export function CategoryChip({ category, href, isActive = false, className = '' 
             </div>
             <span className={`
         font-sans text-sm text-center max-w-[80px] mt-1
-        ${isActive ? 'text-secondary-600 font-medium' : 'text-neutral-600'}
+        ${isActive ? 'text-terracotta font-medium' : 'text-neutral-600'}
       `}>
                 {category.label}
             </span>

@@ -118,7 +118,7 @@ export default function MobileDrawer({ navItems }: { navItems: NavItem[] }) {
                                         {/* Home */}
                                         <Link
                                             href="/"
-                                            className="text-lg font-playfair font-semibold text-parchment hover:text-gold transition-colors block py-1"
+                                            className="text-lg font-heading font-semibold text-parchment hover:text-gold transition-colors block py-1"
                                             onClick={closeDrawer}
                                         >
                                             Home
@@ -129,7 +129,7 @@ export default function MobileDrawer({ navItems }: { navItems: NavItem[] }) {
                                             <button
                                                 onClick={() => setShopExpanded((prev) => !prev)}
                                                 aria-expanded={shopExpanded}
-                                                className="text-lg font-playfair font-semibold text-parchment hover:text-gold transition-colors flex items-center justify-between w-full py-1"
+                                                className="text-lg font-heading font-semibold text-parchment hover:text-gold transition-colors flex items-center justify-between w-full py-1"
                                             >
                                                 Shop
                                                 <svg
@@ -172,7 +172,7 @@ export default function MobileDrawer({ navItems }: { navItems: NavItem[] }) {
                                         {/* About */}
                                         <Link
                                             href="/about"
-                                            className="text-lg font-playfair font-semibold text-parchment hover:text-gold transition-colors block py-1"
+                                            className="text-lg font-heading font-semibold text-parchment hover:text-gold transition-colors block py-1"
                                             onClick={closeDrawer}
                                         >
                                             About

@@ -22,78 +22,6 @@
   --color-primary-800: #6e3415;
   --color-primary-900: #4d250f;
 
-  /* Secondary: Electric Magenta - Sale badges, highlights */
-  --color-secondary-50: #fdf2f8;
-  --color-secondary-100: #fce7f3;
-  --color-secondary-200: #fbcfe8;
-  --color-secondary-300: #f9a8d4;
-  --color-secondary-400: #f472b6;
-  --color-secondary-500: #EC4899;
-  --color-secondary-600: #db2777;
-  --color-secondary-700: #be185d;
-  --color-secondary-800: #9d174d;
-  --color-secondary-900: #831843;
-
-  /* Accent: Sunset Orange - Warmth, featured elements */
-  --color-accent-50: #fff7ed;
-  --color-accent-100: #ffedd5;
-  --color-accent-200: #fed7aa;
-  --color-accent-300: #fdba74;
-  --color-accent-400: #fb923c;
-  --color-accent-500: #F97316;
-  --color-accent-600: #ea580c;
-  --color-accent-700: #c2410c;
-  --color-accent-800: #9a3412;
-  --color-accent-900: #7c2d12;
-
-  /* Teal: Psychedelic Teal - Secondary actions, informational */
-  --color-teal-50: #ecfeff;
-  --color-teal-100: #cffafe;
-  --color-teal-200: #a5f3fc;
-  --color-teal-300: #67e8f9;
-  --color-teal-400: #22d3ee;
-  --color-teal-500: #06B6D4;
-  --color-teal-600: #0891b2;
-  --color-teal-700: #0e7490;
-  --color-teal-800: #155e75;
-  --color-teal-900: #164e63;
-
-  /* Lime: Lime Pop - Success states, fresh accents */
-  --color-lime-50: #f7fee7;
-  --color-lime-100: #ecfccb;
-  --color-lime-200: #d9f99d;
-  --color-lime-300: #bef264;
-  --color-lime-400: #a3e635;
-  --color-lime-500: #84CC16;
-  --color-lime-600: #65a30d;
-  --color-lime-700: #4d7c0f;
-  --color-lime-800: #3f6212;
-  --color-lime-900: #365314;
-
-  /* Gold: Golden Hour - Premium, special elements */
-  --color-gold-50: #fefce8;
-  --color-gold-100: #fef9c3;
-  --color-gold-200: #fef08a;
-  --color-gold-300: #fde047;
-  --color-gold-400: #facc15;
-  --color-gold-500: #EAB308;
-  --color-gold-600: #ca8a04;
-  --color-gold-700: #a16207;
-  --color-gold-800: #854d0e;
-  --color-gold-900: #713f12;
-
-  /* Navy: Deep Navy - Dark backgrounds, contrast */
-  --color-navy-50: #eef2ff;
-  --color-navy-100: #e0e7ff;
-  --color-navy-200: #c7d2fe;
-  --color-navy-300: #a5b4fc;
-  --color-navy-400: #818cf8;
-  --color-navy-500: #6366f1;
-  --color-navy-600: #4f46e5;
-  --color-navy-700: #4338ca;
-  --color-navy-800: #3730a3;
-  --color-navy-900: #1E1B4B;
-
   /* Neutrals: Warm Cream base with Charcoal text */
   /* WCAG AA compliant - all text meets 4.5:1 contrast */
   --color-neutral-50: #FDF8F3;
@@ -111,14 +39,14 @@
   /* Charcoal - primary text */
 
   /* Semantic Colors - WCAG AA compliant (4.5:1 on white) */
-  --color-success: #84CC16;
-  /* Lime Pop - brand consistent */
-  --color-warning: #F97316;
-  /* Sunset Orange - brand consistent */
+  --color-success: #4d6b43;
+  /* deep sage green */
+  --color-warning: #b05523;
+  /* terracotta-700 */
   --color-error: #dc2626;
   /* Red - clear error state */
-  --color-info: #06B6D4;
-  /* Psychedelic Teal - brand consistent */
+  --color-info: #1E3B30;
+  /* forest */
 
   /* Background & Foreground */
   --background: #F5EDD6;
@@ -209,9 +137,10 @@
   --color-dusty-rose: #D08B7A;
   --color-ink-brown: #5C4033;
   --color-earth: #3B2F2F;
+  --color-cream: #FFFDF5;
 
-  /* Wildenflower font utilities */
-  --font-playfair: var(--font-playfair);
+  /* Wildenflower font utilities — Cormorant display + Lora body (AGENTS.md) */
+  --font-heading: var(--font-cormorant), Georgia, serif;
   --font-lora: var(--font-lora);
 
   --color-background: var(--background);
@@ -229,77 +158,23 @@
   --color-primary-800: var(--color-primary-800);
   --color-primary-900: var(--color-primary-900);
 
-  /* Secondary: Electric Magenta */
-  --color-secondary-50: var(--color-secondary-50);
-  --color-secondary-100: var(--color-secondary-100);
-  --color-secondary-200: var(--color-secondary-200);
-  --color-secondary-300: var(--color-secondary-300);
-  --color-secondary-400: var(--color-secondary-400);
-  --color-secondary-500: var(--color-secondary-500);
-  --color-secondary-600: var(--color-secondary-600);
-  --color-secondary-700: var(--color-secondary-700);
-  --color-secondary-800: var(--color-secondary-800);
-  --color-secondary-900: var(--color-secondary-900);
+}
 
-  /* Accent: Sunset Orange */
-  --color-accent-50: var(--color-accent-50);
-  --color-accent-100: var(--color-accent-100);
-  --color-accent-200: var(--color-accent-200);
-  --color-accent-300: var(--color-accent-300);
-  --color-accent-400: var(--color-accent-400);
-  --color-accent-500: var(--color-accent-500);
-  --color-accent-600: var(--color-accent-600);
-  --color-accent-700: var(--color-accent-700);
-  --color-accent-800: var(--color-accent-800);
-  --color-accent-900: var(--color-accent-900);
+/* ============================================
+   CATALOG LABEL — field-journal meta style
+   ALL CAPS, letter-spaced, thin gold rule.
+   Eyebrows, category cards, PDP meta (AGENTS.md).
+   ============================================ */
 
-  /* Teal: Psychedelic Teal */
-  --color-teal-50: var(--color-teal-50);
-  --color-teal-100: var(--color-teal-100);
-  --color-teal-200: var(--color-teal-200);
-  --color-teal-300: var(--color-teal-300);
-  --color-teal-400: var(--color-teal-400);
-  --color-teal-500: var(--color-teal-500);
-  --color-teal-600: var(--color-teal-600);
-  --color-teal-700: var(--color-teal-700);
-  --color-teal-800: var(--color-teal-800);
-  --color-teal-900: var(--color-teal-900);
-
-  /* Lime: Lime Pop */
-  --color-lime-50: var(--color-lime-50);
-  --color-lime-100: var(--color-lime-100);
-  --color-lime-200: var(--color-lime-200);
-  --color-lime-300: var(--color-lime-300);
-  --color-lime-400: var(--color-lime-400);
-  --color-lime-500: var(--color-lime-500);
-  --color-lime-600: var(--color-lime-600);
-  --color-lime-700: var(--color-lime-700);
-  --color-lime-800: var(--color-lime-800);
-  --color-lime-900: var(--color-lime-900);
-
-  /* Gold: Golden Hour */
-  --color-gold-50: var(--color-gold-50);
-  --color-gold-100: var(--color-gold-100);
-  --color-gold-200: var(--color-gold-200);
-  --color-gold-300: var(--color-gold-300);
-  --color-gold-400: var(--color-gold-400);
-  --color-gold-500: var(--color-gold-500);
-  --color-gold-600: var(--color-gold-600);
-  --color-gold-700: var(--color-gold-700);
-  --color-gold-800: var(--color-gold-800);
-  --color-gold-900: var(--color-gold-900);
-
-  /* Navy: Deep Navy */
-  --color-navy-50: var(--color-navy-50);
-  --color-navy-100: var(--color-navy-100);
-  --color-navy-200: var(--color-navy-200);
-  --color-navy-300: var(--color-navy-300);
-  --color-navy-400: var(--color-navy-400);
-  --color-navy-500: var(--color-navy-500);
-  --color-navy-600: var(--color-navy-600);
-  --color-navy-700: var(--color-navy-700);
-  --color-navy-800: var(--color-navy-800);
-  --color-navy-900: var(--color-navy-900);
+.catalog-label {
+  font-family: var(--font-lora), Georgia, serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  display: inline-block;
+  padding-bottom: 0.375rem;
+  border-bottom: 1px solid #C9A642;
 }
 
 /* ============================================
@@ -332,15 +207,15 @@ body {
   line-height: 1.6;
 }
 
-/* Heading typography - Playfair Display (botanical serif) */
+/* Heading typography - Cormorant (field-journal display serif) */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-playfair), Georgia, serif;
-  font-weight: 700;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 600;
 }
 
 /* Ensure inputs have readable text color */

@@ -51,16 +51,16 @@ export default function EnhancedHero({
           sizes="100vw"
         />
       ) : (
-        // Fallback gradient
+        // Fallback gradient — Deep Woods register
         <div
-          className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900"
+          className="absolute inset-0 bg-gradient-to-br from-[#1E3B30] via-[#163027] to-[#1E3B30]"
           aria-hidden="true"
         />
       )}
 
-      {/* Overlay */}
+      {/* Overlay — forest, never black (Deep Woods) */}
       <div
-        className="absolute inset-0 bg-black"
+        className="absolute inset-0 bg-forest"
         style={{ opacity: overlayOpacity / 100 }}
         aria-hidden="true"
       />
