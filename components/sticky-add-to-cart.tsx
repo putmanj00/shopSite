@@ -64,7 +64,7 @@ export default function StickyAddToCart({
 
   return (
     <div
-      className={`lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gold/30 shadow-lg z-40 transform transition-transform duration-300 ${isVisible ? 'translate-y-0' : 'translate-y-full'
+      className={`lg:hidden fixed bottom-0 left-0 right-0 bg-cream border-t border-gold/30 shadow-lg z-40 transform transition-transform duration-300 ${isVisible ? 'translate-y-0' : 'translate-y-full'
         }`}
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       role="region"

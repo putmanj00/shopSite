@@ -27,7 +27,7 @@ export default function ImageGallery({ product }: ImageGalleryProps) {
     <div className="space-y-4">
       {/* Main Image */}
       <div
-        className="relative aspect-square bg-white rounded-lg overflow-hidden shadow-md cursor-zoom-in group"
+        className="relative aspect-square bg-cream border border-gold/25 rounded-lg overflow-hidden cursor-zoom-in group"
         onClick={() => setIsZoomed(!isZoomed)}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -50,8 +50,8 @@ export default function ImageGallery({ product }: ImageGalleryProps) {
           priority={selectedImageIndex === 0}
         />
         {isZoomed && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/10 pointer-events-none">
-            <span className="text-white bg-black/50 px-4 py-2 rounded-lg text-sm">
+          <div className="absolute inset-0 flex items-center justify-center bg-forest/10 pointer-events-none">
+            <span className="text-white bg-forest/60 px-4 py-2 rounded-lg text-sm">
               Click to zoom out
             </span>
           </div>

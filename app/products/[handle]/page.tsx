@@ -158,7 +158,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
 
           {/* Product Details Accordion */}
-          <div className="mt-12 bg-white rounded-lg shadow-sm p-6 lg:p-8">
+          <div className="mt-12 bg-cream rounded-lg border border-gold/25 p-6 lg:p-8">
             <ProductAccordion
               sections={getProductAccordionSections({
                 descriptionHtml: product.descriptionHtml,
@@ -169,7 +169,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
 
           {/* Product Reviews */}
-          <div className="bg-white rounded-lg shadow-sm p-6 lg:p-8 mt-12">
+          <div className="bg-cream rounded-lg border border-gold/25 p-6 lg:p-8 mt-12">
             <ReviewList productId={product.handle} />
           </div>
 

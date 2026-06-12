@@ -78,7 +78,7 @@ export default function ReviewList({ productId }: ReviewListProps) {
                 {/* Left Column: Stats & Form */}
                 <div className="lg:col-span-4 space-y-8">
                     {stats && (
-                        <div className="bg-white p-6 rounded-lg">
+                        <div className="bg-parchment border border-gold/20 p-6 rounded-lg">
                             <div className="flex items-center gap-4 mb-4">
                                 <span className="text-5xl font-bold text-ink-brown">{stats.averageRating}</span>
                                 <div>
@@ -154,7 +154,7 @@ export default function ReviewList({ productId }: ReviewListProps) {
                     </div>
 
                     {reviews.length === 0 ? (
-                        <div className="text-center py-12 bg-white rounded-lg">
+                        <div className="text-center py-12 bg-parchment border border-gold/20 rounded-lg">
                             <p className="text-sage text-lg">No reviews match your filters.</p>
                             {(filterRating || withPhotos) && (
                                 <button
@@ -178,7 +178,7 @@ export default function ReviewList({ productId }: ReviewListProps) {
                                                 <div className="flex items-center gap-2">
                                                     <span className="font-medium text-ink-brown">{review.userName}</span>
                                                     {review.verifiedPurchase && (
-                                                        <span className="inline-flex items-center gap-0.5 text-xs text-green-700 bg-green-50 px-1.5 py-0.5 rounded-full border border-green-100">
+                                                        <span className="inline-flex items-center gap-0.5 text-xs text-forest bg-sage/15 px-1.5 py-0.5 rounded-full border border-sage/30">
                                                             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                                                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                                             </svg>
@@ -220,7 +220,7 @@ export default function ReviewList({ productId }: ReviewListProps) {
                                         <button
                                             onClick={() => handleHelpful(review.id)}
                                             disabled={!!helpfulClicked[review.id]}
-                                            className={`flex items-center gap-1.5 transition-colors ${helpfulClicked[review.id] ? 'text-green-600 cursor-default' : 'hover:text-earth'}`}
+                                            className={`flex items-center gap-1.5 transition-colors ${helpfulClicked[review.id] ? 'text-forest cursor-default' : 'hover:text-earth'}`}
                                         >
                                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />

@@ -49,7 +49,7 @@ export default function AddToCartButton({
           w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all
           ${
             !variant.availableForSale
-              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              ? 'bg-neutral-300 text-neutral-600 cursor-not-allowed'
               : isLoading
                 ? 'bg-terracotta/60 text-white cursor-wait'
                 : 'bg-terracotta text-white hover:bg-terracotta/90 active:scale-95'
