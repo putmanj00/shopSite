@@ -178,7 +178,7 @@ export default function SearchBar({
         {/* Search Icon */}
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <svg
-            className="h-5 w-5 text-gray-400"
+            className="h-5 w-5 text-earth/40"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -200,7 +200,7 @@ export default function SearchBar({
           onChange={handleInputChange}
           onFocus={handleFocus}
           placeholder={isVoiceListening ? "Listening..." : placeholder}
-          className={`block w-full pl-10 pr-20 min-h-11 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${isVoiceListening ? 'border-primary-500 ring-2 ring-primary-500 bg-primary-50' : 'border-gray-300'
+          className={`block w-full pl-10 pr-20 min-h-11 border rounded-lg bg-cream focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${isVoiceListening ? 'border-primary-500 ring-2 ring-primary-500 bg-primary-50' : 'border-gold/30'
             }`}
           autoComplete="off"
         />
@@ -210,7 +210,7 @@ export default function SearchBar({
             <button
               type="button"
               onClick={handleClear}
-              className="p-1 mr-1 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100"
+              className="p-1 mr-1 text-earth/40 hover:text-earth rounded-full hover:bg-parchment"
               aria-label="Clear search"
             >
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -224,7 +224,7 @@ export default function SearchBar({
             onClick={handleVoiceSearch}
             className={`p-2 rounded-full transition-colors ${isVoiceListening
               ? 'text-red-500 bg-red-100 animate-pulse'
-              : 'text-gray-400 hover:text-primary-600 hover:bg-gray-100'
+              : 'text-earth/40 hover:text-primary-600 hover:bg-parchment'
               }`}
             aria-label="Voice search"
             title="Search by voice"

@@ -64,7 +64,7 @@ export default function FilterPanel({
   };
 
   return (
-    <div className="bg-white border border-gold/20 rounded-xl p-4 sticky top-4">
+    <div className="bg-cream border border-gold/25 rounded-lg p-4 sticky top-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-4 pb-4 border-b border-gold/20">
         <h3 className="text-lg font-semibold text-ink-brown">Filters</h3>
