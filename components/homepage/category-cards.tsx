@@ -6,19 +6,17 @@ interface Category {
   title: string;
   description: string;
   image: string;
-  productCount: number;
   imageClassName?: string;
   cardClassName?: string;
 }
 
-// Placeholder data - will be replaced with dynamic data when collections are set up in Shopify
+// The 6 canonical categories (see AGENTS.md) — handles must match Shopify collections
 const categories: Category[] = [
   {
     handle: 'tie-dye',
     title: 'Tie-Dye',
     description: 'Hand-dyed in small batches. Each piece blooms differently.',
     image: '/assets/images/icons/categories/icon-sunburst-v2.png',
-    productCount: 45,
     imageClassName: 'object-cover',
     cardClassName: 'bg-[#EFE8D6]',
   },
@@ -27,7 +25,6 @@ const categories: Category[] = [
     title: 'Leather',
     description: 'Tooled by hand, worn for decades.',
     image: '/assets/images/icons/categories/icon-leather-v2.png',
-    productCount: 28,
     imageClassName: 'object-0',
     cardClassName: 'bg-[#EFE8D6]',
   },
@@ -36,7 +33,6 @@ const categories: Category[] = [
     title: 'Jewelry',
     description: 'Foraged shapes, gathered light.',
     image: '/assets/images/icons/categories/icon-jewelry.jpeg',
-    productCount: 67,
     imageClassName: 'object-0',
     cardClassName: 'bg-[#EFE8D6]',
   },
@@ -45,16 +41,14 @@ const categories: Category[] = [
     title: 'Crystals',
     description: 'Earth-kept for years. Yours now.',
     image: '/assets/images/icons/categories/icon-crystal-v2.jpeg',
-    productCount: 54,
     imageClassName: 'object-0',
     cardClassName: 'bg-[#EFE8D6]',
   },
   {
-    handle: 'art',
+    handle: 'artwork',
     title: 'Artwork',
     description: 'Original pieces — no prints, no copies.',
     image: '/assets/images/icons/categories/icon-artwork.png',
-    productCount: 19,
     imageClassName: 'object-0',
     cardClassName: 'bg-[#EFE8D6]',
   },
@@ -63,7 +57,6 @@ const categories: Category[] = [
     title: 'Ceramics',
     description: 'Thrown on the wheel, fired with care.',
     image: '/assets/images/icons/categories/icon-ceramics.jpeg',
-    productCount: 33,
     imageClassName: 'object-cover',
     cardClassName: 'bg-[#EFE8D6]',
   },
@@ -95,10 +88,7 @@ function CategoryCard({ category }: { category: Category }) {
         <p className="text-neutral-300 text-sm mb-3 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
           {category.description}
         </p>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-neutral-400">
-            {category.productCount} Treasures
-          </span>
+        <div className="flex items-center justify-end">
           <span className="inline-flex items-center text-gold text-sm font-medium opacity-0 transform translate-x-[-10px] transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
             Explore
             <svg

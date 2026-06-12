@@ -32,7 +32,7 @@ export function getShopifyClient(): StorefrontApiClient {
   // Create and cache the client
   shopifyClient = createStorefrontApiClient({
     storeDomain,
-    apiVersion: '2025-04',
+    apiVersion: '2026-04',
     publicAccessToken: storefrontAccessToken,
   });
 

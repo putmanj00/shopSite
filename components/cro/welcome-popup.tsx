@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useCartStore } from '@/lib/cart-store';
 
 interface WelcomePopupProps {
     discountCode?: string;
@@ -22,9 +23,16 @@ export default function WelcomePopup({
         if (alreadyShown) return;
 
         let shown = false;
+        let timer: ReturnType<typeof setTimeout>;
 
         const showPopup = () => {
             if (shown) return;
+            // Never interrupt an active cart session — retry after the drawer closes
+            if (useCartStore.getState().isOpen) {
+                clearTimeout(timer);
+                timer = setTimeout(showPopup, 5000);
+                return;
+            }
             shown = true;
             setIsVisible(true);
             localStorage.setItem('welcomePopupShown', 'true');
@@ -32,7 +40,7 @@ export default function WelcomePopup({
             clearTimeout(timer);
         };
 
-        const timer = setTimeout(showPopup, 15000); // 15s — midpoint of 10-20s range
+        timer = setTimeout(showPopup, 15000); // 15s — midpoint of 10-20s range
 
         const handleScroll = () => {
             const depth = window.scrollY / (document.body.scrollHeight - window.innerHeight);

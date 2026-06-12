@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { ShopifyProductVariant } from '@/types/shopify';
 import { useCartStore } from '@/lib/cart-store';
 
@@ -17,6 +17,9 @@ export default function AddToCartButton({
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Disabled until hydration so pre-hydration clicks can't silently no-op
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const handleAddToCart = async () => {
     setIsLoading(true);
@@ -41,7 +44,7 @@ export default function AddToCartButton({
       <button
         id={id}
         onClick={handleAddToCart}
-        disabled={!variant.availableForSale || isLoading}
+        disabled={!mounted || !variant.availableForSale || isLoading}
         className={`
           w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all
           ${

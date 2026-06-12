@@ -30,14 +30,14 @@ export default function RegisterPage() {
     <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+          <h1 className="text-3xl font-bold tracking-tight text-forest font-heading">
             Create an account
           </h1>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-earth">
             Already have an account?{' '}
             <Link
               href="/login"
-              className="font-medium text-blue-600 hover:text-blue-500 transition-colors"
+              className="font-medium text-terracotta hover:text-terracotta/80 transition-colors"
             >
               Sign in
             </Link>
@@ -45,11 +45,11 @@ export default function RegisterPage() {
         </div>
 
         <div className="mt-8 space-y-6">
-          <div className="rounded-md bg-blue-50 p-4">
+          <div className="rounded-md bg-parchment p-4">
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg
-                  className="h-5 w-5 text-blue-400"
+                  className="h-5 w-5 text-sage"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -61,10 +61,10 @@ export default function RegisterPage() {
                 </svg>
               </div>
               <div className="ml-3">
-                <h3 className="text-sm font-medium text-blue-800">
+                <h3 className="text-sm font-medium text-forest">
                   Secure account creation
                 </h3>
-                <div className="mt-2 text-sm text-blue-700">
+                <div className="mt-2 text-sm text-earth">
                   <p>
                     You&apos;ll be redirected to Shopify to create your account securely.
                     This provides passwordless login for enhanced security.
@@ -77,7 +77,7 @@ export default function RegisterPage() {
           <button
             onClick={handleCreateAccount}
             disabled={isLoading}
-            className="group relative flex w-full justify-center rounded-md bg-blue-600 py-3 px-3 text-sm font-semibold text-white hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="group relative flex w-full justify-center rounded-md bg-terracotta py-3 px-3 text-sm font-semibold text-white hover:bg-terracotta/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {isLoading ? (
               <span className="flex items-center gap-2">
@@ -108,7 +108,7 @@ export default function RegisterPage() {
             )}
           </button>
 
-          <p className="text-center text-xs text-gray-500">
+          <p className="text-center text-xs text-earth">
             By creating an account, you agree to our Terms of Service and Privacy Policy.
           </p>
         </div>

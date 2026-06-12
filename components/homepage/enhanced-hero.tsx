@@ -17,11 +17,11 @@ interface EnhancedHeroProps {
 }
 
 export default function EnhancedHero({
-  heading = 'Where Color Comes Alive',
-  subheading = 'Trippy treasures for free spirits. Vibrant tie-dye, mandala art, crystals, and festival-ready handcrafted goods — art you can wear, magic you can feel.',
+  heading = 'Made by hand. Found by heart.',
+  subheading = 'Gathered from maker hands and meadow roots. Every piece finds the heart that needs it.',
   ctas = [
-    { label: 'Shop the Vibe', href: '/collections/all', variant: 'primary' },
-    { label: 'Our Story', href: '#brand-story', variant: 'secondary' },
+    { label: 'Wander the Shop', href: '/collections/all', variant: 'primary' },
+    { label: 'Our Story', href: '/about', variant: 'secondary' },
   ],
   backgroundImage = '/images/hero-background.png',
   backgroundVideo,
