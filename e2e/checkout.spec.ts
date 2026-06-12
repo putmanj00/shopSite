@@ -18,13 +18,15 @@ test.describe('Checkout redirect', () => {
 
     // Step 3: Click checkout — waitForURL catches the cross-domain redirect
     // window.location.href = cart.checkoutUrl triggers full navigation away from localhost
-    // Checkout URL is https://{store}.myshopify.com/checkouts/cn/... (classic checkout flow)
+    // Shopify serves checkout from either {store}.myshopify.com/checkouts|cart/c/... (classic)
+    // or shop.app/checkout/... (Shop Pay universal redirect, store-config dependent)
+    const checkoutUrl = /(myshopify\.com\/(cart\/c|checkouts)\/|shop\.app\/checkout)/;
     await Promise.all([
-      page.waitForURL('**/*.myshopify.com/checkouts/**', { timeout: 15_000 }),
+      page.waitForURL(checkoutUrl, { timeout: 15_000 }),
       page.getByRole('button', { name: 'Proceed to Checkout' }).click(),
     ]);
 
-    // Verify we landed on Shopify checkout domain
-    expect(page.url()).toContain('myshopify.com/checkouts');
+    // Verify we landed on a Shopify-controlled checkout domain
+    expect(page.url()).toMatch(checkoutUrl);
   });
 });
