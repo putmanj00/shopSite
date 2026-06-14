@@ -53,3 +53,7 @@ terraform.tfstate.backup
 terraform.tfvars
 tfplan
 *.tfplan
+
+# Playwright ephemeral output
+/test-results/
+/playwright-report/
