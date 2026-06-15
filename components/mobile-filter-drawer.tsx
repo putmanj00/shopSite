@@ -90,7 +90,7 @@ export default function MobileFilterDrawer({
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+        className="fixed inset-0 bg-forest/50 z-40 lg:hidden"
         onClick={onClose}
         onKeyDown={(e) => {
           if (e.key === 'Escape') {
@@ -103,7 +103,7 @@ export default function MobileFilterDrawer({
       />
 
       {/* Drawer */}
-      <div className="fixed inset-y-0 right-0 w-full max-w-sm bg-white z-50 lg:hidden flex flex-col shadow-xl">
+      <div className="fixed inset-y-0 right-0 w-full max-w-sm bg-cream z-50 lg:hidden flex flex-col shadow-xl">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b">
           <h2 className="text-lg font-semibold text-ink-brown">Filters</h2>

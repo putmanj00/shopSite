@@ -117,7 +117,7 @@ export default function ExpressCheckoutButtons() {
           <div className="w-full border-t border-neutral-200" />
         </div>
         <div className="relative flex justify-center">
-          <span className="px-2 bg-white text-xs text-neutral-500">or</span>
+          <span className="px-2 bg-parchment text-xs text-neutral-500">or</span>
         </div>
       </div>
     </div>

@@ -48,7 +48,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           {product.title}
         </h1>
         {product.vendor && (
-          <p className="text-lg text-sage">by {normalizeVendor(product.vendor)}</p>
+          <p className="catalog-label text-ink-brown/70">by {normalizeVendor(product.vendor)}</p>
         )}
       </div>
 
@@ -63,7 +63,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               <span className="text-xl text-sage line-through">
                 <Price amount={compareAtPrice.amount} currencyCode={compareAtPrice.currencyCode} />
               </span>
-              <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold">
+              <span className="bg-dusty-rose px-3 py-1 rounded-full text-sm font-semibold text-white">
                 {Math.round(
                   ((parseFloat(compareAtPrice.amount) -
                     parseFloat(price.amount)) /
@@ -81,8 +81,8 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       <div>
         {selectedVariant.availableForSale ? (
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <span className="text-green-700 font-medium">
+            <div className="w-3 h-3 bg-sage rounded-full"></div>
+            <span className="text-forest font-medium">
               In Stock
               {selectedVariant.quantityAvailable > 0 &&
                 selectedVariant.quantityAvailable < 10 && (

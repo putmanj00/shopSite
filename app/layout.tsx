@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Lora } from "next/font/google";
+import { Cormorant, Lora } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -17,11 +17,11 @@ import { CurrencyProvider } from "@/lib/currency-context";
 import GeolocationHandler from "@/components/geolocation-handler";
 import { getNavMenu } from "@/lib/shopify-helpers";
 
-// Heading font: Playfair Display — classic serif for botanical warmth
-const playfairDisplay = Playfair_Display({
-  variable: "--font-playfair",
+// Display font: Cormorant — field-journal display serif (AGENTS.md: NOT Playfair)
+const cormorant = Cormorant({
+  variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
@@ -123,7 +123,7 @@ export default async function RootLayout({
 }>) {
   const navItems = await getNavMenu('main-menu');
   return (
-    <html lang="en" className={`${playfairDisplay.variable} ${lora.variable} antialiased`}>
+    <html lang="en" className={`${cormorant.variable} ${lora.variable} antialiased`}>
       <body>
         <CurrencyProvider>
           <GeolocationHandler />

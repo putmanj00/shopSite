@@ -68,7 +68,7 @@ export default function CartDrawer() {
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-forest/50 z-40 transition-opacity duration-300"
           onClick={closeCart}
           aria-hidden="true"
         />

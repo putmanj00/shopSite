@@ -99,7 +99,7 @@ export default function CartItem({ line }: CartItemProps) {
                 </span>
               </div>
             ) : (
-              <span className="font-semibold text-gray-900">
+              <span className="font-semibold text-ink-brown">
                 <Price amount={merchandise.price.amount} currencyCode={merchandise.price.currencyCode} />
               </span>
             )}

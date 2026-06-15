@@ -105,7 +105,7 @@ export default function VariantSelector({
                         isSelected
                           ? 'border-2 border-forest bg-forest/10 text-forest'
                           : isAvailable
-                            ? 'border border-gold/40 bg-white text-ink-brown hover:border-forest hover:text-forest'
+                            ? 'border border-gold/40 bg-cream text-ink-brown hover:border-forest hover:text-forest'
                             : 'border border-gold/20 bg-parchment text-sage cursor-not-allowed line-through'
                       }
                     `}

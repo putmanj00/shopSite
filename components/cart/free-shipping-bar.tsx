@@ -24,7 +24,7 @@ export default function FreeShippingBar({
   return (
     <div className="bg-neutral-50 rounded-lg p-3">
       {qualified ? (
-        <div className="flex items-center gap-2 text-green-700">
+        <div className="flex items-center gap-2 text-forest">
           <svg
             className="w-5 h-5 flex-shrink-0"
             fill="currentColor"

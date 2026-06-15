@@ -43,10 +43,10 @@ export default function LoginPage() {
     <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+          <h1 className="text-3xl font-bold tracking-tight text-forest font-heading">
             Sign in to your account
           </h1>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-earth">
             You&apos;ll be redirected to Shopify to sign in securely
           </p>
         </div>
@@ -80,7 +80,7 @@ export default function LoginPage() {
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-8">
               <svg
-                className="animate-spin h-8 w-8 text-blue-600"
+                className="animate-spin h-8 w-8 text-terracotta"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -99,7 +99,7 @@ export default function LoginPage() {
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
-              <p className="mt-4 text-sm text-gray-600">
+              <p className="mt-4 text-sm text-earth">
                 {isAuthenticated ? 'Redirecting...' : 'Checking authentication...'}
               </p>
             </div>
@@ -107,12 +107,12 @@ export default function LoginPage() {
             <>
               <button
                 onClick={handleLogin}
-                className="group relative flex w-full justify-center rounded-md bg-terracotta py-3 px-3 text-sm font-semibold text-white hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-colors"
+                className="group relative flex w-full justify-center rounded-md bg-terracotta py-3 px-3 text-sm font-semibold text-white hover:bg-terracotta/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta transition-colors"
               >
                 Continue with Shopify
               </button>
 
-              <p className="text-center text-xs text-gray-500">
+              <p className="text-center text-xs text-earth">
                 Don&apos;t have an account? You can create one during sign-in.
               </p>
             </>

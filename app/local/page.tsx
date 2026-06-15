@@ -6,11 +6,11 @@ import { localBusinessSchema } from '@/lib/structured-data';
 export const metadata: Metadata = {
   title: 'Visit Wildenflower | Northern Kentucky Handmade Shop',
   description:
-    'Wildenflower is a handmade goods shop rooted in Northern Kentucky. Find tie-dye, leather, jewelry, crystals, artwork, and ceramics — all made by hand.',
+    'Wildenflower is a handmade goods shop rooted in Northern Kentucky. Find tie-dye, leather, jewelry, crystals, and artwork — all made by hand.',
   openGraph: {
     title: 'Visit Wildenflower | Northern Kentucky Handmade Shop',
     description:
-      'Handcrafted goods rooted in Northern Kentucky. Tie-dye, leather, jewelry, crystals, artwork, and ceramics — made by hand, found by heart.',
+      'Handcrafted goods rooted in Northern Kentucky. Tie-dye, leather, jewelry, crystals, and artwork — made by hand, found by heart.',
   },
 };
 
@@ -20,7 +20,6 @@ const categories = [
   { name: 'Jewelry', href: '/collections/jewelry', description: 'Foraged shapes, gathered light' },
   { name: 'Crystals', href: '/collections/crystals', description: 'Earth-kept for years' },
   { name: 'Artwork', href: '/collections/artwork', description: 'Original pieces — no prints' },
-  { name: 'Ceramics', href: '/collections/ceramics', description: 'Thrown on the wheel, fired with care' },
 ];
 
 export default function LocalPage() {

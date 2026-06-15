@@ -96,7 +96,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white border border-gold/30 p-6 rounded-lg shadow-sm">
+        <form onSubmit={handleSubmit} className="bg-parchment border border-gold/30 p-6 rounded-lg">
             <h3 className="text-lg font-bold text-ink-brown mb-4">Write a Review</h3>
 
             {error && (
@@ -152,7 +152,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
                             <button
                                 type="button"
                                 onClick={() => setPhotos(photos.filter((_, i) => i !== index))}
-                                className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                className="absolute top-1 right-1 bg-forest/60 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
                                 aria-label="Remove photo"
                             >
                                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">

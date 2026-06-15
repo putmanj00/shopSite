@@ -8,7 +8,14 @@ interface WildenflowerEvent {
   url: string | null;
 }
 
-const events = eventsData as WildenflowerEvent[];
+// Hide past events; renders server-side, so the list refreshes whenever the page revalidates
+function upcomingEvents(): WildenflowerEvent[] {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return (eventsData as WildenflowerEvent[]).filter(
+    (event) => new Date(event.date + 'T00:00:00') >= today
+  );
+}
 
 function formatEventDate(isoDate: string): string {
   return new Intl.DateTimeFormat('en-US', {
@@ -19,6 +26,7 @@ function formatEventDate(isoDate: string): string {
 }
 
 export default function FindUsInTheWild() {
+  const events = upcomingEvents();
   return (
     <section className="bg-parchment py-16 lg:py-24">
       <div className="container mx-auto px-4">
