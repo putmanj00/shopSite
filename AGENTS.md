@@ -73,3 +73,52 @@ properties section (avoid-lane: occult framing belongs to Hierophany & Hedge).
 - app/api/auth/ — OAuth flow is fragile, no tests
 - Shopify API integration in lib/shopify.ts
 - Cart mutations in lib/shopify/mutations/
+
+## Build & test
+- Next.js 16 App Router / TypeScript / Tailwind v4 / Shopify Storefront API / Vercel.
+- Local: `npm run typecheck`, `npm run lint`, `npm run test:ui`, `npm run test:e2e`
+  (Playwright), `npm run test:webhook`. `npm run build` runs `contrast:check` first.
+- Hooks: lefthook pre-commit runs `eslint --fix`, `tsc --noEmit`, **gitleaks** (secret
+  scan), and `npm audit`. commit-msg enforces Conventional Commits
+  (`feat|fix|docs|style|refactor|test|chore|build|ci|perf|revert`, scope optional).
+- CI: `.github/workflows/ci.yml`.
+- New behavior ships with focused tests proving the smallest changed contract. An untested
+  change to an **existing** contract is **P0**; missing tests on **new** code are **P1**.
+
+## Review guidelines (Codex code review)
+
+Flag only serious issues. Use these priorities.
+
+### P0 — block-worthy
+- **Secret / token leakage.** Shopify Storefront / Customer-Account tokens, Resend
+  `RESEND_API_KEY`, or any env secret reaching a log line, error body, client bundle, or
+  commit. (gitleaks runs pre-commit; review still flags secrets in code or logs.)
+- **Webhook signature regressions.** `lib/shopify-webhook.ts` HMAC verification must stay
+  timing-safe and **fail closed** on a missing/invalid signature. Flag any short-circuit to
+  accept.
+- **Auth regressions.** The OAuth2 + PKCE Shopify Customer Account flow under `app/api/auth/`
+  is fragile and untested — flag changes that weaken or bypass it (do-not-touch surface).
+- **Correctness regression with no test.** A cart-mutation, price, or checkout behavior
+  change to an existing contract that no test covers.
+- **Prompt-injection sinks.** External/untrusted text routed into a tool, shell, or eval as
+  instructions instead of data.
+
+### P1 — should fix
+- **Brand / slop violations.** The `.claude/skills/slop-detector` gate is authoritative: no
+  purple (#7C3AED), no blue-600, no "boho / festival / tie-dye shop", no occult/metaphysical
+  framing, no fabricated testimonials, stats, or stock headshots. Flag off-brand copy or color.
+- **Missing tests / docs** for new routes, components, config keys, or schema.
+- **No-silent-shortcuts violation.** Partial, stubbed, or deferred work presented as complete.
+
+### Prescriptive changes (migrations, "fixes")
+Simulate executing the remedy on this repo before endorsing — trace the real path. A
+Tailwind-token rename or Shopify-handle change must not break existing call sites (e.g.
+`VALID_HANDLES`, `FALLBACK_NAV_ITEMS`, the `items.length < 5` nav-fallback threshold).
+
+## Code review (Codex)
+
+Pull requests are reviewed by **Codex cloud code review** (OpenAI), which reads this
+`AGENTS.md`. Trigger per PR with a `@codex review` comment (or enable Automatic reviews in
+the repo's Codex cloud settings); `@codex fix it` spawns a fix task. It is a cloud surface
+billed against OpenAI's Code Review usage meter and complements — does not replace — the
+local gates (lefthook pre-commit, `ci.yml`), which remain authoritative for merge.
