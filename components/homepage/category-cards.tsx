@@ -6,19 +6,19 @@ interface Category {
   title: string;
   description: string;
   image: string;
-  productCount: number;
   imageClassName?: string;
   cardClassName?: string;
 }
 
-// Placeholder data - will be replaced with dynamic data when collections are set up in Shopify
+// The 5 launch categories (see AGENTS.md) — handles must match Shopify collections.
+// Ceramics deferred (C2 2026-06-14): not a launch line yet; re-add when the
+// 'ceramics' collection exists in Shopify.
 const categories: Category[] = [
   {
     handle: 'tie-dye',
     title: 'Tie-Dye',
     description: 'Hand-dyed in small batches. Each piece blooms differently.',
     image: '/assets/images/icons/categories/icon-sunburst-v2.png',
-    productCount: 45,
     imageClassName: 'object-cover',
     cardClassName: 'bg-[#EFE8D6]',
   },
@@ -27,7 +27,6 @@ const categories: Category[] = [
     title: 'Leather',
     description: 'Tooled by hand, worn for decades.',
     image: '/assets/images/icons/categories/icon-leather-v2.png',
-    productCount: 28,
     imageClassName: 'object-0',
     cardClassName: 'bg-[#EFE8D6]',
   },
@@ -36,7 +35,6 @@ const categories: Category[] = [
     title: 'Jewelry',
     description: 'Foraged shapes, gathered light.',
     image: '/assets/images/icons/categories/icon-jewelry.jpeg',
-    productCount: 67,
     imageClassName: 'object-0',
     cardClassName: 'bg-[#EFE8D6]',
   },
@@ -45,26 +43,15 @@ const categories: Category[] = [
     title: 'Crystals',
     description: 'Earth-kept for years. Yours now.',
     image: '/assets/images/icons/categories/icon-crystal-v2.jpeg',
-    productCount: 54,
     imageClassName: 'object-0',
     cardClassName: 'bg-[#EFE8D6]',
   },
   {
-    handle: 'art',
+    handle: 'artwork',
     title: 'Artwork',
     description: 'Original pieces — no prints, no copies.',
     image: '/assets/images/icons/categories/icon-artwork.png',
-    productCount: 19,
     imageClassName: 'object-0',
-    cardClassName: 'bg-[#EFE8D6]',
-  },
-  {
-    handle: 'ceramics',
-    title: 'Ceramics',
-    description: 'Thrown on the wheel, fired with care.',
-    image: '/assets/images/icons/categories/icon-ceramics.jpeg',
-    productCount: 33,
-    imageClassName: 'object-cover',
     cardClassName: 'bg-[#EFE8D6]',
   },
 ];
@@ -84,21 +71,18 @@ function CategoryCard({ category }: { category: Category }) {
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
       />
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity group-hover:opacity-90" />
+      {/* Gradient Overlay — Deep Woods register, never black */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1E3B30]/90 via-[#1E3B30]/25 to-transparent transition-opacity group-hover:opacity-90" />
 
-      {/* Content */}
+      {/* Content — catalog-label card title */}
       <div className="absolute inset-0 flex flex-col justify-end p-6">
-        <h3 className="text-2xl font-bold text-white mb-2 transform transition-transform duration-300 group-hover:translate-y-0 translate-y-2 font-heading">
+        <h3 className="self-start text-sm font-medium uppercase tracking-[0.18em] text-parchment border-b border-gold/70 pb-1.5 mb-2 transform transition-transform duration-300 group-hover:translate-y-0 translate-y-2">
           {category.title}
         </h3>
-        <p className="text-neutral-300 text-sm mb-3 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+        <p className="text-parchment/80 text-sm mb-3 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
           {category.description}
         </p>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-neutral-400">
-            {category.productCount} Treasures
-          </span>
+        <div className="flex items-center justify-end">
           <span className="inline-flex items-center text-gold text-sm font-medium opacity-0 transform translate-x-[-10px] transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
             Explore
             <svg
@@ -130,7 +114,8 @@ export default function CategoryCards() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-forest sm:text-4xl font-heading">
+          <span className="catalog-label text-ink-brown/80">Collections</span>
+          <h2 className="mt-3 text-3xl font-bold text-forest sm:text-4xl font-heading">
             Find Your Wild
           </h2>
           <p className="mt-2 text-lg text-ink-brown max-w-2xl mx-auto">

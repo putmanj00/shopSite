@@ -1,8 +1,7 @@
 import { test, expect } from 'playwright/test';
+import { TEST_PRODUCT_TITLE } from './support/shopify-test-product';
 
-// From .planning/phases/19-playwright-e2e-tests/test-product.md
-// NOTE: Search is a URL param on /collections/all — there is NO /search route in this app
-const TEST_PRODUCT_TITLE = 'Wildenflower Test Product';
+// Search is a URL param on /collections/all — there is no /search route in this app.
 
 test.describe('Search', () => {
   test('search returns results for known product query', async ({ page }) => {

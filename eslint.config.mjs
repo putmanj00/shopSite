@@ -41,6 +41,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // One-off debug scripts
     "test-callback.js",
+    // Archived dead code (kept for reversibility; not built/imported)
+    "_archive/**",
   ]),
 ]);
 

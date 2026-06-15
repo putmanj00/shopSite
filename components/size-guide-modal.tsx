@@ -95,7 +95,7 @@ export default function SizeGuideModal({
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 transition-opacity"
+        className="absolute inset-0 bg-forest/50 transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -103,7 +103,7 @@ export default function SizeGuideModal({
       {/* Modal Content */}
       <div
         ref={modalRef}
-        className="relative w-full max-w-2xl bg-white rounded-xl shadow-2xl max-h-[90vh] overflow-hidden"
+        className="relative w-full max-w-2xl bg-cream rounded-xl shadow-2xl max-h-[90vh] overflow-hidden"
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gold/30">

@@ -58,10 +58,10 @@ export default function DiscountCodeInput({
 
   if (appliedCode) {
     return (
-      <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+      <div className="flex items-center justify-between bg-sage/15 border border-sage/30 rounded-lg px-3 py-2">
         <div className="flex items-center gap-2">
           <svg
-            className="w-4 h-4 text-green-600"
+            className="w-4 h-4 text-forest"
             fill="currentColor"
             viewBox="0 0 20 20"
             aria-hidden="true"
@@ -72,7 +72,7 @@ export default function DiscountCodeInput({
               clipRule="evenodd"
             />
           </svg>
-          <span className="text-sm font-medium text-green-800">
+          <span className="text-sm font-medium text-forest">
             {appliedCode}
           </span>
         </div>
@@ -80,7 +80,7 @@ export default function DiscountCodeInput({
           <button
             onClick={handleRemove}
             disabled={isApplying}
-            className="text-sm text-green-700 hover:text-green-800 font-medium disabled:opacity-50"
+            className="text-sm text-forest hover:text-forest/80 font-medium disabled:opacity-50"
             aria-label={`Remove discount code ${appliedCode}`}
           >
             Remove

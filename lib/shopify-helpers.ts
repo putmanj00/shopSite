@@ -304,25 +304,26 @@ export interface NavItem {
 }
 
 // Canonical fallback — shown when Shopify menu is missing or incomplete.
-// Order: Tie-Dye → Jewelry → Crystals → Leather → Ceramics → Artwork (per locked decision).
+// Order: Tie-Dye → Jewelry → Crystals → Leather → Artwork (per locked decision).
+// Ceramics deferred — not a launch line yet (C2 2026-06-14); re-add when the line
+// exists in Shopify (handle 'ceramics') and bump the count threshold below to 6.
 const FALLBACK_NAV_ITEMS: NavItem[] = [
   { label: 'Tie-Dye',  href: '/collections/tie-dye' },
   { label: 'Jewelry',  href: '/collections/jewelry' },
   { label: 'Crystals', href: '/collections/crystals' },
   { label: 'Leather',  href: '/collections/leather' },
-  { label: 'Ceramics', href: '/collections/ceramics' },
   { label: 'Artwork',  href: '/collections/artwork' },
 ];
 
 // Valid collection handles for this store. Any item with a different handle is filtered out.
 const VALID_HANDLES = new Set([
-  'tie-dye', 'leather', 'jewelry', 'crystals', 'artwork', 'ceramics',
+  'tie-dye', 'leather', 'jewelry', 'crystals', 'artwork',
 ]);
 
 /**
  * Fetch the Shopify navigation menu and return NavItem[].
  * Falls back to FALLBACK_NAV_ITEMS if the menu is missing, the API fails,
- * or fewer than 6 valid category items are returned.
+ * or fewer than 5 valid category items are returned.
  */
 export async function getNavMenu(handle: string): Promise<NavItem[]> {
   try {
@@ -355,9 +356,9 @@ export async function getNavMenu(handle: string): Promise<NavItem[]> {
       })
       .filter((item) => VALID_HANDLES.has(item.href.replace('/collections/', '')));
 
-    if (items.length < 6) {
+    if (items.length < 5) {
       console.warn(
-        `Shopify menu "${handle}" has ${items.length}/6 expected categories — using fallback nav`
+        `Shopify menu "${handle}" has ${items.length}/5 expected categories — using fallback nav`
       );
       return FALLBACK_NAV_ITEMS;
     }

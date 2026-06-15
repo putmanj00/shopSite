@@ -309,7 +309,7 @@ export default function CollectionContent({
           {/* Mobile Filter Button */}
           <button
             onClick={() => setIsMobileFilterOpen(true)}
-            className="lg:hidden flex items-center gap-2 px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-parchment transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
+            className="lg:hidden flex items-center gap-2 px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-cream transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
             aria-label="Open filters"
           >
             <svg
@@ -431,7 +431,7 @@ export default function CollectionContent({
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-terracotta/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 text-ink-brown"
+                    className="px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-cream disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 text-ink-brown"
                     aria-label="Go to previous page"
                   >
                     Previous
@@ -463,7 +463,7 @@ export default function CollectionContent({
                               onClick={() => handlePageChange(page)}
                               className={`min-w-11 min-h-11 px-3 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 ${page === currentPage
                                   ? 'bg-terracotta text-white'
-                                  : 'border border-gold/30 hover:bg-terracotta/90 text-ink-brown'
+                                  : 'border border-gold/30 hover:bg-cream text-ink-brown'
                                 }`}
                               aria-label={`Go to page ${page}`}
                               aria-current={page === currentPage ? 'page' : undefined}
@@ -478,7 +478,7 @@ export default function CollectionContent({
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-terracotta/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 text-ink-brown"
+                    className="px-4 min-h-11 border border-gold/30 rounded-lg hover:bg-cream disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 text-ink-brown"
                     aria-label="Go to next page"
                   >
                     Next

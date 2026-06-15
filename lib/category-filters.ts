@@ -226,11 +226,11 @@ const jewelryFilters: CategoryFilterConfig = {
   sizeGuideUrl: '/size-guide#jewelry',
 };
 
-// Art & Prints Collection Filters
+// Artwork Collection Filters
 const artFilters: CategoryFilterConfig = {
-  handle: 'art',
-  name: 'Art & Prints',
-  description: 'Original artwork and limited edition prints from independent artists.',
+  handle: 'artwork',
+  name: 'Artwork',
+  description: 'Original pieces — no prints, no copies.',
   filters: [
     {
       id: 'size',
@@ -303,7 +303,7 @@ export const categoryFilterConfigs: Record<string, CategoryFilterConfig> = {
   'tie-dye': tieDyeFilters,
   'leather': leatherFilters,
   'jewelry': jewelryFilters,
-  'art': artFilters,
+  'artwork': artFilters,
 };
 
 /**

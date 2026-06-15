@@ -56,7 +56,7 @@ export default function CategoryFilterPanel({
     const hasSelected = selectedValues.length > 0;
 
     return (
-      <div key={filter.id} className="border-b border-neutral-200 last:border-b-0">
+      <div key={filter.id} className="border-b border-gold/20 last:border-b-0">
         <button
           onClick={() => toggleSection(filter.id)}
           className="flex items-center justify-between w-full py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
@@ -130,9 +130,9 @@ export default function CategoryFilterPanel({
   };
 
   return (
-    <div className="bg-white border border-neutral-200 rounded-xl p-5 sticky top-20">
+    <div className="bg-cream border border-gold/25 rounded-lg p-5 sticky top-20">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4 pb-4 border-b border-neutral-200">
+      <div className="flex items-center justify-between mb-4 pb-4 border-b border-gold/20">
         <h2 className="text-lg font-semibold text-neutral-900">
           Filter {config.name}
         </h2>
@@ -147,13 +147,13 @@ export default function CategoryFilterPanel({
       </div>
 
       {/* Filter Sections */}
-      <div className="divide-y divide-neutral-200">
+      <div className="divide-y divide-gold/20">
         {config.filters.map(renderFilterSection)}
       </div>
 
       {/* Info Links */}
       {(config.sizeGuideUrl || config.careInfoUrl) && (
-        <div className="mt-6 pt-4 border-t border-neutral-200 space-y-2">
+        <div className="mt-6 pt-4 border-t border-gold/20 space-y-2">
           {config.sizeGuideUrl && (
             <Link
               href={config.sizeGuideUrl}
