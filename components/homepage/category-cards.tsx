@@ -10,7 +10,9 @@ interface Category {
   cardClassName?: string;
 }
 
-// The 6 canonical categories (see AGENTS.md) — handles must match Shopify collections
+// The 5 launch categories (see AGENTS.md) — handles must match Shopify collections.
+// Ceramics deferred (C2 2026-06-14): not a launch line yet; re-add when the
+// 'ceramics' collection exists in Shopify.
 const categories: Category[] = [
   {
     handle: 'tie-dye',
@@ -50,14 +52,6 @@ const categories: Category[] = [
     description: 'Original pieces — no prints, no copies.',
     image: '/assets/images/icons/categories/icon-artwork.png',
     imageClassName: 'object-0',
-    cardClassName: 'bg-[#EFE8D6]',
-  },
-  {
-    handle: 'ceramics',
-    title: 'Ceramics',
-    description: 'Thrown on the wheel, fired with care.',
-    image: '/assets/images/icons/categories/icon-ceramics.jpeg',
-    imageClassName: 'object-cover',
     cardClassName: 'bg-[#EFE8D6]',
   },
 ];

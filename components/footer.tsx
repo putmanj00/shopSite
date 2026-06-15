@@ -8,7 +8,6 @@ const footerLinks = {
     { name: 'Jewelry', href: '/collections/jewelry' },
     { name: 'Crystals', href: '/collections/crystals' },
     { name: 'Artwork', href: '/collections/artwork' },
-    { name: 'Ceramics', href: '/collections/ceramics' },
   ],
   support: [
     { name: 'Contact Us', href: '/contact' },

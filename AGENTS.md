@@ -32,9 +32,13 @@ Avoid lanes (local-shop collisions, researched 2026-06-11):
 - NO "trippy/cosmic/groovy/seekers" language (Wunderlust Covington owns it)
 - NO purple (#7C3AED). NO blue-600. NO "boho", "festival brand", "tie-dye shop".
 
-## Categories (6 total, hardcoded in category-cards.tsx)
+## Categories (5 at launch, hardcoded in category-cards.tsx)
 Tie-Dye (tie-dye), Leather (leather), Jewelry (jewelry),
-Crystals (crystals), Artwork (artwork), Ceramics (ceramics).
+Crystals (crystals), Artwork (artwork).
+Ceramics (ceramics) DEFERRED 2026-06-14 (C2) — not a launch line; zero corpus
+support. Re-add (back to 6) when the line exists: category-cards.tsx,
+components/footer.tsx, app/local/page.tsx, and lib/shopify-helpers.ts
+(FALLBACK_NAV_ITEMS + VALID_HANDLES + bump the `items.length < 5` threshold to 6).
 NO Mandala Art — that handle doesn't exist in Shopify.
 
 ## Architecture
