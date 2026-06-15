@@ -29,15 +29,15 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/products/${product.handle}`}
-      className="group relative block flex flex-col h-full overflow-hidden rounded-2xl bg-white shadow-sm transition-all hover:shadow-lg border border-gold/10"
+      className="group relative block flex flex-col h-full overflow-hidden rounded-lg bg-cream border border-gold/25 transition-all hover:shadow-md hover:border-gold/50"
     >
-      <div className="relative aspect-square overflow-hidden bg-parchment rounded-t-2xl">
+      <div className="relative aspect-square overflow-hidden bg-parchment rounded-t-lg">
         {firstImage && (
           <Image
             src={firstImage.url}
             alt={firstImage.altText || product.title}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-110"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         )}
@@ -66,7 +66,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
 
       </div>
-      <div className="bg-white p-4 flex flex-col flex-grow rounded-b-2xl">
+      <div className="bg-cream p-4 flex flex-col flex-grow rounded-b-lg">
         <h3 className="mb-2 text-lg font-semibold text-ink-brown line-clamp-2 group-hover:text-terracotta">
           {product.title}
         </h3>
@@ -81,7 +81,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
         {product.vendor && (
-          <p className="mt-1 text-sm text-earth/60">{normalizeVendor(product.vendor)}</p>
+          <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-earth/60">{normalizeVendor(product.vendor)}</p>
         )}
       </div>
     </Link>

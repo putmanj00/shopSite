@@ -1,8 +1,8 @@
 import { test, expect } from 'playwright/test';
-
-// From .planning/phases/19-playwright-e2e-tests/test-product.md
-const TEST_PRODUCT_HANDLE = 'wildenflower-test-product';
-const TEST_PRODUCT_TITLE = 'Wildenflower Test Product';
+import {
+  TEST_PRODUCT_HANDLE,
+  TEST_PRODUCT_TITLE,
+} from './support/shopify-test-product';
 
 test.describe('Product detail page', () => {
   test.beforeEach(async ({ page }) => {

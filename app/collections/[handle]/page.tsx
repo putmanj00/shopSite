@@ -150,7 +150,7 @@ export default async function CollectionPage({
               <BotanicalHeader variant="small" />
             </div>
           )}
-          <span className="text-terracotta font-medium text-sm uppercase tracking-wider block mb-2">
+          <span className="catalog-label text-ink-brown/70 mb-3">
             {handle === 'all' ? 'Shop' : 'Collection'}
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-ink-brown">

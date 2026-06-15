@@ -96,7 +96,7 @@ function QuickViewContent({
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/60 transition-opacity"
+        className="absolute inset-0 bg-forest/60 transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
