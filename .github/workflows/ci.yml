@@ -105,31 +105,12 @@ jobs:
 
       - run: npm audit --audit-level=high --omit=dev
 
-  deploy-prod:
-    name: Deploy to Production
-    needs: [quality, e2e, secrets, audit]
-    runs-on: ubuntu-latest
-    environment: production
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
-        with:
-          node-version: '20'
-      - name: Install Vercel CLI
-        run: npm install -g vercel@latest
-      - name: Pull Vercel environment
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_PROD }}
-      - name: Build project
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_PROD }}
-      - name: Deploy to production
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_PROD }}
+  # Production deploys are handled by Vercel's native GitHub integration
+  # (the "Vercel – shopsite-prod" check on each push to main), not by this
+  # workflow. A former `deploy-prod` job that shelled out to the Vercel CLI
+  # was removed: it never deployed anything real (its VERCEL_PROJECT_ID_PROD
+  # secret pointed at a non-existent project, so `vercel pull` failed with
+  # "Project not found"), and it duplicated the native integration while
+  # parking every push on a required-reviewer approval gate. If a
+  # CLI-driven deploy is ever needed again, restore it with correct
+  # VERCEL_ORG_ID / VERCEL_PROJECT_ID_PROD / VERCEL_TOKEN secrets.
