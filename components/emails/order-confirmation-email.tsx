@@ -81,7 +81,7 @@ export function OrderConfirmationEmail({
         textAlign: 'center',
         marginBottom: '32px',
       }}>
-        <p style={{ margin: '0 0 8px 0', color: '#C8642A', fontWeight: 600, textTransform: 'uppercase', fontSize: '12px', letterSpacing: '1px' }}>
+        <p style={{ margin: '0 0 8px 0', color: '#b05523', fontWeight: 600, textTransform: 'uppercase', fontSize: '12px', letterSpacing: '1px' }}>
           Order Number
         </p>
         <p style={{
@@ -237,7 +237,7 @@ export function OrderConfirmationEmail({
         color: '#64748b',
       }}>
         Questions about your order? Reply to this email or{' '}
-        <a href={`${baseUrl}/contact`} style={{ color: '#C8642A' }}>contact us</a>.
+        <a href={`${baseUrl}/contact`} style={{ color: '#b05523' }}>contact us</a>.
       </p>
     </EmailLayout>
   );

@@ -176,7 +176,7 @@ export function WinbackEmail({
         color: '#94a3b8',
       }}>
         If you no longer wish to receive promotional emails, you can update your
-        {' '}<a href={`${baseUrl}/account/preferences`} style={{ color: '#C8642A' }}>email preferences</a>.
+        {' '}<a href={`${baseUrl}/account/preferences`} style={{ color: '#b05523' }}>email preferences</a>.
       </p>
     </EmailLayout>
   );

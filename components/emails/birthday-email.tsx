@@ -56,7 +56,7 @@ export function BirthdayEmail({
       }}>
         <p style={{
           margin: '0 0 8px 0',
-          color: '#C8642A',
+          color: '#b05523',
           fontWeight: 600,
           textTransform: 'uppercase',
           fontSize: '14px',
@@ -72,7 +72,7 @@ export function BirthdayEmail({
         }}>
           {discountPercent}% OFF
         </p>
-        <p style={{ margin: '0 0 20px 0', color: '#C8642A' }}>
+        <p style={{ margin: '0 0 20px 0', color: '#b05523' }}>
           Everything in store!
         </p>
 
@@ -93,7 +93,7 @@ export function BirthdayEmail({
 
         <p style={{
           margin: '20px 0 0 0',
-          color: '#C8642A',
+          color: '#b05523',
           fontSize: '14px',
         }}>
           🎁 Valid for {expiryDays} days from your birthday

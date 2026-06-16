@@ -131,12 +131,12 @@ export function PostPurchaseEmail({
         <h2 style={{
           fontSize: '18px',
           fontWeight: 600,
-          color: '#C8642A', // Terracotta
+          color: '#b05523', // Terracotta (primary-600)
           margin: '0 0 12px 0',
         }}>
           Share the Love 💙
         </h2>
-        <p style={{ color: '#C8642A', margin: '0 0 16px 0', fontSize: '14px' }}>
+        <p style={{ color: '#b05523', margin: '0 0 16px 0', fontSize: '14px' }}>
           Refer a friend and you&apos;ll both get $15 off your next order!
         </p>
         <EmailButton href={`${baseUrl}/account?tab=rewards`}>

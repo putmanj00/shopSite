@@ -40,7 +40,7 @@ export function WelcomeEmail({
         textAlign: 'center',
         marginBottom: '32px',
       }}>
-        <p style={{ margin: '0 0 8px 0', color: '#C8642A', fontWeight: 600 }}>
+        <p style={{ margin: '0 0 8px 0', color: '#b05523', fontWeight: 600 }}>
           Your Exclusive Welcome Gift
         </p>
         <p style={{

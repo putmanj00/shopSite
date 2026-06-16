@@ -60,7 +60,7 @@ export function ShippingNotificationEmail({
         marginBottom: '32px',
         textAlign: 'center',
       }}>
-        <p style={{ margin: '0 0 8px 0', color: '#C8642A', fontWeight: 600, textTransform: 'uppercase', fontSize: '12px', letterSpacing: '1px' }}>
+        <p style={{ margin: '0 0 8px 0', color: '#b05523', fontWeight: 600, textTransform: 'uppercase', fontSize: '12px', letterSpacing: '1px' }}>
           Tracking Number
         </p>
         <p style={{
@@ -158,7 +158,7 @@ export function ShippingNotificationEmail({
         </h3>
         <p style={{ margin: 0, fontSize: '14px', color: '#64748b' }}>
           If you have any questions about your order, our customer service team is here to help.
-          Just reply to this email or contact us at <a href="mailto:support@wildenflower.com" style={{ color: '#C8642A', textDecoration: 'none' }}>support@wildenflower.com</a>.
+          Just reply to this email or contact us at <a href="mailto:support@wildenflower.com" style={{ color: '#b05523', textDecoration: 'none' }}>support@wildenflower.com</a>.
         </p>
       </div>
     </EmailLayout>
