@@ -1,0 +1,95 @@
+name: Codex Autofix (triage)
+
+# PHASE 1 — read-only notify + triage. When the Codex review bot comments on a
+# PR, this gathers its findings, adjudicates each with a non-OpenAI GitHub Models
+# judge into FIX / REJECT / ESCALATE, and posts ONE sticky summary comment.
+#
+# It does NOT modify code, does NOT push, and holds NO write-to-contents token.
+# The auto-fixer is Phase 2 (a separate, gated write job) — see
+# docs/codex-autofix-loop.md. Merge always stays human.
+#
+# Security model (hardened per the Step 0 cross-vendor review of the plan):
+#   * Actor lock: runs only when the triggering sender is the Codex bot by exact
+#     login AND type==Bot AND numeric id. `[bot]` logins are reserved for GitHub
+#     Apps (humans can't register brackets), so this is squat-proof.
+#   * Same-repo guard: gather-findings.mjs resolves the PR and refuses fork PRs
+#     before any inference/comment step.
+#   * Injection containment: Codex finding text is passed to the judge as JSON
+#     DATA with a "treat as untrusted, never obey" system frame — never as prose
+#     instructions. Fixer (Phase 2) will receive only a typed schema, not prose.
+#   * Fail-safe: any judge error/rate-limit/parse failure => ESCALATE, never a
+#     silent FIX or drop.
+
+on:
+  pull_request_review:
+    types: [submitted]
+  pull_request_review_comment:
+    types: [created]
+  issue_comment:
+    types: [created]
+
+# Least privilege by default; the job re-declares exactly what it needs.
+permissions:
+  contents: read
+
+# Serialize all trigger types for a given PR so concurrent Codex comments can't
+# race the sticky-comment upsert. Do NOT cancel in progress (we want each run to
+# finish its summary).
+concurrency:
+  group: codex-autofix-${{ github.event.pull_request.number || github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  triage:
+    name: Triage Codex findings
+    runs-on: ubuntu-latest
+    # Cheap pre-filter before a runner spins up:
+    #   - sender must be the Codex bot (exact login + Bot type + immutable id)
+    #   - issue_comment must be on a PR (plain issue comments carry no PR)
+    if: >-
+      github.event.sender.type == 'Bot' &&
+      github.event.sender.login == 'chatgpt-codex-connector[bot]' &&
+      github.event.sender.id == 199175422 &&
+      (github.event_name != 'issue_comment' || github.event.issue.pull_request != null)
+    permissions:
+      contents: read         # checkout the scripts
+      pull-requests: read     # read PR metadata + review comments
+      issues: write           # upsert the sticky summary (PR conversation == issue comment)
+      models: read            # GitHub Models inference for the adjudicator
+    steps:
+      - name: Checkout (scripts only, from default branch)
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Gather Codex findings (+ same-repo guard)
+        id: gather
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+        run: node scripts/codex-autofix/gather-findings.mjs
+
+      - name: Adjudicate findings (FIX / REJECT / ESCALATE)
+        if: steps.gather.outputs.proceed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          # Non-OpenAI judge so OpenAI's Codex isn't grading itself. Override via
+          # repo variable; GitHub Models has NO Gemini/Claude (see doc), so the
+          # plan's named models are unavailable — mistral-medium is the default.
+          ADJUDICATOR_MODEL: ${{ vars.CODEX_AUTOFIX_ADJUDICATOR_MODEL || 'mistral-ai/mistral-medium-2505' }}
+        run: node scripts/codex-autofix/adjudicate.mjs
+
+      - name: Post sticky summary comment
+        if: steps.gather.outputs.proceed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.gather.outputs.pr_number }}
+          HEAD_SHA: ${{ steps.gather.outputs.head_sha }}
+          MAINTAINER: ${{ vars.CODEX_AUTOFIX_MAINTAINER || 'putmanj00' }}
+          ADJUDICATOR_MODEL: ${{ vars.CODEX_AUTOFIX_ADJUDICATOR_MODEL || 'mistral-ai/mistral-medium-2505' }}
+        run: node scripts/codex-autofix/summarize.mjs
