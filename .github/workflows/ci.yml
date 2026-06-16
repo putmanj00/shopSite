@@ -11,6 +11,12 @@ on:
     branches: [main]
   push:
     branches: [main]
+  # Fallback re-trigger for the Phase-2 autofixer (codex-autofix-fix.yml): a
+  # GITHUB_TOKEN push does not start CI, so when no GitHub App token is
+  # configured the fixer dispatches this workflow on the branch. NOTE: under
+  # workflow_dispatch the PR-only `slop` job is skipped (its `if:` is
+  # pull_request) — the sticky status flags CI as needing manual confirmation.
+  workflow_dispatch:
 
 jobs:
   quality:

@@ -17,6 +17,7 @@
     "test:ui": "npx tsx scripts/ui-tests.ts",
     "test:routes": "npx tsx scripts/validate-routes.ts",
     "test:webhook": "npx tsx scripts/test-webhook.ts",
+    "test:autofix": "node --test 'scripts/codex-autofix/*.test.mjs'",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:all": "npm run typecheck && npm run lint && npm run test:ui",
