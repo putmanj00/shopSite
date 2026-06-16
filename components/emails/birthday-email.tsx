@@ -30,12 +30,12 @@ export function BirthdayEmail({
         <h1 style={{
           fontSize: '32px',
           fontWeight: 700,
-          background: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)',
+          background: 'linear-gradient(135deg, #C8642A 0%, #C9A642 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
           margin: '0 0 16px 0',
-          color: '#ec4899', // Fallback for email clients that don't support gradients
+          color: '#C8642A', // Fallback for email clients that don't support gradients
         }}>
           Happy Birthday, {firstName}!
         </h1>
@@ -47,8 +47,8 @@ export function BirthdayEmail({
 
       {/* Birthday discount */}
       <div style={{
-        background: 'linear-gradient(135deg, #fdf4ff 0%, #faf5ff 100%)',
-        border: '2px solid #e879f9',
+        background: 'linear-gradient(135deg, #FDF8F3 0%, #f5ede4 100%)',
+        border: '2px solid #C9A642',
         borderRadius: '16px',
         padding: '32px',
         textAlign: 'center',
@@ -56,7 +56,7 @@ export function BirthdayEmail({
       }}>
         <p style={{
           margin: '0 0 8px 0',
-          color: '#a855f7',
+          color: '#b05523',
           fontWeight: 600,
           textTransform: 'uppercase',
           fontSize: '14px',
@@ -67,12 +67,12 @@ export function BirthdayEmail({
         <p style={{
           fontSize: '48px',
           fontWeight: 700,
-          color: '#9333ea',
+          color: '#C8642A',
           margin: '0 0 8px 0',
         }}>
           {discountPercent}% OFF
         </p>
-        <p style={{ margin: '0 0 20px 0', color: '#7e22ce' }}>
+        <p style={{ margin: '0 0 20px 0', color: '#b05523' }}>
           Everything in store!
         </p>
 
@@ -85,15 +85,15 @@ export function BirthdayEmail({
           fontSize: '24px',
           fontWeight: 700,
           letterSpacing: '3px',
-          color: '#9333ea',
-          boxShadow: '0 2px 8px rgba(147, 51, 234, 0.15)',
+          color: '#C8642A',
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
         }}>
           {discountCode}
         </div>
 
         <p style={{
           margin: '20px 0 0 0',
-          color: '#a855f7',
+          color: '#b05523',
           fontSize: '14px',
         }}>
           🎁 Valid for {expiryDays} days from your birthday
