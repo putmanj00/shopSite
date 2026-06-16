@@ -31,13 +31,13 @@ export default async function AdminDashboardPage() {
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <h3 className="text-sm font-medium text-gray-500 uppercase">Low Stock Alerts</h3>
                     <p className={`mt-2 text-3xl font-bold ${dashboardStats.lowStockCount > 0 ? 'text-red-600' : 'text-gray-900'}`}>{dashboardStats.lowStockCount}</p>
-                    <Link href="/admin/inventory" className="text-sm text-blue-600 mt-1 hover:underline block">View Details &rarr;</Link>
+                    <Link href="/admin/inventory" className="text-sm text-primary-600 mt-1 hover:underline block">View Details &rarr;</Link>
                 </div>
 
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <h3 className="text-sm font-medium text-gray-500 uppercase">Pending Reviews</h3>
                     <p className={`mt-2 text-3xl font-bold ${pendingCount > 0 ? 'text-amber-500' : 'text-gray-900'}`}>{pendingCount}</p>
-                    <Link href="/admin/reviews" className="text-sm text-blue-600 mt-1 hover:underline block">Moderate &rarr;</Link>
+                    <Link href="/admin/reviews" className="text-sm text-primary-600 mt-1 hover:underline block">Moderate &rarr;</Link>
                 </div>
             </div>
 

@@ -57,17 +57,17 @@ export default function BirthdaySection({ birthday: initialBirthday, onSave }: B
 
   if (savedBirthday && !isEditing) {
     return (
-      <div className="bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-200 rounded-lg p-6">
+      <div className="bg-gradient-to-r from-primary-50 to-cream border border-primary-200 rounded-lg p-6">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
-              <svg className="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+              <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
               </svg>
             </div>
             <div>
               <h4 className="font-medium text-gray-900">Birthday</h4>
-              <p className="text-lg font-semibold text-pink-600">{formatBirthday(savedBirthday)}</p>
+              <p className="text-lg font-semibold text-primary-600">{formatBirthday(savedBirthday)}</p>
             </div>
           </div>
           <button
@@ -78,7 +78,7 @@ export default function BirthdaySection({ birthday: initialBirthday, onSave }: B
           </button>
         </div>
 
-        <div className="mt-4 pt-4 border-t border-pink-200">
+        <div className="mt-4 pt-4 border-t border-primary-200">
           <p className="text-sm text-gray-600">
             🎁 You&apos;ll receive a special birthday discount each year!
           </p>
@@ -88,10 +88,10 @@ export default function BirthdaySection({ birthday: initialBirthday, onSave }: B
   }
 
   return (
-    <div className="bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-200 rounded-lg p-6">
+    <div className="bg-gradient-to-r from-primary-50 to-cream border border-primary-200 rounded-lg p-6">
       <div className="flex items-center gap-4 mb-4">
-        <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
-          <svg className="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+          <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
           </svg>
         </div>
@@ -115,7 +115,7 @@ export default function BirthdaySection({ birthday: initialBirthday, onSave }: B
               id="birthday-month"
               value={month}
               onChange={(e) => setMonth(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             >
               <option value="">Select month</option>
               {['January', 'February', 'March', 'April', 'May', 'June',
@@ -133,7 +133,7 @@ export default function BirthdaySection({ birthday: initialBirthday, onSave }: B
               id="birthday-day"
               value={day}
               onChange={(e) => setDay(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             >
               <option value="">Select day</option>
               {Array.from({ length: daysInMonth(parseInt(month, 10)) }, (_, i) => i + 1).map((d) => (
@@ -147,7 +147,7 @@ export default function BirthdaySection({ birthday: initialBirthday, onSave }: B
           <button
             type="submit"
             disabled={isSaving}
-            className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 transition-colors"
           >
             {isSaving ? 'Saving...' : 'Save Birthday'}
           </button>
