@@ -105,6 +105,38 @@ jobs:
 
       - run: npm audit --audit-level=high --omit=dev
 
+  # Brand slop merge-gate (ADR 0022 D-CAD). Runs the deterministic
+  # slop-detector only against the PR's changed in-scope files, so it blocks
+  # newly-touched off-brand slop without being held hostage by deferred
+  # legacy residue (emails/admin/account). PR-only: `push` has no PR base.
+  # Touched-file ratchet — see .claude/skills/slop-detector/SKILL.md.
+  slop:
+    name: Slop Detector
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Collect changed in-scope files
+        shell: bash
+        run: |
+          git diff --name-only --find-renames --diff-filter=ACMR \
+            "${{ github.event.pull_request.base.sha }}...HEAD" \
+            -- app components lib content > .slop-files
+          echo "Changed in-scope files:"; cat .slop-files
+
+      - name: Run slop detector on changed files
+        shell: bash
+        run: |
+          if [ ! -s .slop-files ]; then
+            echo "No in-scope files changed; slop gate passes."
+            exit 0
+          fi
+          mapfile -t files < .slop-files
+          bash .claude/skills/slop-detector/check.sh "${files[@]}"
+
   # Production deploys are handled by Vercel's native GitHub integration
   # (the "Vercel – shopsite-prod" check on each push to main), not by this
   # workflow. A former `deploy-prod` job that shelled out to the Vercel CLI
