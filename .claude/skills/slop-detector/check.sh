@@ -17,6 +17,23 @@ cd "$ROOT" || { echo "cannot cd to repo root from $0"; exit 2; }
 DIRS="app components lib content"
 EXC="--exclude-dir=node_modules --exclude-dir=.next --exclude-dir=_archive --exclude-dir=test-results --exclude-dir=coverage"
 
+# Scan targets. With NO args, scan the whole tree ($DIRS) — the default for
+# local runs and the hermes parity mirror. With path args, scan only those
+# (the CI merge-gate passes the PR's changed in-scope files). FAIL_RULES /
+# WARN_RULES are identical either way; args only narrow WHAT is scanned, not the
+# patterns, so this stays within the ratified-pattern flow.
+# Touched-file ratchet: a passed file must be fully slop-clean, so editing a
+# file that still carries pre-existing residue surfaces it. That is intended —
+# it cleans residue at the point it is next touched, never blocking PRs that
+# leave dirty files alone. See SKILL.md "CI merge-gate".
+if [ "$#" -gt 0 ]; then
+  TARGETS=("$@")
+  SCAN_LABEL="$# changed file(s)"
+else
+  read -r -a TARGETS <<< "$DIRS"
+  SCAN_LABEL="$DIRS"
+fi
+
 # Each rule is  "label|extended-regex".  Split on the FIRST '|' only, so the
 # regex itself may contain alternation.
 # Purple/violet hexes: the full Tailwind violet+purple ramps, not just #7C3AED.
@@ -51,7 +68,7 @@ filt() { grep -viE 'NOT Playfair|slop-detector'; }
 
 run_rule() {
   local label="${1%%|*}" pat="${1#*|}" hits
-  hits=$(grep -rniE $EXC "$pat" $DIRS 2>/dev/null | filt)
+  hits=$(grep -rniE $EXC "$pat" "${TARGETS[@]}" 2>/dev/null | filt)
   [ -z "$hits" ] && return 0
   echo "  -- $label"
   printf '%s\n' "$hits" | sed 's/^/     /'
@@ -59,7 +76,7 @@ run_rule() {
   return 1
 }
 
-echo "Wildenflower slop-detector — scanning: $DIRS"
+echo "Wildenflower slop-detector — scanning: $SCAN_LABEL"
 echo
 
 fails=0

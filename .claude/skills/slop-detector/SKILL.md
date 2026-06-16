@@ -42,6 +42,29 @@ Two tiers:
 
 The grep gate only catches what is *literally in the text*. The rest is a read-and-judge pass.
 
+## CI merge-gate (ADR 0022 D-CAD)
+
+`check.sh` doubles as a **fail-closed pull-request merge-gate** in CI (the `slop` job in
+`.github/workflows/ci.yml`). Two run modes, same patterns:
+
+- **No args (default)** — scans the whole tree (`app components lib content`). Used for local
+  runs and the hermes parity mirror. This is what `bash .claude/skills/slop-detector/check.sh`
+  above does, and it still **FAILS** on the known residue (see Baseline).
+- **With path args** — `check.sh <file> <file> …` scans only the listed files. The CI job
+  computes the PR's changed in-scope files (`git diff --diff-filter=ACMR <base>...HEAD --
+  app components lib content`) and passes them in. `FAIL_RULES` / `WARN_RULES` are identical in
+  both modes — args only narrow *what* is scanned, never the patterns, so this stays inside the
+  ratification flow.
+
+**Touched-file ratchet (the honest semantics).** The CI gate scans changed *files*, not changed
+*lines*. So a passed file must be **fully** slop-clean: editing a file that still carries
+pre-existing residue surfaces that residue and fails the gate, even if the PR didn't introduce
+it. This is intended — it cleans residue at the point a file is next touched, and never blocks a
+PR that leaves dirty files alone. It is **not** line-level "newly-introduced only" diffing; a PR
+that touches a known-dirty `components/emails/*` / `app/admin/*` / `app/account/*` file will fail
+on that file's existing residue until the deferred cleanup lands. The job is PR-only (`push` has
+no PR base) and passes cleanly when no in-scope files changed.
+
 ## Judgment checklist (what the regex can't see)
 
 Read the rendered surface (or a screenshot) and check for AI-slop tells that aren't a fixed
