@@ -61,6 +61,7 @@ jobs:
       issues: write # PR conversation comments are issue comments
       models: read # re-adjudicate via GitHub Models
       actions: write # workflow_dispatch fallback re-trigger of ci.yml
+      id-token: write # claude-code-action mints an OIDC token during setup
     env:
       ROUND_CAP: "2"
       # Secrets/vars surfaced as booleans — secrets can't be read in `if:`, but
