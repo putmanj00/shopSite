@@ -42,6 +42,10 @@ concurrency:
 jobs:
   autofix:
     runs-on: ubuntu-latest
+    # Scope the run to the protected `codex-autofix` environment so the
+    # environment-scoped ANTHROPIC_API_KEY secret resolves (it is empty
+    # otherwise) and the branch policy on the env is enforced.
+    environment: codex-autofix
     # HUMAN AUTHORIZATION is the trigger: a PR comment starting with `/codex-fix`
     # from someone with write access. The bot never self-triggers Phase 2.
     if: >-
