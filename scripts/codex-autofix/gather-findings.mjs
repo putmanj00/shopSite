@@ -32,12 +32,24 @@ function setOutput(key, value) {
   else console.log(`[output] ${key}=${value}`);
 }
 
-function finish({ proceed, pr_number = "", head_sha = "", count = 0, skip_reason = "" }) {
+function finish({
+  proceed,
+  pr_number = "",
+  head_sha = "",
+  count = 0,
+  skip_reason = "",
+  // Phase-2 extras (Phase-1 steps ignore these): the merge base SHA and head
+  // branch the gated fixer checks out + scopes its diff against.
+  base_sha = "",
+  head_ref = "",
+}) {
   setOutput("proceed", proceed ? "true" : "false");
   setOutput("pr_number", pr_number);
   setOutput("head_sha", head_sha);
   setOutput("count", String(count));
   setOutput("skip_reason", skip_reason);
+  setOutput("base_sha", base_sha);
+  setOutput("head_ref", head_ref);
   console.log(
     `gather: proceed=${proceed} pr=${pr_number} sha=${head_sha} count=${count} skip=${skip_reason || "-"}`,
   );
@@ -115,6 +127,8 @@ async function main() {
   const pr = await (await gh(`/repos/${owner}/${name}/pulls/${prNumber}`)).json();
   const headSha = pr.head?.sha || "";
   const headRepo = pr.head?.repo?.full_name || "";
+  const baseSha = pr.base?.sha || "";
+  const headRef = pr.head?.ref || "";
 
   // Same-repo guard — refuse fork PRs before any inference/comment step.
   if (headRepo !== repo) {
@@ -145,11 +159,25 @@ async function main() {
   }
 
   if (findings.length === 0) {
-    return finish({ proceed: false, pr_number: prNumber, head_sha: headSha, skip_reason: "NO_FINDINGS" });
+    return finish({
+      proceed: false,
+      pr_number: prNumber,
+      head_sha: headSha,
+      base_sha: baseSha,
+      head_ref: headRef,
+      skip_reason: "NO_FINDINGS",
+    });
   }
 
   writeFileSync("findings.json", JSON.stringify(findings, null, 2));
-  return finish({ proceed: true, pr_number: prNumber, head_sha: headSha, count: findings.length });
+  return finish({
+    proceed: true,
+    pr_number: prNumber,
+    head_sha: headSha,
+    base_sha: baseSha,
+    head_ref: headRef,
+    count: findings.length,
+  });
 }
 
 main().catch((err) => {

@@ -1,0 +1,331 @@
+name: Codex Autofix (apply)
+
+# PHASE 2 — gated auto-fixer. A maintainer types `/codex-fix` on a PR; this
+# re-gathers + re-adjudicates Codex's findings (Phase-1 scripts, reused), then
+# for the FIX-verdict ones runs claude-code-action as an EDIT-ONLY engine inside
+# a hard scope fence, gates the result against the full CI gate set locally, and
+# only then commits + pushes (via a CI-re-triggering token). Merge stays human.
+#
+# Safety stack — see docs/codex-autofix-loop.md "Phase 2":
+#   1. Scope fence       edits must be a strict subset of the PR's changed files
+#                        minus a do-not-touch denylist (auth, webhooks, Shopify
+#                        mutations, CI, these scripts, lockfiles); else hard reset.
+#   2. Deterministic gate the fixer has NO shell (Bash denied) so it cannot
+#                        git/commit; a bash step runs lint+typecheck+build+slop
+#                        and commits ONLY on green.
+#   3. Stale-CI hazard   a GITHUB_TOKEN push does NOT re-trigger CI; push with a
+#                        GitHub App token (re-triggers ci.yml) or fall back to
+#                        workflow_dispatch + a blocking sticky note.
+#   4. Round cap         durable, bot-authored, signed state; finding-hash
+#                        deduped; capped per PR; concurrency serialized.
+#   5. Terminal states   DISABLED / MISSING_SECRET / FORK_PR / ROUND_CAP /
+#                        NO_APPROVED_FINDINGS / SCOPE_VIOLATION / GATE_FAILED /
+#                        NO_CHANGES each exit 0 with a clear sticky status.
+#
+# TRUST: scripts run from `_bot` (default branch, trusted) — NEVER the PR head
+# copy, which a contributor could weaponize. The slop gate likewise runs the
+# trusted check.sh against absolute PR-file paths (trusted patterns, PR content).
+
+on:
+  issue_comment:
+    types: [created]
+
+# Least privilege by default; the job below elevates only what it needs.
+permissions:
+  contents: read
+
+# One autofix at a time per PR — the durable state comment is read-modify-write.
+concurrency:
+  group: codex-autofix-fix-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  autofix:
+    runs-on: ubuntu-latest
+    # HUMAN AUTHORIZATION is the trigger: a PR comment starting with `/codex-fix`
+    # from someone with write access. The bot never self-triggers Phase 2.
+    if: >-
+      github.event.issue.pull_request != null &&
+      startsWith(github.event.comment.body, '/codex-fix') &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association)
+    permissions:
+      contents: write # commit + push the vetted fix
+      pull-requests: write # sticky status + durable state comments
+      issues: write # PR conversation comments are issue comments
+      models: read # re-adjudicate via GitHub Models
+      actions: write # workflow_dispatch fallback re-trigger of ci.yml
+    env:
+      ROUND_CAP: "2"
+      # Secrets/vars surfaced as booleans — secrets can't be read in `if:`, but
+      # an env mapped from a secret can. These never expose the secret value.
+      FIX_ENABLED: ${{ vars.CODEX_AUTOFIX_FIX_ENABLED == 'true' }}
+      HAS_ANTHROPIC_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+      HAS_APP: ${{ secrets.APP_ID != '' }}
+      FIXER_MODEL: ${{ vars.CODEX_AUTOFIX_FIXER_MODEL || 'claude-sonnet-4-6' }}
+    steps:
+      # 1) Trusted tooling from the DEFAULT branch into _bot (never the PR head).
+      - name: Checkout trusted scripts
+        uses: actions/checkout@v6
+        with:
+          path: _bot
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      # 2) Resolve the PR + collect Codex findings. Reuses the Phase-1 gatherer,
+      #    which enforces the same-repo (anti-fork) guard and emits base_sha /
+      #    head_ref for the checkout + scope diff below.
+      - name: Gather Codex findings (+ same-repo guard)
+        id: gather
+        working-directory: _bot
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+        run: node scripts/codex-autofix/gather-findings.mjs
+
+      - name: Compute gate flags
+        id: flags
+        run: |
+          is_fork=false
+          [ "${{ steps.gather.outputs.skip_reason }}" = "FORK_PR" ] && is_fork=true
+          has_findings=false
+          [ "${{ steps.gather.outputs.proceed }}" = "true" ] && has_findings=true
+          {
+            echo "is_fork=$is_fork"
+            echo "has_findings=$has_findings"
+            echo "attempt=$([ "$FIX_ENABLED" = "true" ] && [ "$HAS_ANTHROPIC_KEY" = "true" ] && [ "$is_fork" = "false" ] && [ "$has_findings" = "true" ] && echo true || echo false)"
+          } >> "$GITHUB_OUTPUT"
+
+      # 3) Read durable round-state (bot-authored + optionally HMAC-signed).
+      - name: Read durable state
+        working-directory: _bot
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.gather.outputs.pr_number }}
+          CODEX_AUTOFIX_STATE_SECRET: ${{ secrets.CODEX_AUTOFIX_STATE_SECRET }}
+        run: node scripts/codex-autofix/fix-state.mjs read
+
+      # 4) Adjudicate findings (FIX / REJECT / ESCALATE). Skipped when a terminal
+      #    is already certain (disabled / no key / fork / no findings) to avoid
+      #    spending a model call. Non-OpenAI judge so Codex isn't grading itself.
+      - name: Adjudicate findings
+        if: ${{ steps.flags.outputs.attempt == 'true' }}
+        working-directory: _bot
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ADJUDICATOR_MODEL: ${{ vars.CODEX_AUTOFIX_ADJUDICATOR_MODEL || 'mistral-ai/mistral-medium-2505' }}
+        run: node scripts/codex-autofix/adjudicate.mjs
+
+      # 5) Decide: terminal vs proceed, select fresh un-attempted FIX findings,
+      #    apply the round cap + hash dedupe. decide() is unit-tested.
+      - name: Select fixable findings
+        id: select
+        working-directory: _bot
+        env:
+          FIX_ENABLED: ${{ env.FIX_ENABLED }}
+          HAS_ANTHROPIC_KEY: ${{ env.HAS_ANTHROPIC_KEY }}
+          IS_FORK: ${{ steps.flags.outputs.is_fork }}
+          ROUND_CAP: ${{ env.ROUND_CAP }}
+        run: node scripts/codex-autofix/select-fixable.mjs
+
+      # 6) Check out the PR HEAD at the workspace root (clean:false preserves the
+      #    _bot tooling dir).
+      - name: Checkout PR head
+        if: ${{ steps.select.outputs.proceed == 'true' }}
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ steps.gather.outputs.head_ref }}
+          clean: false
+          persist-credentials: true
+
+      # 6b) Hide the tooling dir + our scratch artifacts from the PR worktree so
+      #     `git add -A` / scope enforcement only ever see the fixer's edits.
+      - name: Isolate tooling from worktree
+        if: ${{ steps.select.outputs.proceed == 'true' }}
+        run: |
+          printf '%s\n' '/_bot/' '/changed-files.txt' '/allowed-paths.json' \
+            '/allowed-paths.md' '/scope-violations.json' >> .git/info/exclude
+
+      # 7) Compute the allowed edit surface = the PR's changed files (authoritative
+      #    `gh pr diff --name-only`) minus the do-not-touch denylist.
+      - name: List PR changed files
+        if: ${{ steps.select.outputs.proceed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr diff ${{ steps.gather.outputs.pr_number }} --name-only > changed-files.txt
+
+      - name: Compute scope fence
+        if: ${{ steps.select.outputs.proceed == 'true' }}
+        run: node _bot/scripts/codex-autofix/scope-fence.mjs compute
+
+      - name: Compose fixer prompt
+        if: ${{ steps.select.outputs.proceed == 'true' }}
+        id: prompt
+        run: |
+          {
+            echo 'text<<PROMPT_EOF'
+            cat <<'HEAD'
+          You are an automated code-fixer for a Next.js + TypeScript storefront.
+          Apply MINIMAL edits that resolve ONLY the approved review findings below.
+
+          HARD RULES:
+          - Edit ONLY files in the "Allowed files" list. Touch nothing else.
+          - Do NOT create new files, rename, or delete files.
+          - Do NOT edit tests, config, dependencies, CI, auth, webhooks, or Shopify
+            mutations. If a finding can't be fixed within the allowed files, skip it.
+          - Keep changes surgical and idiomatic to the surrounding code.
+          - Brand: no purple/violet, no Playfair, no fabricated stats/testimonials,
+            no "boho/cosmic/festival" voice, no emoji decoration. (Wildenflower slop bans.)
+          - You have no shell and cannot run git. Just edit the files.
+
+          Approved findings:
+          HEAD
+            cat _bot/fixable.md
+            echo
+            echo 'Allowed files:'
+            cat allowed-paths.md
+            echo PROMPT_EOF
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Write fixer settings (deny shell + network)
+        if: ${{ steps.select.outputs.proceed == 'true' }}
+        run: |
+          cat > "${{ runner.temp }}/autofix-settings.json" <<'JSON'
+          { "permissions": { "deny": ["Bash", "WebFetch", "WebSearch", "Task"],
+                             "allow": ["Read", "Edit", "Write", "Grep", "Glob"] } }
+          JSON
+
+      # 8) EDIT-ONLY fixer. Bash denied ⇒ cannot git/commit/push; we own the
+      #    commit after the gate. Tool-restriction goes through claude_args /
+      #    settings (verified: v1 has no `allowed_tools` input — see the doc).
+      - name: Apply fixes (claude-code-action, edit-only)
+        if: ${{ steps.select.outputs.proceed == 'true' }}
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: ${{ steps.prompt.outputs.text }}
+          claude_args: >-
+            --model ${{ env.FIXER_MODEL }}
+            --max-turns 30
+            --settings ${{ runner.temp }}/autofix-settings.json
+
+      # 9) Re-own the commit: if the action self-committed, soft-rewind to the PR
+      #    head SHA so its edits sit in the working tree and OUR gate owns the
+      #    single commit. No-op when the action only edited the working tree.
+      - name: Re-own working tree
+        if: ${{ steps.select.outputs.proceed == 'true' }}
+        run: git reset --mixed "${{ steps.gather.outputs.head_sha }}"
+
+      # 10) ENFORCE the scope fence: any edit outside the allowed set / on a
+      #     denylisted path hard-resets and fails this step (→ SCOPE_VIOLATION).
+      - name: Enforce scope fence
+        id: enforce
+        if: ${{ steps.select.outputs.proceed == 'true' }}
+        continue-on-error: true
+        run: node _bot/scripts/codex-autofix/scope-fence.mjs enforce
+
+      # 11) DETERMINISTIC GATE mirroring the CI gate set, run BEFORE any commit.
+      #     Slop uses the TRUSTED check.sh against absolute PR-file paths.
+      - name: Gate — lint / typecheck / build / slop
+        id: gate
+        if: ${{ steps.select.outputs.proceed == 'true' && steps.enforce.outcome == 'success' }}
+        continue-on-error: true
+        # Mirror ci.yml's build env, or `next build` (+ contrast:check) fails on
+        # missing Shopify config and every legit fix would be a false GATE_FAILED.
+        env:
+          SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
+          SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          SHOPIFY_SHOP_ID: ${{ secrets.SHOPIFY_SHOP_ID }}
+          NEXT_PUBLIC_BASE_URL: https://wildenflower.com
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          set -euo pipefail
+          npm ci
+          npm run lint
+          npm run typecheck
+          npm run build            # includes contrast:check
+          # Slop-detector on changed in-scope files only (touched-file ratchet).
+          mapfile -t changed < <(git diff --name-only --diff-filter=ACMR)
+          if [ "${#changed[@]}" -gt 0 ]; then
+            abs=(); for f in "${changed[@]}"; do abs+=("$PWD/$f"); done
+            bash _bot/.claude/skills/slop-detector/check.sh "${abs[@]}"
+          fi
+
+      # 12a) Preferred push: GitHub App token re-triggers ci.yml automatically.
+      - name: Mint GitHub App token
+        id: apptoken
+        if: ${{ steps.select.outputs.proceed == 'true' && steps.enforce.outcome == 'success' && steps.gate.outcome == 'success' && env.HAS_APP == 'true' }}
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      # 12b) Commit + push the vetted change. Emits pushed_sha + outcome.
+      - name: Commit and push
+        id: push
+        if: ${{ steps.select.outputs.proceed == 'true' && steps.enforce.outcome == 'success' && steps.gate.outcome == 'success' }}
+        env:
+          APP_TOKEN: ${{ steps.apptoken.outputs.token }}
+          GH_TOKEN: ${{ github.token }}
+          HEAD_REF: ${{ steps.gather.outputs.head_ref }}
+          ROUND: ${{ steps.select.outputs.round }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "outcome=NO_CHANGES" >> "$GITHUB_OUTPUT"
+            echo "pushed_sha=" >> "$GITHUB_OUTPUT"
+            echo "ci_note=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "fix: codex autofix round ${ROUND} [skip codex]" \
+            -m "Automated fix of adjudicated Codex findings. Gate: lint+typecheck+build+slop green." \
+            --trailer "Assistant=Claude Code"
+          sha="$(git rev-parse HEAD)"
+          owner_repo="${{ github.repository }}"
+          if [ -n "${APP_TOKEN:-}" ]; then
+            git remote set-url origin "https://x-access-token:${APP_TOKEN}@github.com/${owner_repo}.git"
+            git push origin "HEAD:${HEAD_REF}"
+            note="CI re-triggered automatically by the push (GitHub App token)."
+          else
+            git push origin "HEAD:${HEAD_REF}"
+            # GITHUB_TOKEN pushes do NOT trigger CI — dispatch as a partial fallback.
+            gh workflow run ci.yml --ref "${HEAD_REF}" || true
+            note="⚠️ Pushed with GITHUB_TOKEN, which does NOT auto-run CI. Dispatched ci.yml on the branch as a partial fallback (PR-only jobs like slop are skipped) — confirm a green CI run on ${sha} before merge."
+          fi
+          {
+            echo "outcome=FIXED"
+            echo "pushed_sha=${sha}"
+            echo "ci_note=${note}"
+          } >> "$GITHUB_OUTPUT"
+
+      # 13) Single terminal/finalize path — always runs, posts the sticky status,
+      #     and advances durable state on FIXED / NO_CHANGES (anti-thrash).
+      - name: Finalize (sticky status + durable state)
+        if: ${{ always() }}
+        working-directory: _bot
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.gather.outputs.pr_number }}
+          HEAD_SHA: ${{ steps.gather.outputs.head_sha }}
+          ROUND: ${{ steps.select.outputs.round }}
+          ROUND_CAP: ${{ env.ROUND_CAP }}
+          FIX_COUNT: ${{ steps.select.outputs.fix_count }}
+          PUSHED_SHA: ${{ steps.push.outputs.pushed_sha }}
+          CI_NOTE: ${{ steps.push.outputs.ci_note }}
+          CODEX_AUTOFIX_STATE_SECRET: ${{ secrets.CODEX_AUTOFIX_STATE_SECRET }}
+          OUTCOME: >-
+            ${{ steps.select.outputs.terminal != '' && steps.select.outputs.terminal
+            || (steps.enforce.outcome == 'failure' && 'SCOPE_VIOLATION'
+            || (steps.gate.outcome == 'failure' && 'GATE_FAILED'
+            || (steps.push.outputs.outcome != '' && steps.push.outputs.outcome
+            || 'GATE_FAILED'))) }}
+        run: node scripts/codex-autofix/fix-state.mjs finalize

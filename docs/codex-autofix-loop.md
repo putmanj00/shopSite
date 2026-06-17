@@ -3,8 +3,9 @@
 Closes the loop on Codex's automated PR reviews so you're **notified and the
 findings are triaged automatically**, without opening every PR yourself.
 
-Shipped in two phases. **Phase 1 (this) is read-only triage.** Phase 2 (the
-gated auto-fixer) is deferred — see [Phase 2](#phase-2--gated-auto-fixer-deferred).
+Shipped in two phases. **Phase 1 is read-only triage** (always on). **Phase 2 is
+the gated, opt-in auto-fixer** — built but disabled by default until configured;
+see [Phase 2](#phase-2--gated-auto-fixer-live-opt-in).
 
 ## Why
 
@@ -85,34 +86,96 @@ Grant `models: read` is automatic via the job's `permissions:` block (a real,
 current Actions permission). Open a throwaway PR with a Codex-baitable nit to
 confirm one sticky comment appears and updates in place.
 
-## Phase 2 — gated auto-fixer (deferred)
+## Phase 2 — gated auto-fixer (live, opt-in)
 
-The auto-fix half carries the remaining HIGH findings from the review and is a
-**separate, gated write job**. Do not bolt it onto Phase 1 without these:
+`.github/workflows/codex-autofix-fix.yml` + `scripts/codex-autofix/{scope-fence,select-fixable,fix-state}.mjs`
+(it reuses Phase-1 `gather-findings.mjs` + `adjudicate.mjs`).
 
-1. **Out-of-model scope fence.** Compute the allowed file set from
-   `gh pr diff --name-only`; after the fixer edits, assert `git diff` is a strict
-   subset (plus do-not-touch paths like `app/api/auth/`, Shopify mutations) and
-   reset/escalate on violation. Prompt-only "stay in the diff" is not enforcement.
-2. **Deterministic gate-before-commit.** Run the fixer with **no** git/commit
-   tools (edit-only); then a bash step runs the repo gates and mirrors the full
-   CI gate set — `npm run lint`, `npm run typecheck`, `npm run build`
-   (includes `contrast:check`), plus the changed-file slop detector
-   (`.claude/skills/slop-detector/check.sh`) — and only commits/pushes on green.
-3. **Stale-CI hazard.** A `GITHUB_TOKEN` push does **not** re-trigger `ci.yml`
-   (incl. the Playwright matrix, gitleaks, npm audit). Either push with a GitHub
-   App installation token that re-triggers CI, or `workflow_dispatch` `ci.yml`
-   for the bot SHA and make missing/stale CI a **blocking** sticky status before
-   merge.
-4. **Round cap + durable state.** Cap autofix rounds per PR (e.g. 2),
-   hash-tracked so a re-firing false positive doesn't thrash; store state in a
-   signed hidden block validated by author bot id, not the mutable sticky body;
-   `concurrency` serialized per PR number.
-5. **Explicit terminal states.** `NO_APPROVED_FINDINGS`, `MISSING_SECRET`,
-   `FORK_PR`, `DISABLED` each exit 0 with a clear sticky status.
+A **separate, gated write job**, triggered by **human authorization only**: a
+maintainer (write access) comments `/codex-fix` on the PR. The bot never
+self-triggers it, and **merge always stays human**.
 
-Verify the exact `anthropics/claude-code-action@v1` tool-restriction syntax
-(`settings.permissions.allow` vs CLI flags) against its `action.yml` at build.
+```
+maintainer comments `/codex-fix` on a PR
+        ▼
+gather (same-repo guard) → read durable state → adjudicate → select-fixable
+        │   (FIX + fresh + un-attempted; round cap; → terminal or proceed)
+        ▼ proceed
+checkout PR head · compute scope fence (gh pr diff − denylist)
+        ▼
+claude-code-action  ── EDIT-ONLY (Bash denied ⇒ no git/commit), scoped to allowed files
+        ▼
+git reset --mixed head  ── re-own the commit if the action self-committed
+        ▼
+enforce scope fence ── any out-of-scope / denylisted edit ⇒ hard reset ⇒ SCOPE_VIOLATION
+        ▼
+gate: npm ci · lint · typecheck · build (incl. contrast:check) · slop ── red ⇒ GATE_FAILED
+        ▼ green
+commit + push (App token re-triggers CI; else workflow_dispatch fallback) ── FIXED
+        ▼
+finalize: sticky status + advance durable, bot-signed round state
+```
+
+How each Phase-2 requirement is satisfied:
+
+1. **Out-of-model scope fence** — `scope-fence.mjs`. Allowed set = the PR's
+   changed files (`gh pr diff --name-only`) minus an **additive-only** denylist
+   (`app/api/auth/**`, `app/api/webhooks/**`, the Shopify mutation/cart files,
+   `.github/**`, `scripts/codex-autofix/**`, lockfiles, `middleware.ts`, env).
+   After the fixer runs, `enforce` asserts the working-tree diff is a strict
+   subset and **hard-resets** on any violation. A new file is never in the PR's
+   set, so it is always rejected. Env can only *tighten* the fence.
+2. **Deterministic gate-before-commit** — the fixer runs with `Bash` denied via
+   `claude_args --settings` (edit-only; it cannot git/commit/push). A bash step
+   then mirrors the full CI gate set — `npm run lint`, `npm run typecheck`,
+   `npm run build` (incl. `contrast:check`), plus the **trusted** slop detector
+   run against absolute PR-file paths — and commits **only on green**.
+3. **Stale-CI hazard** — a `GITHUB_TOKEN` push does not re-trigger `ci.yml`. The
+   workflow prefers a **GitHub App token** (`APP_ID`/`APP_PRIVATE_KEY` secrets,
+   via `actions/create-github-app-token`) whose push re-runs the full PR CI. With
+   no App configured it pushes with `GITHUB_TOKEN` and `workflow_dispatch`es
+   `ci.yml` as a **partial** fallback (the PR-only `slop` job is skipped), and the
+   sticky status flags CI as needing manual confirmation before merge.
+4. **Round cap + durable state** — `fix-state.mjs`. State lives in its **own**
+   hidden PR comment, trusted only when authored by `github-actions[bot]`
+   (authorship is unforgeable) and optionally HMAC-signed
+   (`CODEX_AUTOFIX_STATE_SECRET`). Rounds are capped (`ROUND_CAP`, default 2) and
+   acted-on findings are **hash-tracked** so a re-firing false positive can't
+   thrash; a no-edit round still records the hashes. `concurrency` is serialized
+   per PR number.
+5. **Terminal states** — every exit is a clear sticky status, exit 0:
+   `DISABLED`, `MISSING_SECRET`, `FORK_PR`, `ROUND_CAP`, `NO_APPROVED_FINDINGS`
+   (the doc's four + the cap), plus operational `SCOPE_VIOLATION`, `GATE_FAILED`,
+   `NO_CHANGES`.
+
+**Verified action syntax (`anthropics/claude-code-action@v1`):** there is **no**
+`allowed_tools` input. Tool restriction goes through `claude_args` (CLI flags) or
+a `--settings` JSON (`permissions.allow`/`deny`); the model via `claude_args
+--model`; the key via `anthropic_api_key`; the instructions via `prompt`. We deny
+`Bash`/`WebFetch`/`WebSearch`/`Task` and allow only `Read`/`Edit`/`Write`/`Grep`/`Glob`.
+
+### Going live (Phase 2)
+
+Like Phase 1, `issue_comment` workflows run from the **default branch**, so this
+takes effect once `codex-autofix-fix.yml` is on `main`. It is **disabled by
+default** and stays inert until configured:
+
+- Repo **variable** `CODEX_AUTOFIX_FIX_ENABLED=true` — the kill switch (absent ⇒
+  `DISABLED` sticky).
+- Repo **secret** `ANTHROPIC_API_KEY` — the fixer (absent ⇒ `MISSING_SECRET`).
+- *(Recommended)* secrets `APP_ID` + `APP_PRIVATE_KEY` — a GitHub App install so
+  the push re-triggers CI. Without them, CI re-run is a partial dispatch only.
+- *(Optional)* secret `CODEX_AUTOFIX_STATE_SECRET` (HMAC the round state),
+  variables `CODEX_AUTOFIX_FIXER_MODEL` (default `claude-sonnet-4-6`),
+  `CODEX_AUTOFIX_ADJUDICATOR_MODEL`.
+
+Unit tests for the gate logic: `npm run test:autofix` (node:test, dependency-free).
+
+> **Not yet smoke-tested live.** The `.mjs` decision cores are unit-tested and the
+> YAML is schema-valid, but the end-to-end Actions run (esp. claude-code-action's
+> commit behavior and the App-token push re-triggering CI) has not been exercised
+> against a real PR. First enablement should be a throwaway PR with a small,
+> Codex-baitable nit, watched through to a green CI on the bot's commit.
 
 ## Review record
 
