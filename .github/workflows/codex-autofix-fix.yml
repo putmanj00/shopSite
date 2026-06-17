@@ -22,9 +22,12 @@ name: Codex Autofix (apply)
 #                        NO_APPROVED_FINDINGS / SCOPE_VIOLATION / GATE_FAILED /
 #                        NO_CHANGES each exit 0 with a clear sticky status.
 #
-# TRUST: scripts run from `_bot` (default branch, trusted) — NEVER the PR head
-# copy, which a contributor could weaponize. The slop gate likewise runs the
-# trusted check.sh against absolute PR-file paths (trusted patterns, PR content).
+# TRUST: scripts run from a trusted DEFAULT-branch checkout, relocated to the
+# runner temp dir ($RUNNER_TEMP/bot) — NEVER the PR head copy, which a
+# contributor could weaponize. The relocation also keeps the tooling alive
+# across the PR-head checkout, which re-inits git at the workspace root and
+# deletes the root's contents to do so (even with clean:false). The slop gate
+# likewise runs the trusted check.sh against absolute PR-file paths.
 
 on:
   issue_comment:
@@ -67,12 +70,21 @@ jobs:
       HAS_APP: ${{ secrets.APP_ID != '' }}
       FIXER_MODEL: ${{ vars.CODEX_AUTOFIX_FIXER_MODEL || 'claude-sonnet-4-6' }}
     steps:
-      # 1) Trusted tooling from the DEFAULT branch into _bot (never the PR head).
+      # 1) Trusted tooling from the DEFAULT branch into _bot, then move it OUT of
+      #    the workspace. The PR-head checkout (step 6) re-inits git at the
+      #    workspace root and DELETES the root's contents to do so (even with
+      #    clean:false), which would otherwise wipe these trusted scripts and the
+      #    scratch artifacts (findings, fixable.md) produced below.
       - name: Checkout trusted scripts
         uses: actions/checkout@v6
         with:
           path: _bot
           persist-credentials: false
+
+      # 1b) Relocate the tooling to the runner temp dir, outside the workspace,
+      #     so the PR-head checkout can never delete it.
+      - name: Relocate tooling outside the workspace
+        run: mv _bot "$RUNNER_TEMP/bot"
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -84,7 +96,7 @@ jobs:
       #    head_ref for the checkout + scope diff below.
       - name: Gather Codex findings (+ same-repo guard)
         id: gather
-        working-directory: _bot
+        working-directory: ${{ runner.temp }}/bot
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
@@ -106,7 +118,7 @@ jobs:
 
       # 3) Read durable round-state (bot-authored + optionally HMAC-signed).
       - name: Read durable state
-        working-directory: _bot
+        working-directory: ${{ runner.temp }}/bot
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
@@ -119,7 +131,7 @@ jobs:
       #    spending a model call. Non-OpenAI judge so Codex isn't grading itself.
       - name: Adjudicate findings
         if: ${{ steps.flags.outputs.attempt == 'true' }}
-        working-directory: _bot
+        working-directory: ${{ runner.temp }}/bot
         env:
           GITHUB_TOKEN: ${{ github.token }}
           ADJUDICATOR_MODEL: ${{ vars.CODEX_AUTOFIX_ADJUDICATOR_MODEL || 'mistral-ai/mistral-medium-2505' }}
@@ -129,7 +141,7 @@ jobs:
       #    apply the round cap + hash dedupe. decide() is unit-tested.
       - name: Select fixable findings
         id: select
-        working-directory: _bot
+        working-directory: ${{ runner.temp }}/bot
         env:
           FIX_ENABLED: ${{ env.FIX_ENABLED }}
           HAS_ANTHROPIC_KEY: ${{ env.HAS_ANTHROPIC_KEY }}
@@ -137,8 +149,9 @@ jobs:
           ROUND_CAP: ${{ env.ROUND_CAP }}
         run: node scripts/codex-autofix/select-fixable.mjs
 
-      # 6) Check out the PR HEAD at the workspace root (clean:false preserves the
-      #    _bot tooling dir).
+      # 6) Check out the PR HEAD at the (now-empty) workspace root. The trusted
+      #    tooling was moved to $RUNNER_TEMP in step 1b, so this checkout's
+      #    workspace re-init can't touch it.
       - name: Checkout PR head
         if: ${{ steps.select.outputs.proceed == 'true' }}
         uses: actions/checkout@v6
@@ -152,7 +165,7 @@ jobs:
       - name: Isolate tooling from worktree
         if: ${{ steps.select.outputs.proceed == 'true' }}
         run: |
-          printf '%s\n' '/_bot/' '/changed-files.txt' '/allowed-paths.json' \
+          printf '%s\n' '/changed-files.txt' '/allowed-paths.json' \
             '/allowed-paths.md' '/scope-violations.json' >> .git/info/exclude
 
       # 7) Compute the allowed edit surface = the PR's changed files (authoritative
@@ -165,7 +178,7 @@ jobs:
 
       - name: Compute scope fence
         if: ${{ steps.select.outputs.proceed == 'true' }}
-        run: node _bot/scripts/codex-autofix/scope-fence.mjs compute
+        run: node "$RUNNER_TEMP/bot/scripts/codex-autofix/scope-fence.mjs" compute
 
       - name: Compose fixer prompt
         if: ${{ steps.select.outputs.proceed == 'true' }}
@@ -189,7 +202,7 @@ jobs:
 
           Approved findings:
           HEAD
-            cat _bot/fixable.md
+            cat "$RUNNER_TEMP/bot/fixable.md"
             echo
             echo 'Allowed files:'
             cat allowed-paths.md
@@ -231,7 +244,7 @@ jobs:
         id: enforce
         if: ${{ steps.select.outputs.proceed == 'true' }}
         continue-on-error: true
-        run: node _bot/scripts/codex-autofix/scope-fence.mjs enforce
+        run: node "$RUNNER_TEMP/bot/scripts/codex-autofix/scope-fence.mjs" enforce
 
       # 11) DETERMINISTIC GATE mirroring the CI gate set, run BEFORE any commit.
       #     Slop uses the TRUSTED check.sh against absolute PR-file paths.
@@ -257,7 +270,7 @@ jobs:
           mapfile -t changed < <(git diff --name-only --diff-filter=ACMR)
           if [ "${#changed[@]}" -gt 0 ]; then
             abs=(); for f in "${changed[@]}"; do abs+=("$PWD/$f"); done
-            bash _bot/.claude/skills/slop-detector/check.sh "${abs[@]}"
+            bash "$RUNNER_TEMP/bot/.claude/skills/slop-detector/check.sh" "${abs[@]}"
           fi
 
       # 12a) Preferred push: GitHub App token re-triggers ci.yml automatically.
@@ -314,7 +327,7 @@ jobs:
       #     and advances durable state on FIXED / NO_CHANGES (anti-thrash).
       - name: Finalize (sticky status + durable state)
         if: ${{ always() }}
-        working-directory: _bot
+        working-directory: ${{ runner.temp }}/bot
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
