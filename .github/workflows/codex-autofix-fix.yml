@@ -206,6 +206,10 @@ jobs:
             echo
             echo 'Allowed files:'
             cat allowed-paths.md
+            # Guarantee the heredoc terminator sits on its own line even if the
+            # file above has no trailing newline (else $GITHUB_OUTPUT reports
+            # "Matching delimiter not found").
+            echo
             echo PROMPT_EOF
           } >> "$GITHUB_OUTPUT"
 
