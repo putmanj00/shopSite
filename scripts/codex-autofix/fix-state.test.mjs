@@ -6,6 +6,7 @@ import {
   parseState,
   mergeAttempted,
   renderStatus,
+  STATE_ADVANCING,
   TRUSTED_AUTHOR,
   STATE_MARKER,
   STATUS_MARKER,
@@ -78,10 +79,14 @@ test("renderStatus: every terminal + outcome has copy and the sticky marker", ()
     "DISABLED",
     "MISSING_SECRET",
     "FORK_PR",
+    "NOT_AUTHORIZED",
     "ROUND_CAP",
     "NO_APPROVED_FINDINGS",
     "SCOPE_VIOLATION",
     "GATE_FAILED",
+    "SECRET_FOUND",
+    "STALE_HEAD",
+    "INFRA_ERROR",
     "NO_CHANGES",
     "FIXED",
   ]) {
@@ -89,6 +94,26 @@ test("renderStatus: every terminal + outcome has copy and the sticky marker", ()
     assert.ok(body.includes(STATUS_MARKER), `${o} missing marker`);
     assert.ok(body.includes("putmanj00/shopSite#7"), `${o} missing repo ref`);
     assert.ok(!body.includes("undefined"), `${o} leaked undefined`);
+  }
+});
+
+test("STATE_ADVANCING: post-fixer attempts advance; pre-fixer terminals + stale race do not", () => {
+  // The fixer actually ran against the findings ⇒ record + round++ (anti-retry).
+  for (const o of ["FIXED", "NO_CHANGES", "SCOPE_VIOLATION", "GATE_FAILED", "SECRET_FOUND"]) {
+    assert.ok(STATE_ADVANCING.has(o), `${o} should advance the round`);
+  }
+  // Never reached the fixer (or the fix was valid but the push raced) ⇒ no advance.
+  for (const o of [
+    "DISABLED",
+    "MISSING_SECRET",
+    "FORK_PR",
+    "NOT_AUTHORIZED",
+    "ROUND_CAP",
+    "NO_APPROVED_FINDINGS",
+    "STALE_HEAD",
+    "INFRA_ERROR",
+  ]) {
+    assert.ok(!STATE_ADVANCING.has(o), `${o} should NOT advance the round`);
   }
 });
 

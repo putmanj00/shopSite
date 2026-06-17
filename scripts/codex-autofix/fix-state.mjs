@@ -98,17 +98,32 @@ const STATUS_COPY = {
   DISABLED: ["⚪", "Autofixer disabled", "Set repo variable `CODEX_AUTOFIX_FIX_ENABLED=true` to enable the gated auto-fixer."],
   MISSING_SECRET: ["⚪", "Autofixer not configured", "Secret `ANTHROPIC_API_KEY` is not set — the fixer cannot run. Triage (Phase 1) is unaffected."],
   FORK_PR: ["🛑", "Fork PR — autofix refused", "Auto-fix never runs against a fork's head. Apply fixes from a same-repo branch."],
+  NOT_AUTHORIZED: ["🛑", "Not authorized", "`/codex-fix` requires write access to this repository. Ask a maintainer to run it."],
   ROUND_CAP: ["🛑", "Round cap reached", "This PR hit the autofix round cap. Remaining findings need a human — see the triage summary."],
   NO_APPROVED_FINDINGS: ["✅", "Nothing to auto-fix", "No fresh, un-attempted FIX-verdict findings. (Stale or already-attempted findings are skipped.)"],
   SCOPE_VIOLATION: ["🛑", "Scope fence tripped — reset", "The fixer touched files outside the PR's changed set or a do-not-touch path. All edits were reverted; nothing pushed."],
   GATE_FAILED: ["🛑", "Gate failed — reset", "Fixes did not pass lint / typecheck / build / slop. All edits were reverted; nothing pushed."],
+  SECRET_FOUND: ["🛑", "Secret detected — reset", "gitleaks flagged a potential secret in the staged fix. Nothing was committed or pushed."],
+  STALE_HEAD: ["⚪", "Branch moved — not pushed", "The PR branch advanced while the fix was being prepared, so it was not pushed (no clobber). Re-run `/codex-fix` to retry against the new head."],
+  INFRA_ERROR: ["⚠️", "Infrastructure error — not pushed", "A step failed for an infrastructure reason (e.g. tooling install, token mint, or a rejected push) rather than the fix itself. Nothing was pushed and the round was NOT consumed — re-run `/codex-fix` to retry."],
   NO_CHANGES: ["⚪", "Fixer made no edits", "The fixer reviewed the approved findings but produced no change. They're recorded as attempted so they won't be retried."],
   FIXED: ["🟢", "Auto-fix pushed", "Approved findings were fixed, passed the local gate, and pushed. CI must go green on the new commit before merge."],
 };
 
 // Outcomes that advance the durable round-state (record attempted hashes +
-// round++). A no-edit round still advances so a declined finding is not retried.
-export const STATE_ADVANCING = new Set(["FIXED", "NO_CHANGES"]);
+// round++). ANY outcome where the fixer actually RAN against these findings
+// advances — including scope/gate/secret failures — so a finding that can't be
+// fixed cleanly is recorded as attempted and not retried forever via repeated
+// `/codex-fix`. Pre-fixer terminals (DISABLED/MISSING_SECRET/FORK_PR/
+// NOT_AUTHORIZED/ROUND_CAP/NO_APPROVED_FINDINGS) and the STALE_HEAD infra race
+// (the fix was valid; only the push was blocked) do NOT advance.
+export const STATE_ADVANCING = new Set([
+  "FIXED",
+  "NO_CHANGES",
+  "SCOPE_VIOLATION",
+  "GATE_FAILED",
+  "SECRET_FOUND",
+]);
 
 // Render the human-facing sticky status body. Pure.
 export function renderStatus(outcome, { repo, prNumber, round, roundCap, headSha, fixCount, pushedSha, ciNote } = {}) {

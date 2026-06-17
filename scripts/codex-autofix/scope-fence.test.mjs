@@ -6,6 +6,7 @@ import {
   isDenied,
   computeAllowed,
   findViolations,
+  parseStatusZ,
   resolveDenyGlobs,
   DEFAULT_DENY_GLOBS,
 } from "./scope-fence.mjs";
@@ -100,4 +101,54 @@ test("resolveDenyGlobs: env can only ADD, never replace defaults", () => {
 
 test("resolveDenyGlobs: empty/missing env yields exactly the defaults", () => {
   assert.deepEqual(resolveDenyGlobs({}), DEFAULT_DENY_GLOBS);
+});
+
+// ---- op-type gate (porcelain XY) -------------------------------------------
+
+test("parseStatusZ: parses XY code + path records, skips empties", () => {
+  const buf = " M app/page.tsx\0?? new.tsx\0 D gone.tsx\0";
+  assert.deepEqual(parseStatusZ(buf), [
+    { code: " M", path: "app/page.tsx" },
+    { code: "??", path: "new.tsx" },
+    { code: " D", path: "gone.tsx" },
+  ]);
+  assert.deepEqual(parseStatusZ(""), []);
+});
+
+test("findViolations: in-scope MODIFY record is clean", () => {
+  assert.deepEqual(
+    findViolations([{ code: " M", path: "app/page.tsx" }], ["app/page.tsx"]),
+    [],
+  );
+});
+
+test("findViolations: DELETING an allowed file is a violation (op-type, not membership)", () => {
+  const v = findViolations([{ code: " D", path: "app/page.tsx" }], ["app/page.tsx"]);
+  assert.equal(v.length, 1);
+  assert.match(v[0].reason, /disallowed op \(D\)/);
+});
+
+test("findViolations: a rename (D old + ?? new under --no-renames) is fully rejected", () => {
+  const v = findViolations(
+    [
+      { code: " D", path: "app/old.tsx" },
+      { code: "??", path: "app/new.tsx" },
+    ],
+    ["app/old.tsx"],
+  );
+  assert.equal(v.length, 2);
+  assert.match(v.find((x) => x.path === "app/old.tsx").reason, /disallowed op/);
+  assert.match(v.find((x) => x.path === "app/new.tsx").reason, /outside/);
+});
+
+test("findViolations: rename/copy status codes are rejected", () => {
+  assert.match(findViolations([{ code: "R ", path: "a.tsx" }], ["a.tsx"])[0].reason, /disallowed op \(R\)/);
+  assert.match(findViolations([{ code: "C ", path: "a.tsx" }], ["a.tsx"])[0].reason, /disallowed op \(C\)/);
+});
+
+test("findViolations: bare path strings still work (back-compat, op-type unknown)", () => {
+  assert.deepEqual(findViolations(["app/page.tsx"], ["app/page.tsx"]), []);
+  const v = findViolations(["components/other.tsx"], ["app/page.tsx"]);
+  assert.equal(v.length, 1);
+  assert.match(v[0].reason, /outside/);
 });
