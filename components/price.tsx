@@ -10,7 +10,8 @@ interface PriceProps {
 
 export default function Price({ amount, currencyCode = 'USD', className = '' }: PriceProps) {
     const { formatPrice } = useCurrency();
-    const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+    const numAmount = typeof amount == 'string' ? parseFloat(amount) : amount;
+    console.log('Price render amount:', numAmount);
 
     // Handle invalid amounts gracefully
     if (isNaN(numAmount)) {
