@@ -67,7 +67,9 @@ jobs:
       # an env mapped from a secret can. These never expose the secret value.
       FIX_ENABLED: ${{ vars.CODEX_AUTOFIX_FIX_ENABLED == 'true' }}
       HAS_ANTHROPIC_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
-      HAS_APP: ${{ secrets.APP_ID != '' }}
+      # Both App secrets must be present, or token-mint fails after we've already
+      # decided to take the App path — half-configured ⇒ fall back to GITHUB_TOKEN.
+      HAS_APP: ${{ secrets.APP_ID != '' && secrets.APP_PRIVATE_KEY != '' }}
       FIXER_MODEL: ${{ vars.CODEX_AUTOFIX_FIXER_MODEL || 'claude-sonnet-4-6' }}
     steps:
       # 1) Trusted tooling from the DEFAULT branch into _bot, then move it OUT of
@@ -76,7 +78,7 @@ jobs:
       #    clean:false), which would otherwise wipe these trusted scripts and the
       #    scratch artifacts (findings, fixable.md) produced below.
       - name: Checkout trusted scripts
-        uses: actions/checkout@v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           path: _bot
           persist-credentials: false
@@ -87,7 +89,7 @@ jobs:
         run: mv _bot "$RUNNER_TEMP/bot"
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: 22
 
@@ -103,6 +105,36 @@ jobs:
           GITHUB_EVENT_PATH: ${{ github.event_path }}
         run: node scripts/codex-autofix/gather-findings.mjs
 
+      # 2b) HARD authorization. The job `if:` filters on author_association, but
+      #     that is NOT a write-permission check — a read-only COLLABORATOR passes
+      #     it. Verify the commenter actually has write/maintain/admin BEFORE any
+      #     model spend or write-token path. `none` (404) ⇒ fail closed.
+      - name: Verify commenter write access
+        id: perm
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COMMENTER: ${{ github.event.comment.user.login }}
+          OWNER_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # The default GITHUB_TOKEN (with repo access) can read this endpoint; it
+          # returns admin/maintain/write/triage/read/none. GitHub logins are
+          # [A-Za-z0-9-]; passed via env, used only in the API path. The endpoint
+          # collapses to a clear permission string; fail CLOSED on any lookup error.
+          perm="$(gh api "repos/${OWNER_REPO}/collaborators/${COMMENTER}/permission" \
+            --jq '.permission' 2>/tmp/perm.err || true)"
+          if [ -z "$perm" ]; then
+            echo "permission lookup failed — treating as unauthorized:"
+            cat /tmp/perm.err || true
+            perm=none
+          fi
+          case "$perm" in
+            admin|maintain|write) authorized=true ;;
+            *) authorized=false ;;
+          esac
+          echo "authorized=$authorized" >> "$GITHUB_OUTPUT"
+          echo "commenter '${COMMENTER}' permission='${perm}' authorized=${authorized}"
+
       - name: Compute gate flags
         id: flags
         run: |
@@ -110,10 +142,11 @@ jobs:
           [ "${{ steps.gather.outputs.skip_reason }}" = "FORK_PR" ] && is_fork=true
           has_findings=false
           [ "${{ steps.gather.outputs.proceed }}" = "true" ] && has_findings=true
+          authorized="${{ steps.perm.outputs.authorized }}"
           {
             echo "is_fork=$is_fork"
             echo "has_findings=$has_findings"
-            echo "attempt=$([ "$FIX_ENABLED" = "true" ] && [ "$HAS_ANTHROPIC_KEY" = "true" ] && [ "$is_fork" = "false" ] && [ "$has_findings" = "true" ] && echo true || echo false)"
+            echo "attempt=$([ "$FIX_ENABLED" = "true" ] && [ "$HAS_ANTHROPIC_KEY" = "true" ] && [ "$is_fork" = "false" ] && [ "$has_findings" = "true" ] && [ "$authorized" = "true" ] && echo true || echo false)"
           } >> "$GITHUB_OUTPUT"
 
       # 3) Read durable round-state (bot-authored + optionally HMAC-signed).
@@ -146,19 +179,25 @@ jobs:
           FIX_ENABLED: ${{ env.FIX_ENABLED }}
           HAS_ANTHROPIC_KEY: ${{ env.HAS_ANTHROPIC_KEY }}
           IS_FORK: ${{ steps.flags.outputs.is_fork }}
+          AUTHORIZED: ${{ steps.perm.outputs.authorized }}
           ROUND_CAP: ${{ env.ROUND_CAP }}
         run: node scripts/codex-autofix/select-fixable.mjs
 
       # 6) Check out the PR HEAD at the (now-empty) workspace root. The trusted
       #    tooling was moved to $RUNNER_TEMP in step 1b, so this checkout's
       #    workspace re-init can't touch it.
+      #    - Pin the IMMUTABLE head SHA (not the floating head_ref): the branch
+      #      could move between gather and here, which would fix the wrong tree or
+      #      fail the push (TOCTOU). The push step re-verifies the remote tip.
+      #    - persist-credentials:false — never leave a push token in .git/config
+      #      while the model runs with Read/Write; creds are injected only at push.
       - name: Checkout PR head
         if: ${{ steps.select.outputs.proceed == 'true' }}
-        uses: actions/checkout@v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
-          ref: ${{ steps.gather.outputs.head_ref }}
+          ref: ${{ steps.gather.outputs.head_sha }}
           clean: false
-          persist-credentials: true
+          persist-credentials: false
 
       # 6b) Hide the tooling dir + our scratch artifacts from the PR worktree so
       #     `git add -A` / scope enforcement only ever see the fixer's edits.
@@ -226,7 +265,7 @@ jobs:
       #    settings (verified: v1 has no `allowed_tools` input — see the doc).
       - name: Apply fixes (claude-code-action, edit-only)
         if: ${{ steps.select.outputs.proceed == 'true' }}
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@9dd8b95a392eb34b6f5fb56cf5a64cb735912d4b # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: ${{ steps.prompt.outputs.text }}
@@ -277,11 +316,31 @@ jobs:
             bash "$RUNNER_TEMP/bot/.claude/skills/slop-detector/check.sh" "${abs[@]}"
           fi
 
+      # 11b) Install a pinned + checksummed gitleaks for the staged-secret scan in
+      #      the push step (defense in depth now that the checkout persists no creds).
+      - name: Install gitleaks (pinned + checksummed)
+        if: ${{ steps.select.outputs.proceed == 'true' && steps.enforce.outcome == 'success' && steps.gate.outcome == 'success' }}
+        env:
+          GITLEAKS_VERSION: "8.30.1"
+          GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          curl -fsSL -o gitleaks.tar.gz \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum -c -
+          tar -xzf gitleaks.tar.gz gitleaks
+          sudo install -m 0755 gitleaks /usr/local/bin/gitleaks
+          gitleaks version
+
       # 12a) Preferred push: GitHub App token re-triggers ci.yml automatically.
       - name: Mint GitHub App token
         id: apptoken
         if: ${{ steps.select.outputs.proceed == 'true' && steps.enforce.outcome == 'success' && steps.gate.outcome == 'success' && env.HAS_APP == 'true' }}
-        uses: actions/create-github-app-token@v1
+        # A mint failure must not abort: an empty token makes the push step fall
+        # back to the GITHUB_TOKEN path rather than burning the round (INFRA_ERROR).
+        continue-on-error: true
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
@@ -294,6 +353,7 @@ jobs:
           APP_TOKEN: ${{ steps.apptoken.outputs.token }}
           GH_TOKEN: ${{ github.token }}
           HEAD_REF: ${{ steps.gather.outputs.head_ref }}
+          EXPECTED_SHA: ${{ steps.gather.outputs.head_sha }}
           ROUND: ${{ steps.select.outputs.round }}
         run: |
           set -euo pipefail
@@ -301,31 +361,52 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
-            echo "outcome=NO_CHANGES" >> "$GITHUB_OUTPUT"
-            echo "pushed_sha=" >> "$GITHUB_OUTPUT"
-            echo "ci_note=" >> "$GITHUB_OUTPUT"
+            { echo "outcome=NO_CHANGES"; echo "pushed_sha="; echo "ci_note="; } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Secret-scan the STAGED tree BEFORE any commit/push (the checkout no
+          # longer persists a push token; this is the last gate before the fix
+          # leaves the runner). A hit reverts to a clean terminal, nothing pushed.
+          if ! gitleaks git --staged --redact --no-banner .; then
+            { echo "outcome=SECRET_FOUND"; echo "pushed_sha="; echo "ci_note="; } >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git commit -m "fix: codex autofix round ${ROUND} [skip codex]" \
-            -m "Automated fix of adjudicated Codex findings. Gate: lint+typecheck+build+slop green." \
+            -m "Automated fix of adjudicated Codex findings. Gate: lint+typecheck+build+slop+gitleaks green." \
             --trailer "Assistant=Claude Code"
           sha="$(git rev-parse HEAD)"
           owner_repo="${{ github.repository }}"
+          # Inject the push credential here (checkout used persist-credentials:false).
           if [ -n "${APP_TOKEN:-}" ]; then
-            git remote set-url origin "https://x-access-token:${APP_TOKEN}@github.com/${owner_repo}.git"
-            git push origin "HEAD:${HEAD_REF}"
+            push_token="$APP_TOKEN"; use_app=true
+          else
+            push_token="$GH_TOKEN"; use_app=false
+          fi
+          git remote set-url origin "https://x-access-token:${push_token}@github.com/${owner_repo}.git"
+          # TOCTOU guard: we checked out the immutable head SHA. Require the remote
+          # branch to STILL exist AND still point at that SHA. Empty (branch deleted
+          # mid-run, or lookup failure) OR moved ⇒ refuse — never recreate a deleted
+          # branch or clobber newer work. STALE_HEAD does not advance round-state.
+          remote_tip="$(git ls-remote origin "refs/heads/${HEAD_REF}" | cut -f1)" || true
+          if [ "$remote_tip" != "$EXPECTED_SHA" ]; then
+            { echo "outcome=STALE_HEAD"; echo "pushed_sha="; echo "ci_note="; } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Our commit is a child of EXPECTED_SHA, so a normal push is fast-forward;
+          # a non-ff (race) is rejected safely rather than force-pushed.
+          git push origin "HEAD:${HEAD_REF}"
+          if [ "$use_app" = "true" ]; then
             note="CI re-triggered automatically by the push (GitHub App token)."
           else
-            git push origin "HEAD:${HEAD_REF}"
-            # GITHUB_TOKEN pushes do NOT trigger CI — dispatch as a partial fallback.
-            gh workflow run ci.yml --ref "${HEAD_REF}" || true
-            note="⚠️ Pushed with GITHUB_TOKEN, which does NOT auto-run CI. Dispatched ci.yml on the branch as a partial fallback (PR-only jobs like slop are skipped) — confirm a green CI run on ${sha} before merge."
+            # GITHUB_TOKEN pushes do NOT trigger CI — dispatch as a partial fallback,
+            # and report HONESTLY whether the dispatch actually started (no false green).
+            if gh workflow run ci.yml --ref "${HEAD_REF}"; then
+              note="⚠️ Pushed with GITHUB_TOKEN, which does NOT auto-run CI. Dispatched ci.yml on ${HEAD_REF} as a partial fallback (PR-only jobs like slop are skipped) — confirm a green CI run on ${sha} before merge."
+            else
+              note="⛔ Pushed with GITHUB_TOKEN (no auto-CI) AND the ci.yml workflow_dispatch fallback FAILED to start — CI is NOT running on ${sha}. Trigger CI manually before merge."
+            fi
           fi
-          {
-            echo "outcome=FIXED"
-            echo "pushed_sha=${sha}"
-            echo "ci_note=${note}"
-          } >> "$GITHUB_OUTPUT"
+          { echo "outcome=FIXED"; echo "pushed_sha=${sha}"; echo "ci_note=${note}"; } >> "$GITHUB_OUTPUT"
 
       # 13) Single terminal/finalize path — always runs, posts the sticky status,
       #     and advances durable state on FIXED / NO_CHANGES (anti-thrash).
@@ -343,10 +424,16 @@ jobs:
           PUSHED_SHA: ${{ steps.push.outputs.pushed_sha }}
           CI_NOTE: ${{ steps.push.outputs.ci_note }}
           CODEX_AUTOFIX_STATE_SECRET: ${{ secrets.CODEX_AUTOFIX_STATE_SECRET }}
+          # Precedence: a pre-fixer terminal wins; else a real scope/gate failure
+          # (both ADVANCE — the fixer ran and produced a bad change); else the push
+          # step's own outcome. The final fallback is INFRA_ERROR (NOT GATE_FAILED):
+          # any unenumerated failure (fixer-action crash, gitleaks install, app-mint,
+          # rejected push) is infrastructure, not finding quality, so it must NOT
+          # advance the round and burn the findings.
           OUTCOME: >-
             ${{ steps.select.outputs.terminal != '' && steps.select.outputs.terminal
             || (steps.enforce.outcome == 'failure' && 'SCOPE_VIOLATION'
             || (steps.gate.outcome == 'failure' && 'GATE_FAILED'
             || (steps.push.outputs.outcome != '' && steps.push.outputs.outcome
-            || 'GATE_FAILED'))) }}
+            || 'INFRA_ERROR'))) }}
         run: node scripts/codex-autofix/fix-state.mjs finalize

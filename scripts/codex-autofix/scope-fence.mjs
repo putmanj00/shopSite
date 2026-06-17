@@ -83,15 +83,42 @@ export function computeAllowed(changedFiles, denyGlobs = DEFAULT_DENY_GLOBS) {
   return changedFiles.filter((f) => f && !isDenied(f, denyGlobs));
 }
 
-// Every touched path must be BOTH non-denied AND already in the allowed set.
-// Returns [{ path, reason }] — empty array means the edits are in-bounds. Pure.
+// Parse `git status --porcelain=v1 -z --no-renames` into { code, path } records.
+// `code` is the two-char XY status (e.g. " M", " D", "??"); `path` the entry.
+// Pure — operates on the raw NUL-delimited buffer.
+export function parseStatusZ(buf) {
+  const out = [];
+  for (const entry of String(buf || "").split("\0")) {
+    if (!entry) continue;
+    const code = entry.slice(0, 2);
+    const path = entry.slice(3);
+    if (path) out.push({ code, path });
+  }
+  return out;
+}
+
+// Every touched entry must be (a) a MODIFY of an in-scope file — the fixer may
+// NOT delete, rename, or copy even an allowed path (the prompt forbids it, but
+// prompt-only is not enforcement) — AND (b) non-denied AND already in the allowed
+// set. Accepts either { code, path } records (op-type checked) or bare path
+// strings (back-compat; op-type unknown ⇒ skipped). Returns [{ path, reason }];
+// empty means in-bounds. Pure.
 export function findViolations(touched, allowed, denyGlobs = DEFAULT_DENY_GLOBS) {
   const allowedSet = new Set(allowed);
   const out = [];
-  for (const p of touched) {
-    if (!p) continue;
-    if (isDenied(p, denyGlobs)) out.push({ path: p, reason: "denylisted (do-not-touch)" });
-    else if (!allowedSet.has(p)) out.push({ path: p, reason: "outside PR's changed-file set" });
+  for (const t of touched) {
+    const path = typeof t === "string" ? t : t && t.path;
+    const code = typeof t === "string" ? "" : (t && t.code) || "";
+    if (!path) continue;
+    // Op-type gate: any delete (D), rename (R), or copy (C) in either status
+    // column is disallowed. With --no-renames a rename surfaces as D(old)+A(new),
+    // so the D is caught here and the new path is caught as "outside" below.
+    if (/[DRC]/.test(code)) {
+      out.push({ path, reason: `disallowed op (${code.trim() || "?"}) — fixer may only modify in-scope files` });
+      continue;
+    }
+    if (isDenied(path, denyGlobs)) out.push({ path, reason: "denylisted (do-not-touch)" });
+    else if (!allowedSet.has(path)) out.push({ path, reason: "outside PR's changed-file set" });
   }
   return out;
 }
@@ -109,16 +136,11 @@ function git(args) {
   return execFileSync("git", args, { encoding: "utf8" });
 }
 
-// Tracked-modified ∪ newly-added (untracked) paths in the working tree.
-function touchedPaths() {
-  const out = git(["status", "--porcelain=v1", "--no-renames", "-z"]).split("\0").filter(Boolean);
-  const paths = [];
-  for (const entry of out) {
-    // porcelain -z record: 2 status chars + space + path
-    const path = entry.slice(3);
-    if (path) paths.push(path);
-  }
-  return paths;
+// Tracked-modified ∪ deleted ∪ newly-added (untracked) entries in the working
+// tree, as { code, path } records so the op-type can be gated. --no-renames so a
+// rename is reported as a delete + an add (both individually caught).
+function touchedRecords() {
+  return parseStatusZ(git(["status", "--porcelain=v1", "--no-renames", "-z"]));
 }
 
 function cmdCompute() {
@@ -155,7 +177,7 @@ function cmdCompute() {
 function cmdEnforce() {
   const { allowed } = JSON.parse(readFileSync("allowed-paths.json", "utf8"));
   const denyGlobs = resolveDenyGlobs();
-  const touched = touchedPaths();
+  const touched = touchedRecords();
   const violations = findViolations(touched, allowed, denyGlobs);
 
   if (violations.length === 0) {
@@ -168,7 +190,7 @@ function cmdEnforce() {
   for (const v of violations) console.error(`    ${v.path} — ${v.reason}`);
   try {
     git(["reset", "--hard", "HEAD"]);
-    for (const p of touched) {
+    for (const { path: p } of touched) {
       // Remove untracked files the reset didn't (best-effort, bounded to touched).
       try {
         rmSync(p, { force: true });
