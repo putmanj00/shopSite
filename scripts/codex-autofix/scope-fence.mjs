@@ -143,7 +143,8 @@ function cmdCompute() {
   // Markdown list handed to the fixer prompt as the ONLY editable surface.
   writeFileSync(
     "allowed-paths.md",
-    allowed.length ? allowed.map((p) => `- \`${p}\``).join("\n") : "_(none)_",
+    (allowed.length ? allowed.map((p) => `- \`${p}\``).join("\n") : "_(none)_") +
+      "\n",
   );
   console.log(
     `scope-fence compute: ${allowed.length} allowed, ${denied.length} denied of ${changed.length} changed`,
