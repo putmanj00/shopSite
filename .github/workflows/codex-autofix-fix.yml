@@ -269,6 +269,11 @@ jobs:
         uses: anthropics/claude-code-action@9dd8b95a392eb34b6f5fb56cf5a64cb735912d4b # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Use the workflow's GITHUB_TOKEN for GitHub ops. Without this the action
+          # tries an OIDC→Claude-GitHub-App token exchange (401 "Claude Code is not
+          # installed on this repository"); we authenticate Claude via the API key
+          # and never install that App. OUR push step owns the actual commit.
+          github_token: ${{ github.token }}
           prompt: ${{ steps.prompt.outputs.text }}
           claude_args: >-
             --model ${{ env.FIXER_MODEL }}
