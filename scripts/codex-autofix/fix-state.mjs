@@ -14,9 +14,18 @@
 // human-facing status is a SEPARATE sticky comment.
 //
 // Subcommands:
-//   read      — fetch + verify state, write state.json {rounds, attempted}
-//   finalize  — post the sticky status for OUTCOME; if OUTCOME=FIXED, advance +
-//               persist the state comment (round, attempted hashes, pushed SHA)
+//   read      — fetch + verify state, write state.json {rounds, attempted,
+//               shas, lastFailure}
+//   finalize  — post the sticky status for OUTCOME; if OUTCOME advances state,
+//               persist the state comment (round, attempted hashes, pushed SHA,
+//               and — on GATE_FAILED only — a scrubbed lastFailure feedback blob)
+//
+// FEEDBACK LOOP (ADR 0025 B1): a GATE_FAILED round advances the round counter
+// (so the cap still bounds total work) but does NOT burn the round's finding
+// hashes into `attempted` — the same findings get one informed retry, carrying a
+// scrubbed, bounded excerpt of the failing gate output (`lastFailure`) into the
+// next fixer prompt. Scope/secret/no-changes/fixed still burn (no retry). The
+// gate output is already secret-redacted by the workflow before it reaches here.
 //
 // Dependency-free: Node 22 + node: builtins. Pure cores exported for unit tests.
 
@@ -27,15 +36,23 @@ const API = "https://api.github.com";
 export const STATE_MARKER = "<!-- codex-autofix:state";
 export const STATUS_MARKER = "<!-- codex-autofix:fix-status -->";
 export const TRUSTED_AUTHOR = "github-actions[bot]";
-const STATE_VERSION = 1;
+const STATE_VERSION = 2;
+
+// Max chars of (already secret-redacted) gate output carried forward as feedback.
+// Bounded to respect context-rot limits and keep the hidden state comment small.
+export const MAX_FAILURE_SUMMARY = 1500;
 
 // Canonical serialization for signing — key order fixed, sig excluded.
+// `lastFailure` is emitted ONLY when present, so a v1 payload (no lastFailure)
+// serializes byte-identically to the pre-feedback format and old HMAC-signed
+// state comments still verify (back-compat).
 function canonical(payload) {
   return JSON.stringify({
     v: payload.v,
     rounds: payload.rounds,
     attempted: payload.attempted,
     shas: payload.shas,
+    lastFailure: payload.lastFailure || undefined,
   });
 }
 
@@ -45,13 +62,17 @@ function sign(payload, secret) {
 }
 
 // Render the hidden, signed state block. Pure.
-export function renderState({ rounds, attempted, shas }, secret = "") {
+// `lastFailure` (optional) is a { round, outcome, summary } feedback blob carried
+// forward after a GATE_FAILED round; it is omitted entirely when absent so the
+// serialized form is byte-identical to the pre-feedback (v1) layout.
+export function renderState({ rounds, attempted, shas, lastFailure }, secret = "") {
   const payload = {
     v: STATE_VERSION,
     rounds,
     attempted: [...new Set(attempted)].sort(),
     shas: shas || [],
   };
+  if (lastFailure) payload.lastFailure = lastFailure;
   const sig = sign(payload, secret);
   return `${STATE_MARKER}\n${JSON.stringify({ ...payload, sig })}\n-->`;
 }
@@ -61,7 +82,7 @@ export function renderState({ rounds, attempted, shas }, secret = "") {
 // (rounds 0), which is fail-SAFE for the cap only because a forged LOW-rounds
 // block is exactly what authorship-trust blocks (a non-bot author is ignored).
 export function parseState(body, authorLogin, secret = "") {
-  const fresh = { valid: false, rounds: 0, attempted: [], shas: [] };
+  const fresh = { valid: false, rounds: 0, attempted: [], shas: [], lastFailure: null };
   if (!body || authorLogin !== TRUSTED_AUTHOR) return fresh;
   if (!body.includes(STATE_MARKER)) return fresh;
   const start = body.indexOf(STATE_MARKER) + STATE_MARKER.length;
@@ -75,8 +96,16 @@ export function parseState(body, authorLogin, secret = "") {
   }
   if (typeof obj.rounds !== "number" || !Array.isArray(obj.attempted)) return fresh;
   if (secret) {
+    // Verify over the SAME canonical shape that was signed. canonical() omits
+    // lastFailure when absent, so a v1 block (no lastFailure) still validates.
     const expected = sign(
-      { v: obj.v, rounds: obj.rounds, attempted: obj.attempted, shas: obj.shas || [] },
+      {
+        v: obj.v,
+        rounds: obj.rounds,
+        attempted: obj.attempted,
+        shas: obj.shas || [],
+        lastFailure: obj.lastFailure || undefined,
+      },
       secret,
     );
     if (expected !== obj.sig) return { ...fresh }; // tampered / wrong secret
@@ -86,12 +115,48 @@ export function parseState(body, authorLogin, secret = "") {
     rounds: obj.rounds,
     attempted: obj.attempted,
     shas: obj.shas || [],
+    lastFailure: obj.lastFailure || null,
   };
 }
 
 // Union of prior + this round's attempted hashes. Pure.
 export function mergeAttempted(prior, next) {
   return [...new Set([...(prior || []), ...(next || [])])].sort();
+}
+
+// Advancing outcomes that ALSO BURN the round's findings into `attempted` so they
+// are never retried. This is STATE_ADVANCING minus GATE_FAILED: a gate failure is
+// a legitimate-but-wrong attempt that earns one informed retry (bounded by the
+// round cap), whereas a scope/secret violation or a no-op/fix is terminal for
+// those findings. Defined below STATE_ADVANCING; see RECORDS_ATTEMPTED.
+
+// Clamp + normalize a (already secret-redacted) gate-failure excerpt for storage.
+// Strips CR, trims, and bounds length so the hidden state comment stays small and
+// the fed-back context respects context-rot limits.
+//
+// CRITICAL (cross-review pass 3): this summary is the FIRST untrusted free-text
+// ever persisted inside the `<!-- codex-autofix:state … -->` HTML comment. A
+// literal `-->` in the gate output (a tsc/lint snippet, or AI-generated code)
+// would terminate the comment early — `parseState` slices at the first `-->`,
+// `JSON.parse` throws, state falls back to `rounds:0`, and the ROUND_CAP guard is
+// silently defeated (unbounded loop). Neutralize the sequence here, the single
+// chokepoint where untrusted text enters the state JSON; inserting a space breaks
+// the token without losing readability in the fed-back prompt. Pure.
+export function clampFailureSummary(text) {
+  return String(text || "")
+    .replace(/\r/g, "")
+    .replace(/-->/g, "-- >")
+    .trim()
+    .slice(0, MAX_FAILURE_SUMMARY);
+}
+
+// Compute the next `attempted` set for a finalize outcome. GATE_FAILED does NOT
+// burn (returns prior, normalized); every other recording outcome unions in this
+// round's hashes. Pure — the branch the feedback loop hinges on, unit-tested.
+export function nextAttempted(outcome, priorAttempted, roundHashes) {
+  return RECORDS_ATTEMPTED.has(outcome)
+    ? mergeAttempted(priorAttempted, roundHashes)
+    : mergeAttempted(priorAttempted, []);
 }
 
 const STATUS_COPY = {
@@ -102,7 +167,7 @@ const STATUS_COPY = {
   ROUND_CAP: ["🛑", "Round cap reached", "This PR hit the autofix round cap. Remaining findings need a human — see the triage summary."],
   NO_APPROVED_FINDINGS: ["✅", "Nothing to auto-fix", "No fresh, un-attempted FIX-verdict findings. (Stale or already-attempted findings are skipped.)"],
   SCOPE_VIOLATION: ["🛑", "Scope fence tripped — reset", "The fixer touched files outside the PR's changed set or a do-not-touch path. All edits were reverted; nothing pushed."],
-  GATE_FAILED: ["🛑", "Gate failed — reset", "Fixes did not pass lint / typecheck / build / slop. All edits were reverted; nothing pushed."],
+  GATE_FAILED: ["🛑", "Gate failed — reset", "Fixes did not pass lint / typecheck / build / slop. All edits were reverted; nothing pushed. The failure detail is carried into the next `/codex-fix` round (within the round cap) so the retry can correct it."],
   SECRET_FOUND: ["🛑", "Secret detected — reset", "gitleaks flagged a potential secret in the staged fix. Nothing was committed or pushed."],
   STALE_HEAD: ["⚪", "Branch moved — not pushed", "The PR branch advanced while the fix was being prepared, so it was not pushed (no clobber). Re-run `/codex-fix` to retry against the new head."],
   INFRA_ERROR: ["⚠️", "Infrastructure error — not pushed", "A step failed for an infrastructure reason (e.g. tooling install, token mint, or a rejected push) rather than the fix itself. Nothing was pushed and the round was NOT consumed — re-run `/codex-fix` to retry."],
@@ -122,6 +187,19 @@ export const STATE_ADVANCING = new Set([
   "NO_CHANGES",
   "SCOPE_VIOLATION",
   "GATE_FAILED",
+  "SECRET_FOUND",
+]);
+
+// Advancing outcomes that also BURN this round's finding hashes into `attempted`
+// (never retried). = STATE_ADVANCING minus GATE_FAILED. A gate failure advances
+// the round (cap still bounds total work to ROUND_CAP) but leaves the findings
+// un-burned for ONE informed retry carrying the lastFailure feedback; a scope or
+// secret violation, a clean no-op, or a successful fix is terminal for those
+// findings. nextAttempted() reads this set.
+export const RECORDS_ATTEMPTED = new Set([
+  "FIXED",
+  "NO_CHANGES",
+  "SCOPE_VIOLATION",
   "SECRET_FOUND",
 ]);
 
@@ -214,8 +292,17 @@ async function cmdRead() {
     (c) => c.user?.login === TRUSTED_AUTHOR && (c.body || "").includes(STATE_MARKER),
   );
   const state = parseState(comment?.body || "", comment?.user?.login || "", secret);
-  writeFileSync("state.json", JSON.stringify({ rounds: state.rounds, attempted: state.attempted, shas: state.shas }, null, 2));
-  console.log(`fix-state read: rounds=${state.rounds} attempted=${state.attempted.length} valid=${state.valid}`);
+  writeFileSync(
+    "state.json",
+    JSON.stringify(
+      { rounds: state.rounds, attempted: state.attempted, shas: state.shas, lastFailure: state.lastFailure },
+      null,
+      2,
+    ),
+  );
+  console.log(
+    `fix-state read: rounds=${state.rounds} attempted=${state.attempted.length} valid=${state.valid} priorGateFail=${state.lastFailure ? "yes" : "no"}`,
+  );
 }
 
 async function cmdFinalize() {
@@ -245,14 +332,29 @@ async function cmdFinalize() {
     const fixable = existsSync("fixable.json")
       ? JSON.parse(readFileSync("fixable.json", "utf8"))
       : { findings: [] };
-    const attempted = mergeAttempted(
+    // GATE_FAILED does NOT burn this round's findings (one informed retry);
+    // every other advancing outcome unions them into `attempted`.
+    const attempted = nextAttempted(
+      outcome,
       prior.attempted,
       (fixable.findings || []).map((f) => f.hash),
     );
     const shas = mergeAttempted(prior.shas, meta.pushedSha ? [meta.pushedSha] : []);
-    const body = renderState({ rounds: meta.round, attempted, shas }, secret);
+    // Carry a scrubbed, bounded gate-failure excerpt forward ONLY on GATE_FAILED;
+    // any other advancing outcome clears stale feedback. The workflow already
+    // secret-redacts the file; clampFailureSummary bounds it.
+    let lastFailure = null;
+    if (outcome === "GATE_FAILED") {
+      const file = process.env.GATE_FAILURE_FILE || "";
+      const raw = file && existsSync(file) ? readFileSync(file, "utf8") : "";
+      const summary = clampFailureSummary(raw);
+      if (summary) lastFailure = { round: meta.round, outcome, summary };
+    }
+    const body = renderState({ rounds: meta.round, attempted, shas, lastFailure }, secret);
     await upsert(owner, name, STATE_MARKER, body);
-    console.log(`fix-state finalize: ${outcome} round=${meta.round} attempted=${attempted.length}`);
+    console.log(
+      `fix-state finalize: ${outcome} round=${meta.round} attempted=${attempted.length} feedback=${lastFailure ? "yes" : "no"}`,
+    );
   } else {
     console.log(`fix-state finalize: ${outcome} (status posted, state unchanged)`);
   }

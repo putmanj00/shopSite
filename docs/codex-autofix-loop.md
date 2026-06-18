@@ -98,10 +98,13 @@ self-triggers it, and **merge always stays human**.
 ```
 maintainer comments `/codex-fix` on a PR
         ▼
-gather (same-repo guard) → read durable state → adjudicate → select-fixable
+gather (same-repo guard) → read durable state (rounds + attempted + lastFailure)
+        → adjudicate → select-fixable
         │   (FIX + fresh + un-attempted; round cap; → terminal or proceed)
         ▼ proceed
 checkout PR head · compute scope fence (gh pr diff − denylist)
+        ▼
+compose fixer prompt = prior-failure feedback (if any) + approved findings + allowed files
         ▼
 claude-code-action  ── EDIT-ONLY (Bash denied ⇒ no git/commit), scoped to allowed files
         ▼
@@ -109,11 +112,14 @@ git reset --mixed head  ── re-own the commit if the action self-committed
         ▼
 enforce scope fence ── any out-of-scope / denylisted edit ⇒ hard reset ⇒ SCOPE_VIOLATION
         ▼
-gate: npm ci · lint · typecheck · build (incl. contrast:check) · slop ── red ⇒ GATE_FAILED
-        ▼ green
+gate: npm ci · lint · typecheck · build (incl. contrast:check) · slop
+        │   red ⇒ GATE_FAILED: capture a scrubbed excerpt → lastFailure
+        │           (round++ but findings NOT burned ⇒ one informed retry) ──┐
+        ▼ green                                                              │
 commit + push (App token re-triggers CI; else workflow_dispatch fallback) ── FIXED
-        ▼
-finalize: sticky status + advance durable, bot-signed round state
+        ▼                                                                    │
+finalize: sticky status + advance durable, bot-signed round state           │
+        └────────── next `/codex-fix` feeds lastFailure into the prompt ◄────┘
 ```
 
 How each Phase-2 requirement is satisfied:
@@ -143,7 +149,22 @@ How each Phase-2 requirement is satisfied:
    acted-on findings are **hash-tracked** so a re-firing false positive can't
    thrash; a no-edit round still records the hashes. `concurrency` is serialized
    per PR number.
-5. **Terminal states** — every exit is a clear sticky status, exit 0:
+5. **Feedback loop on gate failure (ADR 0025 B1)** — when the gate goes red the
+   failing phase's output is captured, **secret-redacted**, length-bounded, and
+   stored as `lastFailure` in the same signed state comment. A `GATE_FAILED` round
+   **advances the round counter** (so total work stays ≤ `ROUND_CAP`) but, unlike
+   every other post-fixer outcome, does **not** burn the round's finding hashes —
+   they get exactly one informed retry. The next `/codex-fix` renders `lastFailure`
+   into the fixer prompt (as labelled diagnostic data, fence-neutralized, before
+   the findings) so the retry can correct the failure instead of repeating it.
+   `SCOPE_VIOLATION` / `SECRET_FOUND` / `NO_CHANGES` / `FIXED` still burn (no
+   retry); any non-`GATE_FAILED` advancing outcome clears stale feedback. Old
+   pre-feedback (v1) state comments still validate — the `lastFailure` field is
+   omitted from the signed canonical form when absent. **Known nuance:** an
+   `npm ci` flake inside the gate also surfaces as `GATE_FAILED` (pre-existing
+   classification); with the no-burn behaviour that now yields a bounded retry
+   rather than a burned finding, which is the safer failure mode.
+6. **Terminal states** — every exit is a clear sticky status, exit 0:
    `DISABLED`, `MISSING_SECRET`, `FORK_PR`, `ROUND_CAP`, `NO_APPROVED_FINDINGS`
    (the doc's four + the cap), plus operational `SCOPE_VIOLATION`, `GATE_FAILED`,
    `NO_CHANGES`.

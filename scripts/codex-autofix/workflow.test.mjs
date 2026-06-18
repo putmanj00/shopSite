@@ -38,3 +38,34 @@ test("autofix reports stale head before generic select-fixable terminals", () =>
   assert.notEqual(selectTerminal, -1);
   assert.ok(staleOutcome < selectTerminal);
 });
+
+// ---- B1: gate failure captured + scrubbed + fed back into the next prompt ----
+
+test("gate step captures a redacted failure excerpt to the runner temp file", () => {
+  assert.match(workflow, /GATE_FAIL="\$RUNNER_TEMP\/gate-failure\.txt"/);
+  // A redaction helper masks known secret env values before persistence.
+  assert.match(workflow, /redact\(\)/);
+  assert.match(workflow, /SHOPIFY_STOREFRONT_ACCESS_TOKEN/);
+});
+
+test("finalize step is handed the gate-failure file for GATE_FAILED feedback", () => {
+  assert.match(workflow, /GATE_FAILURE_FILE: \$\{\{ runner\.temp \}\}\/gate-failure\.txt/);
+});
+
+test("fixer prompt injects prior-attempt feedback before the approved findings", () => {
+  const prior = workflow.indexOf('cat "$RUNNER_TEMP/bot/prior-failure.md"');
+  const findings = workflow.indexOf('cat "$RUNNER_TEMP/bot/fixable.md"');
+  assert.notEqual(prior, -1, "prompt must cat prior-failure.md");
+  assert.notEqual(findings, -1);
+  assert.ok(prior < findings, "feedback must precede the findings list");
+});
+
+test("fixer prompt uses a random $GITHUB_OUTPUT delimiter (untrusted content embedded)", () => {
+  // A static delimiter can be closed early by a content line equal to it; the
+  // composed value embeds untrusted reviewer-note + gate output. (Codex pass-2.)
+  assert.match(workflow, /DELIM="PROMPT_EOF_\$\(openssl rand -hex 16\)"/);
+  assert.match(workflow, /echo "text<<\$\{DELIM\}"/);
+  assert.match(workflow, /echo "\$\{DELIM\}"/);
+  assert.doesNotMatch(workflow, /echo 'text<<PROMPT_EOF'/);
+  assert.doesNotMatch(workflow, /^\s*echo PROMPT_EOF\s*$/m);
+});

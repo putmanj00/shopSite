@@ -250,8 +250,15 @@ jobs:
         if: ${{ steps.select.outputs.proceed == 'true' }}
         id: prompt
         run: |
+          # Random, per-run $GITHUB_OUTPUT delimiter. The composed value embeds
+          # UNTRUSTED content (the PR-author-shaped reviewer-note excerpt in
+          # fixable.md AND, since ADR 0025 B1, the captured gate output in
+          # prior-failure.md). A static delimiter could be closed early by a
+          # content line equal to it, corrupting/truncating the prompt; a random
+          # delimiter cannot collide with that content.
+          DELIM="PROMPT_EOF_$(openssl rand -hex 16)"
           {
-            echo 'text<<PROMPT_EOF'
+            echo "text<<${DELIM}"
             cat <<'HEAD'
           You are an automated code-fixer for a Next.js + TypeScript storefront.
           Apply MINIMAL edits that resolve ONLY the approved review findings below.
@@ -265,18 +272,22 @@ jobs:
           - Brand: no purple/violet, no Playfair, no fabricated stats/testimonials,
             no "boho/cosmic/festival" voice, no emoji decoration. (Wildenflower slop bans.)
           - You have no shell and cannot run git. Just edit the files.
-
-          Approved findings:
           HEAD
+            # Prior-attempt feedback (ADR 0025 B1): empty unless the previous round
+            # failed the local gate. Carries a scrubbed excerpt of that failure so
+            # this retry doesn't reintroduce it.
+            cat "$RUNNER_TEMP/bot/prior-failure.md"
+            echo
+            echo 'Approved findings:'
             cat "$RUNNER_TEMP/bot/fixable.md"
             echo
             echo 'Allowed files:'
             cat allowed-paths.md
-            # Guarantee the heredoc terminator sits on its own line even if the
-            # file above has no trailing newline (else $GITHUB_OUTPUT reports
-            # "Matching delimiter not found").
+            # Guarantee the delimiter sits on its own line even if the file above
+            # has no trailing newline (else $GITHUB_OUTPUT reports "Matching
+            # delimiter not found").
             echo
-            echo PROMPT_EOF
+            echo "${DELIM}"
           } >> "$GITHUB_OUTPUT"
 
       - name: Write fixer settings (deny shell + network)
@@ -335,17 +346,49 @@ jobs:
           SHOPIFY_SHOP_ID: ${{ secrets.SHOPIFY_SHOP_ID }}
           NEXT_PUBLIC_BASE_URL: https://wildenflower.com
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        # On the FIRST failing phase, capture a labeled + secret-redacted tail of
+        # that phase's output to $RUNNER_TEMP/gate-failure.txt and stop. The
+        # finalize step persists it (GATE_FAILED only) so the next /codex-fix round
+        # carries the failure detail into the fixer prompt (ADR 0025 B1).
         run: |
-          set -euo pipefail
-          npm ci
-          npm run lint
-          npm run typecheck
-          npm run build            # includes contrast:check
+          set -uo pipefail
+          GATE_FAIL="$RUNNER_TEMP/gate-failure.txt"
+          : > "$GATE_FAIL"
+          # Mask known secret env values out of any captured output BEFORE it can
+          # be persisted to a PR comment or fed back into a prompt. Quoted pattern
+          # ⇒ literal match (no globbing).
+          redact() {
+            local out="$1" s
+            for s in "$SHOPIFY_STORE_DOMAIN" "$SHOPIFY_STOREFRONT_ACCESS_TOKEN" \
+                     "$SHOPIFY_SHOP_ID" "$SENTRY_AUTH_TOKEN"; do
+              [ -n "$s" ] && out="${out//"$s"/***}"
+            done
+            printf '%s\n' "$out"
+          }
+          # Run one gate phase, capturing combined output. Failure ⇒ write the
+          # redacted tail and return non-zero.
+          phase() {
+            local name="$1"; shift
+            local log="$RUNNER_TEMP/gate-${name}.log" rc=0
+            "$@" > "$log" 2>&1 || rc=$?
+            if [ "$rc" -eq 0 ]; then echo "gate: ${name} ok"; return 0; fi
+            {
+              echo "Gate phase '${name}' failed (exit ${rc})."
+              echo "--- last 40 lines (secrets redacted) ---"
+              redact "$(tail -n 40 "$log")"
+            } > "$GATE_FAIL"
+            echo "gate: ${name} FAILED"; cat "$GATE_FAIL"
+            return 1
+          }
+          phase npm-ci    npm ci             || exit 1
+          phase lint      npm run lint       || exit 1
+          phase typecheck npm run typecheck  || exit 1
+          phase build     npm run build      || exit 1   # includes contrast:check
           # Slop-detector on changed in-scope files only (touched-file ratchet).
           mapfile -t changed < <(git diff --name-only --diff-filter=ACMR)
           if [ "${#changed[@]}" -gt 0 ]; then
             abs=(); for f in "${changed[@]}"; do abs+=("$PWD/$f"); done
-            bash "$RUNNER_TEMP/bot/.claude/skills/slop-detector/check.sh" "${abs[@]}"
+            phase slop bash "$RUNNER_TEMP/bot/.claude/skills/slop-detector/check.sh" "${abs[@]}" || exit 1
           fi
 
       # 11b) Install a pinned + checksummed gitleaks for the staged-secret scan in
@@ -456,6 +499,9 @@ jobs:
           PUSHED_SHA: ${{ steps.push.outputs.pushed_sha }}
           CI_NOTE: ${{ steps.push.outputs.ci_note }}
           CODEX_AUTOFIX_STATE_SECRET: ${{ secrets.CODEX_AUTOFIX_STATE_SECRET }}
+          # Scrubbed gate-failure excerpt (written by the gate step); persisted as
+          # feedback only when OUTCOME=GATE_FAILED (ADR 0025 B1).
+          GATE_FAILURE_FILE: ${{ runner.temp }}/gate-failure.txt
           # Precedence: stale branch wins first (no model/fixer round should be
           # counted), then pre-fixer terminals, then real scope/gate failures
           # (both ADVANCE — the fixer ran and produced a bad change), then the
