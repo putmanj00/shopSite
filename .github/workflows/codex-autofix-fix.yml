@@ -150,6 +150,27 @@ jobs:
             echo "attempt=$([ "$FIX_ENABLED" = "true" ] && [ "$HAS_ANTHROPIC_KEY" = "true" ] && [ "$is_fork" = "false" ] && [ "$has_findings" = "true" ] && [ "$authorized" = "true" ] && echo true || echo false)"
           } >> "$GITHUB_OUTPUT"
 
+      # 2c) Early race check. The push step re-checks this after the model/gate
+      #     work, but catching a moved/deleted branch here avoids spending a
+      #     fixer round on a stale tree.
+      - name: Verify branch still at gathered head
+        id: stale
+        if: ${{ steps.flags.outputs.attempt == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_REF: ${{ steps.gather.outputs.head_ref }}
+          EXPECTED_SHA: ${{ steps.gather.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+          remote_tip="$(gh api "repos/${{ github.repository }}/git/ref/heads/${HEAD_REF}" --jq '.object.sha' 2>/dev/null || true)"
+          if [ "$remote_tip" = "$EXPECTED_SHA" ]; then
+            echo "fresh=true" >> "$GITHUB_OUTPUT"
+            echo "branch ${HEAD_REF} still at ${EXPECTED_SHA}"
+          else
+            echo "fresh=false" >> "$GITHUB_OUTPUT"
+            echo "branch ${HEAD_REF} moved/deleted before autofix: expected ${EXPECTED_SHA}, got ${remote_tip:-<none>}"
+          fi
+
       # 3) Read durable round-state (bot-authored + optionally HMAC-signed).
       - name: Read durable state
         working-directory: ${{ runner.temp }}/bot
@@ -164,7 +185,7 @@ jobs:
       #    is already certain (disabled / no key / fork / no findings) to avoid
       #    spending a model call. Non-OpenAI judge so Codex isn't grading itself.
       - name: Adjudicate findings
-        if: ${{ steps.flags.outputs.attempt == 'true' }}
+        if: ${{ steps.flags.outputs.attempt == 'true' && steps.stale.outputs.fresh == 'true' }}
         working-directory: ${{ runner.temp }}/bot
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -208,13 +229,18 @@ jobs:
           printf '%s\n' '/changed-files.txt' '/allowed-paths.json' \
             '/allowed-paths.md' '/scope-violations.json' >> .git/info/exclude
 
-      # 7) Compute the allowed edit surface = the PR's changed files (authoritative
-      #    `gh pr diff --name-only`) minus the do-not-touch denylist.
-      - name: List PR changed files
+      # 7) Compute the allowed edit surface from the gathered immutable PR
+      #    snapshot (`base_sha...head_sha`) minus the do-not-touch denylist.
+      - name: List gathered changed files
         if: ${{ steps.select.outputs.proceed == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh pr diff ${{ steps.gather.outputs.pr_number }} --name-only > changed-files.txt
+          BASE_SHA: ${{ steps.gather.outputs.base_sha }}
+          HEAD_SHA: ${{ steps.gather.outputs.head_sha }}
+        run: |
+          gh api "repos/${{ github.repository }}/compare/${BASE_SHA}...${HEAD_SHA}" \
+            --jq '.files[] | select(.status == "added" or .status == "modified" or .status == "renamed" or .status == "changed") | .filename' \
+            > changed-files.txt
 
       - name: Compute scope fence
         if: ${{ steps.select.outputs.proceed == 'true' }}
@@ -430,16 +456,17 @@ jobs:
           PUSHED_SHA: ${{ steps.push.outputs.pushed_sha }}
           CI_NOTE: ${{ steps.push.outputs.ci_note }}
           CODEX_AUTOFIX_STATE_SECRET: ${{ secrets.CODEX_AUTOFIX_STATE_SECRET }}
-          # Precedence: a pre-fixer terminal wins; else a real scope/gate failure
-          # (both ADVANCE — the fixer ran and produced a bad change); else the push
-          # step's own outcome. The final fallback is INFRA_ERROR (NOT GATE_FAILED):
-          # any unenumerated failure (fixer-action crash, gitleaks install, app-mint,
-          # rejected push) is infrastructure, not finding quality, so it must NOT
-          # advance the round and burn the findings.
+          # Precedence: stale branch wins first (no model/fixer round should be
+          # counted), then pre-fixer terminals, then real scope/gate failures
+          # (both ADVANCE — the fixer ran and produced a bad change), then the
+          # push step's own outcome. Final fallback is INFRA_ERROR (NOT
+          # GATE_FAILED): unenumerated failures are infrastructure, not finding
+          # quality, so they must NOT advance the round and burn findings.
           OUTCOME: >-
-            ${{ steps.select.outputs.terminal != '' && steps.select.outputs.terminal
+            ${{ steps.stale.outputs.fresh == 'false' && 'STALE_HEAD'
+            || (steps.select.outputs.terminal != '' && steps.select.outputs.terminal
             || (steps.enforce.outcome == 'failure' && 'SCOPE_VIOLATION'
             || (steps.gate.outcome == 'failure' && 'GATE_FAILED'
             || (steps.push.outputs.outcome != '' && steps.push.outputs.outcome
-            || 'INFRA_ERROR'))) }}
+            || 'INFRA_ERROR')))) }}
         run: node scripts/codex-autofix/fix-state.mjs finalize
