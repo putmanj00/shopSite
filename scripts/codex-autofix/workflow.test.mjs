@@ -9,6 +9,16 @@ const workflow = readFileSync(
   "utf8",
 );
 
+const triage = readFileSync(
+  join(process.cwd(), ".github/workflows/codex-autofix.yml"),
+  "utf8",
+);
+
+const summarize = readFileSync(
+  join(process.cwd(), "scripts/codex-autofix/summarize.mjs"),
+  "utf8",
+);
+
 test("autofix scope is computed from gathered base/head SHAs, not live PR diff", () => {
   assert.match(
     workflow,
@@ -68,4 +78,28 @@ test("fixer prompt uses a random $GITHUB_OUTPUT delimiter (untrusted content emb
   assert.match(workflow, /echo "\$\{DELIM\}"/);
   assert.doesNotMatch(workflow, /echo 'text<<PROMPT_EOF'/);
   assert.doesNotMatch(workflow, /^\s*echo PROMPT_EOF\s*$/m);
+});
+
+// ---- Phase-1 triage: App-token path for the sticky comment ------------------
+
+test("triage mints a comment-scoped App token, gated on both App secrets", () => {
+  assert.match(triage, /HAS_APP: \$\{\{ secrets\.APP_ID != '' && secrets\.APP_PRIVATE_KEY != '' \}\}/);
+  assert.match(triage, /uses: actions\/create-github-app-token@[0-9a-f]{40} # v1/);
+  assert.match(triage, /id: app-token/);
+  assert.match(triage, /env\.HAS_APP == 'true'/);
+  // Mint failure must not abort the read-only triage job.
+  assert.match(triage, /continue-on-error: true/);
+});
+
+test("triage summarize posts with the App token, falling back to GITHUB_TOKEN", () => {
+  assert.match(
+    triage,
+    /GITHUB_TOKEN: \$\{\{ steps\.app-token\.outputs\.token \|\| github\.token \}\}/,
+  );
+});
+
+test("summarize soft-warns (exit 0) on a 401/403 comment-write denial", () => {
+  assert.match(summarize, /\/ -> \(401\|403\) \//);
+  // The soft path returns instead of throwing; real errors still rethrow.
+  assert.match(summarize, /throw err;/);
 });
