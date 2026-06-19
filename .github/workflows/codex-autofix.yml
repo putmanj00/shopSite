@@ -56,6 +56,12 @@ jobs:
       pull-requests: read     # read PR metadata + review comments
       issues: write           # upsert the sticky summary (PR conversation == issue comment)
       models: read            # GitHub Models inference for the adjudicator
+    env:
+      # A bot-triggered pull_request_review run gets a read-only GITHUB_TOKEN, so
+      # the sticky-comment write 403s. When both App secrets are present we mint a
+      # short-lived, comment-scoped App token to post with; otherwise summarize
+      # soft-warns (no phantom red check). See docs/codex-autofix-loop.md.
+      HAS_APP: ${{ secrets.APP_ID != '' && secrets.APP_PRIVATE_KEY != '' }}
     steps:
       - name: Checkout (scripts only, from default branch)
         uses: actions/checkout@v6
@@ -83,10 +89,25 @@ jobs:
           ADJUDICATOR_MODEL: ${{ vars.CODEX_AUTOFIX_ADJUDICATOR_MODEL || 'mistral-ai/mistral-medium-2505' }}
         run: node scripts/codex-autofix/adjudicate.mjs
 
+      # Mint a short-lived, comment-scoped App token so the sticky can post from
+      # a bot-triggered run (GITHUB_TOKEN is read-only there). A mint failure must
+      # not abort: an empty token makes summarize fall back to GITHUB_TOKEN and
+      # soft-warn rather than fail the job. SHA-pinned (same vetted pin as the fixer).
+      - name: Mint GitHub App token (for the sticky comment)
+        id: app-token
+        if: ${{ steps.gather.outputs.proceed == 'true' && env.HAS_APP == 'true' }}
+        continue-on-error: true
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Post sticky summary comment
         if: steps.gather.outputs.proceed == 'true'
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          # App token when available (posts), else the read-only GITHUB_TOKEN
+          # (summarize soft-warns on the 403 — no phantom red check).
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           PR_NUMBER: ${{ steps.gather.outputs.pr_number }}
           HEAD_SHA: ${{ steps.gather.outputs.head_sha }}

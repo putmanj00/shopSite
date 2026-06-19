@@ -122,20 +122,38 @@ async function main() {
     return;
   }
 
-  const existing = await findExisting(owner, name);
-  if (existing) {
-    await gh(`/repos/${owner}/${name}/issues/comments/${existing.id}`, {
-      method: "PATCH",
-      body: JSON.stringify({ body }),
-    });
-    console.log(`summarize: updated sticky comment ${existing.id}`);
-  } else {
-    const res = await gh(`/repos/${owner}/${name}/issues/${prNumber}/comments`, {
-      method: "POST",
-      body: JSON.stringify({ body }),
-    });
-    const created = await res.json();
-    console.log(`summarize: created sticky comment ${created.id}`);
+  try {
+    const existing = await findExisting(owner, name);
+    if (existing) {
+      await gh(`/repos/${owner}/${name}/issues/comments/${existing.id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ body }),
+      });
+      console.log(`summarize: updated sticky comment ${existing.id}`);
+    } else {
+      const res = await gh(`/repos/${owner}/${name}/issues/${prNumber}/comments`, {
+        method: "POST",
+        body: JSON.stringify({ body }),
+      });
+      const created = await res.json();
+      console.log(`summarize: created sticky comment ${created.id}`);
+    }
+  } catch (err) {
+    // A bot-triggered pull_request_review run gets a read-only GITHUB_TOKEN, so
+    // the comment write 403s unless a GitHub App token is supplied (APP_ID /
+    // APP_PRIVATE_KEY -> create-github-app-token). Triage itself (gather +
+    // adjudicate) already succeeded; the sticky is advisory. Treat a
+    // permission failure as a soft-warn (exit 0) so it does not show a phantom
+    // red check; any other failure is real and still fails the job.
+    if (/ -> (401|403) /.test(err.message)) {
+      console.warn(
+        `summarize: comment write not permitted (${err.message}). Triage ran; ` +
+          `sticky comment skipped. Configure the APP_ID/APP_PRIVATE_KEY secrets ` +
+          `to post the summary from a GitHub App token.`,
+      );
+      return;
+    }
+    throw err;
   }
 }
 

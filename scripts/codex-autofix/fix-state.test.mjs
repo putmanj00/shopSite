@@ -1,12 +1,17 @@
 // node:test unit tests for fix-state pure cores. Run: node --test
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { createHmac } from "node:crypto";
 import {
   renderState,
   parseState,
   mergeAttempted,
+  nextAttempted,
+  clampFailureSummary,
   renderStatus,
   STATE_ADVANCING,
+  RECORDS_ATTEMPTED,
+  MAX_FAILURE_SUMMARY,
   TRUSTED_AUTHOR,
   STATE_MARKER,
   STATUS_MARKER,
@@ -115,6 +120,90 @@ test("STATE_ADVANCING: post-fixer attempts advance; pre-fixer terminals + stale 
   ]) {
     assert.ok(!STATE_ADVANCING.has(o), `${o} should NOT advance the round`);
   }
+});
+
+// ---- B1 feedback loop: lastFailure + no-burn on GATE_FAILED -----------------
+
+test("lastFailure round-trips and is covered by the signature", () => {
+  const secret = "s3cr3t";
+  const lf = { round: 1, outcome: "GATE_FAILED", summary: "typecheck failed at price.tsx:12" };
+  const body = renderState({ rounds: 1, attempted: ["a"], shas: [], lastFailure: lf }, secret);
+  const s = parseState(body, TRUSTED_AUTHOR, secret);
+  assert.equal(s.valid, true);
+  assert.deepEqual(s.lastFailure, lf);
+  // Tampering the carried summary while keeping the old sig must be rejected.
+  const tampered = body.replace("price.tsx", "evil.tsx");
+  assert.equal(parseState(tampered, TRUSTED_AUTHOR, secret).valid, false);
+});
+
+test("no prior failure → lastFailure is null and the key is omitted from the block", () => {
+  const body = renderState({ rounds: 1, attempted: ["a"], shas: [] });
+  assert.ok(!body.includes("lastFailure"), "absent lastFailure must not serialize");
+  assert.equal(parseState(body, TRUSTED_AUTHOR).lastFailure, null);
+});
+
+test("back-compat: a v1 HMAC-signed block (no lastFailure) still validates", () => {
+  // Reproduce exactly what the pre-feedback (v1) code would have written: the sig
+  // is computed over a canonical form that omits lastFailure. The new parser must
+  // still accept it, or every in-flight PR's state comment would reset.
+  const secret = "s3cr3t";
+  const payload = { v: 1, rounds: 1, attempted: ["a"], shas: ["x"] };
+  const canonical = JSON.stringify({
+    v: 1,
+    rounds: 1,
+    attempted: ["a"],
+    shas: ["x"],
+    lastFailure: undefined,
+  });
+  const sig = createHmac("sha256", secret).update(canonical).digest("hex");
+  const body = `${STATE_MARKER}\n${JSON.stringify({ ...payload, sig })}\n-->`;
+  const s = parseState(body, TRUSTED_AUTHOR, secret);
+  assert.equal(s.valid, true);
+  assert.equal(s.rounds, 1);
+  assert.equal(s.lastFailure, null);
+});
+
+test("RECORDS_ATTEMPTED burns every advancing outcome EXCEPT GATE_FAILED", () => {
+  for (const o of ["FIXED", "NO_CHANGES", "SCOPE_VIOLATION", "SECRET_FOUND"]) {
+    assert.ok(RECORDS_ATTEMPTED.has(o), `${o} should burn its findings`);
+  }
+  assert.ok(!RECORDS_ATTEMPTED.has("GATE_FAILED"), "GATE_FAILED must NOT burn (one informed retry)");
+  // Burning is a strict subset of advancing — you can't burn without advancing.
+  for (const o of RECORDS_ATTEMPTED) assert.ok(STATE_ADVANCING.has(o), `${o} must also advance`);
+});
+
+test("nextAttempted: GATE_FAILED keeps prior (no burn); other outcomes union the round", () => {
+  assert.deepEqual(nextAttempted("GATE_FAILED", ["a"], ["b", "c"]), ["a"]);
+  assert.deepEqual(nextAttempted("FIXED", ["a"], ["b"]), ["a", "b"]);
+  assert.deepEqual(nextAttempted("SCOPE_VIOLATION", [], ["x"]), ["x"]);
+  // Even the no-burn path normalizes (dedupe + sort) for stable round-trips.
+  assert.deepEqual(nextAttempted("GATE_FAILED", ["b", "a", "a"], []), ["a", "b"]);
+});
+
+test("clampFailureSummary strips CR, trims, and bounds to MAX_FAILURE_SUMMARY", () => {
+  assert.equal(clampFailureSummary("  hi\r\nthere  "), "hi\nthere");
+  assert.equal(clampFailureSummary("Z".repeat(5000)).length, MAX_FAILURE_SUMMARY);
+  assert.equal(clampFailureSummary(null), "");
+  assert.equal(clampFailureSummary(undefined), "");
+});
+
+test("clampFailureSummary neutralizes the HTML-comment terminator (no '-->')", () => {
+  assert.ok(!clampFailureSummary("oops a-->b in code").includes("-->"));
+  assert.ok(!clampFailureSummary("--->").includes("-->"));
+  assert.ok(!clampFailureSummary("a---->b").includes("-->"));
+});
+
+test("a '-->' in gate output cannot break the state comment / reset the round cap", () => {
+  // Cross-review pass 3 HIGH: an un-neutralized terminator would slice the JSON
+  // early in parseState → JSON.parse throws → fresh state (rounds 0) → cap defeat.
+  const secret = "s3cr3t";
+  const summary = clampFailureSummary("tsc error near `<div -->` snippet");
+  const lf = { round: 2, outcome: "GATE_FAILED", summary };
+  const body = renderState({ rounds: 2, attempted: ["h"], shas: [], lastFailure: lf }, secret);
+  const s = parseState(body, TRUSTED_AUTHOR, secret);
+  assert.equal(s.valid, true, "state must still parse with a terminator-bearing summary");
+  assert.equal(s.rounds, 2, "round counter must NOT reset (cap intact)");
+  assert.equal(s.lastFailure.summary, summary);
 });
 
 test("renderStatus FIXED surfaces pushed SHA + CI note", () => {
