@@ -109,7 +109,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     },
     offers: {
       '@type': 'AggregateOffer',
-      url: `https://shopsite.com/products/${product.handle}`,
+      url: `${SITE_URL}/products/${product.handle}`,
       priceCurrency: price.currencyCode,
       highPrice: product.priceRange?.maxVariantPrice?.amount || price.amount,
       lowPrice: price.amount,
