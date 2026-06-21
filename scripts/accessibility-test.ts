@@ -24,10 +24,25 @@ interface A11yResult {
   incomplete: number;
 }
 
+// Static content + buyer routes that render without live Shopify product data.
+// Dynamic routes (/products/[handle], /collections/[handle], /blog/[slug],
+// /legal/[slug]) are NOT listed here yet: they 404 until test products/posts are
+// published. Add representative instances once route-discovery (QA plan W1) + the
+// published test catalog land, so PDP/collection a11y get real coverage.
 const PAGES_TO_TEST = [
   '/',
   '/collections/all',
-  // Add more pages as they become available
+  '/about',
+  '/our-story',
+  '/history',
+  '/contact',
+  '/faq',
+  '/shipping-returns',
+  '/local',
+  '/login',
+  '/register',
+  '/blog',
+  '/wishlist',
 ];
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
