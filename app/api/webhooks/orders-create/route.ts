@@ -7,6 +7,7 @@ import {
   mapOrderToEmail,
   type ShopifyOrder,
 } from '@/lib/shopify-webhook';
+import { alreadyProcessed, markProcessed } from '@/lib/webhook-dedup';
 
 // HMAC verification and raw-body reading require the Node.js runtime.
 export const runtime = 'nodejs';
@@ -25,6 +26,7 @@ export async function POST(request: NextRequest) {
   // Read the RAW body — HMAC is computed over the exact bytes Shopify sent.
   const rawBody = await request.text();
   const hmacHeader = request.headers.get('x-shopify-hmac-sha256');
+  const webhookId = request.headers.get('x-shopify-webhook-id');
 
   if (!isWebhookConfigured()) {
     // Fail closed: never process an unverifiable webhook.
@@ -37,6 +39,11 @@ export async function POST(request: NextRequest) {
   if (!verifyShopifyWebhook(rawBody, hmacHeader)) {
     console.warn('[webhook orders/create] Invalid HMAC signature — rejecting.');
     return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
+  }
+
+  if (alreadyProcessed(webhookId)) {
+    // Already emailed for this delivery — ack the retry without re-sending.
+    return NextResponse.json({ received: true, skipped: 'duplicate' });
   }
 
   let order: ShopifyOrder;
@@ -80,6 +87,7 @@ export async function POST(request: NextRequest) {
       throw result.error ?? new Error('sendEmail returned failure');
     }
 
+    markProcessed(webhookId);
     return NextResponse.json({ received: true, emailId: result.id });
   } catch (error) {
     // Transient send failure — return 500 so Shopify retries delivery.

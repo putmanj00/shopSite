@@ -1,5 +1,6 @@
 /**
- * Unit tests for the Shopify orders/create webhook helpers.
+ * Unit tests for the Shopify webhook helpers (orders/create, fulfillments/create,
+ * and the shared idempotency store).
  * Run: npm run test:webhook
  *
  * No test framework in this repo — mirrors the existing tsx script idiom
@@ -12,6 +13,11 @@ import {
   mapOrderToEmail,
   type ShopifyOrder,
 } from '../lib/shopify-webhook';
+import {
+  mapFulfillmentToShipping,
+  type ShopifyFulfillment,
+} from '../lib/shopify-fulfillment';
+import { alreadyProcessed, markProcessed, _resetDedup } from '../lib/webhook-dedup';
 
 const SECRET = 'test_webhook_secret_123';
 
@@ -110,6 +116,88 @@ const paidShip = mapOrderToEmail({
   total_shipping_price_set: { shop_money: { amount: '7.50', currency_code: 'USD' } },
 });
 check('non-zero shipping formatted', paidShip?.shipping === '$7.50');
+
+const sampleFulfillment: ShopifyFulfillment = {
+  order_id: 9001,
+  name: '#1042.1',
+  email: 'buyer@example.com',
+  tracking_company: 'USPS',
+  tracking_number: '9400100000000000000000',
+  tracking_url: 'https://tools.usps.com/go/TrackConfirmAction?tLabels=9400100000000000000000',
+  estimated_delivery_at: '2026-06-25T17:00:00Z',
+  destination: {
+    name: 'Ada Lovelace',
+    first_name: 'Ada',
+    last_name: 'Lovelace',
+    address1: '12 Meadow Ln',
+    city: 'Covington',
+    province: 'Kentucky',
+    zip: '41011',
+    country: 'United States',
+  },
+  line_items: [{ title: 'Mokume-gane Ring', quantity: 1, price: '120.00' }],
+};
+
+console.log('Fulfillment → shipping email mapping:');
+const ship = mapFulfillmentToShipping(sampleFulfillment);
+check('maps to non-null', ship !== null);
+if (ship) {
+  check('recipient email', ship.email === 'buyer@example.com');
+  check('order number strips # and .N', ship.orderNumber === '1042');
+  check('first name from destination', ship.firstName === 'Ada');
+  check('tracking number carried', ship.trackingNumber === sampleFulfillment.tracking_number);
+  check('tracking url carried', ship.trackingUrl === sampleFulfillment.tracking_url);
+  check('carrier carried', ship.carrier === 'USPS');
+  check('estimated delivery formatted', typeof ship.estimatedDelivery === 'string');
+  check('item count', ship.items.length === 1);
+  check('item price formatted', ship.items[0].price === '$120.00');
+  check('shipping address city', ship.shippingAddress.city === 'Covington');
+}
+
+console.log('Fulfillment mapping edge cases:');
+check(
+  'no email → null',
+  mapFulfillmentToShipping({ ...sampleFulfillment, email: undefined }) === null,
+);
+check(
+  'no tracking number → null',
+  mapFulfillmentToShipping({
+    ...sampleFulfillment,
+    tracking_number: undefined,
+    tracking_numbers: undefined,
+  }) === null,
+);
+check(
+  'no tracking url → null',
+  mapFulfillmentToShipping({
+    ...sampleFulfillment,
+    tracking_url: undefined,
+    tracking_urls: undefined,
+  }) === null,
+);
+check(
+  'tracking_numbers[0] fallback',
+  mapFulfillmentToShipping({
+    ...sampleFulfillment,
+    tracking_number: undefined,
+    tracking_numbers: ['TN-FALLBACK'],
+  })?.trackingNumber === 'TN-FALLBACK',
+);
+check(
+  'order_id fallback when no name',
+  mapFulfillmentToShipping({ ...sampleFulfillment, name: undefined })?.orderNumber === '9001',
+);
+
+console.log('Dedup (idempotency store):');
+_resetDedup();
+check('unseen id → not processed', !alreadyProcessed('wh-1'));
+markProcessed('wh-1');
+check('marked id → processed', alreadyProcessed('wh-1'));
+check('different id → not processed', !alreadyProcessed('wh-2'));
+check('null id never deduped (mark)', (markProcessed(null), !alreadyProcessed(null)));
+check('null id never deduped (check)', !alreadyProcessed(null));
+_resetDedup();
+check('reset clears store', !alreadyProcessed('wh-1'));
 
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed > 0) {

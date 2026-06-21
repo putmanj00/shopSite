@@ -40,6 +40,17 @@ Admin → **Settings → Notifications → Webhooks** (or via Admin API):
 > webhook created via the **Admin API** is signed with the app's API secret
 > instead — use whichever matches how you registered it.
 
+### 3b. Shopify — register the shipping webhook (optional, for "your order shipped" emails)
+
+Same page, same signing secret (one `SHOPIFY_WEBHOOK_SECRET` covers all topics):
+
+- [ ] Event: **Fulfillment creation** · Format: **JSON**
+- [ ] URL: `https://wildenflower.com/api/webhooks/fulfillments-create`
+
+The shipping email only sends when the fulfillment carries a recipient email,
+a tracking number, and a tracking URL (Shopify auto-fills the URL for
+recognised carriers). Fulfillments without tracking are acked and skipped.
+
 ## 4. Test order (end-to-end)
 
 - [ ] Place a real low-value test order through live checkout.
@@ -51,21 +62,26 @@ Admin → **Settings → Notifications → Webhooks** (or via Admin API):
 
 ## Scope notes / follow-ons (not in Step 5)
 
-- Only **orders/create** (confirmation) is wired. Shipping & delivery emails
-  have routes but need **fulfillment** webhooks (`fulfillments/create`,
-  `fulfillments/update`) — a later slice.
-- Webhook is **not deduplicated**. Shopify may retry on a slow/failed reply; a
-  rare duplicate confirmation email is possible (no DB for an idempotency
-  store). Acceptable at launch volume.
-- Email templates still carry old-brand styling (`#7C3AED` purple). Out of
-  Step-5 scope — tracked as the emails/admin/account off-brand residue pass.
+- **orders/create** (confirmation) and **fulfillments/create** (shipping
+  notification) are wired. **Delivery confirmation** (`fulfillments/update` with
+  `shipment_status === 'delivered'`) is deferred: its template needs per-product
+  PDP links + a review route + a `/care-guides` page that don't exist yet
+  (fulfillment line items carry no product handle). Build once those exist.
+- Webhooks are **deduplicated best-effort** on `X-Shopify-Webhook-Id`
+  (`lib/webhook-dedup.ts`): an id is recorded only after a successful send, so a
+  retry after a 500 still reprocesses, while a retry after success is skipped.
+  Store is **in-memory per-instance** — a duplicate is still possible if a retry
+  lands on a different/cold Vercel instance. Upgrade to a shared store (Vercel
+  KV / Upstash) only if duplicate emails are observed.
+- Email templates are de-purpled (PR #24). Shipping/delivery templates use the
+  terracotta/cream brand palette.
 - `app/api/email/*` routes still exist for manual/triggered sends; the webhook
   sends directly via `lib/email.ts` (no internal HTTP hop).
 
 ## Local verification
 
 ```bash
-npm run test:webhook   # HMAC verify + order→email mapping unit tests
+npm run test:webhook   # HMAC verify + order/fulfillment mapping + dedup tests
 npm run typecheck
 npm run lint
 ```
