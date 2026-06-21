@@ -83,7 +83,7 @@ const colorCombinations: Array<{
   },
   {
     name: 'Muted text on muted background',
-    foreground: 'neutral-500',
+    foreground: 'neutral-600',
     background: 'neutral-100',
     usage: 'Secondary/muted text (--foreground-muted on --background-muted)',
   },
@@ -210,8 +210,6 @@ const ACCEPTED_EXCEPTIONS: Record<string, string> = {
     'HIGH — white on terracotta-500 (~3.9:1) fails AA for normal-size labels. Fix: use bg-primary-600+ for button surfaces (passes), or enlarge/bolden labels to large-text.',
   'Terracotta link on parchment':
     'MED — inline terracotta links (~3.4:1) fail AA. Fix: darken link color to primary-700 (#8f441c) and reserve terracotta for large/decorative text.',
-  'Muted text on muted background':
-    'LOW — neutral-500 on neutral-100 is 4.43:1 vs 4.50 (marginal). Fix: bump --foreground-muted to neutral-600.',
   'Input border on cream':
     'MED — neutral-400 borders (2.48:1) fail the 3:1 UI-component minimum. Fix: use neutral-500 for input borders.',
   'Gold divider on parchment':

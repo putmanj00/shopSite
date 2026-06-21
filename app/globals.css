@@ -54,7 +54,8 @@
   --foreground: #5C4033;
   /* inkBrown */
   --background-muted: var(--color-neutral-100);
-  --foreground-muted: var(--color-neutral-500);
+  /* neutral-600 (not -500) clears WCAG AA 4.5:1 for muted body text on the muted bg */
+  --foreground-muted: var(--color-neutral-600);
 
   /* Typography Scale (16px base) */
   --font-size-xs: 0.75rem;
