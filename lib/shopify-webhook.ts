@@ -121,7 +121,7 @@ export interface OrderEmailData {
 }
 
 /** Format a Shopify money string ("29.99") for display ("$29.99"). */
-function formatMoney(amount: string | undefined, currency: string): string {
+export function formatMoney(amount: string | undefined, currency: string): string {
   const value = Number(amount);
   if (!amount || Number.isNaN(value)) {
     return '$0.00';
@@ -137,7 +137,7 @@ function formatMoney(amount: string | undefined, currency: string): string {
   }
 }
 
-function fullName(...parts: Array<string | undefined>): string {
+export function fullName(...parts: Array<string | undefined>): string {
   return parts.filter(Boolean).join(' ').trim();
 }
 
