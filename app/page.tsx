@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { localBusinessSchema, organizationSchema } from '@/lib/structured-data';
+import { onlineStoreSchema, organizationSchema } from '@/lib/structured-data';
 import EnhancedHero from '@/components/homepage/enhanced-hero';
 import { BotanicalDivider } from '@/components/ui/botanical-divider';
 import CategoryCards from '@/components/homepage/category-cards';
@@ -30,28 +30,11 @@ function FeaturedProductsSkeleton() {
 
 
 export default function Home() {
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Store',
-    name: 'Wildenflower',
-    description: 'Handpicked treasures for the untamed spirit. Curated bohemian jewelry, crystals, tie-dye, and artisan leather goods.',
-    url: 'https://wildenflower.com',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://wildenflower.com/search?q={search_term_string}',
-      'query-input': 'required name=search_term_string'
-    }
-  };
-
   return (
     <div className="min-h-screen bg-[#F5EDD6]">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(onlineStoreSchema) }}
       />
       <script
         type="application/ld+json"

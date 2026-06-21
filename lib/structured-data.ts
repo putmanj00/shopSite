@@ -15,24 +15,28 @@ export function buildBreadcrumbList(
   };
 }
 
-// TODO: Replace placeholder address/phone/hours with real Wildenflower data (Alexandria, KY)
-export const localBusinessSchema = {
+// Wildenflower is an online + local-markets brand with no public storefront address,
+// so we model it as an OnlineStore (subtype of Organization/Store) rather than a
+// LocalBusiness. LocalBusiness implies a visitable address Google expects to be
+// present; we deliberately publish no street address or phone. `areaServed` carries
+// the Northern-Kentucky local-intent signal without exposing personal contact info.
+// For Google Maps presence, set up a Google Business Profile as a *service-area*
+// business (which hides the street address) — that is separate from this markup.
+export const onlineStoreSchema = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
+  '@type': 'OnlineStore',
   name: 'Wildenflower',
   description:
     'Made by hand. Found by heart. Handcrafted tie-dye, leather goods, jewelry, crystals, and original art from Northern Kentucky.',
   url: SITE_URL,
-  // address placeholder — update with real NAP once confirmed
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Alexandria',
-    addressRegion: 'KY',
-    addressCountry: 'US',
-  },
   areaServed: 'Northern Kentucky',
   priceRange: '$$',
   sameAs: ['https://instagram.com/wildenflower/'],
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${SITE_URL}/search?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
 };
 
 export const organizationSchema = {

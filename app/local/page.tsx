@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BotanicalHeader } from '@/components/ui/botanical-header';
-import { localBusinessSchema } from '@/lib/structured-data';
+import { onlineStoreSchema } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
   title: 'Visit Wildenflower | Northern Kentucky Handmade Shop',
@@ -27,7 +27,7 @@ export default function LocalPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(onlineStoreSchema) }}
       />
 
       <BotanicalHeader variant="small" />
