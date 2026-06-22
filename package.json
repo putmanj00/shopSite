@@ -13,6 +13,7 @@
     "format:check": "prettier --check .",
     "a11y:test": "npx tsx scripts/accessibility-test.ts",
     "contrast:check": "npx tsx scripts/color-contrast-checker.ts",
+    "test:button": "npx tsx scripts/button-variants.test.ts",
     "a11y:all": "npm run contrast:check && npm run a11y:test",
     "test:ui": "npx tsx scripts/ui-tests.ts",
     "test:routes": "npx tsx scripts/validate-routes.ts",

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
 
 interface MobileFilterDrawerProps {
   isOpen: boolean;
@@ -173,12 +174,15 @@ export default function MobileFilterDrawer({
                     className="w-full px-3 py-2 border border-gold/30 rounded-lg text-sm focus:ring-2 focus:ring-terracotta focus:border-transparent"
                   />
                 </div>
-                <button
+                <Button
                   onClick={handlePriceApply}
-                  className="w-full px-3 py-2 bg-terracotta text-white rounded-lg hover:bg-terracotta/90 transition-colors text-sm font-medium"
+                  variant="primary"
+                  size="sm"
+                  fullWidth
+                  className="font-medium"
                 >
                   Apply Price
-                </button>
+                </Button>
               </div>
             )}
           </div>
@@ -287,12 +291,14 @@ export default function MobileFilterDrawer({
               Clear All Filters
             </button>
           )}
-          <button
+          <Button
             onClick={handleApply}
-            className="w-full px-4 py-3 bg-terracotta text-white rounded-lg hover:bg-terracotta/90 transition-colors font-medium"
+            variant="primary"
+            fullWidth
+            className="font-medium"
           >
             Show Results
-          </button>
+          </Button>
         </div>
       </div>
     </>

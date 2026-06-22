@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/lib/auth-store';
 import StarRating from '@/components/star-rating';
 
@@ -22,12 +23,13 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
         return (
             <div className="bg-parchment p-6 rounded-lg text-center">
                 <p className="text-earth mb-4">Please sign in to write a review.</p>
-                <a
+                <Button
                     href={`/login?returnTo=/products/${productId}`}
-                    className="inline-block bg-terracotta text-white px-6 py-2 rounded-lg font-medium hover:bg-terracotta/90 transition-colors"
+                    variant="primary"
+                    className="font-medium"
                 >
                     Sign In
-                </a>
+                </Button>
             </div>
         );
     }
@@ -178,13 +180,13 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
                 <p className="text-xs text-sage">You can upload up to 3 photos.</p>
             </div>
 
-            <button
+            <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-terracotta text-white py-2 px-4 rounded-md font-semibold hover:bg-terracotta/90 focus:outline-none focus:ring-2 focus:ring-terracotta focus:ring-offset-2 disabled:opacity-50 transition-colors"
+                fullWidth
             >
                 {isSubmitting ? 'Submitting...' : 'Submit Review'}
-            </button>
+            </Button>
         </form >
     );
 }

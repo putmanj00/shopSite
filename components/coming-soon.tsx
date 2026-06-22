@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 interface ComingSoonProps {
     title: string;
@@ -29,12 +29,9 @@ export default function ComingSoon({
                     {description}
                 </p>
 
-                <Link
-                    href="/"
-                    className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-terracotta hover:bg-terracotta/90 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-terracotta"
-                >
+                <Button href="/" variant="primary">
                     Return Home
-                </Link>
+                </Button>
             </div>
         </div>
     );

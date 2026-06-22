@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import { useQuickViewStore } from '@/lib/quick-view-store';
 import { isProductOnSale } from '@/lib/shopify-helpers';
 import { normalizeVendor } from '@/lib/product-filters';
@@ -229,13 +229,14 @@ function QuickViewContent({
                   product={product}
                   className="flex-none"
                 />
-                <Link
+                <Button
                   href={`/products/${product.handle}`}
                   onClick={onClose}
-                  className="flex-1 py-3 px-4 text-center text-terracotta font-semibold border border-terracotta rounded-lg hover:bg-terracotta hover:text-white transition-colors"
+                  variant="outline"
+                  className="flex-1"
                 >
                   View Full Details
-                </Link>
+                </Button>
               </div>
             </div>
           </div>

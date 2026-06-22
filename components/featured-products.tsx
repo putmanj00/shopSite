@@ -62,7 +62,7 @@ export default async function FeaturedProducts() {
         </h2>
         <Link
           href="/collections/all"
-          className="text-sm font-semibold text-terracotta transition-colors hover:text-terracotta/80 md:text-base"
+          className="text-sm font-semibold text-primary-700 transition-colors hover:text-primary-800 md:text-base"
         >
           View All →
         </Link>

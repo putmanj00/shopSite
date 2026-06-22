@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { ShopifyProductVariant } from '@/types/shopify';
 import { useCartStore } from '@/lib/cart-store';
+import { Button } from '@/components/ui/button';
 
 interface AddToCartButtonProps {
   variant: ShopifyProductVariant;
@@ -41,20 +42,19 @@ export default function AddToCartButton({
 
   return (
     <div className="space-y-3">
-      <button
+      <Button
         id={id}
         onClick={handleAddToCart}
         disabled={!mounted || !variant.availableForSale || isLoading}
-        className={`
-          w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all
-          ${
-            !variant.availableForSale
-              ? 'bg-neutral-300 text-neutral-600 cursor-not-allowed'
-              : isLoading
-                ? 'bg-terracotta/60 text-white cursor-wait'
-                : 'bg-terracotta text-white hover:bg-terracotta/90 active:scale-95'
-          }
-        `}
+        fullWidth
+        size="lg"
+        className={
+          !variant.availableForSale
+            ? '!bg-neutral-300 !text-neutral-600 cursor-not-allowed'
+            : isLoading
+              ? 'cursor-wait'
+              : ''
+        }
       >
         {isLoading ? (
           <span className="flex items-center justify-center gap-2">
@@ -85,7 +85,7 @@ export default function AddToCartButton({
         ) : (
           'Add to Cart'
         )}
-      </button>
+      </Button>
 
       {showSuccess && (
         <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg flex items-center gap-2">

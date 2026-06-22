@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import { FaqAccordion } from '@/components/faq/faq-accordion';
 import { faqItems, FAQ_CATEGORIES } from '@/data/faq-data';
 
@@ -67,12 +67,9 @@ export function FaqPageContent() {
                 <div className="container mx-auto px-4 max-w-3xl text-center">
                     <h2 className="text-2xl font-bold font-heading text-ink-brown mb-2">Still curious?</h2>
                     <p className="text-earth mb-6">We&apos;d love to hear from you</p>
-                    <Link
-                        href="/contact"
-                        className="inline-block px-6 py-3 bg-terracotta text-white rounded-lg font-medium hover:bg-terracotta/90 transition-colors"
-                    >
+                    <Button href="/contact" variant="primary" className="font-medium">
                         Get in Touch
-                    </Link>
+                    </Button>
                 </div>
             </section>
         </>

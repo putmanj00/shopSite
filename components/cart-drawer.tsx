@@ -13,7 +13,7 @@ import CartCrossSell from './cart/cart-cross-sell';
 import ExpressCheckoutButtons from './cart/express-checkout-buttons';
 import { TrustBadgesCompact } from './checkout/trust-badges';
 import GiftMessageInput from './checkout/gift-message-input';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function CartDrawer() {
   const { cart, isOpen, closeCart } = useCartStore();
@@ -137,54 +137,69 @@ export default function CartDrawer() {
               <p className="text-earth mb-6 max-w-xs leading-relaxed">
                 Wander the shop and find something made for you.
               </p>
-              <Link
-                href="/collections/all"
-                onClick={closeCart}
-                className="px-6 py-3 bg-terracotta text-white rounded-lg font-semibold hover:bg-terracotta/90 transition-colors"
-              >
+              <Button href="/collections/all" onClick={closeCart} variant="primary">
                 Explore the Shop
-              </Link>
+              </Button>
             </div>
           ) : (
             <>
-              {/* Items List */}
-              <div className="flex-1 overflow-y-auto px-6">
-                <div className="divide-y divide-gold/20">
-                  {lines.map(({ node }) => (
-                    <CartItem key={node.id} line={node} />
-                  ))}
+              {/* Scrollable region: line items + order summary.
+                  min-h-0 lets this flex child shrink and scroll instead of
+                  collapsing to 0 height behind a tall pinned footer on mobile. */}
+              <div className="flex-1 min-h-0 overflow-y-auto">
+                {/* Items List */}
+                <div className="px-6">
+                  <div className="divide-y divide-gold/20">
+                    {lines.map(({ node }) => (
+                      <CartItem key={node.id} line={node} />
+                    ))}
+                  </div>
+
+                  <CartCrossSell
+                    cartProductTypes={cartProductTypes}
+                    cartProductIds={cartProductIds}
+                  />
                 </div>
 
-                <CartCrossSell
-                  cartProductTypes={cartProductTypes}
-                  cartProductIds={cartProductIds}
-                />
+                {/* Botanical divider strip */}
+                <div className="relative h-14 -mb-1 opacity-30 pointer-events-none" aria-hidden="true">
+                  <Image
+                    src="/assets/images/about/dividder-fallen-log-no-bg.png"
+                    alt=""
+                    fill
+                    className="object-contain object-center"
+                  />
+                </div>
+
+                {/* Order summary (scrolls with items) */}
+                <div className="border-t border-gold/30 bg-parchment px-6 py-4 space-y-4">
+                  {/* Free Shipping Progress Bar */}
+                  <FreeShippingBar
+                    currentTotal={cartSubtotal}
+                    threshold={75}
+                    currencyCode={cart?.cost.subtotalAmount.currencyCode}
+                  />
+
+                  {/* Discount Code Input */}
+                  <DiscountCodeInput onApply={handleApplyDiscount} />
+
+                  {/* Gift Message Option */}
+                  <GiftMessageInput
+                    onMessageChange={handleGiftMessageChange}
+                    initialMessage={giftMessage}
+                    initialIsGift={isGift}
+                  />
+
+                  {/* Express Checkout Buttons */}
+                  <ExpressCheckoutButtons />
+                </div>
               </div>
 
-              {/* Botanical divider strip */}
-              <div className="relative h-14 flex-shrink-0 -mb-1 opacity-30 pointer-events-none" aria-hidden="true">
-                <Image
-                  src="/assets/images/about/dividder-fallen-log-no-bg.png"
-                  alt=""
-                  fill
-                  className="object-contain object-center"
-                />
-              </div>
-
-              {/* Footer */}
-              <div className="border-t border-gold/30 bg-parchment px-6 py-4 space-y-4 flex-shrink-0">
-                {/* Free Shipping Progress Bar */}
-                <FreeShippingBar
-                  currentTotal={cartSubtotal}
-                  threshold={75}
-                  currencyCode={cart?.cost.subtotalAmount.currencyCode}
-                />
-
-                {/* Discount Code Input */}
-                <DiscountCodeInput onApply={handleApplyDiscount} />
-
+              {/* Pinned action bar — always visible so the item totals and
+                  checkout stay reachable even when the cart overflows on mobile. */}
+              <div className="flex-shrink-0 border-t border-gold/30 bg-parchment px-6 py-4 space-y-3">
                 {/* Subtotal */}
-                <div className="flex items-center justify-between text-lg border-t border-gold/20 pt-3">
+                <div className="flex items-center justify-between text-lg">
                   <span className="font-semibold text-forest font-heading">Subtotal</span>
                   <span className="font-bold text-forest">
                     {cart && <Price amount={cart.cost.subtotalAmount.amount} currencyCode={cart.cost.subtotalAmount.currencyCode} />}
@@ -201,18 +216,8 @@ export default function CartDrawer() {
                   Shipping and taxes calculated at checkout
                 </p>
 
-                {/* Gift Message Option */}
-                <GiftMessageInput
-                  onMessageChange={handleGiftMessageChange}
-                  initialMessage={giftMessage}
-                  initialIsGift={isGift}
-                />
-
-                {/* Express Checkout Buttons */}
-                <ExpressCheckoutButtons />
-
                 {/* Checkout Button */}
-                <button
+                <Button
                   onClick={() => {
                     if (cart?.checkoutUrl) {
                       setIsRedirecting(true);
@@ -223,7 +228,9 @@ export default function CartDrawer() {
                     }
                   }}
                   disabled={!cart?.checkoutUrl || isRedirecting}
-                  className="w-full py-4 bg-terracotta text-white text-center rounded-lg font-semibold hover:bg-terracotta/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  fullWidth
+                  size="lg"
+                  className="disabled:cursor-not-allowed"
                 >
                   {isRedirecting ? (
                     <>
@@ -236,7 +243,7 @@ export default function CartDrawer() {
                   ) : (
                     'Proceed to Checkout'
                   )}
-                </button>
+                </Button>
 
                 {/* Trust Badges */}
                 <TrustBadgesCompact />
@@ -244,7 +251,7 @@ export default function CartDrawer() {
                 {/* Continue Shopping */}
                 <button
                   onClick={closeCart}
-                  className="w-full py-3 text-gold text-center font-semibold hover:text-gold/80 transition-colors"
+                  className="w-full py-2 text-gold text-center font-semibold hover:text-gold/80 transition-colors"
                 >
                   Continue Shopping
                 </button>

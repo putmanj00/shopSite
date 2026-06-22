@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import { BotanicalHeader } from '@/components/ui/botanical-header';
 import { onlineStoreSchema } from '@/lib/structured-data';
 
@@ -90,12 +91,9 @@ export default function LocalPage() {
                 Hours and location details coming soon. Shop online anytime at wildenflower.com.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/collections/all"
-                  className="inline-block px-6 py-3 bg-terracotta text-white rounded-lg font-semibold hover:bg-terracotta/90 transition-colors"
-                >
+                <Button href="/collections/all" variant="primary">
                   Shop Online
-                </Link>
+                </Button>
                 <Link
                   href="/contact"
                   className="inline-block px-6 py-3 border border-forest text-forest rounded-lg font-semibold hover:bg-forest hover:text-parchment transition-colors"

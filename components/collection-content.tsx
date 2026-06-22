@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import ProductCard from '@/components/product-card';
 import SearchBar from '@/components/search-bar';
@@ -510,12 +511,14 @@ export default function CollectionContent({
                 Try adjusting your filters or search query
               </p>
               {hasActiveFilters && (
-                <button
+                <Button
                   onClick={clearFilters}
-                  className="mt-4 px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-terracotta/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
+                  variant="primary"
+                  size="sm"
+                  className="mt-4"
                 >
                   Clear all filters
-                </button>
+                </Button>
               )}
             </div>
           )}

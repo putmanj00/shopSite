@@ -11,7 +11,7 @@ interface SectionTitleProps {
 }
 
 export function SectionTitle({ title, action, centered, className = '' }: SectionTitleProps) {
-    const actionClassName = "font-sans text-sm text-terracotta hover:opacity-80 transition-opacity font-medium tracking-wide";
+    const actionClassName = "font-sans text-sm text-primary-700 hover:opacity-80 transition-opacity font-medium tracking-wide";
 
     return (
         <div className={`flex flex-row items-center justify-between mx-4 mb-6 ${centered ? 'justify-center mx-0' : ''} ${className}`}>

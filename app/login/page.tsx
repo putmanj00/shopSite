@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { Button } from '@/components/ui/button';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth-store';
 
@@ -105,12 +106,13 @@ export default function LoginPage() {
             </div>
           ) : (
             <>
-              <button
+              <Button
                 onClick={handleLogin}
-                className="group relative flex w-full justify-center rounded-md bg-terracotta py-3 px-3 text-sm font-semibold text-white hover:bg-terracotta/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta transition-colors"
+                fullWidth
+                size="sm"
               >
                 Continue with Shopify
-              </button>
+              </Button>
 
               <p className="text-center text-xs text-earth">
                 Don&apos;t have an account? You can create one during sign-in.
