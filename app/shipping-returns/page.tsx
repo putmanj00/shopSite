@@ -43,7 +43,7 @@ export default function ShippingReturnsPage() {
                                     <tr key={rate.method} className="bg-white hover:bg-parchment/50 transition-colors">
                                         <td className="px-5 py-4 font-medium text-ink-brown">{rate.method}</td>
                                         <td className="px-5 py-4 text-earth">{rate.time}</td>
-                                        <td className="px-5 py-4 text-right text-terracotta font-medium">{rate.cost}</td>
+                                        <td className="px-5 py-4 text-right text-primary-700 font-medium">{rate.cost}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -72,7 +72,7 @@ export default function ShippingReturnsPage() {
                         <div>
                             <h3 className="font-semibold text-ink-brown mb-2">How to Return</h3>
                             <ol className="text-earth text-sm leading-relaxed list-decimal list-inside space-y-2">
-                                <li>Contact us at <span className="text-terracotta">wildenflowercreations@gmail.com</span> with your order number</li>
+                                <li>Contact us at <span className="text-primary-700">wildenflowercreations@gmail.com</span> with your order number</li>
                                 <li>Receive a prepaid return shipping label within 24 hours</li>
                                 <li>Pack items securely and drop off at any carrier location</li>
                                 <li>Refund processed within 5–7 business days of receipt</li>

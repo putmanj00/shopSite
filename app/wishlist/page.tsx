@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import { useWishlistStore } from '@/lib/wishlist-store';
 import ProductCard from '@/components/product-card';
 
@@ -32,12 +32,9 @@ export default function WishlistPage() {
                 <p className="text-gray-500 mb-8 max-w-md mx-auto">
                     Browse our collections and tap the heart icon to save products you love.
                 </p>
-                <Link
-                    href="/collections/all"
-                    className="inline-block bg-terracotta text-white px-8 py-4 rounded-lg font-semibold hover:bg-terracotta/90 transition-all hover:scale-105"
-                >
+                <Button href="/collections/all" variant="primary" size="lg" className="hover:scale-105">
                     Wander the Shop
-                </Link>
+                </Button>
             </div>
         );
     }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import { PageHero } from '@/components/ui/page-hero';
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default function ContactPage() {
                                     </span>
                                     <div>
                                         <p className="font-semibold text-ink-brown">Email</p>
-                                        <a href="mailto:wildenflowercreations@gmail.com" className="text-terracotta hover:underline">
+                                        <a href="mailto:wildenflowercreations@gmail.com" className="text-primary-700 hover:underline">
                                             wildenflowercreations@gmail.com
                                         </a>
                                     </div>
@@ -66,7 +67,7 @@ export default function ContactPage() {
                                 </p>
                                 <Link
                                     href="/faq"
-                                    className="text-terracotta font-medium hover:underline text-sm"
+                                    className="text-primary-700 font-medium hover:underline text-sm"
                                 >
                                     Visit FAQ →
                                 </Link>
@@ -128,12 +129,9 @@ export default function ContactPage() {
                                         placeholder="How can we help?"
                                     />
                                 </div>
-                                <button
-                                    type="submit"
-                                    className="w-full py-3 bg-terracotta hover:bg-terracotta/90 text-white font-semibold rounded-lg transition-colors"
-                                >
+                                <Button type="submit" fullWidth>
                                     Send Message
-                                </button>
+                                </Button>
                                 <p className="text-earth/60 text-xs text-center">
                                     We typically respond within 24 hours.
                                 </p>

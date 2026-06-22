@@ -88,7 +88,7 @@ export default function EnhancedHero({
                     inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-lg transition-all hover:scale-105
                     ${cta.variant === 'secondary'
                       ? 'border-2 border-[#1E3B30] text-[#1E3B30] hover:bg-[#1E3B30] hover:text-[#F5EDD6]'
-                      : 'bg-terracotta text-white hover:bg-terracotta/90'
+                      : 'bg-primary-600 text-white hover:bg-primary-700'
                     }
                   `}
                 >

@@ -88,24 +88,24 @@ const colorCombinations: Array<{
     usage: 'Secondary/muted text (--foreground-muted on --background-muted)',
   },
   {
-    name: 'Terracotta link on parchment',
-    foreground: 'terracotta',
+    name: 'Inline link on parchment',
+    foreground: 'primary-700',
     background: 'parchment',
-    usage: 'Inline links / accent text',
+    usage: 'Inline links / accent text (darkened to primary-700)',
   },
 
   // Buttons (text-white in code)
   {
-    name: 'Primary button text (terracotta)',
-    foreground: 'white',
-    background: 'primary-500',
-    usage: 'bg-terracotta CTA buttons (e.g. add-to-cart)',
-  },
-  {
     name: 'Primary button text (primary-600)',
     foreground: 'white',
     background: 'primary-600',
-    usage: 'bg-primary-600 CTA buttons (e.g. back-in-stock, exit-intent)',
+    usage: 'bg-primary-600 — the shared <Button> CTA surface (all buttons)',
+  },
+  {
+    name: 'Badge text on terracotta',
+    foreground: 'white',
+    background: 'primary-500',
+    usage: 'Small bg-terracotta count/sale/tag pills (header cart count, blog tags) — decorative chips, not CTAs',
   },
   {
     name: 'Forest button text',
@@ -206,10 +206,8 @@ const colorCombinations: Array<{
  * Remove an entry here once the underlying token/usage is fixed.
  */
 const ACCEPTED_EXCEPTIONS: Record<string, string> = {
-  'Primary button text (terracotta)':
-    'HIGH — white on terracotta-500 (~3.9:1) fails AA for normal-size labels. Fix: use bg-primary-600+ for button surfaces (passes), or enlarge/bolden labels to large-text.',
-  'Terracotta link on parchment':
-    'MED — inline terracotta links (~3.4:1) fail AA. Fix: darken link color to primary-700 (#8f441c) and reserve terracotta for large/decorative text.',
+  'Badge text on terracotta':
+    'LOW — white on terracotta-500 (~3.9:1) fails AA for normal-size labels, but these are tiny decorative count/tag pills (xs bold), not CTAs. Deferred: a brand decision (darker pill bg or larger label) tracked separately from the button/link AA pass.',
   'Input border on cream':
     'MED — neutral-400 borders (2.48:1) fail the 3:1 UI-component minimum. Fix: use neutral-500 for input borders.',
   'Gold divider on parchment':

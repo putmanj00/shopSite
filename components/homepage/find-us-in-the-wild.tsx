@@ -48,7 +48,7 @@ export default function FindUsInTheWild() {
                 <p className="font-heading font-bold text-ink-brown text-lg mb-1">
                   {event.name}
                 </p>
-                <p className="text-terracotta text-sm font-medium mb-1">
+                <p className="text-primary-700 text-sm font-medium mb-1">
                   {formatEventDate(event.date)}
                 </p>
                 <p className="text-earth text-sm mb-3">{event.venue}</p>
@@ -57,7 +57,7 @@ export default function FindUsInTheWild() {
                     href={event.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-terracotta hover:underline text-sm"
+                    className="text-primary-700 hover:underline text-sm"
                   >
                     More info
                   </a>

@@ -13,7 +13,7 @@ import CartCrossSell from './cart/cart-cross-sell';
 import ExpressCheckoutButtons from './cart/express-checkout-buttons';
 import { TrustBadgesCompact } from './checkout/trust-badges';
 import GiftMessageInput from './checkout/gift-message-input';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function CartDrawer() {
   const { cart, isOpen, closeCart } = useCartStore();
@@ -137,13 +137,9 @@ export default function CartDrawer() {
               <p className="text-earth mb-6 max-w-xs leading-relaxed">
                 Wander the shop and find something made for you.
               </p>
-              <Link
-                href="/collections/all"
-                onClick={closeCart}
-                className="px-6 py-3 bg-terracotta text-white rounded-lg font-semibold hover:bg-terracotta/90 transition-colors"
-              >
+              <Button href="/collections/all" onClick={closeCart} variant="primary">
                 Explore the Shop
-              </Link>
+              </Button>
             </div>
           ) : (
             <>
@@ -212,7 +208,7 @@ export default function CartDrawer() {
                 <ExpressCheckoutButtons />
 
                 {/* Checkout Button */}
-                <button
+                <Button
                   onClick={() => {
                     if (cart?.checkoutUrl) {
                       setIsRedirecting(true);
@@ -223,7 +219,9 @@ export default function CartDrawer() {
                     }
                   }}
                   disabled={!cart?.checkoutUrl || isRedirecting}
-                  className="w-full py-4 bg-terracotta text-white text-center rounded-lg font-semibold hover:bg-terracotta/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  fullWidth
+                  size="lg"
+                  className="disabled:cursor-not-allowed"
                 >
                   {isRedirecting ? (
                     <>
@@ -236,7 +234,7 @@ export default function CartDrawer() {
                   ) : (
                     'Proceed to Checkout'
                   )}
-                </button>
+                </Button>
 
                 {/* Trust Badges */}
                 <TrustBadgesCompact />

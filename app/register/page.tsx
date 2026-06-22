@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/lib/auth-store';
 
 export default function RegisterPage() {
@@ -37,7 +38,7 @@ export default function RegisterPage() {
             Already have an account?{' '}
             <Link
               href="/login"
-              className="font-medium text-terracotta hover:text-terracotta/80 transition-colors"
+              className="font-medium text-primary-700 hover:text-primary-800 transition-colors"
             >
               Sign in
             </Link>
@@ -74,10 +75,12 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <button
+          <Button
             onClick={handleCreateAccount}
             disabled={isLoading}
-            className="group relative flex w-full justify-center rounded-md bg-terracotta py-3 px-3 text-sm font-semibold text-white hover:bg-terracotta/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            fullWidth
+            size="sm"
+            className="disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <span className="flex items-center gap-2">
@@ -106,7 +109,7 @@ export default function RegisterPage() {
             ) : (
               'Create account with Shopify'
             )}
-          </button>
+          </Button>
 
           <p className="text-center text-xs text-earth">
             By creating an account, you agree to our Terms of Service and Privacy Policy.

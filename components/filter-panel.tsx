@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 interface FilterPanelProps {
   productTypes: string[];
@@ -71,7 +72,7 @@ export default function FilterPanel({
         {hasActiveFilters && (
           <button
             onClick={onClearFilters}
-            className="text-sm text-terracotta hover:text-terracotta/80 font-medium"
+            className="text-sm text-primary-700 hover:text-primary-800 font-medium"
           >
             Clear all
           </button>
@@ -119,12 +120,15 @@ export default function FilterPanel({
                 className="w-full px-3 py-2 border border-gold/30 rounded-lg text-sm text-ink-brown focus:ring-2 focus:ring-terracotta focus:border-transparent"
               />
             </div>
-            <button
+            <Button
               onClick={handlePriceApply}
-              className="w-full px-3 py-2 bg-terracotta text-white rounded-lg hover:bg-terracotta/90 transition-colors text-sm font-medium"
+              variant="primary"
+              size="sm"
+              fullWidth
+              className="font-medium"
             >
               Apply
-            </button>
+            </Button>
           </div>
         )}
       </div>

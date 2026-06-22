@@ -127,7 +127,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
 
             <article className="container mx-auto px-4 max-w-3xl py-12">
-                <div className="prose prose-lg prose-slate mx-auto prose-headings:font-serif prose-a:text-terracotta prose-img:rounded-xl">
+                <div className="prose prose-lg prose-slate mx-auto prose-headings:font-serif prose-a:text-primary-700 prose-img:rounded-xl">
                     <div dangerouslySetInnerHTML={{ __html: post.content }} />
                 </div>
 

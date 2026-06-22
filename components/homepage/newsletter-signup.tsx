@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
@@ -91,10 +92,11 @@ export default function NewsletterSignup() {
                 className="flex-1 px-5 py-4 text-ink-brown bg-parchment rounded-lg sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-gold disabled:opacity-50"
                 aria-describedby={message ? 'newsletter-message' : undefined}
               />
-              <button
+              <Button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className="px-8 py-4 bg-terracotta text-white font-semibold rounded-lg sm:rounded-l-none hover:bg-terracotta/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                size="lg"
+                className="sm:rounded-l-none disabled:cursor-not-allowed"
               >
                 {status === 'loading' ? (
                   <>
@@ -134,7 +136,7 @@ export default function NewsletterSignup() {
                 ) : (
                   'Subscribe'
                 )}
-              </button>
+              </Button>
             </div>
 
             {/* Status Message */}

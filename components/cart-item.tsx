@@ -181,7 +181,7 @@ export default function CartItem({ line }: CartItemProps) {
           <button
             onClick={handleRemove}
             disabled={isRemoving}
-            className="min-h-11 px-2 flex items-center text-sm text-terracotta hover:text-terracotta/80 font-medium transition-colors disabled:opacity-50"
+            className="min-h-11 px-2 flex items-center text-sm text-primary-700 hover:text-primary-800 font-medium transition-colors disabled:opacity-50"
           >
             Remove
           </button>
