@@ -25,4 +25,20 @@ test.describe('Product detail page', () => {
     await expect(addToCartButton).toBeVisible();
     await expect(addToCartButton).toBeEnabled();
   });
+
+  test('reviews section renders with a working submit form', async ({ page }) => {
+    // Reviews heading is always present (Judge.me widget when reviews exist,
+    // honest brand zero-state otherwise).
+    await expect(
+      page.getByRole('heading', { name: 'Reviews', level: 2 })
+    ).toBeVisible();
+
+    // The brand-native "Write a note" form opens and exposes a rating control.
+    const openForm = page.getByRole('button', { name: 'Write a note' });
+    await expect(openForm).toBeVisible();
+    await openForm.click();
+
+    await expect(page.getByRole('radiogroup', { name: 'Star rating' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Submit note' })).toBeVisible();
+  });
 });

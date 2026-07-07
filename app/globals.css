@@ -376,3 +376,32 @@ label {
   -webkit-user-select: text;
   user-select: text;
 }
+/* ─────────────────────────────────────────────────────────────────────────
+   Judge.me review widget — brand theming (Path C).
+   The widget's own CSS (judgeme_widget_v2.css) provides structure and the
+   icon-font stars; these scoped overrides re-color and re-type it into the
+   Open-Field register. We hide Judge.me's internal heading and write-review
+   stub because the page supplies its own heading and brand-native form.
+   ───────────────────────────────────────────────────────────────────────── */
+.wf-judgeme .jdgm-rev-widg__title,
+.wf-judgeme .jdgm-write-rev-link {
+  display: none !important;
+}
+.wf-judgeme,
+.wf-judgeme .jdgm-rev-widg__body,
+.wf-judgeme .jdgm-rev__body,
+.wf-judgeme .jdgm-rev__author {
+  color: #3B2F2F; /* ink-brown */
+  font-family: 'Lora', Georgia, serif;
+}
+.wf-judgeme .jdgm-rev__title {
+  font-family: 'Cormorant', Georgia, serif;
+  color: #3B2F2F;
+}
+.wf-judgeme .jdgm-star.jdgm--on,
+.wf-judgeme .jdgm-star.jdgm--half {
+  color: #C9A642 !important; /* gold */
+}
+.wf-judgeme .jdgm-star.jdgm--off {
+  color: rgba(123, 139, 111, 0.45) !important; /* sage, muted */
+}

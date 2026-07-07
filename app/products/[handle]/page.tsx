@@ -7,7 +7,7 @@ import ProductInfo from '@/components/product-info';
 import Breadcrumbs from '@/components/breadcrumbs';
 import RelatedProducts from '@/components/related-products';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
-import ReviewList from '@/components/reviews/review-list';
+import JudgemeReviews from '@/components/reviews/judgeme-reviews';
 import ProductAccordion from '@/components/product-accordion';
 import { getProductAccordionSections } from '@/lib/product-utils';
 import RecentlyViewedTracker from '@/components/recently-viewed-tracker';
@@ -170,7 +170,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           {/* Product Reviews */}
           <div className="bg-cream rounded-lg border border-gold/25 p-6 lg:p-8 mt-12">
-            <ReviewList productId={product.handle} />
+            <JudgemeReviews handle={product.handle} productTitle={product.title} />
           </div>
 
           {/* Related Products */}

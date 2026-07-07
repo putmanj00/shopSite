@@ -25,9 +25,13 @@ const cspValue = [
     '*.shopify.com *.myshopify.com',
     '*.google-analytics.com *.googletagmanager.com',
   ].filter(Boolean).join(' '),
-  "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
-  "font-src 'self' fonts.gstatic.com",
-  "img-src 'self' blob: data: cdn.shopify.com *.shopify.com *.google-analytics.com",
+  // cdn.judge.me serves the review widget CSS; it 302-redirects to cdn.shopify.com
+  // (Shopify app-extension asset host), so both origins are allowed for styles.
+  "style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.judge.me cdn.shopify.com",
+  // data: covers Judge.me's icon-font (embedded as a data: URI in its widget CSS).
+  "font-src 'self' fonts.gstatic.com data:",
+  // cdn.judge.me serves reviewer avatars/photos in the Judge.me review widget.
+  "img-src 'self' blob: data: cdn.shopify.com *.shopify.com cdn.judge.me *.google-analytics.com",
   "connect-src 'self' *.shopify.com *.myshopify.com checkout.shopify.com *.google-analytics.com *.googletagmanager.com",
   "frame-src 'none'",
   "frame-ancestors 'none'",
