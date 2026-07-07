@@ -39,38 +39,6 @@
   --pitch-bg:#141311;
   --pitch-ink:#E9DFC8;
 }
-@media (prefers-color-scheme: dark){
-  :root{
-    --parchment:#12241C;
-    --parchment-deep:#0E1D16;
-    --plate:#1B332A;
-    --forest:#EFE8D6;
-    --forest-deep:#0C1A14;
-    --forest-mid:#244034;
-    --terracotta:#D9743C;
-    --terracotta-ink:#E4854E;
-    --gold:#C9A642;
-    --gold-faint:rgba(201,166,66,.38);
-    --gold-ink:#C9A642;
-    --rose-ink:#D08B7A;
-    --ink:#D8CCAF;
-    --ink-strong:#E9DFC8;
-    --ink-faint:rgba(216,204,175,.62);
-    --rule:rgba(233,223,200,.16);
-    --heading:#EFE8D6;
-    --plate-shadow:0 1px 0 rgba(0,0,0,.25),0 12px 32px -18px rgba(0,0,0,.6);
-    --ribbon-bg:#0C1A14;
-    --ribbon-ink:#E9DFC8;
-    --woods-bg:#0E1F18;
-  }
-}
-:root[data-theme="dark"]{
-  --parchment:#12241C;--parchment-deep:#0E1D16;--plate:#1B332A;--forest:#EFE8D6;--forest-deep:#0C1A14;--forest-mid:#244034;--terracotta:#D9743C;--terracotta-ink:#E4854E;--gold:#C9A642;--gold-faint:rgba(201,166,66,.38);--ink:#D8CCAF;--ink-strong:#E9DFC8;--ink-faint:rgba(216,204,175,.62);--rule:rgba(233,223,200,.16);--heading:#EFE8D6;--plate-shadow:0 1px 0 rgba(0,0,0,.25),0 12px 32px -18px rgba(0,0,0,.6);--ribbon-bg:#0C1A14;--ribbon-ink:#E9DFC8;--woods-bg:#0E1F18;--gold-ink:#C9A642;--rose-ink:#D08B7A;
-}
-:root[data-theme="light"]{
-  --parchment:#F5EDD6;--parchment-deep:#EDE3C8;--plate:#FFFDF5;--forest:#1E3B30;--forest-deep:#142821;--forest-mid:#2C4A3D;--terracotta:#C8642A;--terracotta-ink:#A34E1E;--gold:#C9A642;--gold-faint:rgba(201,166,66,.42);--ink:#5C4033;--ink-strong:#3B2F2F;--ink-faint:rgba(92,64,51,.64);--rule:rgba(92,64,51,.18);--heading:#1E3B30;--plate-shadow:0 1px 0 rgba(92,64,51,.08),0 10px 30px -18px rgba(59,47,47,.35);--ribbon-bg:#1E3B30;--ribbon-ink:#EFE8D6;--woods-bg:#1B3329;--gold-ink:#786222;--rose-ink:#A8513B;
-}
-
 /* ============ BASE ============ */
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -197,7 +165,7 @@ body.notes-on .pin{display:block}
 .entry{display:flex;flex-direction:column;text-decoration:none}
 .entry .shot{aspect-ratio:4/5}
 .entry-body{padding:1.1rem .35rem 0;display:flex;flex-direction:column;gap:.35rem}
-.entry-no{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.entry-no{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink)}
 .entry h3{font-size:1.35rem;font-weight:600;line-height:1.15}
 .entry:hover h3{color:var(--terracotta)}
 .entry .tech{font-style:italic;font-size:.9rem;color:var(--ink-faint)}
@@ -262,7 +230,7 @@ body.notes-on .pin{display:block}
 .crumbs{padding:1.4rem 0 .4rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
 .crumbs a{text-decoration:none;color:var(--ink-faint)}
 .crumbs a:hover{color:var(--terracotta)}
-.crumbs .sep{color:var(--gold);padding:0 .5rem}
+.crumbs .sep{color:var(--gold-ink);padding:0 .5rem}
 .pdp{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:3.5rem;padding:1.5rem 0 4rem;align-items:start}
 .gallery-main{aspect-ratio:4/5;display:flex}
 .gallery-main .shot{flex:1}
@@ -274,7 +242,6 @@ body.notes-on .pin{display:block}
 .buy h1{font-size:clamp(2.2rem,3.6vw,3.2rem);font-weight:500;line-height:1.03}
 .buy h1 em{font-style:italic;color:var(--terracotta)}
 .buy .rating{display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--ink-faint)}
-.stars{color:var(--gold);letter-spacing:.12em;font-size:.95rem}
 .buy .price-line{display:flex;align-items:baseline;gap:1rem}
 .buy .price-line .p{font-family:'Cormorant',Georgia,serif;font-size:2.1rem;font-weight:600;color:var(--heading)}
 .buy .price-line .band{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
@@ -780,7 +747,7 @@ body.notes-on .pin{display:block}
         </div>
 
         <div class="repair">
-          <span aria-hidden="true" style="color:var(--gold);font-size:1.3rem">✦</span>
+          <span aria-hidden="true" style="color:var(--gold-ink);font-size:1.3rem">✦</span>
           <div><b>Entered once, kept forever</b>Every entry ships with its numbered journal card — provenance, care, and the QR that joins the Inner Circle.</div>
         </div>
       </div>
@@ -908,7 +875,7 @@ body.notes-on .pin{display:block}
     </table></div>
 
     <h2>Palette — inherited, re-weighted</h2>
-    <p style="max-width:46rem;margin-bottom:1.4rem">Two derived ink shades, no new hues. The change is proportion: gold moves from decoration to <em>information</em> — as rules and borders at full strength, and as a darkened <em>ink gold</em> wherever it becomes text on light grounds (raw #C9A642 measures 1.99:1 on parchment; ink gold holds ≥4.6:1). Terracotta narrows to actions and the italic display clause, and forest gets the whole Deep Woods register instead of a footer cameo.</p>
+    <p style="max-width:46rem;margin-bottom:1.4rem">Two derived ink shades, no new hues. The change is proportion: gold moves from decoration to <em>information</em> — as rules and borders at full strength, and as a darkened <em>ink gold</em> wherever it becomes text on light grounds (raw #C9A642 measures 1.99:1 on parchment; ink gold holds ≥4.6:1). Terracotta narrows to actions and the italic display clause, and forest gets the whole Deep Woods register instead of a footer cameo. One register, one theme: Open Field stays parchment under any OS theme — Deep Woods is a brand register, not a dark mode.</p>
     <div class="swatches">
       <div class="sw"><div class="c" style="background:#F5EDD6"></div><div class="m"><b>Parchment</b><code>#F5EDD6</code> · Open Field ground</div></div>
       <div class="sw"><div class="c" style="background:#FFFDF5"></div><div class="m"><b>Cream</b><code>#FFFDF5</code> · plate ground</div></div>
