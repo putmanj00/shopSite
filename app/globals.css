@@ -140,6 +140,19 @@
   --color-earth: #3B2F2F;
   --color-cream: #FFFDF5;
 
+  /* Redesign concept 01 derived tokens (docs/redesign-concept-01.html, S0).
+     No new hues — darkened/lightened steps of the existing palette.
+     Reconciled, not duplicated: concept terracotta-ink → primary-700 #8f441c;
+     concept plate → cream #FFFDF5. */
+  --color-gold-ink: #786222; /* gold as text on light grounds — ≥4.6:1 on parchment/cream/parchment-deep */
+  --color-rose-ink: #A8513B; /* availability notes as text — 4.6:1 on parchment */
+  --color-parchment-deep: #EDE3C8; /* recessed ground (strip, signup) */
+  --color-forest-mid: #2C4A3D;
+  --color-forest-deep: #142821;
+  --color-woods-bg: #1B3329; /* Deep Woods register ground */
+  --color-woods-ink: #E9DFC8; /* Deep Woods register text */
+  --color-ink-strong: #3B2F2F; /* emphasis text — same value as --color-earth by design (ink-scale name) */
+
   /* Wildenflower font utilities — Cormorant display + Lora body (AGENTS.md) */
   --font-heading: var(--font-cormorant), Georgia, serif;
   --font-lora: var(--font-lora);
