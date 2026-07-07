@@ -415,7 +415,7 @@ jobs:
         # A mint failure must not abort: an empty token makes the push step fall
         # back to the GITHUB_TOKEN path rather than burning the round (INFRA_ERROR).
         continue-on-error: true
-        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
