@@ -5,7 +5,7 @@ import Link from 'next/link';
 import type { ShopifyProduct } from '@/types/shopify';
 import { isProductOnSale } from '@/lib/shopify-helpers';
 import { normalizeVendor } from '@/lib/product-filters';
-import { parseEntry, formatEntryNo, isOneOfOne } from '@/lib/product-entry';
+import { parseEntry, formatEntryNo, isOneOfOne, soldStateLabel } from '@/lib/product-entry';
 import Price from '@/components/price';
 import { useQuickViewStore } from '@/lib/quick-view-store';
 import WishlistButton from './wishlist-button';
@@ -93,7 +93,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="mt-1 flex items-baseline gap-2">
           {soldOut ? (
             <span className="text-sm font-medium uppercase tracking-[0.1em] text-rose-ink">
-              {oneOfOne ? 'Sold — one of one' : 'Returns to the field soon'}
+              {soldStateLabel(entry)}
             </span>
           ) : (
             <>

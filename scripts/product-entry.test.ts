@@ -15,6 +15,7 @@ import {
   parseEntry,
   formatEntryNo,
   isOneOfOne,
+  soldStateLabel,
 } from '../lib/product-entry';
 
 let failures = 0;
@@ -94,6 +95,21 @@ check('blank text values collapse to null', () => {
   const e = parseEntry(product([mf('technique', '   '), mf('maker', '')]));
   assert.equal(e.technique, null);
   assert.equal(e.maker, null);
+});
+
+check('soldStateLabel never invents a restock promise', () => {
+  // Explicit small-run may promise a return; nothing else may (Codex P1).
+  assert.equal(
+    soldStateLabel(parseEntry(product([mf('edition', 'small_run')]))),
+    'Returns to the field soon'
+  );
+  assert.equal(
+    soldStateLabel(parseEntry(product([mf('edition', 'one_of_one')]))),
+    'Sold — one of one'
+  );
+  // Unknown edition AND the zero-metafield fallback → neutral, no restock promise.
+  assert.equal(soldStateLabel(parseEntry(product([mf('edition', 'limited')]))), 'Sold out');
+  assert.equal(soldStateLabel(parseEntry(product(undefined))), 'Sold out');
 });
 
 check('formatEntryNo renders № prefix or empty string', () => {

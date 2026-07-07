@@ -4,7 +4,7 @@ import { useState } from 'react';
 import type { ShopifyProduct, ShopifyProductVariant } from '@/types/shopify';
 import { normalizeVendor } from '@/lib/product-filters';
 
-import { parseEntry, formatEntryNo, isOneOfOne } from '@/lib/product-entry';
+import { parseEntry, formatEntryNo, isOneOfOne, soldStateLabel } from '@/lib/product-entry';
 import Price from '@/components/price';
 import VariantSelector from '@/components/variant-selector';
 import ProductProvenance from '@/components/product-provenance';
@@ -107,7 +107,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 bg-earth rounded-full"></div>
             <span className="text-rose-ink font-medium">
-              {oneOfOne ? 'Sold — one of one' : 'Returns to the field soon'}
+              {soldStateLabel(entry)}
             </span>
           </div>
         )}

@@ -94,3 +94,16 @@ export function formatEntryNo(entryNo: number | null): string {
 export function isOneOfOne(entry: ProductEntry): boolean {
   return entry.edition === 'one_of_one';
 }
+
+/**
+ * Honest sold-out copy. Shopify only tells us a variant is unavailable — never
+ * that a restock is planned. So "returns to the field" (a restock promise) is
+ * used ONLY when the edition is explicitly small-run. A one-of-one is gone for
+ * good. An unknown/unclassified edition (incl. the zero-metafield fallback) gets
+ * neutral "Sold out" — we don't invent availability we weren't told about.
+ */
+export function soldStateLabel(entry: ProductEntry): string {
+  if (entry.edition === 'one_of_one') return 'Sold — one of one';
+  if (entry.edition === 'small_run') return 'Returns to the field soon';
+  return 'Sold out';
+}
