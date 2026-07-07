@@ -26,6 +26,13 @@ export interface ShopifyProductVariant {
   image: ShopifyImage | null;
 }
 
+export interface ShopifyMetafield {
+  key: string;
+  namespace: string;
+  value: string;
+  type: string;
+}
+
 export interface ShopifyProduct {
   id: string;
   handle: string;
@@ -56,6 +63,10 @@ export interface ShopifyProduct {
   vendor: string;
   createdAt: string;
   updatedAt: string;
+  // Entry metafields (namespace "custom"). The Storefront `metafields(identifiers:)`
+  // read returns null array slots for keys a product hasn't set, so this is optional
+  // and each element may be null. Normalize via lib/product-entry.ts, never read raw.
+  metafields?: (ShopifyMetafield | null)[];
 }
 
 export interface ShopifyCollection {

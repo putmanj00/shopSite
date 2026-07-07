@@ -36,6 +36,11 @@ jobs:
 
       - run: npm run typecheck
 
+      - name: Unit tests (pure-logic)
+        run: |
+          npm run test:button
+          npm run test:entry
+
       - name: Build
         run: npm run build
         env:

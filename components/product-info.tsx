@@ -4,8 +4,10 @@ import { useState } from 'react';
 import type { ShopifyProduct, ShopifyProductVariant } from '@/types/shopify';
 import { normalizeVendor } from '@/lib/product-filters';
 
+import { parseEntry, formatEntryNo, isOneOfOne, soldStateLabel } from '@/lib/product-entry';
 import Price from '@/components/price';
 import VariantSelector from '@/components/variant-selector';
+import ProductProvenance from '@/components/product-provenance';
 import AddToCartButton from '@/components/add-to-cart-button';
 import WishlistButton from '@/components/wishlist-button';
 import SizeGuideModal from '@/components/size-guide-modal';
@@ -22,6 +24,12 @@ export default function ProductInfo({ product }: ProductInfoProps) {
     variants[0]
   );
   const [showSizeGuide, setShowSizeGuide] = useState(false);
+
+  // Entry model — nullable; a one-of-one states its facts (no pickers), a
+  // small-run keeps variant chips. Empty entry → renders as before (fallback).
+  const entry = parseEntry(product);
+  const oneOfOne = isOneOfOne(entry);
+  const entryLabel = formatEntryNo(entry.entryNo);
 
   // Determine if this product type should show size guide
   const productType = product.productType?.toLowerCase() || '';
@@ -44,6 +52,9 @@ export default function ProductInfo({ product }: ProductInfoProps) {
     <div className="space-y-6">
       {/* Product Title */}
       <div>
+        {entryLabel && (
+          <span className="catalog-label text-gold-ink mb-3">Entry {entryLabel}</span>
+        )}
         <h1 className="text-3xl sm:text-4xl font-bold text-ink-brown mb-2">
           {product.title}
         </h1>
@@ -94,14 +105,16 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           </div>
         ) : (
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-            <span className="text-red-700 font-medium">Out of Stock</span>
+            <div className="w-3 h-3 bg-earth rounded-full"></div>
+            <span className="text-rose-ink font-medium">
+              {soldStateLabel(entry)}
+            </span>
           </div>
         )}
       </div>
 
-      {/* Variant Selector */}
-      {variants.length > 1 && (
+      {/* Variant Selector — one-of-one pieces state facts, they don't offer choices. */}
+      {variants.length > 1 && !oneOfOne && (
         <VariantSelector
           variants={variants}
           selectedVariant={selectedVariant}
@@ -118,6 +131,9 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           View Size Guide
         </button>
       )}
+
+      {/* Provenance — the entry's facts, above the CTA (concept note 10). */}
+      <ProductProvenance entry={entry} variant={selectedVariant} oneOfOne={oneOfOne} />
 
       {/* Actions */}
       <div className="flex gap-4 items-center">

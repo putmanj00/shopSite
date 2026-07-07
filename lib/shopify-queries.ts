@@ -84,6 +84,18 @@ const PRODUCT_FRAGMENT = `
     vendor
     createdAt
     updatedAt
+    metafields(identifiers: [
+      { namespace: "custom", key: "entry_no" }
+      { namespace: "custom", key: "technique" }
+      { namespace: "custom", key: "maker" }
+      { namespace: "custom", key: "gathered" }
+      { namespace: "custom", key: "edition" }
+    ]) {
+      key
+      namespace
+      value
+      type
+    }
   }
 `;
 
