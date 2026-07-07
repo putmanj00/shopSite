@@ -39,7 +39,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Shop Links */}
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-gold mb-4">
+            <h2 className="catalog-label text-woods-ink mb-4">
               Shop
             </h2>
             <ul className="space-y-3">
@@ -58,7 +58,7 @@ export default function Footer() {
 
           {/* Support Links */}
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-neutral-300 mb-4">
+            <h2 className="catalog-label text-woods-ink mb-4">
               Support
             </h2>
             <ul className="space-y-3">
@@ -77,7 +77,7 @@ export default function Footer() {
 
           {/* Company Links */}
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-neutral-300 mb-4">
+            <h2 className="catalog-label text-woods-ink mb-4">
               Company
             </h2>
             <ul className="space-y-3">
@@ -96,7 +96,7 @@ export default function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-neutral-300 mb-4">
+            <h2 className="catalog-label text-woods-ink mb-4">
               Legal
             </h2>
             <ul className="space-y-3">

@@ -52,6 +52,13 @@ export default function Header({ navItems }: { navItems: NavItem[] }) {
 
   return (
     <header className="sticky top-0 z-30 bg-forest border-b border-gold">
+      {/* Journal eyebrow — field-journal catalog label (concept 01 site-head). Desktop only;
+          on mobile the market ribbon and bottom nav carry the chrome. */}
+      <div className="hidden sm:flex justify-center pt-2 pb-1">
+        <span className="catalog-label text-woods-ink/90">
+          A field journal of handmade things · Alexandria, Kentucky
+        </span>
+      </div>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
@@ -141,6 +148,27 @@ export default function Header({ navItems }: { navItems: NavItem[] }) {
             <div className="hidden lg:block">
               <CurrencySelector />
             </div>
+
+            {/* Search — visible at all widths, routes to the searchable catalog */}
+            <Link
+              href="/collections/all"
+              className="min-w-11 min-h-11 p-2 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors"
+              aria-label="Search"
+            >
+              <svg
+                className="w-6 h-6 text-parchment"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"
+                />
+              </svg>
+            </Link>
 
             {/* Wishlist Link */}
             <Link
