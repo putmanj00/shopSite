@@ -25,14 +25,17 @@ function formatEventDate(isoDate: string): string {
   }).format(new Date(isoDate + 'T00:00:00'));
 }
 
-export default function FindUsInTheWild() {
+// headingLevel lets the section stand alone as a page (h1 on /booth) while staying an
+// h2 when stacked under the homepage's h1.
+export default function FindUsInTheWild({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
   const events = upcomingEvents();
+  const Heading = headingLevel === 1 ? 'h1' : 'h2';
   return (
     <section className="bg-parchment py-16 lg:py-24">
       <div className="container mx-auto px-4">
-        <h2 className="text-ink-brown font-heading font-bold text-3xl sm:text-4xl">
+        <Heading className="text-ink-brown font-heading font-bold text-3xl sm:text-4xl">
           Find Us in the Wild
-        </h2>
+        </Heading>
         <p className="text-earth mt-3 mb-10">
           We take Wildenflower to the markets — come say hello.
         </p>

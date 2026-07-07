@@ -64,6 +64,33 @@ export default function MobileBottomNav() {
       isActive: pathname.startsWith('/collections'),
     },
     {
+      href: '/booth',
+      label: 'Booth',
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+          />
+        </svg>
+      ),
+      isActive: pathname === '/booth',
+    },
+    {
       href: '#cart',
       label: 'Cart',
       icon: (
@@ -119,7 +146,7 @@ export default function MobileBottomNav() {
             <button
               key={item.label}
               onClick={openCart}
-              className="relative flex flex-col items-center justify-center min-w-16 min-h-12 px-2 py-1 text-neutral-600 hover:text-primary-600 transition-colors"
+              className="relative flex flex-col items-center justify-center min-w-16 min-h-[52px] px-2 py-1 text-neutral-600 hover:text-primary-600 transition-colors"
               aria-label={`Open cart${item.badge ? `, ${item.badge} items` : ''}`}
             >
               <span className="relative">
@@ -136,7 +163,7 @@ export default function MobileBottomNav() {
             <Link
               key={item.label}
               href={item.href}
-              className={`flex flex-col items-center justify-center min-w-16 min-h-12 px-2 py-1 transition-colors ${item.isActive
+              className={`flex flex-col items-center justify-center min-w-16 min-h-[52px] px-2 py-1 transition-colors ${item.isActive
                 ? 'text-primary-600'
                 : 'text-neutral-600 hover:text-primary-600'
                 }`}

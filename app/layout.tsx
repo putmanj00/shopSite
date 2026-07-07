@@ -7,6 +7,7 @@ import CartDrawer from "@/components/cart-drawer";
 import QuickViewModal from "@/components/quick-view-modal";
 import SkipLink from "@/components/ui/skip-link";
 import MobileBottomNav from "@/components/mobile-bottom-nav";
+import MarketRibbon from "@/components/market-ribbon";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ServiceWorkerRegister from "@/components/service-worker-register";
@@ -127,6 +128,7 @@ export default async function RootLayout({
         <CurrencyProvider>
           <GeolocationHandler />
           <SkipLink />
+          <MarketRibbon />
           <Header navItems={navItems} />
           <CartDrawer />
           <QuickViewModal />

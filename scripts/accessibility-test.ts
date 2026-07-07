@@ -33,6 +33,7 @@ const PAGES_TO_TEST = [
   '/',
   '/collections/all',
   '/about',
+  '/booth',
   '/our-story',
   '/history',
   '/contact',
