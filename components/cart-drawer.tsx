@@ -8,7 +8,6 @@ import { useAuthStore } from '@/lib/auth-store';
 import Price from '@/components/price';
 import CartItem from './cart-item';
 import FreeShippingBar from './cart/free-shipping-bar';
-import DiscountCodeInput from './cart/discount-code-input';
 import CartCrossSell from './cart/cart-cross-sell';
 import ExpressCheckoutButtons from './cart/express-checkout-buttons';
 import { TrustBadgesCompact } from './checkout/trust-badges';
@@ -57,11 +56,6 @@ export default function CartDrawer() {
   const cartProductIds = useMemo(() => {
     return lines.map((line) => line.node.merchandise.product.id);
   }, [lines]);
-
-  const handleApplyDiscount = async (code: string) => {
-    console.log('Applying discount code:', code);
-    throw new Error('Discount codes coming soon!');
-  };
 
   return (
     <>
@@ -179,9 +173,6 @@ export default function CartDrawer() {
                     threshold={75}
                     currencyCode={cart?.cost.subtotalAmount.currencyCode}
                   />
-
-                  {/* Discount Code Input */}
-                  <DiscountCodeInput onApply={handleApplyDiscount} />
 
                   {/* Gift Message Option */}
                   <GiftMessageInput
