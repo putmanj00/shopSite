@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 // homepage strip to its own destination so the market ribbon and the mobile Booth
 // tab have somewhere real to point (redesign concept 01, note 01).
 export default function BoothPage() {
-  return <FindUsInTheWild />;
+  return <FindUsInTheWild headingLevel={1} />;
 }

@@ -31,6 +31,7 @@ const STATIC_ROUTES = [
   '/accessibility',
   '/account',
   '/blog',
+  '/booth',
   '/collections',
   '/contact',
   '/faq',
