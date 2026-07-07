@@ -1,8 +1,10 @@
-import { getProductReviewWidget } from '@/lib/judgeme';
+import { getProductReviewWidget, externalIdFromGid } from '@/lib/judgeme';
 import ReviewSubmitForm from './review-submit-form';
 
 interface JudgemeReviewsProps {
   handle: string;
+  /** Shopify product GID (gid://shopify/Product/NNN) — authoritative id source. */
+  productId: string;
   productTitle: string;
 }
 
@@ -11,9 +13,12 @@ interface JudgemeReviewsProps {
  * markup when reviews exist; otherwise shows an honest brand zero-state. The
  * brand-native submit form is always available. No Judge.me JavaScript loads.
  */
-export default async function JudgemeReviews({ handle, productTitle }: JudgemeReviewsProps) {
-  const { html, externalId } = await getProductReviewWidget(handle);
+export default async function JudgemeReviews({ handle, productId, productTitle }: JudgemeReviewsProps) {
+  const { html } = await getProductReviewWidget(handle);
   const hasReviews = Boolean(html);
+  // Authoritative product id from Shopify (not the display widget), so a review
+  // attaches to this product even if the widget fetch/parse failed.
+  const externalId = externalIdFromGid(productId);
 
   return (
     <section aria-labelledby="reviews-heading" className="space-y-6">

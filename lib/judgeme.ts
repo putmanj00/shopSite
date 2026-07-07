@@ -28,15 +28,13 @@ function config() {
 }
 
 export interface ProductReviewWidget {
-  /** Numeric Shopify product id Judge.me keys reviews by; null if unavailable. */
-  externalId: string | null;
   /** Reviews Judge.me holds for this product (0 when new or on any failure). */
   reviewCount: number;
   /** Stripped, inert widget HTML — null when there are no reviews to show. */
   html: string | null;
 }
 
-const EMPTY: ProductReviewWidget = { externalId: null, reviewCount: 0, html: null };
+const EMPTY: ProductReviewWidget = { reviewCount: 0, html: null };
 
 /**
  * Fetch and prepare the Judge.me review widget for a product handle.
@@ -56,14 +54,13 @@ export async function getProductReviewWidget(handle: string): Promise<ProductRev
 
     const data: unknown = await res.json();
     const raw = extractWidgetHtml(data);
-    const externalId = extractExternalId(data);
     const reviewCount = parseReviewCount(raw);
 
     // Zero reviews (or unparseable markup) → let the caller show a brand
     // zero-state rather than Judge.me's default "Be the first to write a review".
-    if (reviewCount <= 0 || !raw) return { externalId, reviewCount: 0, html: null };
+    if (reviewCount <= 0 || !raw) return EMPTY;
 
-    return { externalId, reviewCount, html: stripHidingStyle(raw) };
+    return { reviewCount, html: stripHidingStyle(raw) };
   } catch {
     return EMPTY;
   }
@@ -75,14 +72,6 @@ function extractWidgetHtml(data: unknown): string {
     if (typeof w === 'string') return w;
   }
   return '';
-}
-
-function extractExternalId(data: unknown): string | null {
-  if (data && typeof data === 'object' && 'product_external_id' in data) {
-    const id = (data as { product_external_id: unknown }).product_external_id;
-    if (id != null && (typeof id === 'string' || typeof id === 'number')) return String(id);
-  }
-  return null;
 }
 
 /** Read the per-product review count Judge.me embeds on the widget root. */
@@ -102,6 +91,19 @@ function stripHidingStyle(html: string): string {
     /<style[^>]*jdgm-temp-hiding-style[^>]*>[\s\S]*?<\/style>/gi,
     '',
   );
+}
+
+/**
+ * Extract the numeric Shopify product id Judge.me keys reviews by, from a
+ * Storefront GID (`gid://shopify/Product/NNN`). This is the authoritative
+ * source for a submission's product id — independent of the display widget,
+ * so a review still attaches to the correct product even when the widget
+ * fetch fails. Returns null if the GID is missing or unparseable.
+ */
+export function externalIdFromGid(gid: string | null | undefined): string | null {
+  if (!gid) return null;
+  const match = gid.match(/Product\/(\d+)/);
+  return match ? match[1] : null;
 }
 
 export interface ReviewSubmission {

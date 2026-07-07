@@ -170,7 +170,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           {/* Product Reviews */}
           <div className="bg-cream rounded-lg border border-gold/25 p-6 lg:p-8 mt-12">
-            <JudgemeReviews handle={product.handle} productTitle={product.title} />
+            <JudgemeReviews handle={product.handle} productId={product.id} productTitle={product.title} />
           </div>
 
           {/* Related Products */}
