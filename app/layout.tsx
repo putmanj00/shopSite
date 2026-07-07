@@ -10,7 +10,6 @@ import MobileBottomNav from "@/components/mobile-bottom-nav";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ServiceWorkerRegister from "@/components/service-worker-register";
-import { ExitIntentPopup, WelcomePopup } from "@/components/cro";
 import Analytics from "@/components/analytics";
 import { CookieBanner } from "@/components/ui/cookie-banner";
 import { CurrencyProvider } from "@/lib/currency-context";
@@ -137,8 +136,6 @@ export default async function RootLayout({
           <Footer />
           <MobileBottomNav />
           <ServiceWorkerRegister />
-          <WelcomePopup />
-          <ExitIntentPopup />
           <CookieBanner />
           <Analytics />
           <VercelAnalytics />
