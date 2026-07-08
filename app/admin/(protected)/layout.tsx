@@ -28,12 +28,6 @@ export default async function ProtectedAdminLayout({
                         Dashboard
                     </Link>
                     <Link
-                        href="/admin/reviews"
-                        className="block px-4 py-2 rounded-lg hover:bg-zinc-800 transition-colors"
-                    >
-                        Reviews
-                    </Link>
-                    <Link
                         href="/admin/inventory"
                         className="block px-4 py-2 rounded-lg hover:bg-zinc-800 transition-colors"
                     >
@@ -75,7 +69,7 @@ export default async function ProtectedAdminLayout({
             <main className="flex-1 overflow-y-auto">
                 <div className="md:hidden bg-zinc-900 text-white p-4 flex justify-between items-center">
                     <h2 className="font-bold">Wildenflower Admin</h2>
-                    <Link href="/admin/reviews" className="text-sm text-zinc-300">Reviews</Link>
+                    <Link href="/admin/inventory" className="text-sm text-zinc-300">Inventory</Link>
                 </div>
                 <div className="p-8">
                     {children}

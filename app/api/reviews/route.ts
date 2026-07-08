@@ -1,75 +1,69 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getReviewsByProduct, addReview, calculateReviewStats } from '@/lib/reviews-db';
+import { submitReview } from '@/lib/judgeme';
 
-export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const handle = searchParams.get('handle');
-  const sort = searchParams.get('sort') || 'newest';
-  const rating = searchParams.get('rating'); // '5', '4', etc.
-  const withPhotos = searchParams.get('withPhotos') === 'true';
+/**
+ * POST /api/reviews — submit a customer review.
+ *
+ * Thin server-side proxy to Judge.me's unauthenticated review endpoint. Kept
+ * server-side to avoid a cross-origin browser POST and to centralize input
+ * validation; Judge.me owns storage and moderation, so there is no GET here
+ * (display is SSR'd from the Judge.me widget — see lib/judgeme.ts).
+ */
 
-  if (!handle) {
-    return NextResponse.json({ error: 'Product handle is required' }, { status: 400 });
-  }
-
-  try {
-    let reviews = await getReviewsByProduct(handle);
-    const stats = calculateReviewStats(reviews);
-
-    // Apply Filters
-    if (rating) {
-        const ratingNum = parseInt(rating);
-        if (!isNaN(ratingNum)) {
-            reviews = reviews.filter(r => Math.round(r.rating) === ratingNum);
-        }
-    }
-
-    if (withPhotos) {
-        reviews = reviews.filter(r => r.photos && r.photos.length > 0);
-    }
-
-    // Apply Sorting
-    reviews.sort((a, b) => {
-        switch (sort) {
-            case 'highest':
-                return b.rating - a.rating;
-            case 'lowest':
-                return a.rating - b.rating;
-            case 'newest':
-            default:
-                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-        }
-    });
-
-    return NextResponse.json({ reviews, stats });
-  } catch {
-    return NextResponse.json({ error: 'Failed to fetch reviews' }, { status: 500 });
-  }
-}
+const MAX_NAME = 100;
+const MAX_EMAIL = 254;
+const MAX_TITLE = 200;
+const MAX_BODY = 5000;
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 export async function POST(request: NextRequest) {
+  let payload: unknown;
   try {
-    const body = await request.json();
-    const { productId, userId, userName, rating, title, content, photos } = body;
-
-    // Basic validation
-    if (!productId || !userId || !rating || !title || !content) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
-    }
-
-    const newReview = await addReview({
-      productId,
-      userId,
-      userName: userName || 'Anonymous', // Fallback
-      rating,
-      title,
-      content,
-      photos: photos || [], // URL strings
-    });
-
-    return NextResponse.json(newReview, { status: 201 });
-  } catch (error) {
-    console.error('Submit review error:', error);
-    return NextResponse.json({ error: 'Failed to submit review' }, { status: 500 });
+    payload = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
   }
+
+  const body = (payload ?? {}) as Record<string, unknown>;
+  const handle = str(body.handle);
+  const name = str(body.name).trim();
+  const email = str(body.email).trim();
+  const title = str(body.title).trim();
+  const reviewBody = str(body.body).trim();
+  const externalId = body.externalId != null ? str(body.externalId) : null;
+  const rating = Number(body.rating);
+
+  if (!handle || !name || !email || !reviewBody) {
+    return NextResponse.json({ error: 'Name, email, and review are required.' }, { status: 400 });
+  }
+  if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+    return NextResponse.json({ error: 'Rating must be between 1 and 5.' }, { status: 400 });
+  }
+  if (!EMAIL_RE.test(email) || email.length > MAX_EMAIL) {
+    return NextResponse.json({ error: 'Please enter a valid email.' }, { status: 400 });
+  }
+  if (name.length > MAX_NAME || title.length > MAX_TITLE || reviewBody.length > MAX_BODY) {
+    return NextResponse.json({ error: 'One or more fields are too long.' }, { status: 400 });
+  }
+
+  const result = await submitReview({
+    handle,
+    externalId,
+    name,
+    email,
+    rating,
+    title: title || undefined,
+    body: reviewBody,
+  });
+
+  if (!result.ok) {
+    return NextResponse.json({ error: 'Could not submit review. Please try again.' }, { status: 502 });
+  }
+
+  // Judge.me moderates before publishing — the review will not appear instantly.
+  return NextResponse.json({ status: 'pending' }, { status: 201 });
+}
+
+function str(v: unknown): string {
+  return typeof v === 'string' ? v : v == null ? '' : String(v);
 }
