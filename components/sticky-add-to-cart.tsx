@@ -95,7 +95,7 @@ export default function StickyAddToCart({
           className={`flex-shrink-0 px-6 py-3 rounded-lg font-semibold text-white transition-all min-w-[140px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 ${showSuccess
             ? 'bg-sage'
             : selectedVariant.availableForSale
-              ? 'bg-terracotta hover:bg-terracotta/90 active:bg-terracotta/80'
+              ? 'bg-primary-600 hover:bg-primary-700 active:bg-primary-700'
               : 'bg-neutral-400 cursor-not-allowed'
             }`}
           aria-label={

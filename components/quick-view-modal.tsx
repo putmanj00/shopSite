@@ -136,7 +136,7 @@ function QuickViewContent({
                 </div>
               )}
               {onSale && (
-                <span className="absolute top-3 left-3 bg-terracotta text-white text-xs font-semibold px-3 py-1 rounded-full">
+                <span className="absolute top-3 left-3 bg-primary-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
                   Sale
                 </span>
               )}
@@ -171,7 +171,7 @@ function QuickViewContent({
           <div className="p-6 flex flex-col bg-parchment">
             {/* Vendor */}
             {product.vendor && (
-              <p className="text-gold font-medium text-xs uppercase tracking-widest mb-2">
+              <p className="text-gold-ink font-medium text-xs uppercase tracking-widest mb-2">
                 {normalizeVendor(product.vendor)}
               </p>
             )}

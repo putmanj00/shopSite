@@ -243,7 +243,7 @@ export default function CartDrawer() {
                 {/* Continue Shopping */}
                 <button
                   onClick={closeCart}
-                  className="w-full py-2 text-gold text-center font-semibold hover:text-gold/80 transition-colors"
+                  className="w-full py-2 text-gold-ink text-center font-semibold hover:text-gold-ink/80 transition-colors"
                 >
                   Continue Shopping
                 </button>
