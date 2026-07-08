@@ -120,7 +120,7 @@ function AddressForm({ formData, onChange, onSubmit, onCancel, isLoading, isEdit
             required
             value={formData.firstName}
             onChange={(e) => updateField('firstName', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full px-3 py-2 border border-gold/30 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           />
         </div>
 
@@ -134,7 +134,7 @@ function AddressForm({ formData, onChange, onSubmit, onCancel, isLoading, isEdit
             required
             value={formData.lastName}
             onChange={(e) => updateField('lastName', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full px-3 py-2 border border-gold/30 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           />
         </div>
 
@@ -148,7 +148,7 @@ function AddressForm({ formData, onChange, onSubmit, onCancel, isLoading, isEdit
             required
             value={formData.address1}
             onChange={(e) => updateField('address1', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full px-3 py-2 border border-gold/30 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             placeholder="Street address"
           />
         </div>
@@ -162,7 +162,7 @@ function AddressForm({ formData, onChange, onSubmit, onCancel, isLoading, isEdit
             id="address2"
             value={formData.address2}
             onChange={(e) => updateField('address2', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full px-3 py-2 border border-gold/30 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             placeholder="Apartment, suite, etc. (optional)"
           />
         </div>
@@ -177,7 +177,7 @@ function AddressForm({ formData, onChange, onSubmit, onCancel, isLoading, isEdit
             required
             value={formData.city}
             onChange={(e) => updateField('city', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full px-3 py-2 border border-gold/30 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           />
         </div>
 
@@ -191,7 +191,7 @@ function AddressForm({ formData, onChange, onSubmit, onCancel, isLoading, isEdit
             required
             value={formData.province}
             onChange={(e) => updateField('province', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full px-3 py-2 border border-gold/30 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           />
         </div>
 
@@ -205,7 +205,7 @@ function AddressForm({ formData, onChange, onSubmit, onCancel, isLoading, isEdit
             required
             value={formData.zip}
             onChange={(e) => updateField('zip', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full px-3 py-2 border border-gold/30 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           />
         </div>
 
@@ -219,7 +219,7 @@ function AddressForm({ formData, onChange, onSubmit, onCancel, isLoading, isEdit
             required
             value={formData.country}
             onChange={(e) => updateField('country', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full px-3 py-2 border border-gold/30 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           />
         </div>
 
@@ -232,7 +232,7 @@ function AddressForm({ formData, onChange, onSubmit, onCancel, isLoading, isEdit
             id="phone"
             value={formData.phone}
             onChange={(e) => updateField('phone', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            className="w-full px-3 py-2 border border-gold/30 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             placeholder="(optional)"
           />
         </div>

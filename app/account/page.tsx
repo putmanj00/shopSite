@@ -238,7 +238,7 @@ export default function AccountPage() {
                     id="firstName"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
+                    className="w-full px-3 py-2 border border-gold/30 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
                     placeholder="Enter your first name"
                   />
                 </div>
@@ -251,7 +251,7 @@ export default function AccountPage() {
                     id="lastName"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
+                    className="w-full px-3 py-2 border border-gold/30 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
                     placeholder="Enter your last name"
                   />
                 </div>

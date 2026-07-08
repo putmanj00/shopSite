@@ -123,7 +123,7 @@ export default function ReviewSubmitForm({ handle, externalId, productTitle }: R
               className="rounded p-1 text-2xl leading-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
             >
               <span className={value <= shown ? 'text-gold' : 'text-sage/50'} aria-hidden="true">
-                ★
+                {value <= shown ? '★' : '☆'}
               </span>
             </button>
           ))}
