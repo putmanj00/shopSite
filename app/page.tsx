@@ -6,6 +6,7 @@ import CategoryCards from '@/components/homepage/category-cards';
 import FeaturedProducts from '@/components/featured-products';
 import BrandStory from '@/components/homepage/brand-story';
 import TrustBar from '@/components/homepage/trust-bar';
+import RepairPromise from '@/components/homepage/repair-promise';
 import FindUsInTheWild from '@/components/homepage/find-us-in-the-wild';
 import InstagramGallery from '@/components/homepage/instagram-gallery';
 import NewsletterSignup from '@/components/homepage/newsletter-signup';
@@ -79,6 +80,9 @@ export default function Home() {
 
       {/* Trust Bar */}
       <TrustBar />
+
+      {/* Lifetime Repair promise — Deep Woods band (policy: /shipping-returns) */}
+      <RepairPromise />
 
       {/* Find Us in the Wild — upcoming markets */}
       <FindUsInTheWild />

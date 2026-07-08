@@ -23,7 +23,7 @@ export default function TrustBadges() {
         </svg>
       ),
       label: 'Money-Back Guarantee',
-      description: '30-day returns',
+      description: '14-day returns',
     },
     {
       icon: (

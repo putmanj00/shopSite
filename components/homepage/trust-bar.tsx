@@ -25,7 +25,7 @@ const trustItems = [
       </svg>
     ),
     title: 'Crafted with Intention',
-    description: 'Every piece handpicked',
+    description: 'Made by our own hands',
   },
   {
     icon: (
@@ -52,14 +52,14 @@ const trustItems = [
         />
       </svg>
     ),
-    title: 'Easy Returns',
-    description: '30-day return policy',
+    title: 'Lifetime Repair',
+    description: 'Craftsmanship, for the life of the piece',
   },
 ];
 
 export default function TrustBar() {
   return (
-    <section className="bg-neutral-100 py-8 sm:py-12">
+    <section className="bg-parchment-deep py-8 sm:py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-8">
           {trustItems.map((item, index) => (
@@ -67,11 +67,11 @@ export default function TrustBar() {
               key={index}
               className="flex flex-col items-center text-center"
             >
-              <div className="mb-3 text-primary-600">{item.icon}</div>
-              <h3 className="text-sm font-semibold text-neutral-900 sm:text-base">
+              <div className="mb-3 text-terracotta">{item.icon}</div>
+              <h3 className="font-heading text-base font-bold text-ink-brown sm:text-lg">
                 {item.title}
               </h3>
-              <p className="mt-1 text-xs text-neutral-600 sm:text-sm">
+              <p className="mt-1 text-xs text-earth sm:text-sm">
                 {item.description}
               </p>
             </div>

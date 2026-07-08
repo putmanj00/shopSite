@@ -33,7 +33,8 @@ export default function FindUsInTheWild({ headingLevel = 2 }: { headingLevel?: 1
   return (
     <section className="bg-parchment py-16 lg:py-24">
       <div className="container mx-auto px-4">
-        <Heading className="text-ink-brown font-heading font-bold text-3xl sm:text-4xl">
+        <span className="catalog-label text-ink-brown/80">The Field Log</span>
+        <Heading className="text-ink-brown font-heading font-bold text-3xl sm:text-4xl mt-3">
           Find Us in the Wild
         </Heading>
         <p className="text-earth mt-3 mb-10">
@@ -47,7 +48,7 @@ export default function FindUsInTheWild({ headingLevel = 2 }: { headingLevel?: 1
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map((event) => (
-              <div key={event.id} className="bg-white rounded-lg shadow-sm p-6">
+              <div key={event.id} className="bg-cream rounded-lg shadow-sm p-6">
                 <p className="font-heading font-bold text-ink-brown text-lg mb-1">
                   {event.name}
                 </p>

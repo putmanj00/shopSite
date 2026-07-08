@@ -68,12 +68,15 @@ export default function NewsletterSignup() {
             </svg>
           </div>
 
-          <h2 className="text-3xl font-bold text-white sm:text-4xl font-heading">
-            Join the Wildenflower Circle
+          <span className="catalog-label text-gold">
+            The Inner Circle
+          </span>
+          <h2 className="mt-4 text-3xl font-bold text-cream sm:text-4xl font-heading">
+            Join the Inner Circle
           </h2>
           <p className="mt-4 text-lg text-parchment/80">
-            Get 15% off your first order plus early access to new arrivals,
-            maker stories, and seasonal finds — straight to your inbox.
+            Early word on new drops, notes from the workbench, and where to find us at market —
+            straight to your inbox.
           </p>
 
           {/* Form */}
@@ -144,7 +147,7 @@ export default function NewsletterSignup() {
               <p
                 id="newsletter-message"
                 className={`mt-4 text-sm ${
-                  status === 'success' ? 'text-green-400' : 'text-red-400'
+                  status === 'success' ? 'text-gold' : 'text-dusty-rose'
                 }`}
                 role={status === 'error' ? 'alert' : 'status'}
               >
