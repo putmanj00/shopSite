@@ -155,7 +155,7 @@ const leatherFilters: CategoryFilterConfig = {
       ],
     },
   ],
-  careInfoUrl: '/care-guide#leather',
+  careInfoUrl: '/care-guides#leather',
 };
 
 // Jewelry Collection Filters
