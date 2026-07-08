@@ -87,6 +87,19 @@ export function formatEntryNo(entryNo: number | null): string {
 }
 
 /**
+ * Read just the entry number from a raw sparse metafields array. Cart lines
+ * carry a lighter `merchandise.product` than {@link ShopifyProduct} (no
+ * priceRange/variants/etc.), so they can't go through {@link parseEntry}; the
+ * cart drawer only needs the entry № anyway. Same null-tolerance as parseEntry:
+ * missing/blank/invalid/non-positive → null → callers render nothing.
+ */
+export function entryNoFromMetafields(
+  metafields: (ShopifyMetafield | null)[] | undefined
+): number | null {
+  return parseEntryNo(valueForKey(metafields, 'entry_no'));
+}
+
+/**
  * A one-of-one is definitively marked so in Shopify. Unmarked/unknown editions
  * are treated as small-run — the conservative default (keeps pickers + the
  * "returns to the field" language rather than wrongly locking a piece as unique).

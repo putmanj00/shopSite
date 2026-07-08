@@ -1,5 +1,8 @@
 import { test, expect } from 'playwright/test';
-import { TEST_PRODUCT_HANDLE } from './support/shopify-test-product';
+import {
+  TEST_PRODUCT_HANDLE,
+  TEST_PRODUCT_TITLE,
+} from './support/shopify-test-product';
 
 const PHONE_VIEWPORT = { width: 390, height: 664 };
 
@@ -44,6 +47,18 @@ test.describe('Cart drawer on a phone-sized screen', () => {
     await expect(
       page.getByRole('heading', { name: /Your Gathering/i })
     ).toBeVisible();
+
+    // Field-journal line-item plate (S6): the entry title reads in the catalog
+    // voice. Scope to the drawer — the PDP behind it shows the same title.
+    const drawer = page.getByTestId('cart-drawer');
+    await expect(
+      drawer.getByText(new RegExp(TEST_PRODUCT_TITLE, 'i')).first()
+    ).toBeVisible();
+
+    // Zero-metafield fallback: the seed catalog has no `custom.entry_no` yet
+    // (SHOP-01 pending), so the "Entry №" eyebrow must be absent — never a bare
+    // "№" or "Entry" with nothing after it. Once metafields land it appears.
+    await expect(drawer.getByTestId('cart-entry-no')).toHaveCount(0);
 
     // Regression guard (drawer items pane collapsing to 0 height behind the
     // tall pinned footer on short viewports): the Remove control and the
