@@ -15,6 +15,7 @@
     "contrast:check": "npx tsx scripts/color-contrast-checker.ts",
     "test:button": "npx tsx scripts/button-variants.test.ts",
     "test:entry": "npx tsx scripts/product-entry.test.ts",
+    "test:care": "npx tsx scripts/care-guides.test.ts",
     "a11y:all": "npm run contrast:check && npm run a11y:test",
     "test:ui": "npx tsx scripts/ui-tests.ts",
     "test:routes": "npx tsx scripts/validate-routes.ts",
@@ -22,7 +23,7 @@
     "test:autofix": "node --test 'scripts/codex-autofix/*.test.mjs'",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:all": "npm run typecheck && npm run lint && npm run test:ui",
+    "test:all": "npm run typecheck && npm run lint && npm run test:ui && npm run test:care",
     "tunnel": "npx localtunnel --port 3000"
   },
   "dependencies": {

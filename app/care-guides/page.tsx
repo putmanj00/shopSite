@@ -1,10 +1,27 @@
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/ui/page-hero';
+import { buildBreadcrumbList, SITE_URL } from '@/lib/structured-data';
+
+const OG_IMAGE = '/assets/images/headers/botanical-header-blog.png';
+const DESCRIPTION =
+    'How to care for your handmade Wildenflower pieces — leather, tie-dye, and jewelry — so they stay beautiful for the life of the piece.';
 
 export const metadata: Metadata = {
     title: 'Care Guides | Wildenflower',
-    description:
-        'How to care for your handmade Wildenflower pieces — leather, tie-dye, and jewelry — so they stay beautiful for the life of the piece.',
+    description: DESCRIPTION,
+    alternates: { canonical: '/care-guides' },
+    openGraph: {
+        title: 'Care Guides | Wildenflower',
+        description: DESCRIPTION,
+        url: `${SITE_URL}/care-guides`,
+        type: 'article',
+        images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: 'Botanical Wildenflower care guides' }],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Care Guides | Wildenflower',
+        description: DESCRIPTION,
+    },
 };
 
 const sections = [
@@ -13,9 +30,18 @@ const sections = [
     { id: 'jewelry', label: 'Jewelry' },
 ];
 
+const breadcrumbSchema = buildBreadcrumbList([
+    { name: 'Home', url: `${SITE_URL}/` },
+    { name: 'Care Guides', url: `${SITE_URL}/care-guides` },
+]);
+
 export default function CareGuidesPage() {
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
             <PageHero
                 backgroundImage="/assets/images/headers/botanical-header-blog.png"
                 label="Care Guides"
