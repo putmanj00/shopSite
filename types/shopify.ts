@@ -113,6 +113,10 @@ export interface ShopifyCartLine {
       title: string;
       productType: string;
       vendor: string;
+      // Entry metafields (namespace "custom"), same sparse shape as on
+      // ShopifyProduct. The cart drawer reads only entry_no; null slots for
+      // unset keys are expected. Normalize via entryNoFromMetafields, not raw.
+      metafields?: (ShopifyMetafield | null)[];
     };
   };
   cost: {

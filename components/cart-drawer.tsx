@@ -70,6 +70,7 @@ export default function CartDrawer() {
 
       {/* Drawer */}
       <div
+        data-testid="cart-drawer"
         className={`
           fixed top-0 right-0 h-full w-full max-w-md bg-parchment shadow-2xl z-50
           transform transition-transform duration-300 ease-in-out

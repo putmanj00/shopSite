@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ShopifyCartLine } from '@/types/shopify';
 import { useCartStore } from '@/lib/cart-store';
+import { entryNoFromMetafields, formatEntryNo } from '@/lib/product-entry';
 
 import Price from '@/components/price';
 
@@ -43,14 +44,28 @@ export default function CartItem({ line }: CartItemProps) {
   const imageUrl = merchandise.image?.url || '/placeholder.png';
   const imageAlt = merchandise.image?.altText || merchandise.product.title;
 
+  // Entry № for the plate language. null (zero-metafield seed catalog) →
+  // empty string → the eyebrow is not rendered at all. Once SHOP-01 data entry
+  // sets `custom.entry_no`, the cart line shows the same № as the PDP/card.
+  const entryLabel = formatEntryNo(
+    entryNoFromMetafields(merchandise.product.metafields)
+  );
+
+  const onSale =
+    merchandise.compareAtPrice &&
+    parseFloat(merchandise.compareAtPrice.amount) >
+      parseFloat(merchandise.price.amount);
+
   return (
     <div
-      className={`flex gap-4 py-4 ${isRemoving ? 'opacity-50 pointer-events-none' : ''}`}
+      className={`flex gap-4 border-b border-gold/20 py-5 last:border-b-0 ${
+        isRemoving ? 'pointer-events-none opacity-50' : ''
+      }`}
     >
-      {/* Product Image */}
+      {/* Plate — the photograph, matching the catalog card frame. */}
       <Link
         href={`/products/${merchandise.product.handle}`}
-        className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-sage/10"
+        className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-md bg-parchment-deep"
       >
         <Image
           src={imageUrl}
@@ -61,23 +76,31 @@ export default function CartItem({ line }: CartItemProps) {
         />
       </Link>
 
-      {/* Product Details */}
-      <div className="flex-1 flex flex-col justify-between min-w-0">
-        <div>
+      {/* Entry body — text sits on the parchment, no inner box. */}
+      <div className="flex min-w-0 flex-1 flex-col justify-between">
+        <div className="flex flex-col gap-1">
+          {entryLabel && (
+            <span
+              data-testid="cart-entry-no"
+              className="text-[11px] uppercase tracking-[0.2em] text-gold-ink"
+            >
+              Entry {entryLabel}
+            </span>
+          )}
+
           <Link
             href={`/products/${merchandise.product.handle}`}
-            className="font-semibold text-ink-brown hover:text-terracotta transition-colors line-clamp-2"
+            className="font-heading text-lg font-semibold leading-tight text-ink-brown transition-colors hover:text-terracotta line-clamp-2"
           >
             {merchandise.product.title}
           </Link>
 
-          {/* Variant Options */}
+          {/* Variant options (skip the default single "Title" option). */}
           {merchandise.selectedOptions &&
-            merchandise.selectedOptions.length > 0 &&
             merchandise.selectedOptions.some(
               (option) => option.name !== 'Title'
             ) && (
-              <div className="mt-1 text-sm text-earth/70">
+              <div className="text-sm text-earth/70">
                 {merchandise.selectedOptions
                   .filter((option) => option.name !== 'Title')
                   .map((option) => option.value)
@@ -85,63 +108,48 @@ export default function CartItem({ line }: CartItemProps) {
               </div>
             )}
 
-          {/* Price */}
-          <div className="mt-1">
-            {merchandise.compareAtPrice &&
-              parseFloat(merchandise.compareAtPrice.amount) >
-              parseFloat(merchandise.price.amount) ? (
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-forest">
-                  <Price amount={merchandise.price.amount} currencyCode={merchandise.price.currencyCode} />
-                </span>
-                <span className="text-sm text-earth/50 line-through">
-                  <Price amount={merchandise.compareAtPrice.amount} currencyCode={merchandise.compareAtPrice.currencyCode} />
-                </span>
-              </div>
-            ) : (
-              <span className="font-semibold text-ink-brown">
-                <Price amount={merchandise.price.amount} currencyCode={merchandise.price.currencyCode} />
+          {/* Unit price + compare-at when on sale. */}
+          <div className="mt-0.5 flex items-baseline gap-2">
+            <span className="font-heading font-semibold text-ink-brown">
+              <Price
+                amount={merchandise.price.amount}
+                currencyCode={merchandise.price.currencyCode}
+              />
+            </span>
+            {onSale && merchandise.compareAtPrice && (
+              <span className="text-sm text-earth/60 line-through">
+                <Price
+                  amount={merchandise.compareAtPrice.amount}
+                  currencyCode={merchandise.compareAtPrice.currencyCode}
+                />
               </span>
             )}
           </div>
 
-          {/* Low Stock Warning */}
+          {/* Scarcity note — catalog small-caps, on-brand terracotta. */}
           {merchandise.quantityAvailable > 0 &&
             merchandise.quantityAvailable <= 5 && (
-              <div className="mt-1 flex items-center gap-1 text-orange-600">
-                <svg
-                  className="w-4 h-4 flex-shrink-0"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <span className="text-xs font-medium">
-                  Only {merchandise.quantityAvailable} left
-                </span>
-              </div>
+              <p className="text-[11px] uppercase tracking-[0.16em] text-terracotta">
+                Only {merchandise.quantityAvailable} left
+              </p>
             )}
         </div>
 
-        {/* Quantity Controls & Remove Button */}
-        <div className="flex items-center justify-between mt-2">
+        {/* Quantity stepper + remove. */}
+        <div className="mt-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <button
               onClick={() => handleQuantityChange(quantity - 1)}
               disabled={isUpdating || quantity <= 1}
-              className="min-w-11 min-h-11 flex items-center justify-center rounded-md border border-gold/40 hover:bg-sage/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="flex min-h-11 min-w-11 items-center justify-center rounded-md border border-gold/40 text-ink-brown transition-colors hover:bg-sage/10 disabled:cursor-not-allowed disabled:opacity-50"
               aria-label="Decrease quantity"
             >
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -152,21 +160,22 @@ export default function CartItem({ line }: CartItemProps) {
               </svg>
             </button>
 
-            <span className="w-8 text-center font-medium text-forest">
+            <span className="w-8 text-center font-heading font-medium text-forest">
               {quantity}
             </span>
 
             <button
               onClick={() => handleQuantityChange(quantity + 1)}
               disabled={isUpdating}
-              className="min-w-11 min-h-11 flex items-center justify-center rounded-md border border-gold/40 hover:bg-sage/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="flex min-h-11 min-w-11 items-center justify-center rounded-md border border-gold/40 text-ink-brown transition-colors hover:bg-sage/10 disabled:cursor-not-allowed disabled:opacity-50"
               aria-label="Increase quantity"
             >
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -181,17 +190,20 @@ export default function CartItem({ line }: CartItemProps) {
           <button
             onClick={handleRemove}
             disabled={isRemoving}
-            className="min-h-11 px-2 flex items-center text-sm text-primary-700 hover:text-primary-800 font-medium transition-colors disabled:opacity-50"
+            className="flex min-h-11 items-center px-2 text-sm text-earth/70 underline-offset-2 transition-colors hover:text-terracotta hover:underline disabled:opacity-50"
           >
             Remove
           </button>
         </div>
       </div>
 
-      {/* Line Total */}
+      {/* Line total. */}
       <div className="flex-shrink-0 text-right">
-        <div className="font-semibold text-forest">
-          <Price amount={cost.totalAmount.amount} currencyCode={cost.totalAmount.currencyCode} />
+        <div className="font-heading font-semibold text-ink-brown">
+          <Price
+            amount={cost.totalAmount.amount}
+            currencyCode={cost.totalAmount.currencyCode}
+          />
         </div>
       </div>
     </div>

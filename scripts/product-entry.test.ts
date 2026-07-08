@@ -14,6 +14,7 @@ import type { ShopifyProduct, ShopifyMetafield } from '../types/shopify';
 import {
   parseEntry,
   formatEntryNo,
+  entryNoFromMetafields,
   isOneOfOne,
   soldStateLabel,
 } from '../lib/product-entry';
@@ -115,6 +116,18 @@ check('soldStateLabel never invents a restock promise', () => {
 check('formatEntryNo renders № prefix or empty string', () => {
   assert.equal(formatEntryNo(219), '№ 219');
   assert.equal(formatEntryNo(null), '');
+});
+
+check('entryNoFromMetafields reads cart-line light product (S6 cart plate)', () => {
+  // Cart lines carry only a sparse metafields array, not a full ShopifyProduct.
+  assert.equal(entryNoFromMetafields(undefined), null); // zero-metafield seed → no eyebrow
+  assert.equal(entryNoFromMetafields([]), null);
+  assert.equal(entryNoFromMetafields([mf('entry_no', '219')]), 219);
+  assert.equal(entryNoFromMetafields([null, mf('entry_no', '№ 7')]), 7); // sparse + admin format
+  assert.equal(entryNoFromMetafields([mf('entry_no', '0')]), null); // non-positive rejected
+  assert.equal(entryNoFromMetafields([mf('technique', 'ice-dye')]), null); // no entry_no key
+  // Same string the drawer renders through formatEntryNo.
+  assert.equal(formatEntryNo(entryNoFromMetafields([mf('entry_no', '219')])), '№ 219');
 });
 
 console.log(`\n${failures === 0 ? 'PASS' : 'FAIL'} — ${failures} failing check(s)`);

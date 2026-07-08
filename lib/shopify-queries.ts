@@ -246,6 +246,16 @@ const CART_LINE_FRAGMENT = `
           title
           productType
           vendor
+          # Read-only: entry № for the cart-line plate language (S6). Additive —
+          # does not change how add/update/remove mutate, only what they return.
+          metafields(identifiers: [
+            { namespace: "custom", key: "entry_no" }
+          ]) {
+            key
+            namespace
+            value
+            type
+          }
         }
       }
     }
