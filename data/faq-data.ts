@@ -41,7 +41,7 @@ export const faqItems: FaqItem[] = [
   {
     id: '6',
     question: 'What is your return policy?',
-    answer: 'We offer a 30-day return policy for unused items in their original packaging. Handmade items may have slight variations that are part of their charm and are not considered defects. If you receive a damaged item, contact us within 48 hours for a full refund or replacement.',
+    answer: 'We offer a 14-day return policy for unused items in their original condition. Handmade items may have slight variations that are part of their charm and are not considered defects. If you receive a damaged item, contact us within 48 hours for a full refund or replacement.',
     category: 'Returns',
   },
   {

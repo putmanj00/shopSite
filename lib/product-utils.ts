@@ -118,7 +118,7 @@ export function getProductAccordionSections(product: {
         <div>
           <h4 class="font-medium text-neutral-900 mb-1">Returns</h4>
           <ul class="list-disc list-inside space-y-1">
-            <li>30-day return policy</li>
+            <li>14-day return policy</li>
             <li>Items must be unused and in original packaging</li>
             <li>Free returns on defective items</li>
           </ul>
