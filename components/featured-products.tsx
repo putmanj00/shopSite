@@ -56,10 +56,13 @@ export default async function FeaturedProducts() {
 
   return (
     <section className="container mx-auto px-4 py-16">
-      <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-forest md:text-4xl font-heading">
-          Freshly Gathered
-        </h2>
+      <div className="mb-8 flex items-end justify-between">
+        <div>
+          <span className="catalog-label text-ink-brown/80">The Latest Finds</span>
+          <h2 className="mt-3 text-3xl font-bold text-forest md:text-4xl font-heading">
+            Freshly Gathered
+          </h2>
+        </div>
         <Link
           href="/collections/all"
           className="text-sm font-semibold text-primary-700 transition-colors hover:text-primary-800 md:text-base"

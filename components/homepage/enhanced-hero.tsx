@@ -67,13 +67,14 @@ export default function EnhancedHero({
 
       {/* Content — parchment card floating left */}
       <div className="relative z-10 container mx-auto px-4 py-16 md:py-24">
-        <div className="max-w-xl bg-[#F5EDD6]/90 backdrop-blur-sm border border-[#C9A642]/50 rounded-2xl shadow-xl p-8 md:p-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#1E3B30] leading-tight mb-4 font-heading">
+        <div className="max-w-xl bg-parchment/90 backdrop-blur-sm border border-gold/50 rounded-2xl shadow-xl p-8 md:p-10">
+          <span className="catalog-label text-ink-brown/80">The Wildenflower Field Journal</span>
+          <h1 className="mt-4 text-4xl md:text-5xl font-bold text-forest leading-tight mb-4 font-heading">
             {heading}
           </h1>
 
           {subheading && (
-            <p className="text-base md:text-lg text-[#5C4033] mb-8 max-w-md">
+            <p className="text-base md:text-lg text-ink-brown mb-8 max-w-md">
               {subheading}
             </p>
           )}
@@ -87,8 +88,8 @@ export default function EnhancedHero({
                   className={`
                     inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-lg transition-all hover:scale-105
                     ${cta.variant === 'secondary'
-                      ? 'border-2 border-[#1E3B30] text-[#1E3B30] hover:bg-[#1E3B30] hover:text-[#F5EDD6]'
-                      : 'bg-primary-600 text-white hover:bg-primary-700'
+                      ? 'border-2 border-forest text-forest hover:bg-forest hover:text-cream'
+                      : 'bg-primary-600 text-cream hover:bg-primary-700'
                     }
                   `}
                 >
@@ -99,24 +100,24 @@ export default function EnhancedHero({
           )}
 
           {/* Trust Badges */}
-          <div className="mt-8 flex flex-wrap gap-6 text-[#5C4033]/70 text-sm">
+          <div className="mt-8 flex flex-wrap gap-6 text-ink-brown/70 text-sm">
             <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-[#1E3B30]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               <span>Free Shipping Over $75</span>
             </div>
             <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-[#1E3B30]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              <span>Handmade with Care</span>
+              <span>Made by Hand</span>
             </div>
             <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-[#1E3B30]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              <span>30-Day Returns</span>
+              <span>Lifetime Repair</span>
             </div>
           </div>
         </div>

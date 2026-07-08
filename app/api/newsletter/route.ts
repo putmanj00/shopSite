@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Thank you for subscribing! Check your email for your 15% discount code.',
+      message: "You're on the list — we'll be in touch.",
     });
   } catch (error) {
     console.error('Newsletter signup error:', error);

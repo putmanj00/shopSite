@@ -19,15 +19,15 @@ export default function BrandStory() {
               />
             </div>
             {/* Decorative element */}
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-100 rounded-2xl -z-10 hidden lg:block" />
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gold/20 rounded-2xl -z-10 hidden lg:block" />
           </div>
 
           {/* Content Section */}
           <div className="lg:pl-8">
-            <span className="text-gold font-medium text-sm uppercase tracking-wider">
+            <span className="catalog-label text-gold">
               Made by Hand
             </span>
-            <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl lg:text-5xl font-heading">
+            <h2 className="mt-3 text-3xl font-bold text-cream sm:text-4xl lg:text-5xl font-heading">
               Found by the heart{' '}
               <span className="text-gold">that needs it</span>
             </h2>
@@ -52,8 +52,8 @@ export default function BrandStory() {
                 <div className="text-sm text-parchment/70">Handmade by Us</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-gold font-heading">30-day</div>
-                <div className="text-sm text-parchment/70">Return Policy</div>
+                <div className="text-3xl font-bold text-gold font-heading">Lifetime</div>
+                <div className="text-sm text-parchment/70">Repair Promise</div>
               </div>
             </div>
 

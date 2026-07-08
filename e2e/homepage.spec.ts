@@ -22,4 +22,31 @@ test.describe('Homepage', () => {
       page.getByRole('heading', { name: /Freshly Gathered/i })
     ).toBeVisible();
   });
+
+  test('lifetime-repair band is visible and links to the policy', async ({ page }) => {
+    await expect(
+      page.getByRole('heading', { name: /We repair it/i })
+    ).toBeVisible();
+    await expect(
+      page.getByRole('link', { name: /Read the full promise/i })
+    ).toHaveAttribute('href', '/shipping-returns');
+  });
+
+  test('Inner Circle signup is visible', async ({ page }) => {
+    await expect(
+      page.getByRole('heading', { name: /Join the Inner Circle/i })
+    ).toBeVisible();
+  });
+});
+
+test.describe('Shipping & Returns policy', () => {
+  test('publishes the lifetime-repair promise and 14-day returns', async ({ page }) => {
+    await page.goto('/shipping-returns');
+    await expect(
+      page.getByRole('heading', { name: /Lifetime Repair/i })
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /14-Day Returns/i })
+    ).toBeVisible();
+  });
 });
