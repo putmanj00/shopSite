@@ -329,7 +329,7 @@ export default function CollectionContent({
             </svg>
             Filters
             {hasActiveFilters && (
-              <span className="bg-terracotta text-white text-xs px-2 py-0.5 rounded-full">
+              <span className="bg-primary-600 text-white text-xs px-2 py-0.5 rounded-full">
                 •
               </span>
             )}
@@ -463,7 +463,7 @@ export default function CollectionContent({
                             <button
                               onClick={() => handlePageChange(page)}
                               className={`min-w-11 min-h-11 px-3 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 ${page === currentPage
-                                  ? 'bg-terracotta text-white'
+                                  ? 'bg-primary-600 text-white'
                                   : 'border border-gold/30 hover:bg-cream text-ink-brown'
                                 }`}
                               aria-label={`Go to page ${page}`}

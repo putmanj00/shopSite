@@ -45,6 +45,7 @@ const colors = {
   sage: '#7B8B6F',        // muted botanical detail
   forest: '#1E3B30',      // Deep Woods dark surfaces (never pure black)
   'dusty-rose': '#D08B7A',
+  'gold-ink': '#786222',  // gold as text on light grounds (--color-gold-ink, ≥4.6:1 on parchment/cream)
   'ink-brown': '#5C4033', // body text (--foreground)
   earth: '#3B2F2F',
 
@@ -104,8 +105,8 @@ const colorCombinations: Array<{
   {
     name: 'Badge text on terracotta',
     foreground: 'white',
-    background: 'primary-500',
-    usage: 'Small bg-terracotta count/sale/tag pills (header cart count, blog tags) — decorative chips, not CTAs',
+    background: 'primary-600',
+    usage: 'Small count/sale/tag pills (header cart count, blog tags, sale badge, active pagination) — recolored to bg-primary-600 in S7 so white labels clear AA',
   },
   {
     name: 'Forest button text',
@@ -169,19 +170,25 @@ const colorCombinations: Array<{
     usage: 'Focus indicator (--focus-ring-color)',
     isUIComponent: true,
   },
+  // NOTE (S7): "Input border on cream" (neutral-400) was removed — no element in
+  // app/ or components/ ever used `border-neutral-400`; it was a phantom row. Real
+  // brand inputs use a decorative gold hairline (`border-gold/30`) and are identified
+  // by their cream/white fill on the parchment page + a visible label + a
+  // `focus:ring-terracotta` focus indicator, so the resting border is exempt under
+  // WCAG 1.4.11 (not the sole means of identifying the field). Off-brand
+  // `border-gray-300` inputs on account/admin/CRO pages are outside the Open-Field
+  // design-system palette this checker covers and are tracked as separate cleanup.
+  //
+  // NOTE (S7): decorative gold dividers/rules (the `.catalog-label` bottom rule,
+  // section `border-gold/xx` hairlines) are purely decorative and WCAG-exempt, so
+  // they are not asserted. The row below instead asserts the real light-ground gold
+  // TEXT token (`gold-ink`) that eyebrow labels must use — a tripwire so any gold
+  // label on a light ground stays at AA.
   {
-    name: 'Input border on cream',
-    foreground: 'neutral-400',
-    background: 'cream',
-    usage: 'Form input borders',
-    isUIComponent: true,
-  },
-  {
-    name: 'Gold divider on parchment',
-    foreground: 'gold',
+    name: 'Gold label text on parchment',
+    foreground: 'gold-ink',
     background: 'parchment',
-    usage: 'Decorative dividers / borders',
-    isUIComponent: true,
+    usage: 'Eyebrow/label gold text on light grounds — must use --color-gold-ink (NOT raw text-gold, which is dark-ground only)',
   },
 
   // Large text (3:1 minimum)
@@ -197,22 +204,16 @@ const colorCombinations: Array<{
 /**
  * Known brand-contrast debt, accepted PENDING DESIGN TRIAGE (James).
  *
- * These pairings fail WCAG AA against the real Open Field palette, but the fix is a
- * brand-color decision, not a code bug — so they warn instead of breaking the build.
- * `npm run build` wires this checker in as a gate; a hard failure here blocks Vercel
- * deploys, so only NON-accepted (regression) failures exit non-zero by default.
- *
- * Run `CONTRAST_STRICT=1 npm run contrast:check` to fail on these too (full-fix audit).
- * Remove an entry here once the underlying token/usage is fixed.
+ * EMPTY as of S7 (2026-07-08): all three prior debts were retired for real —
+ *   - Badge pills recolored bg-terracotta → bg-primary-600 (white labels now 5.04:1);
+ *   - the phantom neutral-400 input-border row was removed (nothing used it; real
+ *     decorative hairlines are WCAG 1.4.11-exempt);
+ *   - the gold-on-parchment row was repurposed to assert the real light-ground text
+ *     token (gold-ink) and the two real `text-gold`-on-light usages were fixed.
+ * The build now runs with CONTRAST_STRICT=1, so this map must stay empty — any new
+ * pairing added here would silently un-gate the build. Fix the color, don't except it.
  */
-const ACCEPTED_EXCEPTIONS: Record<string, string> = {
-  'Badge text on terracotta':
-    'LOW — white on terracotta-500 (~3.9:1) fails AA for normal-size labels, but these are tiny decorative count/tag pills (xs bold), not CTAs. Deferred: a brand decision (darker pill bg or larger label) tracked separately from the button/link AA pass.',
-  'Input border on cream':
-    'MED — neutral-400 borders (2.48:1) fail the 3:1 UI-component minimum. Fix: use neutral-500 for input borders.',
-  'Gold divider on parchment':
-    'INFO — purely decorative dividers are contrast-exempt under WCAG; tracked only so an accidental text use of this pairing gets noticed.',
-};
+const ACCEPTED_EXCEPTIONS: Record<string, string> = {};
 
 /**
  * Parses a hex color string to RGB values
