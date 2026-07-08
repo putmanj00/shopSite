@@ -55,10 +55,16 @@ test.describe('Cart drawer on a phone-sized screen', () => {
       drawer.getByText(new RegExp(TEST_PRODUCT_TITLE, 'i')).first()
     ).toBeVisible();
 
-    // Zero-metafield fallback: the seed catalog has no `custom.entry_no` yet
-    // (SHOP-01 pending), so the "Entry №" eyebrow must be absent — never a bare
-    // "№" or "Entry" with nothing after it. Once metafields land it appears.
-    await expect(drawer.getByTestId('cart-entry-no')).toHaveCount(0);
+    // Entry-№ eyebrow is invariant to the live catalog's metafield state (which
+    // SHOP-01 will change): if the fetched product has `custom.entry_no` it
+    // renders "Entry № <n>"; if not, no eyebrow. Either is correct — assert only
+    // that a rendered eyebrow is well-formed (never a bare "№" / dangling
+    // "Entry"). The deterministic null→empty fallback is covered in
+    // scripts/product-entry.test.ts, not against mutable Shopify data.
+    const entryEyebrow = drawer.getByTestId('cart-entry-no');
+    if (await entryEyebrow.count()) {
+      await expect(entryEyebrow.first()).toHaveText(/Entry № \d+/);
+    }
 
     // Regression guard (drawer items pane collapsing to 0 height behind the
     // tall pinned footer on short viewports): the Remove control and the
