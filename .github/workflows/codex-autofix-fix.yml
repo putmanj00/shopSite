@@ -303,7 +303,7 @@ jobs:
       #    settings (verified: v1 has no `allowed_tools` input — see the doc).
       - name: Apply fixes (claude-code-action, edit-only)
         if: ${{ steps.select.outputs.proceed == 'true' }}
-        uses: anthropics/claude-code-action@f87768c6d25f92ae6efa7175e223ef77d4cbf97f # v1
+        uses: anthropics/claude-code-action@be7b93b1907a4abad570368f3c74b6fe3807510b # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # Use the workflow's GITHUB_TOKEN for GitHub ops. Without this the action
