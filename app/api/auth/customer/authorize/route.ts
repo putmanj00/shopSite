@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { buildAuthorizationUrl, storeOAuthState } from '@/lib/customer-account';
+import { safeReturnTo } from '@/lib/safe-return-to';
 
 export async function GET(request: NextRequest) {
   try {
-    // Get optional return URL from query params
-    const returnTo = request.nextUrl.searchParams.get('returnTo') || '/account';
+    // Optional return path from query params — same-site paths only (no open redirect)
+    const returnTo = safeReturnTo(request.nextUrl.searchParams.get('returnTo'));
 
     // Build the authorization URL with PKCE
     const { url, state, codeVerifier } = await buildAuthorizationUrl();

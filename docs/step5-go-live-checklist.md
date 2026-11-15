@@ -75,8 +75,8 @@ recognised carriers). Fulfillments without tracking are acked and skipped.
   KV / Upstash) only if duplicate emails are observed.
 - Email templates are de-purpled (PR #24). Shipping/delivery templates use the
   terracotta/cream brand palette.
-- `app/api/email/*` routes still exist for manual/triggered sends; the webhook
-  sends directly via `lib/email.ts` (no internal HTTP hop).
+- The `app/api/email/*` HTTP routes were removed 2026-11-15 (unauthenticated
+  open relay, no callers). The webhooks send directly via `lib/email.ts`.
 
 ## Local verification
 

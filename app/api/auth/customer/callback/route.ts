@@ -4,6 +4,7 @@ import {
   exchangeCodeForTokens,
   storeTokens,
 } from '@/lib/customer-account';
+import { safeReturnTo } from '@/lib/safe-return-to';
 
 export async function GET(request: NextRequest) {
   try {
@@ -42,8 +43,8 @@ export async function GET(request: NextRequest) {
     // Store tokens in cookies
     await storeTokens(tokens);
 
-    // Get return URL from cookie
-    const returnTo = request.cookies.get('ca_return_to')?.value || '/account';
+    // Return path from cookie — re-validated here: the cookie is client-controlled
+    const returnTo = safeReturnTo(request.cookies.get('ca_return_to')?.value);
 
     // Create response with redirect
     const response = NextResponse.redirect(new URL(returnTo, request.url));
