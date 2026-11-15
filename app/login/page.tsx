@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth-store';
+import { safeReturnTo } from '@/lib/safe-return-to';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -11,7 +12,7 @@ export default function LoginPage() {
   const { login, isAuthenticated, isLoading, checkAuth } = useAuthStore();
 
   const error = searchParams.get('error');
-  const returnTo = searchParams.get('returnTo') || '/account';
+  const returnTo = safeReturnTo(searchParams.get('returnTo'));
 
   // Check auth status on mount
   useEffect(() => {

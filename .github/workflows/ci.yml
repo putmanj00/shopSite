@@ -41,6 +41,7 @@ jobs:
           npm run test:button
           npm run test:entry
           npm run test:care
+          npm run test:return-to
 
       - name: Build
         run: npm run build

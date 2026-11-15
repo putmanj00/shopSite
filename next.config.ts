@@ -64,6 +64,11 @@ const securityHeaders = [
     key: 'Referrer-Policy',
     value: 'strict-origin-when-cross-origin',
   },
+  {
+    // The storefront uses none of these browser features; deny them outright.
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=(), browsing-topics=()',
+  },
 ];
 
 const nextConfig: NextConfig = {
