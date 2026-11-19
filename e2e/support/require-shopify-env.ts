@@ -12,13 +12,15 @@ const REQUIRED_ENV_PAIRS: ReadonlyArray<readonly [string, string]> = [
 ];
 
 export default function requireShopifyEnv(): void {
-  // A deployed target (BASE_URL) carries its own Shopify config.
-  if (process.env.BASE_URL) return;
-
+  // Load first even for a deployed target: .env.local may carry the
+  // E2E_TEST_PRODUCT_* overrides a BASE_URL smoke run needs.
   const envFile = path.resolve(__dirname, '../../.env.local');
   if (existsSync(envFile)) {
     process.loadEnvFile(envFile);
   }
+
+  // A deployed target (BASE_URL) carries its own Shopify config.
+  if (process.env.BASE_URL) return;
 
   const missing = REQUIRED_ENV_PAIRS.filter(
     ([primary, fallback]) => !process.env[primary] && !process.env[fallback],
