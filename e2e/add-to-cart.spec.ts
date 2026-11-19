@@ -1,4 +1,4 @@
-import { test, expect } from 'playwright/test';
+import { test, expect } from './support/test';
 import {
   TEST_PRODUCT_HANDLE,
   TEST_PRODUCT_TITLE,
@@ -6,7 +6,7 @@ import {
 
 const PHONE_VIEWPORT = { width: 390, height: 664 };
 
-test.describe('Add to cart', () => {
+test.describe('Add to cart', { tag: '@full' }, () => {
   // Clear storage state before each test so cart starts empty (count = 0)
   // This ensures clicking Add to Cart always produces count = 1
   test.use({ storageState: { cookies: [], origins: [] } });
@@ -31,7 +31,7 @@ test.describe('Add to cart', () => {
   });
 });
 
-test.describe('Cart drawer on a phone-sized screen', () => {
+test.describe('Cart drawer on a phone-sized screen', { tag: '@full' }, () => {
   // Real customer flow on mobile: add an item, then view and remove it.
   test.use({
     storageState: { cookies: [], origins: [] },

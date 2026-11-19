@@ -1,4 +1,4 @@
-import { test, expect } from 'playwright/test';
+import { test, expect } from './support/test';
 
 // Security regression guards (launch-readiness review 2026-11-15).
 // Request-level: no browser page needed, no dependency on the Shopify catalog.
@@ -34,7 +34,7 @@ const REMOVED_EMAIL_ROUTES = [
   'winback',
 ];
 
-test.describe('Removed internal surfaces stay removed', () => {
+test.describe('Removed internal surfaces stay removed', { tag: '@full' }, () => {
   for (const path of REMOVED_GET_PATHS) {
     test(`GET ${path} is not served`, async ({ request }) => {
       const res = await request.get(path, { maxRedirects: 0 });
@@ -67,7 +67,7 @@ test.describe('Removed internal surfaces stay removed', () => {
   }
 });
 
-test.describe('Customer login redirect target', () => {
+test.describe('Customer login redirect target', { tag: '@full' }, () => {
   // The exhaustive accept/reject matrix lives in scripts/safe-return-to.test.ts.
   // This asserts the route is actually wired to it: whatever the authorize
   // endpoint does (redirect to Shopify, or to /login on missing config), an
@@ -93,7 +93,7 @@ test.describe('Customer login redirect target', () => {
   }
 });
 
-test.describe('Security headers', () => {
+test.describe('Security headers', { tag: '@full' }, () => {
   test('baseline headers are present on the homepage', async ({ request }) => {
     const res = await request.get('/');
     const headers = res.headers();

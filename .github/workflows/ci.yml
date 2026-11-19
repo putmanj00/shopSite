@@ -1,9 +1,14 @@
 name: CI
 
 # Required GitHub Secrets (Settings → Secrets and Variables → Actions → Repository secrets):
-#   SHOPIFY_STORE_DOMAIN           — e.g. wildenflower.myshopify.com
-#   SHOPIFY_STOREFRONT_ACCESS_TOKEN — public Storefront API token
-#   SHOPIFY_SHOP_ID                — numeric Shopify shop ID
+#   CI_SHOPIFY_STORE_DOMAIN            — CI development store (wildenflower-ci.myshopify.com)
+#   CI_SHOPIFY_STOREFRONT_ACCESS_TOKEN — public Storefront token for that store
+#   SHOPIFY_SHOP_ID                    — numeric shop ID (customer-account OAuth URL only;
+#                                        no CI test performs a real login)
+# CI builds and tests against the development store's permanent fixture
+# products (ci-*), never the production catalog, so merchandising edits on the
+# real store cannot break CI. The prod-store SHOPIFY_STORE_DOMAIN /
+# SHOPIFY_STOREFRONT_ACCESS_TOKEN secrets are no longer read here.
 # NEXT_PUBLIC_BASE_URL is hardcoded to https://wildenflower.com (not a secret)
 
 on:
@@ -46,8 +51,8 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
-          SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          SHOPIFY_STORE_DOMAIN: ${{ secrets.CI_SHOPIFY_STORE_DOMAIN }}
+          SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.CI_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
           SHOPIFY_SHOP_ID: ${{ secrets.SHOPIFY_SHOP_ID }}
           NEXT_PUBLIC_BASE_URL: https://wildenflower.com
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -59,7 +64,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, firefox, webkit]
+        # Each engine job also runs its phone project (playwright.config.ts).
+        include:
+          - browser: chromium
+            projects: --project=chromium --project=mobile-chrome
+          - browser: firefox
+            projects: --project=firefox
+          - browser: webkit
+            projects: --project=webkit --project=mobile-safari
+    env:
+      CI: true
+      SHOPIFY_STORE_DOMAIN: ${{ secrets.CI_SHOPIFY_STORE_DOMAIN }}
+      SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.CI_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+      NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.CI_SHOPIFY_STORE_DOMAIN }}
+      NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.CI_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+      SHOPIFY_SHOP_ID: ${{ secrets.SHOPIFY_SHOP_ID }}
+      NEXT_PUBLIC_BASE_URL: http://localhost:3000
     steps:
       - uses: actions/checkout@v7
 
@@ -70,17 +90,16 @@ jobs:
 
       - run: npm ci
 
-      - run: npx playwright install --with-deps
+      - run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      # E2E tests the production build (`next start` in playwright.config.ts).
+      # Built here, not in the webServer command, so build time does not count
+      # against the server-start timeout.
+      - name: Build (production)
+        run: npx next build
 
       - name: Run Playwright tests
-        run: npx playwright test --project=${{ matrix.browser }}
-        env:
-          CI: true
-          SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
-          SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
-          NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
-          NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
-          NEXT_PUBLIC_BASE_URL: http://localhost:3000
+        run: npx playwright test ${{ matrix.projects }}
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v7

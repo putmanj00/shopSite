@@ -1,10 +1,10 @@
-import { test, expect } from 'playwright/test';
+import { test, expect } from './support/test';
 import {
   TEST_PRODUCT_HANDLE,
   TEST_PRODUCT_TITLE,
 } from './support/shopify-test-product';
 
-test.describe('Product detail page', () => {
+test.describe('Product detail page', { tag: '@smoke' }, () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(`/products/${TEST_PRODUCT_HANDLE}`);
   });

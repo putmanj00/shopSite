@@ -12,6 +12,9 @@ const REQUIRED_ENV_PAIRS: ReadonlyArray<readonly [string, string]> = [
 ];
 
 export default function requireShopifyEnv(): void {
+  // A deployed target (BASE_URL) carries its own Shopify config.
+  if (process.env.BASE_URL) return;
+
   const envFile = path.resolve(__dirname, '../../.env.local');
   if (existsSync(envFile)) {
     process.loadEnvFile(envFile);

@@ -34,12 +34,16 @@ const cspValue = [
   "img-src 'self' blob: data: cdn.shopify.com *.shopify.com cdn.judge.me *.google-analytics.com",
   "connect-src 'self' *.shopify.com *.myshopify.com checkout.shopify.com *.google-analytics.com *.googletagmanager.com",
   "frame-src 'none'",
-  "frame-ancestors 'none'",
+  // Ignored (with a console error) in Report-Only; X-Frame-Options: DENY
+  // below already blocks framing until the policy is enforced.
+  CSP_ENFORCE ? "frame-ancestors 'none'" : '',
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self' *.shopify.com checkout.shopify.com",
-  "upgrade-insecure-requests",
-].join('; ');
+  // Same: ignored in Report-Only (console error on every page, caught by the
+  // E2E page-error guard). HSTS already covers https until enforcement.
+  CSP_ENFORCE ? "upgrade-insecure-requests" : '',
+].filter(Boolean).join('; ');
 
 const securityHeaders = [
   {

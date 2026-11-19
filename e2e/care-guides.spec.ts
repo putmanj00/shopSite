@@ -1,6 +1,6 @@
-import { test, expect } from 'playwright/test';
+import { test, expect } from './support/test';
 
-test.describe('Care Guides route', () => {
+test.describe('Care Guides route', { tag: '@smoke' }, () => {
   test('care-guides page renders with a page-level h1', async ({ page }) => {
     await page.goto('/care-guides');
     await expect(

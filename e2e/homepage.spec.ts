@@ -1,6 +1,6 @@
-import { test, expect } from 'playwright/test';
+import { test, expect } from './support/test';
 
-test.describe('Homepage', () => {
+test.describe('Homepage', { tag: '@smoke' }, () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
   });
@@ -39,7 +39,7 @@ test.describe('Homepage', () => {
   });
 });
 
-test.describe('Shipping & Returns policy', () => {
+test.describe('Shipping & Returns policy', { tag: '@smoke' }, () => {
   test('publishes the lifetime-repair promise and 14-day returns', async ({ page }) => {
     await page.goto('/shipping-returns');
     await expect(
