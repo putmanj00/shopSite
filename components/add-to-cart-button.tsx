@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import type { ShopifyProductVariant } from '@/types/shopify';
 import { useCartStore } from '@/lib/cart-store';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,8 @@ interface AddToCartButtonProps {
   id?: string;
 }
 
+const subscribeNoop = () => () => {};
+
 export default function AddToCartButton({
   variant,
   id,
@@ -18,9 +20,10 @@ export default function AddToCartButton({
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // Disabled until hydration so pre-hydration clicks can't silently no-op
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  // Disabled until hydration so pre-hydration clicks can't silently no-op.
+  // Server snapshot false, client snapshot true: flips once on hydration
+  // without a setState-in-effect re-render.
+  const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false);
 
   const handleAddToCart = async () => {
     setIsLoading(true);

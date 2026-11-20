@@ -25,12 +25,8 @@ export default function ExitIntentPopup({
     }, [onClose]);
 
     useEffect(() => {
-        // Check if already shown in this session
-        const alreadyShown = sessionStorage.getItem('exitIntentShown');
-        if (alreadyShown) {
-            setHasShown(true);
-            return;
-        }
+        // Already shown this session: never arm the listener.
+        if (sessionStorage.getItem('exitIntentShown')) return;
 
         const handleMouseLeave = (e: MouseEvent) => {
             // Only trigger when mouse leaves from the top of the viewport
