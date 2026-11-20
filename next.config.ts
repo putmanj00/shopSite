@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import createMDX from '@next/mdx';
-import { withSentryConfig } from '@sentry/nextjs';
+// v11 moved the build wrapper to the /config entry point.
+import { withSentryConfig } from '@sentry/nextjs/config';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CSP ENFORCEMENT FLAG
