@@ -1,6 +1,7 @@
 # .github/dependabot.yml
 # Dependabot version update configuration.
-# All npm packages are grouped into a single weekly PR to minimize noise.
+# npm minor + patch updates are grouped into a single weekly PR to minimize noise.
+# Major updates arrive as separate PRs so each breaking change is evaluated on its own.
 # GitHub Actions dependencies are also monitored (dormant until Phase 20 adds workflows).
 # All PRs require manual review — no auto-merge.
 # Source: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates
@@ -15,7 +16,10 @@ updates:
       all-npm-dependencies:
         patterns:
           - "*"
-    open-pull-requests-limit: 5
+        update-types:
+          - "minor"
+          - "patch"
+    open-pull-requests-limit: 10
 
   - package-ecosystem: "github-actions"
     directory: "/"
