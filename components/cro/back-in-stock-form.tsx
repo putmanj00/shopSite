@@ -40,13 +40,13 @@ export default function BackInStockForm({
 
             const data = await response.json().catch(() => ({}));
             if (!response.ok || !data.success) {
-                setError(data.message || 'Failed to subscribe. Please try again.');
+                setError(data.message || "Couldn't save that. Please try again.");
                 return;
             }
 
             setIsSubmitted(true);
         } catch (err) {
-            setError('Failed to subscribe. Please try again.');
+            setError("Couldn't save that. Please try again.");
             console.error(err);
         } finally {
             setIsSubmitting(false);
@@ -63,9 +63,9 @@ export default function BackInStockForm({
                         </svg>
                     </div>
                     <div>
-                        <p className="font-medium text-green-800">You&apos;re on the list!</p>
+                        <p className="font-medium text-green-800">Noted — thank you!</p>
                         <p className="text-sm text-green-700">
-                            We&apos;ll email you when this item is back in stock.
+                            We&apos;ve saved your interest. If this piece returns, we&apos;ll reach out.
                         </p>
                     </div>
                 </div>
@@ -79,11 +79,11 @@ export default function BackInStockForm({
                 <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                 </svg>
-                <h3 className="font-medium text-gray-900">Notify me when available</h3>
+                <h3 className="font-medium text-gray-900">Interested in this piece?</h3>
             </div>
 
             <p className="text-sm text-gray-600 mb-4">
-                Enter your email and we&apos;ll let you know when {productTitle} is back in stock.
+                Leave your email and we&apos;ll note your interest in {productTitle}. If it returns, we&apos;ll reach out.
             </p>
 
             <form onSubmit={handleSubmit} className="flex gap-2">
@@ -106,7 +106,7 @@ export default function BackInStockForm({
                     disabled={isSubmitting}
                     className="px-4 py-2 bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white font-medium rounded-lg transition-colors text-sm whitespace-nowrap"
                 >
-                    {isSubmitting ? 'Subscribing...' : 'Notify Me'}
+                    {isSubmitting ? 'Saving...' : 'Count me in'}
                 </button>
             </form>
 
