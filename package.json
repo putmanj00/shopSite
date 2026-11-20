@@ -24,6 +24,7 @@
     "test:autofix": "node --test 'scripts/codex-autofix/*.test.mjs'",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "test:e2e:smoke": "playwright test --grep @smoke",
     "test:all": "npm run typecheck && npm run lint && npm run test:ui && npm run test:care",
     "tunnel": "npx localtunnel --port 3000"
   },

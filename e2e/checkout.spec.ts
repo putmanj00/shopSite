@@ -1,7 +1,7 @@
-import { test, expect } from 'playwright/test';
+import { test, expect } from './support/test';
 import { TEST_PRODUCT_HANDLE } from './support/shopify-test-product';
 
-test.describe('Checkout redirect', () => {
+test.describe('Checkout redirect', { tag: '@full' }, () => {
   // Clear storage state before test so cart starts empty
   test.use({ storageState: { cookies: [], origins: [] } });
 
@@ -16,17 +16,23 @@ test.describe('Checkout redirect', () => {
       page.getByRole('heading', { name: /Your Gathering/i })
     ).toBeVisible();
 
-    // Step 3: Click checkout — waitForURL catches the cross-domain redirect
-    // window.location.href = cart.checkoutUrl triggers full navigation away from localhost
-    // Shopify serves checkout from either {store}.myshopify.com/checkouts|cart/c/... (classic)
-    // or shop.app/checkout/... (Shop Pay universal redirect, store-config dependent)
+    // Step 3: Click checkout. window.location.href = cart.checkoutUrl navigates
+    // away from the app. Shopify serves checkout from either
+    // {store}.myshopify.com/checkouts|cart/c/... (classic) or shop.app/checkout/...
+    // (Shop Pay universal redirect, store-config dependent).
+    //
+    // Assert the navigation REQUEST, not the final URL: the CI development
+    // store is always password-protected, so Shopify bounces the checkout on
+    // to /password. The handoff to the checkout URL is the app's contract.
     const checkoutUrl = /(myshopify\.com\/(cart\/c|checkouts)\/|shop\.app\/checkout)/;
-    await Promise.all([
-      page.waitForURL(checkoutUrl, { timeout: 15_000 }),
+    const [checkoutRequest] = await Promise.all([
+      page.waitForRequest(
+        (req) => req.isNavigationRequest() && checkoutUrl.test(req.url()),
+        { timeout: 15_000 },
+      ),
       page.getByRole('button', { name: 'Proceed to Checkout' }).click(),
     ]);
 
-    // Verify we landed on a Shopify-controlled checkout domain
-    expect(page.url()).toMatch(checkoutUrl);
+    expect(checkoutRequest.url()).toMatch(checkoutUrl);
   });
 });

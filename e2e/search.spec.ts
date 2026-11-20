@@ -1,9 +1,9 @@
-import { test, expect } from 'playwright/test';
+import { test, expect } from './support/test';
 import { TEST_PRODUCT_TITLE } from './support/shopify-test-product';
 
 // Search is a URL param on /collections/all — there is no /search route in this app.
 
-test.describe('Search', () => {
+test.describe('Search', { tag: '@smoke' }, () => {
   test('search returns results for known product query', async ({ page }) => {
     // Navigate directly to the filtered URL — client-side filtering handles the rest
     await page.goto(`/collections/all?search=${encodeURIComponent(TEST_PRODUCT_TITLE)}`);

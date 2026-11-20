@@ -1,7 +1,9 @@
-import { test, expect } from 'playwright/test';
+import { test, expect } from './support/test';
 
-test.describe('Category navigation', () => {
-  test('Shop dropdown navigates to a collection page', async ({ page }) => {
+test.describe('Category navigation', { tag: '@smoke' }, () => {
+  test('Shop dropdown navigates to a collection page', async ({ page, isMobile }) => {
+    // Hover dropdown is the desktop header; phones use the bottom nav/menu.
+    test.skip(isMobile, 'desktop-only hover menu');
     await page.goto('/');
 
     // Hover triggers onMouseEnter dropdown — more reliable than click in headless mode
