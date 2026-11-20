@@ -92,7 +92,6 @@ const tieDyeFilters: CategoryFilterConfig = {
       ],
     },
   ],
-  sizeGuideUrl: '/size-guide#tie-dye',
 };
 
 // Leather Goods Collection Filters
@@ -223,7 +222,6 @@ const jewelryFilters: CategoryFilterConfig = {
       ],
     },
   ],
-  sizeGuideUrl: '/size-guide#jewelry',
 };
 
 // Artwork Collection Filters
