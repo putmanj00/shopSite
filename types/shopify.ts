@@ -16,7 +16,8 @@ export interface ShopifyProductVariant {
   id: string;
   title: string;
   availableForSale: boolean;
-  quantityAvailable: number;
+  // No quantityAvailable: the Storefront token lacks
+  // unauthenticated_read_product_inventory and the queries never request it.
   price: ShopifyMoney;
   compareAtPrice: ShopifyMoney | null;
   selectedOptions: {

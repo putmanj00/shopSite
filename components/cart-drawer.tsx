@@ -71,6 +71,7 @@ export default function CartDrawer() {
       {/* Drawer */}
       <div
         data-testid="cart-drawer"
+        data-state={isOpen ? 'open' : 'closed'}
         className={`
           fixed top-0 right-0 h-full w-full max-w-md bg-parchment shadow-2xl z-50
           transform transition-transform duration-300 ease-in-out
@@ -193,7 +194,7 @@ export default function CartDrawer() {
                 {/* Subtotal */}
                 <div className="flex items-center justify-between text-lg">
                   <span className="font-semibold text-forest font-heading">Subtotal</span>
-                  <span className="font-bold text-forest">
+                  <span data-testid="cart-subtotal" className="font-bold text-forest">
                     {cart && <Price amount={cart.cost.subtotalAmount.amount} currencyCode={cart.cost.subtotalAmount.currencyCode} />}
                   </span>
                 </div>

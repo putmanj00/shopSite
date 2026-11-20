@@ -95,12 +95,6 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             <div className="w-3 h-3 bg-sage rounded-full"></div>
             <span className="text-forest font-medium">
               In Stock
-              {selectedVariant.quantityAvailable > 0 &&
-                selectedVariant.quantityAvailable < 10 && (
-                  <span className="text-orange-600 ml-2">
-                    (Only {selectedVariant.quantityAvailable} left!)
-                  </span>
-                )}
             </span>
           </div>
         ) : (
