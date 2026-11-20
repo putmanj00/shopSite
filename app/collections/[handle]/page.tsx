@@ -105,15 +105,20 @@ export default async function CollectionPage({
         products: productsData.products,
       };
     } catch (error) {
+      // Rethrow, don't notFound(): a transient Shopify failure is not a
+      // missing page. notFound() here bakes a 404 into the prerender (build)
+      // or swaps a good ISR page for a cached 404 (revalidation); throwing
+      // fails the build loudly and keeps the last good page on revalidate.
       console.error('Error fetching all products:', error);
-      notFound();
+      throw error;
     }
   } else {
     try {
       collection = await getCollectionByHandle(handle, { first: 250 });
     } catch (error) {
+      // Rethrow for the same reason as above.
       console.error('Error fetching collection:', error);
-      notFound();
+      throw error;
     }
   }
 
