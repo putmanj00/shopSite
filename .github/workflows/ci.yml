@@ -48,6 +48,7 @@ jobs:
           npm run test:care
           npm run test:return-to
           npm run test:auth-errors
+          npm run test:catalog-lint
           npm run test:signup
 
       - name: Build
