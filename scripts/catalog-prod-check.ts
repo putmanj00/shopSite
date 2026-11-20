@@ -173,12 +173,33 @@ function checkProducts(collectionId: string) {
   ];
 }
 
+async function publish(id: string, publicationId: string, handle: string): Promise<void> {
+  const p = await adminApiFetch<{ publishablePublish: { userErrors: UserError[] } }>({
+    query: `mutation ($id: ID!, $pub: ID!) { publishablePublish(id: $id, input: [{ publicationId: $pub }]) {
+      userErrors { field message } } }`,
+    variables: { id, pub: publicationId },
+  });
+  check(`publish ${handle}`, p.publishablePublish.userErrors);
+}
+
 async function seed(): Promise<void> {
   const { publicationId, collectionId } = await lookupIds();
-  const existing = new Set((await allProducts()).map((p) => p.handle));
+  const existing = new Map((await allProducts()).map((p) => [p.handle, p]));
   for (const input of checkProducts(collectionId)) {
-    if (existing.has(input.handle)) {
-      console.error(`  skip ${input.handle} (exists)`);
+    const prior = existing.get(input.handle);
+    if (prior) {
+      // A previous run's `revert` leaves check products ARCHIVED: bring them back
+      // (ACTIVE + republished) instead of skipping. Only CHECK_TAG products.
+      if (prior.status === 'ARCHIVED' && prior.tags.includes(CHECK_TAG)) {
+        console.error(`  reactivate ${input.handle}${apply ? '' : ' (dry run)'}`);
+        if (apply) {
+          await setStatus(prior.id, 'ACTIVE');
+          await publish(prior.id, publicationId, input.handle);
+          console.error(`    ✓ ${prior.id} active + published to ${CHANNEL}`);
+        }
+      } else {
+        console.error(`  skip ${input.handle} (exists, ${prior.status})`);
+      }
       continue;
     }
     console.error(`  create ${input.handle} "${input.title}"${apply ? '' : ' (dry run)'}`);
@@ -190,12 +211,7 @@ async function seed(): Promise<void> {
     });
     check(`productSet ${input.handle}`, r.productSet.userErrors);
     const id = r.productSet.product!.id;
-    const p = await adminApiFetch<{ publishablePublish: { userErrors: UserError[] } }>({
-      query: `mutation ($id: ID!, $pub: ID!) { publishablePublish(id: $id, input: [{ publicationId: $pub }]) {
-        userErrors { field message } } }`,
-      variables: { id, pub: publicationId },
-    });
-    check(`publish ${input.handle}`, p.publishablePublish.userErrors);
+    await publish(id, publicationId, input.handle);
     console.error(`    ✓ ${id} active + published to ${CHANNEL}`);
   }
 }
