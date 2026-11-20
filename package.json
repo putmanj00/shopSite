@@ -17,6 +17,7 @@
     "test:entry": "npx tsx scripts/product-entry.test.ts",
     "test:care": "npx tsx scripts/care-guides.test.ts",
     "test:return-to": "npx tsx scripts/safe-return-to.test.ts",
+    "test:auth-errors": "npx tsx scripts/auth-errors.test.ts",
     "test:signup": "npx tsx scripts/customer-signup.test.ts",
     "a11y:all": "npm run contrast:check && npm run a11y:test",
     "test:ui": "npx tsx scripts/ui-tests.ts",

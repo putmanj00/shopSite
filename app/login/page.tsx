@@ -5,13 +5,15 @@ import { Button } from '@/components/ui/button';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth-store';
 import { safeReturnTo } from '@/lib/safe-return-to';
+import { authErrorMessage } from '@/lib/auth-errors';
 
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { login, isAuthenticated, isLoading, checkAuth } = useAuthStore();
 
-  const error = searchParams.get('error');
+  // Map the code to fixed copy; the raw query value is never rendered.
+  const error = authErrorMessage(searchParams.get('error'));
   const returnTo = safeReturnTo(searchParams.get('returnTo'));
 
   // Check auth status on mount
@@ -54,7 +56,7 @@ export default function LoginPage() {
         </div>
 
         {error && (
-          <div className="rounded-md bg-red-50 p-4">
+          <div className="rounded-md bg-red-50 p-4" role="alert">
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg
@@ -71,7 +73,7 @@ export default function LoginPage() {
               </div>
               <div className="ml-3">
                 <h3 className="text-sm font-medium text-red-800">
-                  {decodeURIComponent(error)}
+                  {error}
                 </h3>
               </div>
             </div>

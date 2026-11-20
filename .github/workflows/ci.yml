@@ -47,6 +47,7 @@ jobs:
           npm run test:entry
           npm run test:care
           npm run test:return-to
+          npm run test:auth-errors
           npm run test:signup
 
       - name: Build
@@ -80,6 +81,9 @@ jobs:
       NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.CI_SHOPIFY_STORE_DOMAIN }}
       NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.CI_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
       SHOPIFY_SHOP_ID: ${{ secrets.SHOPIFY_SHOP_ID }}
+      # Placeholder, not a secret: lets /api/auth/customer/authorize build its
+      # redirect for e2e/auth.spec.ts. No real code is ever exchanged.
+      SHOPIFY_CUSTOMER_ACCOUNT_CLIENT_ID: e2e-placeholder-client-id
       NEXT_PUBLIC_BASE_URL: http://localhost:3000
     steps:
       - uses: actions/checkout@v7

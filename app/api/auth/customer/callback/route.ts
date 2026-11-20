@@ -5,6 +5,7 @@ import {
   storeTokens,
 } from '@/lib/customer-account';
 import { safeReturnTo } from '@/lib/safe-return-to';
+import { loginErrorPath } from '@/lib/auth-errors';
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,27 +15,22 @@ export async function GET(request: NextRequest) {
     const error = searchParams.get('error');
     const errorDescription = searchParams.get('error_description');
 
-    // Handle OAuth errors
+    // Handle OAuth errors. error/error_description are attacker-controllable
+    // query params: log them, never reflect them into the login page.
     if (error) {
       console.error('OAuth error:', error, errorDescription);
-      return NextResponse.redirect(
-        new URL(`/login?error=${encodeURIComponent(errorDescription || error)}`, request.url)
-      );
+      return NextResponse.redirect(new URL(loginErrorPath('login_cancelled'), request.url));
     }
 
     // Validate required parameters
     if (!code || !state) {
-      return NextResponse.redirect(
-        new URL('/login?error=Missing+authorization+parameters', request.url)
-      );
+      return NextResponse.redirect(new URL(loginErrorPath('missing_params'), request.url));
     }
 
     // Retrieve and validate state
     const storedState = await retrieveAndClearOAuthState();
     if (!storedState || storedState.state !== state) {
-      return NextResponse.redirect(
-        new URL('/login?error=Invalid+state+parameter', request.url)
-      );
+      return NextResponse.redirect(new URL(loginErrorPath('invalid_state'), request.url));
     }
 
     // Exchange code for tokens
@@ -55,11 +51,6 @@ export async function GET(request: NextRequest) {
     return response;
   } catch (error) {
     console.error('Callback error:', error);
-    return NextResponse.redirect(
-      new URL(
-        `/login?error=${encodeURIComponent(error instanceof Error ? error.message : 'Authentication failed')}`,
-        request.url
-      )
-    );
+    return NextResponse.redirect(new URL(loginErrorPath('auth_failed'), request.url));
   }
 }
