@@ -17,6 +17,7 @@ export default function WelcomePopup({
     const [email, setEmail] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         const alreadyShown = localStorage.getItem('welcomePopupShown');
@@ -75,15 +76,23 @@ export default function WelcomePopup({
         e.preventDefault();
         setIsSubmitting(true);
 
+        setError('');
+
         try {
-            await fetch('/api/newsletter', {
+            const response = await fetch('/api/newsletter', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),
             });
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok || !data.success) {
+                setError(data.message || 'Something went wrong. Please try again.');
+                return;
+            }
             setIsSubmitted(true);
         } catch (error) {
             console.error('Failed to subscribe:', error);
+            setError('Something went wrong. Please try again.');
         } finally {
             setIsSubmitting(false);
         }
@@ -185,6 +194,11 @@ export default function WelcomePopup({
                                     >
                                         {isSubmitting ? 'Joining...' : 'Claim My Welcome Discount'}
                                     </button>
+                                    {error && (
+                                        <p role="alert" className="text-sm text-red-600 text-center">
+                                            {error}
+                                        </p>
+                                    )}
                                 </form>
 
                                 <p className="text-xs text-gray-500 text-center mt-4">

@@ -38,7 +38,11 @@ export default function BackInStockForm({
                 }),
             });
 
-            if (!response.ok) throw new Error('Failed to subscribe');
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok || !data.success) {
+                setError(data.message || 'Failed to subscribe. Please try again.');
+                return;
+            }
 
             setIsSubmitted(true);
         } catch (err) {
