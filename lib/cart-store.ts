@@ -9,6 +9,36 @@ import {
 } from './shopify-queries';
 import { getShopifyClient } from './shopify';
 
+// @shopify/graphql-client reports request failures as one ResponseErrors
+// object ({ message, networkStatusCode, graphQLErrors }), never an array;
+// String() of it is "[object Object]", which hid the real cause.
+type ResponseErrors = {
+  message?: string;
+  networkStatusCode?: number;
+  graphQLErrors?: { message?: string }[];
+};
+
+function responseErrorMessage(errors: ResponseErrors): string {
+  const details = errors.graphQLErrors
+    ?.map((e) => e.message)
+    .filter(Boolean)
+    .join(', ');
+  const status = errors.networkStatusCode
+    ? ` (HTTP ${errors.networkStatusCode})`
+    : '';
+  return `${errors.message ?? 'Shopify request failed'}${status}${details ? `: ${details}` : ''}`;
+}
+
+type CartUserError = { field: string[] | null; message: string };
+
+// Shopify carts expire after a stretch of inactivity, and the id persisted in
+// localStorage then answers every mutation with a `cartId` userError ("The
+// specified cart does not exist."). That is not a failure to surface: the
+// visitor's cart is simply gone, so start over instead of dead-ending.
+function isMissingCartError(userErrors: CartUserError[] | undefined): boolean {
+  return !!userErrors?.some((e) => e.field?.[0] === 'cartId');
+}
+
 interface CartStore {
   cart: ShopifyCart | null;
   isOpen: boolean;
@@ -39,49 +69,12 @@ export const useCartStore = create<CartStore>()(
           const client = getShopifyClient();
           const currentCart = get().cart;
 
-          if (!currentCart) {
-            // Create new cart
-            const response = await client.request<{
-              cartCreate: {
-                cart: ShopifyCart;
-                userErrors: { field: string[]; message: string }[];
-              };
-            }>(CREATE_CART_MUTATION, {
-              variables: {
-                input: {
-                  lines: [
-                    {
-                      merchandiseId: variantId,
-                      quantity,
-                    },
-                  ],
-                },
-              },
-            });
-
-            if (response.errors) {
-              const errorMessages = Array.isArray(response.errors)
-                ? response.errors
-                    .map((e: { message: string }) => e.message)
-                    .join(', ')
-                : String(response.errors);
-              throw new Error(errorMessages);
-            }
-
-            if (
-              response.data?.cartCreate.userErrors &&
-              response.data.cartCreate.userErrors.length > 0
-            ) {
-              throw new Error(response.data.cartCreate.userErrors[0].message);
-            }
-
-            set({ cart: response.data?.cartCreate.cart, isOpen: true });
-          } else {
+          if (currentCart) {
             // Add to existing cart
             const response = await client.request<{
               cartLinesAdd: {
                 cart: ShopifyCart;
-                userErrors: { field: string[]; message: string }[];
+                userErrors: CartUserError[];
               };
             }>(ADD_TO_CART_MUTATION, {
               variables: {
@@ -96,23 +89,51 @@ export const useCartStore = create<CartStore>()(
             });
 
             if (response.errors) {
-              const errorMessages = Array.isArray(response.errors)
-                ? response.errors
-                    .map((e: { message: string }) => e.message)
-                    .join(', ')
-                : String(response.errors);
-              throw new Error(errorMessages);
+              throw new Error(responseErrorMessage(response.errors));
             }
 
-            if (
-              response.data?.cartLinesAdd.userErrors &&
-              response.data.cartLinesAdd.userErrors.length > 0
-            ) {
-              throw new Error(response.data.cartLinesAdd.userErrors[0].message);
+            const userErrors = response.data?.cartLinesAdd.userErrors;
+            if (!isMissingCartError(userErrors)) {
+              if (userErrors && userErrors.length > 0) {
+                throw new Error(userErrors[0].message);
+              }
+              set({ cart: response.data?.cartLinesAdd.cart, isOpen: true });
+              return;
             }
-
-            set({ cart: response.data?.cartLinesAdd.cart, isOpen: true });
+            // Expired cart: fall through and create a fresh one.
           }
+
+          // No cart yet, or the persisted one expired: create a new cart.
+          const response = await client.request<{
+            cartCreate: {
+              cart: ShopifyCart;
+              userErrors: { field: string[]; message: string }[];
+            };
+          }>(CREATE_CART_MUTATION, {
+            variables: {
+              input: {
+                lines: [
+                  {
+                    merchandiseId: variantId,
+                    quantity,
+                  },
+                ],
+              },
+            },
+          });
+
+          if (response.errors) {
+            throw new Error(responseErrorMessage(response.errors));
+          }
+
+          if (
+            response.data?.cartCreate.userErrors &&
+            response.data.cartCreate.userErrors.length > 0
+          ) {
+            throw new Error(response.data.cartCreate.userErrors[0].message);
+          }
+
+          set({ cart: response.data?.cartCreate.cart, isOpen: true });
         } catch (error) {
           console.error('Error adding to cart:', error);
           throw error;
@@ -146,12 +167,12 @@ export const useCartStore = create<CartStore>()(
           });
 
           if (response.errors) {
-            const errorMessages = Array.isArray(response.errors)
-              ? response.errors
-                  .map((e: { message: string }) => e.message)
-                  .join(', ')
-              : String(response.errors);
-            throw new Error(errorMessages);
+            throw new Error(responseErrorMessage(response.errors));
+          }
+
+          if (isMissingCartError(response.data?.cartLinesUpdate.userErrors)) {
+            set({ cart: null });
+            return;
           }
 
           if (
@@ -192,12 +213,12 @@ export const useCartStore = create<CartStore>()(
           });
 
           if (response.errors) {
-            const errorMessages = Array.isArray(response.errors)
-              ? response.errors
-                  .map((e: { message: string }) => e.message)
-                  .join(', ')
-              : String(response.errors);
-            throw new Error(errorMessages);
+            throw new Error(responseErrorMessage(response.errors));
+          }
+
+          if (isMissingCartError(response.data?.cartLinesRemove.userErrors)) {
+            set({ cart: null });
+            return;
           }
 
           if (

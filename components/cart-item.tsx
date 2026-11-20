@@ -58,6 +58,7 @@ export default function CartItem({ line }: CartItemProps) {
 
   return (
     <div
+      data-testid="cart-line"
       className={`flex gap-4 border-b border-gold/20 py-5 last:border-b-0 ${
         isRemoving ? 'pointer-events-none opacity-50' : ''
       }`}
@@ -125,14 +126,6 @@ export default function CartItem({ line }: CartItemProps) {
               </span>
             )}
           </div>
-
-          {/* Scarcity note — catalog small-caps, on-brand terracotta. */}
-          {merchandise.quantityAvailable > 0 &&
-            merchandise.quantityAvailable <= 5 && (
-              <p className="text-[11px] uppercase tracking-[0.16em] text-terracotta">
-                Only {merchandise.quantityAvailable} left
-              </p>
-            )}
         </div>
 
         {/* Quantity stepper + remove. */}

@@ -80,8 +80,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
   try {
     product = await getProductByHandle(handle);
   } catch (error) {
+    // Rethrow, don't notFound(): a transient Shopify failure is not a
+    // missing page. notFound() here bakes a 404 into the prerender (build)
+    // or swaps a good ISR page for a cached 404 (revalidation); throwing
+    // fails the build loudly and keeps the last good page on revalidate.
     console.error('Error fetching product:', error);
-    notFound();
+    throw error;
   }
 
   if (!product) {
