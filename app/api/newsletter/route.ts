@@ -1,50 +1,42 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { adminApiFetch, isAdminApiConfigured } from '@/lib/shopify-admin';
+import { NEWSLETTER_TAG, normalizeEmail, upsertSignupCustomer } from '@/lib/customer-signup';
 
-// Simple email validation
-function isValidEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
+const FAILURE_MESSAGE = "We couldn't sign you up right now. Please try again in a few minutes.";
 
 export async function POST(request: NextRequest) {
+  let body: unknown;
   try {
-    const body = await request.json();
-    const { email } = body;
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ success: false, message: 'Invalid request' }, { status: 400 });
+  }
 
-    if (!email) {
-      return NextResponse.json(
-        { success: false, message: 'Email is required' },
-        { status: 400 }
-      );
-    }
-
-    if (!isValidEmail(email)) {
-      return NextResponse.json(
-        { success: false, message: 'Please enter a valid email address' },
-        { status: 400 }
-      );
-    }
-
-    // Here you would typically:
-    // 1. Store the email in your database
-    // 2. Add to a mailing list service (Mailchimp, SendGrid, etc.)
-    // 3. Send a welcome email
-
-    // For now, we'll just log and return success
-    console.log(`Newsletter signup: ${email}`);
-
-    // Simulate a small delay as if we're making an API call
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    return NextResponse.json({
-      success: true,
-      message: "You're on the list — we'll be in touch.",
-    });
-  } catch (error) {
-    console.error('Newsletter signup error:', error);
+  const rawEmail = (body as { email?: unknown } | null)?.email;
+  if (!rawEmail) {
+    return NextResponse.json({ success: false, message: 'Email is required' }, { status: 400 });
+  }
+  const email = normalizeEmail(rawEmail);
+  if (!email) {
     return NextResponse.json(
-      { success: false, message: 'Something went wrong. Please try again.' },
-      { status: 500 }
+      { success: false, message: 'Please enter a valid email address' },
+      { status: 400 }
     );
   }
+
+  if (!isAdminApiConfigured()) {
+    console.error('[newsletter] Shopify Admin API not configured; signup not saved');
+    return NextResponse.json({ success: false, message: FAILURE_MESSAGE }, { status: 503 });
+  }
+
+  try {
+    await upsertSignupCustomer(adminApiFetch, { email, tags: [NEWSLETTER_TAG], subscribe: true });
+  } catch (error) {
+    // Do not log the email address (PII) — the error message is enough to debug.
+    console.error('[newsletter] Shopify customer upsert failed:', (error as Error).message);
+    return NextResponse.json({ success: false, message: FAILURE_MESSAGE }, { status: 502 });
+  }
+
+  // Same response whether the customer was new or existing (no enumeration).
+  return NextResponse.json({ success: true, message: "You're on the list — we'll be in touch." });
 }
