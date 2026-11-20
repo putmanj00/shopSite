@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { PageHero } from '@/components/ui/page-hero';
 
 export const metadata: Metadata = {
-    title: 'Shipping & Returns | Wildenflower',
+    title: 'Shipping & Returns',
     description: 'Information about our shipping policies, delivery timelines, and easy return process.',
 };
 

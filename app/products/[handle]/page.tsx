@@ -53,8 +53,9 @@ export async function generateMetadata({
   const price = product.priceRange.minVariantPrice;
 
   return {
-    title: `${product.title} | Wildenflower`,
+    title: product.title,
     description: product.description || `Shop ${product.title}`,
+    alternates: { canonical: `/products/${handle}` },
     openGraph: {
       title: product.title,
       description: product.description,

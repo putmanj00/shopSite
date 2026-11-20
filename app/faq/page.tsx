@@ -5,7 +5,7 @@ import { faqItems } from '@/data/faq-data';
 import { buildFaqPageSchema } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
-    title: 'FAQ | Wildenflower',
+    title: 'FAQ',
     description: 'Everything you might want to know about Wildenflower — from our handmade products to shipping and returns.',
 };
 

@@ -39,7 +39,7 @@ export default function RecentlyViewed() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <h3 className="font-medium text-gray-900 mb-1">No recently viewed items</h3>
-        <p className="text-sm text-gray-500">Items you view will appear here.</p>
+        <p className="text-sm text-ink-brown/80">Items you view will appear here.</p>
       </div>
     );
   }
@@ -47,10 +47,10 @@ export default function RecentlyViewed() {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <p className="text-sm text-gray-500">{recentProducts.length} items</p>
+        <p className="text-sm text-ink-brown/80">{recentProducts.length} items</p>
         <button
           onClick={clearHistory}
-          className="text-sm text-gray-500 hover:text-gray-700"
+          className="text-sm text-ink-brown/80 hover:text-gray-700"
         >
           Clear history
         </button>

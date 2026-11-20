@@ -10,7 +10,7 @@ import Sustainability from '@/components/about/sustainability';
 import PressMentions from '@/components/about/press-mentions';
 
 export const metadata: Metadata = {
-    title: 'Our Story | Wildenflower',
+    title: 'Our Story',
     description:
         'Born from a love of the untamed. Discover the Wildenflower story, meet our artisan partners, and explore our commitment to handpicked treasures crafted with intention.',
     openGraph: {

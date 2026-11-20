@@ -92,7 +92,7 @@ export default function VideoShowcase() {
                         )}
                     </div>
 
-                    <p className="mt-4 text-center text-parchment/50 text-sm">
+                    <p className="mt-4 text-center text-parchment/70 text-sm">
                         Video includes English captions for accessibility
                     </p>
                 </div>

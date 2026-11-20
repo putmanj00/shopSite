@@ -7,7 +7,7 @@ const DESCRIPTION =
     'How to care for your handmade Wildenflower pieces — leather, tie-dye, and jewelry — so they stay beautiful for the life of the piece.';
 
 export const metadata: Metadata = {
-    title: 'Care Guides | Wildenflower',
+    title: 'Care Guides',
     description: DESCRIPTION,
     alternates: { canonical: '/care-guides' },
     openGraph: {
