@@ -6,7 +6,7 @@ interface BreadcrumbsProps {
 }
 
 export default function Breadcrumbs({ product }: BreadcrumbsProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://shopsite.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.wildenflower.com';
 
   // Build breadcrumb items for schema
   const breadcrumbItems = [
