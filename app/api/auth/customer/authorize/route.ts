@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { buildAuthorizationUrl, storeOAuthState } from '@/lib/customer-account';
 import { safeReturnTo } from '@/lib/safe-return-to';
+import { loginErrorPath } from '@/lib/auth-errors';
 
 export async function GET(request: NextRequest) {
   try {
@@ -25,10 +26,8 @@ export async function GET(request: NextRequest) {
 
     return response;
   } catch (error) {
+    // Detail stays in the server log; the URL carries a fixed code only.
     console.error('Authorization error:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Failed to initiate login';
-    return NextResponse.redirect(
-      new URL(`/login?error=${encodeURIComponent(errorMessage)}`, request.url)
-    );
+    return NextResponse.redirect(new URL(loginErrorPath('login_unavailable'), request.url));
   }
 }
