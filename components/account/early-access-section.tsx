@@ -20,30 +20,6 @@ interface EarlyAccessSectionProps {
   isMember?: boolean;
 }
 
-// Mock early access products
-const mockProducts: EarlyAccessProduct[] = [
-  {
-    id: '1',
-    handle: 'summer-collection-preview',
-    title: 'Summer Collection Preview',
-    imageUrl: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=400&fit=crop',
-    imageAlt: 'Summer collection clothing',
-    price: '89.00',
-    currencyCode: 'USD',
-    launchDate: '2026-02-01',
-  },
-  {
-    id: '2',
-    handle: 'limited-edition-leather-tote',
-    title: 'Limited Edition Leather Tote',
-    imageUrl: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop',
-    imageAlt: 'Limited edition leather bag',
-    price: '249.00',
-    currencyCode: 'USD',
-    launchDate: '2026-01-25',
-  },
-];
-
 function formatLaunchDate(dateString: string): string {
   const date = new Date(dateString);
   const now = new Date();
@@ -58,7 +34,10 @@ function formatLaunchDate(dateString: string): string {
 }
 
 export default function EarlyAccessSection({
-  products = mockProducts,
+  // No real early-access feed exists yet. The old mock items linked to
+  // nonexistent /products/* handles (404 prefetches on /account), so the
+  // section shows its empty state until a real source is wired in.
+  products = [],
   isMember = true,
 }: EarlyAccessSectionProps) {
   if (!isMember) {
