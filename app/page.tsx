@@ -13,6 +13,10 @@ import NewsletterSignup from '@/components/homepage/newsletter-signup';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
 import PersonalizedRecommendations from '@/components/homepage/personalized-recommendations';
 
+// Featured Products reads Shopify at render time; without this the homepage is
+// fully static and the product grid stays frozen at build. Match collections.
+export const revalidate = 300;
+
 function FeaturedProductsSkeleton() {
   return (
     <section className="container mx-auto px-4 py-16">
