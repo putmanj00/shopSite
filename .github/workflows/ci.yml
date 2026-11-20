@@ -80,9 +80,12 @@ jobs:
       SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.CI_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
       NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.CI_SHOPIFY_STORE_DOMAIN }}
       NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.CI_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
-      SHOPIFY_SHOP_ID: ${{ secrets.SHOPIFY_SHOP_ID }}
-      # Placeholder, not a secret: lets /api/auth/customer/authorize build its
-      # redirect for e2e/auth.spec.ts. No real code is ever exchanged.
+      # Placeholders, not secrets: let /api/auth/customer/authorize build its
+      # redirect for e2e/auth.spec.ts. No real code is ever exchanged, and the
+      # shop ID is only presence-checked. Hardcoded (not secrets.*) because
+      # Dependabot-triggered runs read the separate Dependabot secret store,
+      # which has no SHOPIFY_SHOP_ID — auth.spec failed on every Dependabot PR.
+      SHOPIFY_SHOP_ID: e2e-placeholder-shop-id
       SHOPIFY_CUSTOMER_ACCOUNT_CLIENT_ID: e2e-placeholder-client-id
       NEXT_PUBLIC_BASE_URL: http://localhost:3000
     steps:
