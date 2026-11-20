@@ -199,6 +199,47 @@ test.describe('Cart journeys', { tag: '@full' }, () => {
     expect(await storedCartId(page)).not.toBe(staleCart.id);
   });
 
+  // Once an order is placed, Storefront answers cart(id) with null. The CI
+  // store cannot take payment, so stand in for "checked out" by answering the
+  // drawer's getCart query with that null.
+  test('after purchase: a checked-out cart is cleared on return', async ({ page }) => {
+    await addFromPdp(page, SIMPLE);
+    await closeDrawer(page);
+    await expect(page.getByTestId('cart-count')).toHaveText('1');
+
+    await page.route('**/api/**/graphql.json', async (route) => {
+      if (route.request().postData()?.includes('getCart')) {
+        return route.fulfill({ json: { data: { cart: null } } });
+      }
+      return route.fallback();
+    });
+    await page.goto('/');
+
+    await expect(page.getByTestId('cart-count')).toHaveCount(0);
+    await page.getByRole('button', { name: 'Open cart' }).first().click();
+    await expect(page.getByTestId('cart-drawer').getByText(/basket is empty/i)).toBeVisible();
+  });
+
+  test.describe('refresh failure', () => {
+    // The aborted getCart is logged by the browser as a failed resource.
+    test.use({ allowedConsoleErrors: [/Failed to load resource|net::ERR_FAILED/] });
+
+    test('keeps the cart (never empty it on a network blip)', async ({ page }) => {
+      await addFromPdp(page, SIMPLE);
+      await closeDrawer(page);
+
+      await page.route('**/api/**/graphql.json', async (route) => {
+        if (route.request().postData()?.includes('getCart')) return route.abort('failed');
+        return route.fallback();
+      });
+      const refreshed = page.waitForRequest((r) => !!r.postData()?.includes('getCart'));
+      await page.goto('/');
+      await refreshed;
+
+      await expect(page.getByTestId('cart-count')).toHaveText('1');
+    });
+  });
+
   test('checkout hands off a Shopify cart holding both lines', async ({ page, request }) => {
     await addFromPdp(page, SIMPLE);
     await closeDrawer(page);
