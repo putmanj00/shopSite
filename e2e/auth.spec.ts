@@ -74,13 +74,14 @@ test.describe('auth — PKCE handshake (Tier 1)', () => {
 test.describe('auth — login error copy', () => {
   test('known code shows its fixed message and does not auto-redirect', async ({ page }) => {
     await page.goto('/login?error=invalid_state');
-    await expect(page.getByRole('alert')).toHaveText(/sign-in session expired/i);
+    // Next's route announcer is also role=alert in prod builds — filter to ours.
+    await expect(page.getByRole('alert').filter({ hasText: /sign-in session expired/i })).toBeVisible();
     await expect(page).toHaveURL(/\/login\?error=invalid_state/);
   });
 
   test('arbitrary error text is never rendered', async ({ page }) => {
     await page.goto(`/login?error=${encodeURIComponent(HOSTILE_TEXT)}`);
-    await expect(page.getByRole('alert')).toHaveText(/couldn.t sign you in/i);
+    await expect(page.getByRole('alert').filter({ hasText: /couldn.t sign you in/i })).toBeVisible();
     await expect(page.getByText(HOSTILE_TEXT)).toHaveCount(0);
   });
 });
