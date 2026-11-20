@@ -42,10 +42,14 @@ export default function SearchBar({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Update input when external value changes
-  useEffect(() => {
+  // Update input when external value changes — adjusted during render
+  // (React's "storing information from previous renders" pattern) instead of
+  // a setState-in-effect, which costs an extra render pass.
+  const [prevValue, setPrevValue] = useState(value);
+  if (value !== prevValue) {
+    setPrevValue(value);
     setInputValue(value);
-  }, [value]);
+  }
 
   // Fetch predictive results
   const fetchResults = useCallback(async (query: string) => {
