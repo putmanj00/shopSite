@@ -41,7 +41,7 @@
     "@types/mdx": "^2.0.14",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.1.0",
-    "framer-motion": "^12.42.2",
+    "framer-motion": "^14.14.0",
     "graphql": "^17.1.0",
     "next": "^16.2.10",
     "react": "19.3.1",
