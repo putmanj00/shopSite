@@ -78,6 +78,24 @@ async function fetchCartLines(request: APIRequestContext, cartId: string) {
     .sort((a, b) => a.handle.localeCompare(b.handle));
 }
 
+const CHECKOUT_URL = /(myshopify\.com\/(cart\/c|checkouts)\/|shop\.app\/checkout)/;
+
+// Leave for Shopify checkout, then return to the site — a shopper going back
+// to edit their cart mid-checkout. Returns via a fresh load of our site rather
+// than history.back(): the dev store's /password page never settles in
+// Chromium, and WebKit's back-forward cache restores stale drawer state.
+async function visitCheckoutAndReturn(page: Page) {
+  await Promise.all([
+    page.waitForRequest((r) => r.isNavigationRequest() && CHECKOUT_URL.test(r.url()), {
+      timeout: 15_000,
+    }),
+    page.getByRole('button', { name: 'Proceed to Checkout' }).click(),
+  ]);
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Open cart' }).first().click();
+  await expect(page.getByTestId('cart-drawer')).toHaveAttribute('data-state', 'open');
+}
+
 test.describe('Cart journeys', { tag: '@full' }, () => {
   test.skip(!!process.env.BASE_URL, 'mutates a Shopify cart; dev store only');
   test.use({ storageState: { cookies: [], origins: [] } });
@@ -194,14 +212,48 @@ test.describe('Cart journeys', { tag: '@full' }, () => {
 
     // Same handoff contract as checkout.spec.ts: assert the navigation request
     // (the dev store is password-protected and bounces on to /password).
-    const checkoutUrl = /(myshopify\.com\/(cart\/c|checkouts)\/|shop\.app\/checkout)/;
     const [req] = await Promise.all([
       page.waitForRequest(
-        (r) => r.isNavigationRequest() && checkoutUrl.test(r.url()),
+        (r) => r.isNavigationRequest() && CHECKOUT_URL.test(r.url()),
         { timeout: 15_000 },
       ),
       page.getByRole('button', { name: 'Proceed to Checkout' }).click(),
     ]);
-    expect(req.url()).toMatch(checkoutUrl);
+    expect(req.url()).toMatch(CHECKOUT_URL);
+  });
+
+  // Edits made after visiting checkout must reach the cart Shopify checks
+  // out (launch plan C7/C8). Assert via the Storefront cart, not Shopify's
+  // checkout DOM (bot-protected; the dev store bounces to /password).
+  test('edits after returning from checkout reach the Shopify cart', async ({ page, request }) => {
+    test.setTimeout(60_000); // two round trips to Shopify checkout
+    await addFromPdp(page, SIMPLE);
+    await closeDrawer(page);
+    await addFromPdp(page, VARIANT, 'L');
+    const cartId = await storedCartId(page);
+    const drawer = page.getByTestId('cart-drawer');
+    const subtotal = drawer.getByTestId('cart-subtotal');
+
+    // C7: remove a line after a checkout visit.
+    await visitCheckoutAndReturn(page);
+    await drawer
+      .getByTestId('cart-line')
+      .filter({ has: page.getByText('CI Simple Product', { exact: true }) })
+      .getByRole('button', { name: /^Remove$/ })
+      .click();
+    await expect(subtotal).toHaveText('$30.00');
+    expect(await storedCartId(page)).toBe(cartId);
+    await expect
+      .poll(() => fetchCartLines(request, cartId))
+      .toEqual([{ handle: 'ci-variant-product', variant: 'L', quantity: 1 }]);
+
+    // C8: change quantity after another checkout visit.
+    await visitCheckoutAndReturn(page);
+    await drawer.getByRole('button', { name: 'Increase quantity' }).click();
+    await expect(subtotal).toHaveText('$60.00');
+    expect(await storedCartId(page)).toBe(cartId);
+    await expect
+      .poll(() => fetchCartLines(request, cartId))
+      .toEqual([{ handle: 'ci-variant-product', variant: 'L', quantity: 2 }]);
   });
 });
