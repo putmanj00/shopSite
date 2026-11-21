@@ -5,7 +5,7 @@ import PostPurchaseUpsell from '@/components/checkout/post-purchase-upsell';
 import ProductCardSkeleton from '@/components/product-card-skeleton';
 
 export const metadata: Metadata = {
-  title: 'Thank You for Your Order | Wildenflower',
+  title: 'Thank You for Your Order',
   description: 'Your order has been confirmed. Thank you for shopping with us!',
 };
 

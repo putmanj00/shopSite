@@ -6,7 +6,7 @@ interface BreadcrumbsProps {
 }
 
 export default function Breadcrumbs({ product }: BreadcrumbsProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://shopsite.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.wildenflower.com';
 
   // Build breadcrumb items for schema
   const breadcrumbItems = [
@@ -45,21 +45,21 @@ export default function Breadcrumbs({ product }: BreadcrumbsProps) {
       <nav className="flex items-center gap-2 text-sm" aria-label="Breadcrumb">
         <Link
           href="/"
-          className="text-sage hover:text-ink-brown transition-colors"
+          className="text-ink-brown/80 hover:text-ink-brown transition-colors"
         >
           Home
         </Link>
-        <span className="text-sage">/</span>
+        <span className="text-ink-brown/80" aria-hidden="true">/</span>
 
         {product.productType && (
           <>
             <Link
               href={`/collections/all?type=${encodeURIComponent(product.productType)}`}
-              className="text-sage hover:text-ink-brown transition-colors"
+              className="text-ink-brown/80 hover:text-ink-brown transition-colors"
             >
               {product.productType}
             </Link>
-            <span className="text-sage">/</span>
+            <span className="text-ink-brown/80" aria-hidden="true">/</span>
           </>
         )}
 

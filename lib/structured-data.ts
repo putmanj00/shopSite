@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://wildenflower.com';
+export const SITE_URL = 'https://www.wildenflower.com';
 
 export function buildBreadcrumbList(
   items: { name: string; url: string }[]

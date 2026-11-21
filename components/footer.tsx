@@ -117,7 +117,7 @@ export default function Footer() {
         {/* NAP — Name/Address/Phone (local SEO) */}
         {/* TODO: Update address and phone with confirmed Wildenflower business details */}
         <div className="border-t border-gold/20 mt-12 pt-8">
-          <address className="not-italic text-sm text-parchment/50 text-center mb-6">
+          <address className="not-italic text-sm text-parchment/70 text-center mb-6">
             <span className="font-semibold text-parchment/70">Wildenflower</span>
             {' · '}Alexandria, KY{' · '}Northern Kentucky
           </address>
@@ -139,7 +139,7 @@ export default function Footer() {
                     href="https://instagram.com/wildenflower/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-parchment/50 hover:text-parchment transition-colors p-3 -m-3"
+                    className="text-parchment/70 hover:text-parchment transition-colors p-3 -m-3"
                     aria-label="Follow us on Instagram"
                   >
                     <svg
@@ -200,7 +200,7 @@ export default function Footer() {
             </nav>
 
             {/* Copyright */}
-            <p className="text-sm text-parchment/50">
+            <p className="text-sm text-parchment/70">
               © {currentYear} Wildenflower. All rights reserved.
             </p>
           </div>

@@ -35,7 +35,7 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://wildenflower.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://www.wildenflower.com'),
   title: {
     default: 'Wildenflower | Tie-Dye, Leather Goods, Jewelry & Art',
     template: '%s | Wildenflower',
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://wildenflower.com',
+    url: 'https://www.wildenflower.com',
     siteName: 'Wildenflower',
     title: 'Wildenflower | Tie-Dye, Leather Goods, Jewelry & Art',
     description:

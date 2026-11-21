@@ -156,7 +156,7 @@ export default function NewsletterSignup() {
             )}
           </form>
 
-          <p className="mt-4 text-sm text-parchment/50">
+          <p className="mt-4 text-sm text-parchment/70">
             We respect your privacy. Unsubscribe at any time.
           </p>
         </div>

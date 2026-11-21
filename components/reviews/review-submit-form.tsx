@@ -100,7 +100,7 @@ export default function ReviewSubmitForm({ handle, externalId, productTitle }: R
     >
       <div>
         <h3 className="font-display text-xl text-ink-brown">Leave a note</h3>
-        <p className="mt-1 text-sm text-ink-brown/70">
+        <p className="mt-1 text-sm text-ink-brown/80">
           Share your experience with {productTitle}. No account needed.
         </p>
       </div>
@@ -127,7 +127,7 @@ export default function ReviewSubmitForm({ handle, externalId, productTitle }: R
               </span>
             </button>
           ))}
-          <span className="ml-2 text-sm text-ink-brown/70" aria-live="polite">
+          <span className="ml-2 text-sm text-ink-brown/80" aria-live="polite">
             {shown ? RATING_LABELS[shown] : ''}
           </span>
         </div>
@@ -155,7 +155,7 @@ export default function ReviewSubmitForm({ handle, externalId, productTitle }: R
             autoComplete="email"
             className="mt-1 w-full rounded-md border border-gold/30 bg-cream px-3 py-2 text-ink-brown focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           />
-          <span className="mt-1 block text-xs text-ink-brown/70">Not published.</span>
+          <span className="mt-1 block text-xs text-ink-brown/80">Not published.</span>
         </label>
       </div>
 
@@ -193,7 +193,7 @@ export default function ReviewSubmitForm({ handle, externalId, productTitle }: R
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="text-sm text-ink-brown/70 underline hover:text-ink-brown"
+          className="text-sm text-ink-brown/80 underline hover:text-ink-brown"
         >
           Cancel
         </button>

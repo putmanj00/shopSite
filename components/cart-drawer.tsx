@@ -13,6 +13,7 @@ import ExpressCheckoutButtons from './cart/express-checkout-buttons';
 import { TrustBadgesCompact } from './checkout/trust-badges';
 import GiftMessageInput from './checkout/gift-message-input';
 import { Button } from '@/components/ui/button';
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
 
 export default function CartDrawer() {
   const { cart, isOpen, closeCart } = useCartStore();
@@ -189,7 +190,7 @@ export default function CartDrawer() {
                   {/* Free Shipping Progress Bar */}
                   <FreeShippingBar
                     currentTotal={cartSubtotal}
-                    threshold={75}
+                    threshold={FREE_SHIPPING_THRESHOLD}
                     currencyCode={cart?.cost.subtotalAmount.currencyCode}
                   />
 

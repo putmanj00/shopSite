@@ -23,7 +23,7 @@ export const faqItems: FaqItem[] = [
   {
     id: '3',
     question: 'How long does shipping take?',
-    answer: 'Standard shipping takes 5–7 business days within the US. Express shipping (2–3 business days) is available at checkout. International orders typically arrive within 10–14 business days. Because many items are made to order, please allow an additional 3–5 days for crafting.',
+    answer: 'Shipping cost is calculated at checkout from the weight of your order and its destination, and you will see each option with its delivery time before you pay. Standard shipping takes 5–7 business days within the US. International orders typically arrive within 10–14 business days. Because many items are made to order, please allow an additional 3–5 days for crafting.',
     category: 'Shipping',
   },
   {

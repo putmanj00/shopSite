@@ -184,7 +184,7 @@ export default function AccountPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">My Account</h1>
-          <p className="text-gray-500 mt-1">
+          <p className="text-ink-brown/80 mt-1">
             Welcome back, {customer?.firstName || customer?.displayName || 'there'}!
           </p>
         </div>
@@ -256,7 +256,7 @@ export default function AccountPage() {
                   />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Email</p>
+                  <p className="text-sm text-ink-brown/80">Email</p>
                   <p className="font-medium text-gray-900 break-all text-sm">
                     {customer?.email || 'Not available'}
                   </p>
@@ -282,7 +282,7 @@ export default function AccountPage() {
             ) : (
               <div className="space-y-3">
                 <div>
-                  <p className="text-sm text-gray-500">Name</p>
+                  <p className="text-sm text-ink-brown/80">Name</p>
                   <p className="font-medium text-gray-900">
                     {customer?.firstName && customer?.lastName
                       ? `${customer.firstName} ${customer.lastName}`
@@ -290,7 +290,7 @@ export default function AccountPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Email</p>
+                  <p className="text-sm text-ink-brown/80">Email</p>
                   <p className="font-medium text-gray-900 break-all">
                     {customer?.email || 'Not available'}
                   </p>
@@ -327,19 +327,19 @@ export default function AccountPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-white shadow rounded-lg p-4 text-center">
                   <p className="text-2xl font-bold text-primary-600">0</p>
-                  <p className="text-sm text-gray-500">Orders</p>
+                  <p className="text-sm text-ink-brown/80">Orders</p>
                 </div>
                 <div className="bg-white shadow rounded-lg p-4 text-center">
                   <p className="text-2xl font-bold text-primary-600">0</p>
-                  <p className="text-sm text-gray-500">Wishlist</p>
+                  <p className="text-sm text-ink-brown/80">Wishlist</p>
                 </div>
                 <div className="bg-white shadow rounded-lg p-4 text-center">
                   <p className="text-2xl font-bold text-primary-600">0</p>
-                  <p className="text-sm text-gray-500">Reviews</p>
+                  <p className="text-sm text-ink-brown/80">Reviews</p>
                 </div>
                 <div className="bg-white shadow rounded-lg p-4 text-center">
                   <p className="text-2xl font-bold text-primary-600">0</p>
-                  <p className="text-sm text-gray-500">Points</p>
+                  <p className="text-sm text-ink-brown/80">Points</p>
                 </div>
               </div>
 

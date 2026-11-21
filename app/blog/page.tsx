@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { blogPosts } from '@/data/blog-posts';
 
 export const metadata: Metadata = {
-    title: 'Journal | Wildenflower',
+    title: 'Journal',
     description: 'Stories from the artisan community, craft techniques, and bohemian lifestyle tips.',
 };
 

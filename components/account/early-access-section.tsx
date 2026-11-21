@@ -66,7 +66,7 @@ export default function EarlyAccessSection({
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <h3 className="font-medium text-gray-900 mb-1">No early access items right now</h3>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-ink-brown/80">
           Check back soon for exclusive previews of upcoming products!
         </p>
       </div>

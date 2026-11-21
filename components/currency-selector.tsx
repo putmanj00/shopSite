@@ -23,7 +23,7 @@ export default function CurrencySelector() {
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center gap-1 text-sm font-medium text-parchment hover:text-white transition-colors px-2 py-1 rounded-md hover:bg-white/10"
-                aria-label="Select currency"
+                aria-label={`${currency} — change currency`}
                 aria-expanded={isOpen}
             >
                 <span>{currency}</span>
