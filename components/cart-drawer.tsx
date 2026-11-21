@@ -27,6 +27,23 @@ export default function CartDrawer() {
     setIsGift(gift);
   };
 
+  // Re-check the cart with Shopify on load and whenever the shopper comes back
+  // to the tab (e.g. after paying on Shopify's checkout, including a
+  // back-button restore from the bfcache). A checked-out cart comes back null
+  // and is cleared, so paid items do not linger in the drawer.
+  useEffect(() => {
+    const refresh = () => {
+      if (document.visibilityState === 'visible') void useCartStore.getState().refreshCart();
+    };
+    refresh();
+    window.addEventListener('pageshow', refresh);
+    document.addEventListener('visibilitychange', refresh);
+    return () => {
+      window.removeEventListener('pageshow', refresh);
+      document.removeEventListener('visibilitychange', refresh);
+    };
+  }, []);
+
   // Prevent body scroll when drawer is open
   useEffect(() => {
     if (isOpen) {

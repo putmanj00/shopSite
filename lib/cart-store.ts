@@ -6,6 +6,7 @@ import {
   ADD_TO_CART_MUTATION,
   UPDATE_CART_MUTATION,
   REMOVE_FROM_CART_MUTATION,
+  GET_CART_QUERY,
 } from './shopify-queries';
 import { getShopifyClient } from './shopify';
 
@@ -51,6 +52,7 @@ interface CartStore {
   updateCartLine: (lineId: string, quantity: number) => Promise<void>;
   removeFromCart: (lineId: string) => Promise<void>;
   clearCart: () => void;
+  refreshCart: () => Promise<void>;
 }
 
 export const useCartStore = create<CartStore>()(
@@ -241,6 +243,30 @@ export const useCartStore = create<CartStore>()(
 
       clearCart: () => {
         set({ cart: null, isOpen: false });
+      },
+
+      // Re-read the persisted cart from Shopify. Storefront answers `cart(id)`
+      // with null once the cart has been checked out (or has expired), so a
+      // shopper returning from a completed order sees an empty cart instead of
+      // the items they already paid for. Also picks up price/availability
+      // changes. Network errors keep the local copy: never empty a cart on a
+      // blip.
+      refreshCart: async () => {
+        const cartId = get().cart?.id;
+        if (!cartId) return;
+        try {
+          const response = await getShopifyClient().request<{ cart: ShopifyCart | null }>(
+            GET_CART_QUERY,
+            { variables: { cartId } },
+          );
+          if (response.errors) return;
+          // Another action may have replaced the cart while this was in flight.
+          if (get().cart?.id !== cartId) return;
+          const fresh = response.data?.cart ?? null;
+          set(fresh ? { cart: fresh } : { cart: null, isOpen: false });
+        } catch {
+          // Offline or Shopify unreachable: keep what we have.
+        }
       },
     }),
     {
