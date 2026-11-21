@@ -504,11 +504,15 @@ export default function CollectionContent({
                   d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
+              {/* Filtered-to-nothing vs. a collection that is simply empty
+                  (e.g. a category before its first pieces are listed). */}
               <h3 className="mt-4 text-lg font-medium text-ink-brown">
-                No products found
+                {hasActiveFilters ? 'No products found' : 'Nothing here yet'}
               </h3>
               <p className="mt-2 text-earth">
-                Try adjusting your filters or search query
+                {hasActiveFilters
+                  ? 'Try adjusting your filters or search query'
+                  : 'New pieces are being gathered. Check back soon!'}
               </p>
               {hasActiveFilters && (
                 <Button
