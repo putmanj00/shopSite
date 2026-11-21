@@ -150,6 +150,7 @@ function render(channel: string, products: LintProduct[], collections: LintColle
   });
   const live = rows.filter((r) => isLive(r.p));
   const drafts = rows.filter((r) => !isLive(r.p) && r.p.status !== 'ARCHIVED');
+  const archived = rows.length - live.length - drafts.length;
   const liveErrors =
     live.reduce((n, r) => n + r.issues.filter((i) => i.severity === 'error').length, 0) +
     tests.filter(isLive).length;
@@ -173,7 +174,7 @@ function render(channel: string, products: LintProduct[], collections: LintColle
     `# Catalog lint — ${new Date().toISOString().slice(0, 10)}`,
     '',
     `Site channel: **${channel}**. Live = active + published there. ❌ = fix before activating; ⚠️ = fix before launch.`,
-    `Products: ${products.length} total · ${live.length} live · ${drafts.length} draft/unpublished · ${tests.length} test/placeholder.`,
+    `Products: ${products.length} total · ${live.length} live · ${drafts.length} draft/unpublished · ${archived} archived (not checked) · ${tests.length} test/placeholder.`,
     '',
     '## Most common issues',
     '',
