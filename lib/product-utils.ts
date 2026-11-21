@@ -1,3 +1,4 @@
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
 export interface AccordionSection {
   id: string;
   title: string;
@@ -110,7 +111,7 @@ export function getProductAccordionSections(product: {
           <h4 class="font-medium text-neutral-900 mb-1">Shipping</h4>
           <ul class="list-disc list-inside space-y-1">
             <li>Calculated at checkout by package weight and destination</li>
-            <li>Free shipping on US orders over $75</li>
+            <li>Free shipping on US orders over $${FREE_SHIPPING_THRESHOLD}</li>
           </ul>
         </div>
         <div>

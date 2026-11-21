@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { EmailLayout, EmailButton, EmailProductCard } from './email-layout';
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
 
 interface FeaturedProduct {
   title: string;
@@ -129,7 +130,7 @@ export function WinbackEmail({
                   <span style={{ color: '#C8642A' }}>🚚</span>
                 </td>
                 <td style={{ padding: '8px 0', color: '#475569' }}>
-                  <strong>Free Shipping</strong> — On orders over $75
+                  <strong>Free Shipping</strong> — On orders over ${FREE_SHIPPING_THRESHOLD}
                 </td>
               </tr>
             </tbody>

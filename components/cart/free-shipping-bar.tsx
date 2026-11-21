@@ -11,10 +11,11 @@ interface FreeShippingBarProps {
  * WCAG 2.1 AA compliant with proper ARIA attributes
  */
 import Price from '@/components/price';
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
 
 export default function FreeShippingBar({
   currentTotal,
-  threshold = 75,
+  threshold = FREE_SHIPPING_THRESHOLD,
   currencyCode = 'USD',
 }: FreeShippingBarProps) {
   const remaining = Math.max(0, threshold - currentTotal);

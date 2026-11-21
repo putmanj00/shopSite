@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
 
 interface CTA {
   label: string;
@@ -105,7 +106,7 @@ export default function EnhancedHero({
               <svg className="w-5 h-5 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              <span>Free Shipping Over $75</span>
+              <span>Free Shipping Over ${FREE_SHIPPING_THRESHOLD}</span>
             </div>
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/ui/page-hero';
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
 
 export const metadata: Metadata = {
     title: 'Shipping & Returns | Wildenflower',
@@ -30,7 +31,7 @@ export default function ShippingReturnsPage() {
                         </p>
                         <p>
                             You&apos;ll see the available options and their exact cost before you pay. US orders
-                            over $75 ship free.
+                            over ${FREE_SHIPPING_THRESHOLD} ship free.
                         </p>
                     </div>
                     <p className="mt-4 text-earth/60 text-sm">
