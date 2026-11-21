@@ -22,6 +22,7 @@
     "catalog:lint": "npx tsx scripts/catalog-lint.ts",
     "test:signup": "npx tsx scripts/customer-signup.test.ts",
     "test:customer-address": "npx tsx scripts/customer-address.test.ts",
+    "test:csp-report": "npx tsx scripts/csp-report.test.ts",
     "a11y:all": "npm run contrast:check && npm run a11y:test",
     "test:ui": "npx tsx scripts/ui-tests.ts",
     "test:routes": "npx tsx scripts/validate-routes.ts",

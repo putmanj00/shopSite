@@ -51,6 +51,7 @@ jobs:
           npm run test:catalog-lint
           npm run test:signup
           npm run test:customer-address
+          npm run test:csp-report
 
       - name: Build
         run: npm run build

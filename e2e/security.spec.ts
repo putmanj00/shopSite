@@ -104,3 +104,55 @@ test.describe('Security headers', { tag: '@full' }, () => {
     expect(headers['permissions-policy']).toContain('camera=()');
   });
 });
+
+test.describe('CSP violation reporting', { tag: '@full' }, () => {
+  test('policy names the report endpoint (report-uri + report-to)', async ({ request }) => {
+    const headers = (await request.get('/')).headers();
+    const csp =
+      headers['content-security-policy'] ?? headers['content-security-policy-report-only'] ?? '';
+    expect(csp).toContain('report-uri /api/csp-report');
+    expect(csp).toContain('report-to csp-endpoint');
+    expect(headers['reporting-endpoints']).toBe('csp-endpoint="/api/csp-report"');
+  });
+
+  test('accepts a legacy report-uri body', async ({ request }) => {
+    const res = await request.post('/api/csp-report', {
+      headers: { 'Content-Type': 'application/csp-report' },
+      data: JSON.stringify({
+        'csp-report': {
+          'document-uri': 'http://localhost:3000/',
+          'effective-directive': 'img-src',
+          'blocked-uri': 'https://e2e.example/x.png',
+          disposition: 'report',
+        },
+      }),
+    });
+    expect(res.status()).toBe(204);
+  });
+
+  test('accepts a Reporting API body', async ({ request }) => {
+    const res = await request.post('/api/csp-report', {
+      headers: { 'Content-Type': 'application/reports+json' },
+      data: JSON.stringify([
+        {
+          type: 'csp-violation',
+          body: { effectiveDirective: 'script-src-elem', blockedURL: 'inline', disposition: 'report' },
+        },
+      ]),
+    });
+    expect(res.status()).toBe(204);
+  });
+
+  test('junk is swallowed, oversized bodies are refused', async ({ request }) => {
+    const junk = await request.post('/api/csp-report', {
+      headers: { 'Content-Type': 'application/json' },
+      data: 'not json',
+    });
+    expect(junk.status()).toBe(204);
+    const big = await request.post('/api/csp-report', {
+      headers: { 'Content-Type': 'application/csp-report' },
+      data: 'x'.repeat(64 * 1024),
+    });
+    expect(big.status()).toBe(413);
+  });
+});

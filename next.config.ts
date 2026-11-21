@@ -5,18 +5,22 @@ import { withSentryConfig } from '@sentry/nextjs/config';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CSP ENFORCEMENT FLAG
-// Currently set to false (Report-Only mode). After deploying to production and
-// confirming zero violations in browser DevTools console during a full user
-// session (including checkout flow), flip this to true to enforce the policy.
+// Currently false (Report-Only). Violations are POSTed to /api/csp-report
+// and land in the Vercel function log ("[csp-report]") + sampled Sentry
+// issues ("CSP report: <directive> blocked <origin>").
 //
 // To switch to enforcing:
-//   1. Set CSP_ENFORCE = true
-//   2. Deploy and test: npm run build && npm run start
-//   3. Confirm checkout still works end-to-end
+//   1. Collect ~1 week of production reports; fix or allow-list each source
+//   2. Set CSP_ENFORCE = true
+//   3. Deploy and test: npm run build && npm run start
+//   4. Confirm checkout still works end-to-end
 // ─────────────────────────────────────────────────────────────────────────────
 const CSP_ENFORCE = false;
 
 const isDev = process.env.NODE_ENV === 'development';
+
+const CSP_REPORT_PATH = '/api/csp-report';
+const CSP_REPORT_GROUP = 'csp-endpoint';
 
 const cspValue = [
   "default-src 'self'",
@@ -44,12 +48,23 @@ const cspValue = [
   // Same: ignored in Report-Only (console error on every page, caught by the
   // E2E page-error guard). HSTS already covers https until enforcement.
   CSP_ENFORCE ? "upgrade-insecure-requests" : '',
+  // Both: browsers with the Reporting API (Chromium, recent Safari) use
+  // report-to and ignore report-uri; Firefox uses report-uri. No Reporting API
+  // uploads were observed from Playwright Chromium/WebKit on local http (the
+  // report-uri path was), so verify report-to on a deployed https site.
+  `report-uri ${CSP_REPORT_PATH}`,
+  `report-to ${CSP_REPORT_GROUP}`,
 ].filter(Boolean).join('; ');
 
 const securityHeaders = [
   {
     key: CSP_ENFORCE ? 'Content-Security-Policy' : 'Content-Security-Policy-Report-Only',
     value: cspValue,
+  },
+  {
+    // Names the endpoint group used by the CSP `report-to` directive.
+    key: 'Reporting-Endpoints',
+    value: `${CSP_REPORT_GROUP}="${CSP_REPORT_PATH}"`,
   },
   {
     // max-age=63072000 = 2 years; includeSubDomains; preload for HSTS preload list
