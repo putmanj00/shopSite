@@ -221,8 +221,11 @@ test.describe('Cart journeys', { tag: '@full' }, () => {
   });
 
   test.describe('refresh failure', () => {
-    // The aborted getCart is logged by the browser as a failed resource.
-    test.use({ allowedConsoleErrors: [/Failed to load resource|net::ERR_FAILED/] });
+    // The aborted getCart is logged as a failed resource (Chromium/WebKit) or,
+    // since Storefront is cross-origin, a failed CORS request (Firefox).
+    test.use({
+      allowedConsoleErrors: [/Failed to load resource|net::ERR_FAILED|CORS request did not succeed/],
+    });
 
     test('keeps the cart (never empty it on a network blip)', async ({ page }) => {
       await addFromPdp(page, SIMPLE);
