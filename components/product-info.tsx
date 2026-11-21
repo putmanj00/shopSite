@@ -59,7 +59,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           {product.title}
         </h1>
         {product.vendor && (
-          <p className="catalog-label text-ink-brown/70">by {normalizeVendor(product.vendor)}</p>
+          <p className="catalog-label text-ink-brown/80">by {normalizeVendor(product.vendor)}</p>
         )}
       </div>
 

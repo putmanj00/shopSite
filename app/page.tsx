@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { onlineStoreSchema, organizationSchema } from '@/lib/structured-data';
 import EnhancedHero from '@/components/homepage/enhanced-hero';
@@ -16,6 +17,10 @@ import PersonalizedRecommendations from '@/components/homepage/personalized-reco
 // Featured Products reads Shopify at render time; without this the homepage is
 // fully static and the product grid stays frozen at build. Match collections.
 export const revalidate = 300;
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 function FeaturedProductsSkeleton() {
   return (

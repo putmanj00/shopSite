@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Offline | Wildenflower',
+  title: 'Offline',
   description: 'You appear to be offline. Please check your internet connection.',
 };
 

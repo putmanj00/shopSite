@@ -46,8 +46,9 @@ export async function generateMetadata({
   // Handle virtual "all" collection
   if (handle === 'all') {
     return {
-      title: 'All Treasures | shopSite',
+      title: 'All Treasures',
       description: 'Every handmade treasure in one place',
+      alternates: { canonical: '/collections/all' },
       openGraph: {
         title: 'All Treasures',
         description: 'Every handmade treasure in one place',
@@ -71,8 +72,9 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${collection.title} | shopSite`,
+    title: collection.title,
     description: collection.description || `Shop ${collection.title} products`,
+    alternates: { canonical: `/collections/${handle}` },
     openGraph: {
       title: collection.title,
       description: collection.description,
@@ -143,10 +145,10 @@ export default async function CollectionPage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb Navigation */}
           <nav className="flex items-center justify-center gap-2 text-sm mb-8" aria-label="Breadcrumb">
-            <Link href="/" className="text-sage hover:text-ink-brown transition-colors">Home</Link>
-            <span className="text-sage">/</span>
-            <Link href="/collections/all" className="text-sage hover:text-ink-brown transition-colors">Shop</Link>
-            <span className="text-sage">/</span>
+            <Link href="/" className="text-ink-brown/80 hover:text-ink-brown transition-colors">Home</Link>
+            <span className="text-ink-brown/80" aria-hidden="true">/</span>
+            <Link href="/collections/all" className="text-ink-brown/80 hover:text-ink-brown transition-colors">Shop</Link>
+            <span className="text-ink-brown/80" aria-hidden="true">/</span>
             <span className="text-ink-brown font-medium line-clamp-1">{collection.title}</span>
           </nav>
 
@@ -155,7 +157,7 @@ export default async function CollectionPage({
               <BotanicalHeader variant="small" />
             </div>
           )}
-          <span className="catalog-label text-ink-brown/70 mb-3">
+          <span className="catalog-label text-ink-brown/80 mb-3">
             {handle === 'all' ? 'Shop' : 'Collection'}
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-ink-brown">

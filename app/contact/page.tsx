@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { PageHero } from '@/components/ui/page-hero';
 
 export const metadata: Metadata = {
-    title: 'Contact Us | Wildenflower',
+    title: 'Contact Us',
     description: 'Get in touch with the Wildenflower team. We\'re here to help with orders, questions, and everything in between.',
 };
 
