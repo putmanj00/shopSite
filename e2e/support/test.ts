@@ -24,10 +24,6 @@ const IGNORED_CONSOLE_ERRORS: ReadonlyArray<RegExp> = [
   // "Framing 'https://vercel.live/' violates the following report-only
   // Content Security Policy directive" (Vercel Toolbar on deployed smoke runs).
   /report-only Content Security Policy/i,
-  // WebKit: the Report-Only policy has no report-to endpoint, so it collects
-  // nothing (Phase-1 leftover: add an endpoint before "collect then enforce").
-  // Remove this entry when report-to lands.
-  /delivered in report-only mode, but does not specify a 'report-to'/,
   // Vercel analytics scripts exist only on Vercel's edge. The `page` fixture
   // stubs them, but public/sw.js re-fetches same-origin requests itself, and
   // service-worker fetches bypass page.route(), so on reload the 404 can still
