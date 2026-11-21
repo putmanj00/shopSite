@@ -1,3 +1,5 @@
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
+
 const trustItems = [
   {
     icon: (
@@ -11,7 +13,7 @@ const trustItems = [
       </svg>
     ),
     title: 'Free Shipping',
-    description: 'On orders over $75',
+    description: `On orders over $${FREE_SHIPPING_THRESHOLD}`,
   },
   {
     icon: (
