@@ -34,6 +34,9 @@ export interface LintProduct {
   description: string; // plain text
   images: { alt: string | null }[];
   prices: number[]; // one per variant
+  // One per variant: packed shipping weight (any unit), or null when the
+  // variant does not require shipping. Checkout rates are calculated from it.
+  weights: (number | null)[];
   collections: string[]; // handles
   metafields: Record<string, string | null | undefined>;
   onSiteChannel: boolean; // published to the storefront's sales channel
@@ -81,6 +84,8 @@ export function lintProduct(p: LintProduct): Issue[] {
 
   if (p.prices.length === 0) err('no variants');
   else if (p.prices.some((x) => !(x > 0))) err('a variant has price $0 or missing');
+  if (p.weights.some((w) => w !== null && !(w > 0)))
+    err('a variant has no shipping weight — checkout would quote the wrong shipping rate');
 
   if (p.collections.length === 0) warn('not in any collection — only reachable from search / All');
 
