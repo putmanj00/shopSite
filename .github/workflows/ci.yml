@@ -50,6 +50,7 @@ jobs:
           npm run test:auth-errors
           npm run test:catalog-lint
           npm run test:signup
+          npm run test:customer-address
 
       - name: Build
         run: npm run build

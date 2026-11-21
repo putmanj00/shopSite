@@ -1,7 +1,22 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { CustomerAddress } from '@/app/api/customer/addresses/route';
+import { useRouter } from 'next/navigation';
+import type { CustomerAddress } from '@/lib/customer-address';
+import { usZoneName } from '@/lib/customer-address';
+
+const SIGN_IN_URL = '/login?returnTo=/account';
+
+/** Throw the API's own error message; on 401 run onUnauthorized (sign-in redirect). */
+async function throwApiError(
+  response: Response,
+  fallback: string,
+  onUnauthorized: () => void,
+): Promise<never> {
+  if (response.status === 401) onUnauthorized();
+  const data = await response.json().catch(() => ({}));
+  throw new Error(data.error || fallback);
+}
 
 interface AddressFormData {
   firstName: string;
@@ -53,11 +68,11 @@ function AddressCard({ address, isDefault, onEdit, onDelete, onSetDefault, isLoa
         {address.address2 && <><br />{address.address2}</>}
       </p>
       <p className="text-gray-600 text-sm">
-        {address.city}, {address.province} {address.zip}
+        {address.city}, {address.zoneCode || address.province} {address.zip}
       </p>
       <p className="text-gray-600 text-sm">{address.country}</p>
-      {address.phone && (
-        <p className="text-gray-600 text-sm mt-1">{address.phone}</p>
+      {address.phoneNumber && (
+        <p className="text-gray-600 text-sm mt-1">{address.phoneNumber}</p>
       )}
 
       <div className="flex gap-2 mt-4 pt-4 border-t border-gray-100">
@@ -260,6 +275,8 @@ function AddressForm({ formData, onChange, onSubmit, onCancel, isLoading, isEdit
 }
 
 export default function AddressBook() {
+  const router = useRouter();
+  const toSignIn = () => router.push(SIGN_IN_URL);
   const [addresses, setAddresses] = useState<CustomerAddress[]>([]);
   const [defaultAddressId, setDefaultAddressId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -271,12 +288,13 @@ export default function AddressBook() {
 
   useEffect(() => {
     fetchAddresses();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only load
   }, []);
 
   async function fetchAddresses() {
     try {
       const response = await fetch('/api/customer/addresses');
-      if (!response.ok) throw new Error('Failed to fetch addresses');
+      if (!response.ok) await throwApiError(response, 'Failed to load addresses', toSignIn);
       const data = await response.json();
       setAddresses(data.addresses || []);
       setDefaultAddressId(data.defaultAddressId);
@@ -300,10 +318,10 @@ export default function AddressBook() {
       address1: address.address1 || '',
       address2: address.address2 || '',
       city: address.city || '',
-      province: address.province || '',
+      province: address.zoneCode ? usZoneName(address.zoneCode) : address.province || '',
       country: address.country || 'United States',
       zip: address.zip || '',
-      phone: address.phone || '',
+      phone: address.phoneNumber || '',
     });
     setEditingAddress(address);
     setShowForm(true);
@@ -332,10 +350,7 @@ export default function AddressBook() {
         }),
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to save address');
-      }
+      if (!response.ok) await throwApiError(response, 'Failed to save address', toSignIn);
 
       await fetchAddresses();
       handleCancel();
@@ -359,10 +374,7 @@ export default function AddressBook() {
         body: JSON.stringify({ action: 'delete', addressId }),
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to delete address');
-      }
+      if (!response.ok) await throwApiError(response, 'Failed to delete address', toSignIn);
 
       await fetchAddresses();
     } catch (err) {
@@ -383,10 +395,7 @@ export default function AddressBook() {
         body: JSON.stringify({ action: 'setDefault', addressId }),
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to set default address');
-      }
+      if (!response.ok) await throwApiError(response, 'Failed to set default address', toSignIn);
 
       setDefaultAddressId(addressId);
     } catch (err) {
@@ -414,7 +423,7 @@ export default function AddressBook() {
   return (
     <div>
       {error && (
-        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+        <div role="alert" className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
           <p className="text-red-700 text-sm">{error}</p>
         </div>
       )}

@@ -1,131 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { customerAccountFetch, isAuthenticated } from '@/lib/customer-account';
+import {
+  ADDRESSES_QUERY,
+  CREATE_ADDRESS_MUTATION,
+  UPDATE_ADDRESS_MUTATION,
+  DELETE_ADDRESS_MUTATION,
+  SET_DEFAULT_ADDRESS_MUTATION,
+  toCustomerAddressInput,
+  type CustomerAddress,
+} from '@/lib/customer-address';
 
-const ADDRESSES_QUERY = `
-  query CustomerAddresses {
-    customer {
-      defaultAddress {
-        id
-        address1
-        address2
-        city
-        province
-        country
-        zip
-        firstName
-        lastName
-        phone
-      }
-      addresses(first: 10) {
-        edges {
-          node {
-            id
-            address1
-            address2
-            city
-            province
-            country
-            zip
-            firstName
-            lastName
-            phone
-          }
-        }
-      }
-    }
+export type { CustomerAddress };
+
+type UserError = { field: string[] | null; message: string };
+
+/** Auth failures from customerAccountFetch become 401 so the UI can re-sign-in. */
+function errorResponse(error: unknown, fallback: string) {
+  const message = error instanceof Error ? error.message : '';
+  if (message === 'Not authenticated' || message === 'Authentication expired') {
+    return NextResponse.json({ error: 'Your session has expired. Please sign in again.' }, { status: 401 });
   }
-`;
-
-const CREATE_ADDRESS_MUTATION = `
-  mutation CustomerAddressCreate($address: CustomerAddressInput!) {
-    customerAddressCreate(address: $address) {
-      customerAddress {
-        id
-        address1
-        address2
-        city
-        province
-        country
-        zip
-        firstName
-        lastName
-        phone
-      }
-      userErrors {
-        field
-        message
-      }
-    }
-  }
-`;
-
-const UPDATE_ADDRESS_MUTATION = `
-  mutation CustomerAddressUpdate($addressId: ID!, $address: CustomerAddressInput!) {
-    customerAddressUpdate(addressId: $addressId, address: $address) {
-      customerAddress {
-        id
-        address1
-        address2
-        city
-        province
-        country
-        zip
-        firstName
-        lastName
-        phone
-      }
-      userErrors {
-        field
-        message
-      }
-    }
-  }
-`;
-
-const DELETE_ADDRESS_MUTATION = `
-  mutation CustomerAddressDelete($addressId: ID!) {
-    customerAddressDelete(addressId: $addressId) {
-      deletedAddressId
-      userErrors {
-        field
-        message
-      }
-    }
-  }
-`;
-
-const SET_DEFAULT_ADDRESS_MUTATION = `
-  mutation CustomerDefaultAddressUpdate($addressId: ID!) {
-    customerDefaultAddressUpdate(addressId: $addressId) {
-      customer {
-        defaultAddress {
-          id
-        }
-      }
-      userErrors {
-        field
-        message
-      }
-    }
-  }
-`;
-
-export interface CustomerAddress {
-  id: string;
-  address1: string | null;
-  address2: string | null;
-  city: string | null;
-  province: string | null;
-  country: string | null;
-  zip: string | null;
-  firstName: string | null;
-  lastName: string | null;
-  phone: string | null;
+  return NextResponse.json({ error: fallback }, { status: 500 });
 }
 
 interface AddressesResponse {
   customer: {
-    defaultAddress: CustomerAddress | null;
+    defaultAddress: { id: string } | null;
     addresses: {
       edges: {
         node: CustomerAddress;
@@ -137,30 +37,28 @@ interface AddressesResponse {
 interface CreateAddressResponse {
   customerAddressCreate: {
     customerAddress: CustomerAddress | null;
-    userErrors: { field: string[]; message: string }[];
+    userErrors: UserError[];
   };
 }
 
 interface UpdateAddressResponse {
   customerAddressUpdate: {
     customerAddress: CustomerAddress | null;
-    userErrors: { field: string[]; message: string }[];
+    userErrors: UserError[];
   };
 }
 
 interface DeleteAddressResponse {
   customerAddressDelete: {
     deletedAddressId: string | null;
-    userErrors: { field: string[]; message: string }[];
+    userErrors: UserError[];
   };
 }
 
 interface SetDefaultAddressResponse {
-  customerDefaultAddressUpdate: {
-    customer: {
-      defaultAddress: { id: string } | null;
-    } | null;
-    userErrors: { field: string[]; message: string }[];
+  customerAddressUpdate: {
+    customerAddress: { id: string } | null;
+    userErrors: UserError[];
   };
 }
 
@@ -187,10 +85,7 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Addresses fetch error:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch addresses' },
-      { status: 500 }
-    );
+    return errorResponse(error, 'We couldn\'t load your addresses. Please try again.');
   }
 }
 
@@ -204,8 +99,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
-    const { action, addressId, address } = body;
+    const body = await request.json().catch(() => null);
+    if (!body || typeof body !== 'object') {
+      return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
+    }
+    const { action, addressId } = body as { action?: unknown; addressId?: unknown };
+    if (addressId !== undefined && addressId !== null && typeof addressId !== 'string') {
+      return NextResponse.json({ error: 'Invalid address ID' }, { status: 400 });
+    }
+
+    let address = null;
+    if (action === 'create' || action === 'update') {
+      const mapped = toCustomerAddressInput((body as { address?: unknown }).address);
+      if (!mapped.ok) {
+        return NextResponse.json({ error: mapped.error }, { status: 400 });
+      }
+      address = mapped.input;
+    }
 
     if (action === 'create') {
       const data = await customerAccountFetch<CreateAddressResponse>({
@@ -288,15 +198,15 @@ export async function POST(request: NextRequest) {
         variables: { addressId },
       });
 
-      if (data.customerDefaultAddressUpdate.userErrors.length > 0) {
+      if (data.customerAddressUpdate.userErrors.length > 0) {
         return NextResponse.json(
-          { error: data.customerDefaultAddressUpdate.userErrors[0].message },
+          { error: data.customerAddressUpdate.userErrors[0].message },
           { status: 400 }
         );
       }
 
       return NextResponse.json({
-        defaultAddressId: data.customerDefaultAddressUpdate.customer?.defaultAddress?.id,
+        defaultAddressId: data.customerAddressUpdate.customerAddress?.id ?? addressId,
       });
     }
 
@@ -306,9 +216,6 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error('Address operation error:', error);
-    return NextResponse.json(
-      { error: 'Failed to perform address operation' },
-      { status: 500 }
-    );
+    return errorResponse(error, 'We couldn\'t save that change. Please try again.');
   }
 }

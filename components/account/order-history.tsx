@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCartStore } from '@/lib/cart-store';
 import Price from '@/components/price';
-import type { Order, OrderLineItem } from '@/app/api/customer/orders/route';
+import type { Order, OrderLineItem } from '@/lib/customer-orders';
 
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString('en-US', {
@@ -38,10 +38,8 @@ function getFulfillmentStatus(order: Order): string {
   }
 
   const latestFulfillment = order.fulfillments.nodes[0];
-  if (latestFulfillment.latestShipmentStatus?.status) {
-    return latestFulfillment.latestShipmentStatus.status.replace(/_/g, ' ');
-  }
-  return latestFulfillment.status.replace(/_/g, ' ');
+  const status = latestFulfillment.latestShipmentStatus || latestFulfillment.status;
+  return status ? status.replace(/_/g, ' ') : 'Processing';
 }
 
 interface OrderItemProps {
@@ -81,9 +79,11 @@ function OrderItem({ item, onReorder }: OrderItemProps) {
       </div>
 
       <div className="text-right flex-shrink-0">
-        <p className="font-medium text-gray-900">
-          <Price amount={item.price.amount} currencyCode={item.price.currencyCode} />
-        </p>
+        {item.price && (
+          <p className="font-medium text-gray-900">
+            <Price amount={item.price.amount} currencyCode={item.price.currencyCode} />
+          </p>
+        )}
         {productHandle && item.productId && (
           <button
             onClick={() => onReorder(item.productId!)}
@@ -106,7 +106,7 @@ interface OrderCardProps {
 function OrderCard({ order, isExpanded, onToggle }: OrderCardProps) {
   const addToCart = useCartStore((state) => state.addToCart);
   const fulfillmentStatus = getFulfillmentStatus(order);
-  const trackingInfo = order.fulfillments.nodes[0]?.trackingInfo?.[0];
+  const trackingInfo = order.fulfillments.nodes[0]?.trackingInformation?.find((t) => t.url && t.number);
 
   const handleReorder = async (productId: string) => {
     // Extract handle from product GID
@@ -177,7 +177,7 @@ function OrderCard({ order, isExpanded, onToggle }: OrderCardProps) {
             <div className="py-3 border-b border-gray-100">
               <p className="text-sm font-medium text-gray-700 mb-1">Tracking</p>
               <a
-                href={trackingInfo.url}
+                href={trackingInfo.url ?? undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-primary-600 hover:text-primary-700"

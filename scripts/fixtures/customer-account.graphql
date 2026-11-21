@@ -1,0 +1,171 @@
+# Minimal snapshot of the Shopify Customer Account API schema — only the
+# address + order-history types our app touches. Hand-copied from the shopify.dev
+# reference (docs/api/customer/2025-01/..., which served the 2026-10 "latest"
+# pages) on 2026-11-21. Used by scripts/customer-address.test.ts to validate
+# our query documents and mutation variables, which mocked e2e cannot do.
+#
+# simple: hand-copied subset; upgrade to a full introspection dump if we add
+# more Customer Account queries or bump the API version in lib/customer-account.ts.
+
+scalar CountryCode
+scalar DateTime
+scalar URL
+# Enums modelled as scalars: only leaf-ness matters for document validation.
+scalar OrderFinancialStatus
+scalar FulfillmentStatus
+scalar FulfillmentEventStatus
+enum OrderSortKeys { CREATED_AT ID ORDER_NUMBER PROCESSED_AT TOTAL_PRICE UPDATED_AT }
+
+type Query {
+  customer: Customer!
+}
+
+type Mutation {
+  customerAddressCreate(address: CustomerAddressInput!, defaultAddress: Boolean = false): CustomerAddressCreatePayload
+  customerAddressUpdate(addressId: ID!, address: CustomerAddressInput, defaultAddress: Boolean): CustomerAddressUpdatePayload
+  customerAddressDelete(addressId: ID!): CustomerAddressDeletePayload
+}
+
+type Customer {
+  id: ID!
+  defaultAddress: CustomerAddress
+  addresses(first: Int, last: Int, after: String, before: String, reverse: Boolean = false, skipDefault: Boolean = false): CustomerAddressConnection!
+  orders(first: Int, last: Int, after: String, before: String, query: String, reverse: Boolean = false, sortKey: OrderSortKeys = ID): OrderConnection!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type MoneyV2 {
+  amount: String!
+  currencyCode: String!
+}
+
+type Image {
+  url: URL!
+  altText: String
+}
+
+type OrderConnection {
+  edges: [OrderEdge!]!
+  nodes: [Order!]!
+  pageInfo: PageInfo!
+}
+
+type OrderEdge {
+  cursor: String!
+  node: Order!
+}
+
+type Order {
+  id: ID!
+  name: String!
+  number: Int!
+  processedAt: DateTime!
+  createdAt: DateTime!
+  financialStatus: OrderFinancialStatus
+  totalPrice: MoneyV2!
+  fulfillments(first: Int, last: Int, after: String, before: String, query: String, reverse: Boolean = false): FulfillmentConnection!
+  lineItems(first: Int, last: Int, after: String, before: String, reverse: Boolean = false): LineItemConnection!
+}
+
+type FulfillmentConnection {
+  nodes: [Fulfillment!]!
+}
+
+type Fulfillment {
+  id: ID!
+  status: FulfillmentStatus
+  latestShipmentStatus: FulfillmentEventStatus
+  trackingInformation: [TrackingInformation!]!
+}
+
+type TrackingInformation {
+  company: String
+  number: String
+  url: URL
+}
+
+type LineItemConnection {
+  nodes: [LineItem!]!
+}
+
+type LineItem {
+  name: String!
+  title: String!
+  quantity: Int!
+  image: Image
+  price: MoneyV2
+  variantTitle: String
+  variantId: ID
+  productId: ID
+  sku: String
+}
+
+type CustomerAddressConnection {
+  edges: [CustomerAddressEdge!]!
+  nodes: [CustomerAddress!]!
+}
+
+type CustomerAddressEdge {
+  cursor: String!
+  node: CustomerAddress!
+}
+
+type CustomerAddress {
+  id: ID!
+  address1: String
+  address2: String
+  city: String
+  company: String
+  country: String
+  countryCode: CountryCode
+  firstName: String
+  lastName: String
+  name: String
+  phoneNumber: String
+  province: String
+  zip: String
+  zoneCode: String
+  territoryCode: CountryCode @deprecated
+  formattedArea: String
+  formatted(withCompany: Boolean = true, withName: Boolean = false): [String!]!
+}
+
+input CustomerAddressInput {
+  address1: String
+  address2: String
+  city: String
+  company: String
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  zip: String
+  zoneCode: String
+  territoryCode: String @deprecated
+}
+
+type UserErrorsCustomerAddressUserErrors {
+  code: String
+  field: [String!]
+  message: String!
+}
+
+type CustomerAddressCreatePayload {
+  customerAddress: CustomerAddress
+  userErrors: [UserErrorsCustomerAddressUserErrors!]!
+}
+
+type CustomerAddressUpdatePayload {
+  customerAddress: CustomerAddress
+  userErrors: [UserErrorsCustomerAddressUserErrors!]!
+}
+
+type CustomerAddressDeletePayload {
+  deletedAddressId: ID
+  userErrors: [UserErrorsCustomerAddressUserErrors!]!
+}
