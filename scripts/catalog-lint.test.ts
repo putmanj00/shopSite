@@ -30,6 +30,7 @@ const good: LintProduct = {
     'Hand-folded spiral, dyed in small batches with fiber-reactive dyes, then rinsed and washed twice so the color holds.',
   images: [{ alt: 'front' }, { alt: 'back' }, { alt: 'detail' }],
   prices: [48],
+  weights: [6],
   collections: ['tie-dye'],
   metafields: { entry_no: '219', edition: 'One of One', technique: 'Spiral', maker: 'Fern' },
   onSiteChannel: true,
@@ -67,6 +68,13 @@ test('price: $0 or NaN variant = error; no variants = error', () => {
   assert.ok(has(p({ prices: [Number('')] }), 'error', /\$0/)); // Number('') = 0
   assert.ok(has(p({ prices: [Number('abc')] }), 'error', /\$0/)); // NaN
   assert.ok(has(p({ prices: [] }), 'error', /no variants/));
+});
+
+test('weight: shipped variant with 0 / missing weight = error; non-shipping variant skipped', () => {
+  assert.ok(has(p({ weights: [6, 0] }), 'error', /no shipping weight/));
+  assert.ok(has(p({ weights: [Number('')] }), 'error', /no shipping weight/));
+  assert.ok(has(p({ weights: [Number('abc')] }), 'error', /no shipping weight/));
+  assert.deepEqual(messages(p({ weights: [null] })), []); // requiresShipping false
 });
 
 test('no collection = warn', () => assert.ok(has(p({ collections: [] }), 'warn', /not in any collection/)));

@@ -62,7 +62,7 @@ const PRODUCTS_QUERY = `
         handle title status vendor tags description
         publishedOnPublication(publicationId: $pub)
         media(first: 25) { nodes { mediaContentType alt } }
-        variants(first: 100) { nodes { price } }
+        variants(first: 100) { nodes { price inventoryItem { requiresShipping measurement { weight { value } } } } }
         collections(first: 25) { nodes { handle } }
         ${META_FIELDS}
       }
@@ -78,7 +78,12 @@ interface ProductNode {
   description: string;
   publishedOnPublication: boolean;
   media: { nodes: { mediaContentType: string; alt: string | null }[] };
-  variants: { nodes: { price: string }[] };
+  variants: {
+    nodes: {
+      price: string;
+      inventoryItem: { requiresShipping: boolean; measurement: { weight: { value: number } | null } | null } | null;
+    }[];
+  };
   collections: { nodes: { handle: string }[] };
   [meta: string]: unknown;
 }
@@ -103,6 +108,9 @@ async function fetchProducts(pub: string): Promise<LintProduct[]> {
         description: n.description ?? '',
         images: n.media.nodes.filter((m) => m.mediaContentType === 'IMAGE').map((m) => ({ alt: m.alt })),
         prices: n.variants.nodes.map((v) => Number(v.price)),
+        weights: n.variants.nodes.map((v) =>
+          v.inventoryItem?.requiresShipping === false ? null : Number(v.inventoryItem?.measurement?.weight?.value ?? 0),
+        ),
         collections: n.collections.nodes.map((c) => c.handle),
         metafields,
         onSiteChannel: n.publishedOnPublication,
