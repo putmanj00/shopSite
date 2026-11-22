@@ -57,7 +57,16 @@ type Metafield {
   value: String!
 }
 
+type MetafieldCapabilities {
+  uniqueValues: MetafieldCapabilityUniqueValues!
+}
+
+type MetafieldCapabilityUniqueValues {
+  enabled: Boolean!
+}
+
 type MetafieldDefinition {
+  capabilities: MetafieldCapabilities!
   key: String!
   type: MetafieldDefinitionType!
 }
@@ -96,7 +105,7 @@ type Product {
   media(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: ProductMediaSortKeys = POSITION, query: String): MediaConnection!
   metafield(namespace: String, key: String!): Metafield
   options(first: Int): [ProductOption!]!
-  publishedOnPublication(publicationId: ID!): Boolean!
+  resourcePublicationsV2(onlyPublished: Boolean = true, catalogType: CatalogType, first: Int, after: String, last: Int, before: String, reverse: Boolean = false): ResourcePublicationV2Connection!
   status: ProductStatus!
   title: String!
   variants(first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: ProductVariantSortKeys = POSITION): ProductVariantConnection!
@@ -152,6 +161,14 @@ type QueryRoot {
   metafieldDefinitions(key: String, namespace: String, ownerType: MetafieldOwnerType!, pinnedStatus: MetafieldDefinitionPinnedStatus = ANY, constraintSubtype: MetafieldDefinitionConstraintSubtypeIdentifier, constraintStatus: MetafieldDefinitionConstraintStatus, first: Int, after: String, last: Int, before: String, reverse: Boolean = false, sortKey: MetafieldDefinitionSortKeys = ID, query: String): MetafieldDefinitionConnection!
   productByIdentifier(identifier: ProductIdentifierInput!): Product
   publications(catalogType: CatalogType, first: Int, after: String, last: Int, before: String, reverse: Boolean = false): PublicationConnection!
+}
+
+type ResourcePublicationV2 {
+  publication: Publication!
+}
+
+type ResourcePublicationV2Connection {
+  nodes: [ResourcePublicationV2!]!
 }
 
 type SelectedOption {
