@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/nextjs';
 import { MAX_REPORT_BYTES, parseCspReport, sentrySampleRate } from '@/lib/csp-report';
 
 // CSP violation sink for the Report-Only policy in next.config.ts
-// (`report-uri` + `report-to`). Collect ~1 week of real traffic, fix or
+// (`report-uri`). Collect ~1 week of real traffic, fix or
 // allow-list what shows up, then flip CSP_ENFORCE.
 //
 // Every sanitized violation goes to the function log (free, greppable in
@@ -13,6 +13,9 @@ import { MAX_REPORT_BYTES, parseCspReport, sentrySampleRate } from '@/lib/csp-re
 //
 // simple: in-memory body cap only, no rate limit; upgrade to a Vercel Firewall
 // rule on /api/csp-report if report volume or abuse shows up in Sentry quota.
+// Same truncated-body hang risk as the Sentry tunnel; reports are tiny.
+export const maxDuration = 10;
+
 export async function POST(request: NextRequest) {
   const declared = Number(request.headers.get('content-length') ?? '0');
   if (declared > MAX_REPORT_BYTES) {

@@ -20,7 +20,6 @@ const CSP_ENFORCE = false;
 const isDev = process.env.NODE_ENV === 'development';
 
 const CSP_REPORT_PATH = '/api/csp-report';
-const CSP_REPORT_GROUP = 'csp-endpoint';
 
 const cspValue = [
   "default-src 'self'",
@@ -48,23 +47,18 @@ const cspValue = [
   // Same: ignored in Report-Only (console error on every page, caught by the
   // E2E page-error guard). HSTS already covers https until enforcement.
   CSP_ENFORCE ? "upgrade-insecure-requests" : '',
-  // Both: browsers with the Reporting API (Chromium, recent Safari) use
-  // report-to and ignore report-uri; Firefox uses report-uri. No Reporting API
-  // uploads were observed from Playwright Chromium/WebKit on local http (the
-  // report-uri path was), so verify report-to on a deployed https site.
+  // report-uri only. report-to (Reporting API) was tried in #113: violations
+  // fired in Chromium and WebKit on www, but no report ever reached the
+  // endpoint, while report-uri delivers. Browsers that see report-to ignore
+  // report-uri, so having both cost Chrome/Safari reports. Revisit only with
+  // a real-browser delivery check against prod logs.
   `report-uri ${CSP_REPORT_PATH}`,
-  `report-to ${CSP_REPORT_GROUP}`,
 ].filter(Boolean).join('; ');
 
 const securityHeaders = [
   {
     key: CSP_ENFORCE ? 'Content-Security-Policy' : 'Content-Security-Policy-Report-Only',
     value: cspValue,
-  },
-  {
-    // Names the endpoint group used by the CSP `report-to` directive.
-    key: 'Reporting-Endpoints',
-    value: `${CSP_REPORT_GROUP}="${CSP_REPORT_PATH}"`,
   },
   {
     // max-age=63072000 = 2 years; includeSubDomains; preload for HSTS preload list

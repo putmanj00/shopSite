@@ -106,13 +106,14 @@ test.describe('Security headers', { tag: '@full' }, () => {
 });
 
 test.describe('CSP violation reporting', { tag: '@full' }, () => {
-  test('policy names the report endpoint (report-uri + report-to)', async ({ request }) => {
+  test('policy reports via report-uri only', async ({ request }) => {
     const headers = (await request.get('/')).headers();
     const csp =
       headers['content-security-policy'] ?? headers['content-security-policy-report-only'] ?? '';
     expect(csp).toContain('report-uri /api/csp-report');
-    expect(csp).toContain('report-to csp-endpoint');
-    expect(headers['reporting-endpoints']).toBe('csp-endpoint="/api/csp-report"');
+    // report-to makes browsers ignore report-uri, and it never delivered (#113 follow-up).
+    expect(csp).not.toContain('report-to');
+    expect(headers['reporting-endpoints']).toBeUndefined();
   });
 
   test('accepts a legacy report-uri body', async ({ request }) => {
