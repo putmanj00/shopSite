@@ -1,0 +1,142 @@
+/**
+ * Regenerate scripts/fixtures/shopify-admin.graphql — the slice of the Shopify
+ * Admin API schema that lib/catalog-sync.ts touches — from a full introspection dump.
+ *
+ *   # 1. dump (read-only introspection query; needs the admin env):
+ *   #    any script calling adminApiFetch({ query: getIntrospectionQuery() }) → admin.json
+ *   # 2. prune:
+ *   npx tsx scripts/admin-schema-snapshot.ts admin.json > scripts/fixtures/shopify-admin.graphql
+ *
+ * Kept: on output types only the fields our documents select; input types,
+ * enums and scalars they reach in full (variables are validated against them).
+ * Re-run when lib/shopify-admin.ts bumps its API version or catalog-sync adds a query.
+ */
+import { readFileSync } from 'node:fs';
+import {
+  buildClientSchema,
+  getNamedType,
+  GraphQLInputObjectType,
+  GraphQLInterfaceType,
+  GraphQLObjectType,
+  isEnumType,
+  isInputObjectType,
+  isInterfaceType,
+  isObjectType,
+  isScalarType,
+  Kind,
+  parse,
+  print,
+  printType,
+  TypeInfo,
+  visit,
+  visitWithTypeInfo,
+  type GraphQLNamedType,
+  type GraphQLSchema,
+} from 'graphql';
+import * as sync from '../lib/catalog-sync';
+
+export const DOCUMENTS = [
+  sync.CONTEXT_QUERY,
+  sync.LIVE_PRODUCT_QUERY,
+  sync.PRODUCT_SET_MUTATION,
+  sync.STAGED_UPLOAD_MUTATION,
+  sync.ADD_MEDIA_MUTATION,
+  sync.FILE_UPDATE_MUTATION,
+  sync.METAFIELDS_SET_MUTATION,
+  sync.PUBLISH_MUTATION,
+];
+
+const BUILTIN = new Set(['String', 'Int', 'Float', 'Boolean', 'ID']);
+
+export function pruneSchema(schema: GraphQLSchema, documents: string[]): string {
+  const selected = new Map<string, Set<string>>(); // output type → fields
+  const leafOrInput = new Set<string>();
+  const addInput = (t: GraphQLNamedType) => {
+    if (BUILTIN.has(t.name) || leafOrInput.has(t.name)) return;
+    leafOrInput.add(t.name);
+    if (isInputObjectType(t))
+      for (const f of Object.values(t.getFields())) addInput(getNamedType(f.type));
+  };
+
+  for (const doc of documents) {
+    const typeInfo = new TypeInfo(schema);
+    visit(
+      parse(doc),
+      visitWithTypeInfo(typeInfo, {
+        Field() {
+          const parent = typeInfo.getParentType();
+          const def = typeInfo.getFieldDef();
+          if (!parent || !def) return;
+          if (!selected.has(parent.name)) selected.set(parent.name, new Set());
+          selected.get(parent.name)!.add(def.name);
+          for (const a of def.args) addInput(getNamedType(a.type));
+          const ret = getNamedType(def.type);
+          if (isScalarType(ret) || isEnumType(ret)) addInput(ret);
+        },
+        InlineFragment(node) {
+          if (node.typeCondition)
+            selected.set(
+              node.typeCondition.name.value,
+              selected.get(node.typeCondition.name.value) ?? new Set()
+            );
+        },
+        VariableDefinition() {
+          const t = typeInfo.getInputType();
+          if (t) addInput(getNamedType(t));
+        },
+      })
+    );
+  }
+
+  // Interfaces' selected fields must exist on every emitted implementer.
+  for (const [name, fields] of selected) {
+    const t = schema.getType(name);
+    if (isObjectType(t))
+      for (const i of t.getInterfaces()) for (const f of selected.get(i.name) ?? []) fields.add(f);
+  }
+
+  const parts: string[] = [];
+  for (const [name, fields] of [...selected].sort(([a], [b]) => a.localeCompare(b))) {
+    const t = schema.getType(name)!;
+    if (!isObjectType(t) && !isInterfaceType(t)) continue;
+    const cfg = t.toConfig();
+    const keep = Object.fromEntries(Object.entries(cfg.fields).filter(([f]) => fields.has(f)));
+    const interfaces = isObjectType(t) ? t.getInterfaces().filter(i => selected.has(i.name)) : [];
+    parts.push(
+      printType(
+        isObjectType(t)
+          ? new GraphQLObjectType({ ...cfg, fields: keep, interfaces } as never)
+          : new GraphQLInterfaceType({ ...cfg, fields: keep, interfaces: [] } as never)
+      )
+    );
+  }
+  for (const name of [...leafOrInput].sort()) {
+    const t = schema.getType(name)!;
+    parts.push(isInputObjectType(t) ? printType(t as GraphQLInputObjectType) : printType(t));
+  }
+
+  // Strip descriptions + @deprecated to keep the snapshot small and diffable.
+  const stripped = visit(parse(parts.join('\n\n')), {
+    enter(node) {
+      if ('description' in node && node.description) return { ...node, description: undefined };
+      if (node.kind === Kind.DIRECTIVE) return null;
+      return undefined;
+    },
+  });
+  const root = schema.getMutationType()?.name ?? 'Mutation';
+  const query = schema.getQueryType()?.name ?? 'QueryRoot';
+  return `schema { query: ${query} mutation: ${root} }\n\n${print(stripped)}\n`;
+}
+
+if (process.argv[1]?.endsWith('admin-schema-snapshot.ts')) {
+  const json = JSON.parse(readFileSync(process.argv[2], 'utf8'));
+  const schema = buildClientSchema(json.__schema ? json : (json.data ?? json));
+  const header = [
+    '# Slice of the Shopify Admin GraphQL schema (API 2026-01, see lib/shopify-admin.ts) used by',
+    '# lib/catalog-sync.ts. GENERATED by scripts/admin-schema-snapshot.ts from a read-only',
+    `# introspection of the store on ${new Date().toISOString().slice(0, 10)} — do not hand-edit; regenerate.`,
+    '# Used by scripts/catalog-sync.test.ts to validate documents + variables (fakes cannot).',
+    '',
+  ].join('\n');
+  process.stdout.write(header + '\n' + pruneSchema(schema, DOCUMENTS));
+}

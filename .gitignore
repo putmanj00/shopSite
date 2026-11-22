@@ -57,3 +57,6 @@ tfplan
 # Playwright ephemeral output
 /test-results/
 /playwright-report/
+
+# Catalog photos stay local (launch plan 6b); CSVs are committed
+/catalog/images/

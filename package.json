@@ -20,6 +20,8 @@
     "test:auth-errors": "npx tsx scripts/auth-errors.test.ts",
     "test:catalog-lint": "npx tsx scripts/catalog-lint.test.ts",
     "catalog:lint": "npx tsx scripts/catalog-lint.ts",
+    "catalog:sync": "npx tsx scripts/catalog-sync.ts",
+    "test:catalog-sync": "npx tsx scripts/catalog-sync.test.ts",
     "test:signup": "npx tsx scripts/customer-signup.test.ts",
     "test:customer-address": "npx tsx scripts/customer-address.test.ts",
     "test:csp-report": "npx tsx scripts/csp-report.test.ts",
