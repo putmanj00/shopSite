@@ -355,13 +355,56 @@ const OK = { userErrors: [] };
       },
     ]);
     await assert.rejects(loadContext(bad.fetch, 'Nope'), /Sales channel "Nope" not found/);
+    const defs = (uniq: Record<string, boolean>) => ({
+      publications: { nodes: [{ id: 'P1', name: 'X' }] },
+      locations: { nodes: [{ id: 'L1', isPrimary: true }] },
+      collections: { nodes: [] },
+      metafieldDefinitions: {
+        nodes: Object.entries(uniq).map(([key, enabled]) => ({
+          key,
+          type: { name: 'single_line_text_field' },
+          capabilities: { uniqueValues: { enabled } },
+        })),
+      },
+    });
+    // entry_no unique = correct; edition unique = the prod misconfig found 2026-11-22.
+    const okUnique = fakeAdmin([defs({ entry_no: true, edition: false })]);
+    await loadContext(okUnique.fetch, 'X');
+    const badUnique = fakeAdmin([defs({ entry_no: true, edition: true, maker: true })]);
+    await assert.rejects(
+      loadContext(badUnique.fetch, 'X'),
+      /custom\.edition, custom\.maker has "Unique values" on/
+    );
   });
 
-  await test('fetchLive sends handle + publication', async () => {
+  await test('fetchLive: staged (DRAFT) publication on site channel counts as published', async () => {
     const { fetch, calls } = fakeAdmin([{ productByIdentifier: null }]);
     assert.equal(await fetchLive(fetch, 'spiral-hoodie', CTX), null);
-    assert.deepEqual(calls[0].variables, { handle: 'spiral-hoodie', pub: CTX.publicationId });
+    assert.deepEqual(calls[0].variables, { handle: 'spiral-hoodie' });
     assert.equal(calls[0].query, LIVE_PRODUCT_QUERY);
+    const raw = (pubIds: string[]) => {
+      const { publishedOnPublication: _drop, ...rest } = liveMatching();
+      void _drop;
+      return {
+        productByIdentifier: {
+          ...rest,
+          resourcePublicationsV2: { nodes: pubIds.map(id => ({ publication: { id } })) },
+        },
+      };
+    };
+    const staged = fakeAdmin([raw(['gid://shopify/Publication/0', CTX.publicationId])]);
+    const live = (await fetchLive(staged.fetch, 'spiral-hoodie', CTX))!;
+    assert.equal(live.publishedOnPublication, true);
+    assert.equal('resourcePublicationsV2' in live, false);
+    assert.equal(
+      planProduct(row(), IMAGES, ALTS, live, CTX, { activate: false }).action,
+      'unchanged'
+    );
+    const other = fakeAdmin([raw(['gid://shopify/Publication/0'])]);
+    assert.equal(
+      (await fetchLive(other.fetch, 'spiral-hoodie', CTX))!.publishedOnPublication,
+      false
+    );
   });
 
   await test('plan create: DRAFT, inventory per size, typed metafields, uploads, publish', () => {
@@ -671,7 +714,7 @@ const OK = { userErrors: [] };
     ]);
     await assert.rejects(
       applyPlan(fetch, plan, CTX, null, async () => {}),
-      /productSet spiral-hoodie: Handle taken/
+      /productSet spiral-hoodie: handle: Handle taken/
     );
   });
 

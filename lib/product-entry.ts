@@ -4,7 +4,8 @@
 // UI must render sanely when the whole entry is empty (zero-metafield fallback:
 // the seed catalog has no metafields yet — SHOP-01 data entry is pending).
 //
-// Governance (enforced by convention — Shopify has NO metafield uniqueness):
+// Governance (prod `custom.entry_no` definition has Shopify "Unique values" ON, and
+// catalog sync checks duplicates in products.csv):
 // single counter, never renumber, gaps are fine. Numbering starts honest-low
 // (№ 1, № 2 for the two seed products) per James gate 2 (2026-07-07).
 

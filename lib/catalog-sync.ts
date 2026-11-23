@@ -305,7 +305,9 @@ export const CONTEXT_QUERY = `
     publications(first: 25) { nodes { id name } }
     locations(first: 10) { nodes { id isPrimary } }
     collections(first: 250) { nodes { id handle } }
-    metafieldDefinitions(first: 50, ownerType: PRODUCT, namespace: "custom") { nodes { key type { name } } }
+    metafieldDefinitions(first: 50, ownerType: PRODUCT, namespace: "custom") {
+      nodes { key type { name } capabilities { uniqueValues { enabled } } }
+    }
   }`;
 
 export interface SyncContext {
@@ -319,7 +321,13 @@ interface ContextData {
   publications: { nodes: { id: string; name: string }[] };
   locations: { nodes: { id: string; isPrimary: boolean }[] };
   collections: { nodes: { id: string; handle: string }[] };
-  metafieldDefinitions: { nodes: { key: string; type: { name: string } }[] };
+  metafieldDefinitions: {
+    nodes: {
+      key: string;
+      type: { name: string };
+      capabilities?: { uniqueValues?: { enabled: boolean } | null } | null;
+    }[];
+  };
 }
 
 export async function loadContext(fetch: AdminFetch, channel: string): Promise<SyncContext> {
@@ -335,6 +343,17 @@ export async function loadContext(fetch: AdminFetch, channel: string): Promise<S
   for (const def of d.metafieldDefinitions.nodes)
     if ((META_KEYS as readonly string[]).includes(def.key))
       metaTypes[def.key as MetaKey] = def.type.name;
+  // Only entry_no is a per-product identity. "Unique values" on a shared field makes
+  // the 2nd product with the same value fail (prod edition had it on, fixed 2026-11-22).
+  const badUnique = d.metafieldDefinitions.nodes
+    .filter(def => def.key !== 'entry_no' && (META_KEYS as readonly string[]).includes(def.key))
+    .filter(def => def.capabilities?.uniqueValues?.enabled)
+    .map(def => `custom.${def.key}`);
+  if (badUnique.length)
+    throw new Error(
+      `${badUnique.join(', ')} has "Unique values" on, so only one product could use each value. ` +
+        'Turn it off: Settings → Custom data → Products → the field → untick Unique values.'
+    );
   return {
     publicationId: pub.id,
     locationId: loc.id,
@@ -344,10 +363,10 @@ export async function loadContext(fetch: AdminFetch, channel: string): Promise<S
 }
 
 export const LIVE_PRODUCT_QUERY = `
-  query CatalogSyncProduct($handle: String!, $pub: ID!) {
+  query CatalogSyncProduct($handle: String!) {
     productByIdentifier(identifier: { handle: $handle }) {
       id handle title descriptionHtml vendor status
-      publishedOnPublication(publicationId: $pub)
+      resourcePublicationsV2(first: 25, onlyPublished: false) { nodes { publication { id } } }
       options { name }
       variants(first: 100) {
         nodes {
@@ -370,6 +389,11 @@ export interface LiveProduct {
   descriptionHtml: string;
   vendor: string;
   status: string;
+  /**
+   * On the site channel, published OR staged. A DRAFT product publishes as staged
+   * (isPublished=false) and Product.publishedOnPublication stays false until it's
+   * ACTIVE, so that field would re-publish on every run (found on prod 2026-11-22).
+   */
   publishedOnPublication: boolean;
   options: { name: string }[];
   variants: {
@@ -393,11 +417,22 @@ export async function fetchLive(
   handle: string,
   ctx: SyncContext
 ): Promise<LiveProduct | null> {
-  const d = await fetch<{ productByIdentifier: LiveProduct | null }>({
+  type Raw = Omit<LiveProduct, 'publishedOnPublication'> & {
+    resourcePublicationsV2: { nodes: { publication: { id: string } }[] };
+  };
+  const d = await fetch<{ productByIdentifier: Raw | null }>({
     query: LIVE_PRODUCT_QUERY,
-    variables: { handle, pub: ctx.publicationId },
+    variables: { handle },
   });
-  return d.productByIdentifier;
+  const p = d.productByIdentifier;
+  if (!p) return null;
+  const { resourcePublicationsV2, ...rest } = p;
+  return {
+    ...rest,
+    publishedOnPublication: resourcePublicationsV2.nodes.some(
+      n => n.publication.id === ctx.publicationId
+    ),
+  } as LiveProduct;
 }
 
 // ─── Planning ───────────────────────────────────────────────────────────────
@@ -697,7 +732,11 @@ type UserErrors = { userErrors: { field?: string[] | null; message: string }[] }
 function check(op: string, payload: UserErrors | null | undefined) {
   if (!payload) throw new Error(`${op}: empty response`);
   if (payload.userErrors.length)
-    throw new Error(`${op}: ${payload.userErrors.map(e => e.message).join('; ')}`);
+    throw new Error(
+      `${op}: ${payload.userErrors
+        .map(e => (e.field?.length ? `${e.field.join('.')}: ${e.message}` : e.message))
+        .join('; ')}`
+    );
 }
 
 export function mediaMapMetafield(productId: string, map: Record<string, string>) {
