@@ -7,12 +7,10 @@ import OrderHistory from '@/components/account/order-history';
 import AddressBook from '@/components/account/address-book';
 import WishlistPreview from '@/components/account/wishlist-preview';
 import RecentlyViewed from '@/components/account/recently-viewed';
-import LoyaltyCard from '@/components/account/loyalty-card';
-import ReferralSection from '@/components/account/referral-section';
-import BirthdaySection from '@/components/account/birthday-section';
-import EarlyAccessSection from '@/components/account/early-access-section';
 
-type TabId = 'overview' | 'orders' | 'addresses' | 'wishlist' | 'rewards';
+// Loyalty, referral, birthday and early-access components (components/account/)
+// have no backend yet — hidden for launch; re-add behind a feature flag when built.
+type TabId = 'overview' | 'orders' | 'addresses' | 'wishlist';
 
 interface Tab {
   id: TabId;
@@ -55,15 +53,6 @@ const tabs: Tab[] = [
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-      </svg>
-    ),
-  },
-  {
-    id: 'rewards',
-    name: 'Rewards',
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
   },
@@ -323,37 +312,6 @@ export default function AccountPage() {
         <div className="flex-1 min-w-0">
           {activeTab === 'overview' && (
             <div className="space-y-8">
-              {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-white shadow rounded-lg p-4 text-center">
-                  <p className="text-2xl font-bold text-primary-600">0</p>
-                  <p className="text-sm text-ink-brown/80">Orders</p>
-                </div>
-                <div className="bg-white shadow rounded-lg p-4 text-center">
-                  <p className="text-2xl font-bold text-primary-600">0</p>
-                  <p className="text-sm text-ink-brown/80">Wishlist</p>
-                </div>
-                <div className="bg-white shadow rounded-lg p-4 text-center">
-                  <p className="text-2xl font-bold text-primary-600">0</p>
-                  <p className="text-sm text-ink-brown/80">Reviews</p>
-                </div>
-                <div className="bg-white shadow rounded-lg p-4 text-center">
-                  <p className="text-2xl font-bold text-primary-600">0</p>
-                  <p className="text-sm text-ink-brown/80">Points</p>
-                </div>
-              </div>
-
-              {/* Early Access Section */}
-              <section>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Early Access</h2>
-                <EarlyAccessSection />
-              </section>
-
-              {/* Birthday Section */}
-              <section>
-                <BirthdaySection />
-              </section>
-
               {/* Recently Viewed */}
               <section>
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">Recently Viewed</h2>
@@ -383,23 +341,6 @@ export default function AccountPage() {
             </section>
           )}
 
-          {activeTab === 'rewards' && (
-            <div className="space-y-8">
-              {/* Loyalty Card */}
-              <section>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Loyalty Status</h2>
-                <LoyaltyCard points={250} tier="bronze" nextTierPoints={500} />
-              </section>
-
-              {/* Referral Section */}
-              <section>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Refer a Friend</h2>
-                <div className="bg-white shadow rounded-lg p-6">
-                  <ReferralSection />
-                </div>
-              </section>
-            </div>
-          )}
         </div>
       </div>
     </div>
