@@ -439,6 +439,8 @@ export async function fetchLive(
 
 export interface PlanOptions {
   activate: boolean;
+  /** Take over an archived product this sync never created (`--adopt <handle>`). */
+  adopt?: boolean;
 }
 
 export interface ProductPlan {
@@ -513,6 +515,14 @@ export function planProduct(
     plan.notes.push(m);
     return plan;
   };
+
+  // Archived + never synced = an old seed/test product. Updating it would revive
+  // it with its old photos, sizes and collections still attached.
+  if (live?.status === 'ARCHIVED' && !live.syncMedia?.value && !opts.adopt)
+    return fail(
+      `handle "${row.handle}" belongs to an old ARCHIVED product ("${live.title}") this sync never made — ` +
+        `pick a different handle, or pass --adopt ${row.handle} to take it over (keeps its old photos/sizes)`
+    );
 
   const missingCols = row.collections.filter(h => !ctx.collectionIds.has(h));
   if (missingCols.length)
