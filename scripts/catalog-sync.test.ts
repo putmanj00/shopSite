@@ -550,6 +550,23 @@ const OK = { userErrors: [] };
     assert.equal(on.productSet!.input.status, 'ACTIVE');
   });
 
+  await test('plan: archived product the sync never made (old seed) is refused unless adopted', () => {
+    const live = liveMatching();
+    live.status = 'ARCHIVED';
+    live.syncMedia = null;
+    const refused = planProduct(row(), IMAGES, ALTS, live, CTX, { activate: true });
+    assert.equal(refused.action, 'error');
+    assert.equal(refused.productSet, null);
+    assert.equal(refused.uploads.length, 0);
+    assert.match(refused.notes.join(' '), /--adopt spiral-hoodie/);
+    const adopted = planProduct(row(), IMAGES, ALTS, live, CTX, { activate: false, adopt: true });
+    assert.equal(adopted.action, 'update');
+    // A DRAFT/ACTIVE product without sync media (hand-made in admin) is not affected.
+    const draft = liveMatching();
+    draft.syncMedia = null;
+    assert.equal(planProduct(row(), IMAGES, ALTS, draft, CTX, { activate: false }).action, 'update');
+  });
+
   await test('plan: replaced photo uploads; synced photo removed locally is reported, kept', () => {
     const p = planProduct(
       row(),

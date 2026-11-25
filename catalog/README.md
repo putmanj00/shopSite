@@ -14,7 +14,7 @@ catalog/
 
 | column | required | notes |
 |---|---|---|
-| `handle` | yes | URL slug: `lowercase-words-with-dashes`. Never change it after launch. |
+| `handle` | yes | URL slug: `lowercase-words-with-dashes`. Never change it after launch. Must not match an old archived seed/test product — the sync refuses those (see below). |
 | `title` | yes | |
 | `description` | yes | Plain text. A blank line starts a new paragraph. Quote it if it has commas or line breaks. |
 | `price` | yes | e.g. `65` or `65.00`. Every size shares it. |
@@ -66,3 +66,12 @@ npm run catalog:sync -- --apply --activate --confirm-store <store>.myshopify.com
 - It **never deletes**. Removing a size, collection or photo from the CSV/folder
   leaves it on Shopify and the dry run says so — remove it in Shopify admin.
 - Products in Shopify but not in the CSV are left alone.
+
+## Handles already taken by old archived products
+
+The store still holds archived seed/test products (`spiral-tie-dye-hoodie`,
+`rainbow-swirl-tee`, `ceramic-vase`, …). If a CSV handle matches one of them,
+the sync **refuses** that row instead of quietly updating the old product (which
+would keep its fake photos, old sizes and collections). Pick a different handle,
+or — only if you really want to reuse that old product — add
+`--adopt <handle>` (comma-separate several).

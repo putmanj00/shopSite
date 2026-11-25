@@ -6,6 +6,7 @@
  *   npm run catalog:sync -- --only <handle>       # one product
  *   npm run catalog:sync -- --apply --confirm-store <store>.myshopify.com
  *   npm run catalog:sync -- --apply --activate --confirm-store …   # create/flip to ACTIVE
+ *   npm run catalog:sync -- --adopt <handle>[,<handle>]   # take over an old ARCHIVED product
  *
  * --apply writes; it needs --confirm-store equal to SHOPIFY_STORE_DOMAIN so a stale
  * env file can't write to the wrong store. Prod --apply is James-gated per run.
@@ -57,6 +58,7 @@ async function main() {
   const only = arg('--only');
   const apply = flag('--apply');
   const activate = flag('--activate');
+  const adopt = new Set((arg('--adopt') ?? '').split(',').filter(Boolean));
 
   if (flag('--prune')) {
     // simple: no prune; upgrade to a confirm-gated prune if James wants CSV removals to delete on Shopify
@@ -125,7 +127,10 @@ async function main() {
   for (const r of rows) {
     const live = await fetchLive(fetch, r.row.handle, ctx);
     plans.push({
-      plan: planProduct(r.row, r.images, alts.get(r.row.handle), live, ctx, { activate }),
+      plan: planProduct(r.row, r.images, alts.get(r.row.handle), live, ctx, {
+        activate,
+        adopt: adopt.has(r.row.handle),
+      }),
       liveId: live?.id ?? null,
     });
   }
