@@ -16,7 +16,7 @@ export default function ImageGallery({ product }: ImageGalleryProps) {
   if (images.length === 0) {
     return (
       <div className="aspect-square bg-parchment rounded-lg flex items-center justify-center">
-        <span className="text-sage text-lg">No image available</span>
+        <span className="text-sage-ink text-lg">No image available</span>
       </div>
     );
   }
@@ -87,7 +87,7 @@ export default function ImageGallery({ product }: ImageGalleryProps) {
 
       {/* Image Counter */}
       {images.length > 1 && (
-        <p className="text-center text-sm text-sage">
+        <p className="text-center text-sm text-sage-ink">
           {selectedImageIndex + 1} / {images.length}
         </p>
       )}

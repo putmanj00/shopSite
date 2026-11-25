@@ -81,7 +81,7 @@ export default function StickyAddToCart({
               <Price amount={price.amount} currencyCode={price.currencyCode} />
             </span>
             {hasDiscount && compareAtPrice && (
-              <span className="text-sm text-sage line-through">
+              <span className="text-sm text-sage-ink line-through">
                 <Price amount={compareAtPrice.amount} currencyCode={compareAtPrice.currencyCode} />
               </span>
             )}
