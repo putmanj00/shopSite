@@ -24,7 +24,7 @@ delivered to the account owner). Live sends use `EMAIL_FROM`.
       the verified domain). Optional; defaults to that value.
 - [ ] `SHOPIFY_WEBHOOK_SECRET` — the signing secret from step 3. **Required** —
       the webhook returns 500 and processes nothing until this is set.
-- [ ] `NEXT_PUBLIC_BASE_URL` — `https://wildenflower.com` (email links).
+- [ ] `NEXT_PUBLIC_BASE_URL` — `https://www.wildenflower.com` (email links; apex 308s to www).
 - [ ] Redeploy after setting vars (Vercel bakes env at build).
 
 ## 3. Shopify — register the webhook
@@ -32,9 +32,20 @@ delivered to the account owner). Live sends use `EMAIL_FROM`.
 Admin → **Settings → Notifications → Webhooks** (or via Admin API):
 
 - [ ] Event: **Order creation** · Format: **JSON**
-- [ ] URL: `https://wildenflower.com/api/webhooks/orders-create`
+- [ ] URL: `https://shopsite-prod.vercel.app/api/webhooks/orders-create`
 - [ ] Copy the **webhook signing secret** Shopify shows → set it as
       `SHOPIFY_WEBHOOK_SECRET` in Vercel (step 2) and redeploy.
+
+> **Why the vercel.app URL:** Shopify rejects webhook addresses on any domain
+> connected to the store (`wildenflower.com`, `www.wildenflower.com`,
+> `*.myshopify.com`) with "Address cannot be any of the domains". The Vercel
+> production alias serves the same deployment. Sanity check: an unsigned
+> `curl -X POST -d '{}' <url>` must return 401 `{"error":"Invalid signature"}`
+> (a Vercel login page or 404 means the wrong project or deployment protection).
+>
+> Test it: the **Send test** link appears next to each webhook in the list
+> after you save it (⋯ menu on newer admin layouts); a 200 in Vercel logs means
+> the secret matches, 401 means it doesn't.
 
 > Note: a webhook created in **admin** uses the secret shown on that page. A
 > webhook created via the **Admin API** is signed with the app's API secret
@@ -45,7 +56,7 @@ Admin → **Settings → Notifications → Webhooks** (or via Admin API):
 Same page, same signing secret (one `SHOPIFY_WEBHOOK_SECRET` covers all topics):
 
 - [ ] Event: **Fulfillment creation** · Format: **JSON**
-- [ ] URL: `https://wildenflower.com/api/webhooks/fulfillments-create`
+- [ ] URL: `https://shopsite-prod.vercel.app/api/webhooks/fulfillments-create`
 
 The shipping email only sends when the fulfillment carries a recipient email,
 a tracking number, and a tracking URL (Shopify auto-fills the URL for
