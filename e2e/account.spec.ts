@@ -265,6 +265,21 @@ test.describe('account — address book error states', () => {
   });
 });
 
+test.describe('account — no unbacked features (launch)', () => {
+  // Loyalty, referral, birthday and early access have no backend yet; Quick
+  // Stats was hardcoded 0. Hidden until built behind a feature flag.
+  test('overview shows no fake stats, rewards, birthday or early access', async ({ page }) => {
+    await signedIn(page, []);
+    await mockAddressApi(page, [], null);
+    await page.goto('/account');
+    await expect(page.getByRole('heading', { name: 'My Account' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Recently Viewed' }).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Rewards' })).toHaveCount(0);
+    for (const text of [/Early Access/i, /birthday/i, /\bPoints\b/, /Refer a Friend/i, /FRIEND20/])
+      await expect(page.getByText(text)).toHaveCount(0);
+  });
+});
+
 test.describe('account — orders + sign-out (mocked API)', () => {
   test('orders: empty state', async ({ page }) => {
     await signedIn(page, []);
