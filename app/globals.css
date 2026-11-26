@@ -145,6 +145,7 @@
      Reconciled, not duplicated: concept terracotta-ink → primary-700 #8f441c;
      concept plate → cream #FFFDF5. */
   --color-gold-ink: #786222; /* gold as text on light grounds — ≥4.6:1 on parchment/cream/parchment-deep */
+  --color-sage-ink: #5A6950; /* sage as text — 5.0:1 parchment, 5.8:1 cream, 4.6:1 parchment-deep */
   --color-rose-ink: #A8513B; /* availability notes as text — 4.6:1 on parchment */
   --color-parchment-deep: #EDE3C8; /* recessed ground (strip, signup) */
   --color-forest-mid: #2C4A3D;

@@ -14,6 +14,18 @@ const KNOWN_VIOLATIONS: Readonly<Record<string, string>> = {};
 const BLOCKING_IMPACTS = new Set(['serious', 'critical']);
 
 async function expectNoSeriousViolations(page: Page, label: string) {
+  // axe samples computed colors once; a CSS transition mid-flight (e.g. the
+  // add-to-cart button going disabled → enabled after hydration) gives random
+  // contrast readings. Let finite animations/transitions settle first.
+  await page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        // Infinite loops (marquee, pulse) never finish — only wait on finite ones.
+        .filter((a) => a.effect?.getComputedTiming().iterations !== Infinity)
+        .map((a) => a.finished.catch(() => undefined)),
+    ),
+  );
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
     .analyze();

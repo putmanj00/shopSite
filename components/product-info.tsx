@@ -71,7 +71,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           </span>
           {hasDiscount && compareAtPrice && (
             <>
-              <span className="text-xl text-sage line-through">
+              <span className="text-xl text-sage-ink line-through">
                 <Price amount={compareAtPrice.amount} currencyCode={compareAtPrice.currencyCode} />
               </span>
               <span className="bg-dusty-rose px-3 py-1 rounded-full text-sm font-semibold text-white">

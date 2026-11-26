@@ -78,7 +78,7 @@ export default function MeetTheMakers() {
                                 <p className="text-terracotta text-sm font-medium">
                                     {maker.role}
                                 </p>
-                                <p className="text-sage text-sm mt-1">
+                                <p className="text-sage-ink text-sm mt-1">
                                     {maker.specialty}
                                 </p>
                                 <p className="mt-3 text-earth text-sm leading-relaxed">
